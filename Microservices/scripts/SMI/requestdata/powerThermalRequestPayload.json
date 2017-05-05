@@ -1,0 +1,20 @@
+{  
+   "dell":{  
+      "services":{  
+         "getVersion":{  
+            "microserviceURL":"http://100.68.124.118:8080/api/1.0/version"
+          },
+         "getPowerThermal":{  
+            "microserviceURL":"http://100.68.124.118:8080/api/1.0/api/1.0/powerthermal",
+            "payload":{  
+            	        {
+            		  
+            		    "serverAddress" : "100.68.124.121",
+            		    "userName" : "root",
+            		    "password" : "calvin"
+            		    }
+             }
+         }
+       }
+   }
+}

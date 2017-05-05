@@ -1,0 +1,51 @@
+{  
+   "dell":{  
+      "services":{  
+         "export":{  
+            "microserviceURL":"http://localhost:46018/api/1.0/server/configuration/export",
+            "payload":{  
+               "componentNames":[  
+
+               ],
+               "fileName":"unitTest.xml",
+               "serverIP":"100.68.124.31",
+               "serverUsername":"root",
+               "serverPassword":"calvin",
+               "shareAddress":"localhost",
+               "shareName":"/opt/dell/public",
+               "shareType":0
+            }
+         },
+         "import":{  
+            "microserviceURL":"http://localhost:46018/api/1.0/server/configuration/import",
+            "payload":{  
+               "componentNames":[  
+
+               ],
+               "fileName":"unitTest.xml",
+               "serverIP":"100.68.124.31",
+               "serverUsername":"root",
+               "serverPassword":"calvin",
+               "shareAddress":"localhost",
+               "shareName":"/opt/dell/public",
+               "shareType":0
+            }
+         },
+         "getComponents":{  
+            "microserviceURL":"http://localhost:46018/api/1.0/server/configuration/getComponents",
+            "payload":{  
+               "componentNames":[  
+                  "LifecycleController.Embedded.1"
+               ],
+               "fileName":"unitTest.xml",
+               "serverIP":"100.68.124.31",
+               "serverUsername":"root",
+               "serverPassword":"calvin",
+               "shareAddress":"localhost",
+               "shareName":"/opt/dell/public",
+               "shareType":0
+            }
+         }
+      }
+   }
+}
