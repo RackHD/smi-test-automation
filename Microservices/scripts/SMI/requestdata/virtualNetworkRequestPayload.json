@@ -1,0 +1,55 @@
+{
+	"services": {
+		"getNetworks": {
+			"url": "/api/1.0/networks",
+			"data": { }
+		},
+		"createNetwork": {
+			"url": "/api/1.0/networks",
+			"data": {
+				"static": true,
+				"name": "Network1",
+				"description": "Private Network 1",
+				"type": "PRIVATE_LAN",
+				"vlanId": 1,
+				"staticIpv4NetworkConfiguration": {
+					"gateway": "172.31.143.254",
+					"subnet": "255.255.240.0",
+					"primaryDns": "172.31.143.250",
+					"secondaryDns": "172.31.143.251",
+					"dnsSuffix": "customer.local",
+					"ipRange": [{
+						"startingIp": "172.31.142.1",
+						"endingIp": "172.31.142.254"
+					}]
+				}
+			}
+		},
+		"deleteNetwork": {
+			"url": "/api/1.0/networks",
+			"data": { }
+		},
+		"updateNetwork": {
+			"url": "/api/1.0/networks",
+			"data": {
+				"id": "{0}",
+				"static": true,
+				"name": "Network1-Updated",
+				"description": "Private Network 1 Updated by unit test",
+				"type": "PRIVATE_LAN",
+				"vlanId": 1,
+				"staticIpv4NetworkConfiguration": {
+					"gateway": "172.31.143.254",
+					"subnet": "255.255.240.0",
+					"primaryDns": "172.31.143.250",
+					"secondaryDns": "172.31.143.251",
+					"dnsSuffix": "customer.local"
+				}
+			}
+		},
+		"getIpAddressPools": {
+			"url": "/api/1.0/networks/{0}/ipAddressPools",
+			"data":{ }
+		}
+	}
+}

@@ -1,0 +1,7 @@
+**/.vscode/
+**/handlers/__pycache__/
+**/logs/SMIlogfile.log
+**/tests/__pycache__/
+**/tests/node_modules/
+**/utility/__pycache__/
+**/*.pyc

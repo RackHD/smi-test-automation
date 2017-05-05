@@ -1,0 +1,88 @@
+{
+	"dell": {
+		"services": {
+			"discoverByIPS": {
+				"microserviceURL": "http://localhost:46002/api/1.0/discover/ips",
+				"payload": [
+					{
+						"credential": {
+							"userName": "root",
+							"password": "calvin"
+						},
+						"deviceType": [
+							"SERVER"
+						],
+						"ips": [
+							"100.68.124.95"
+						]
+					},
+					{
+						"credential": {
+							"userName": "root",
+							"password": "calvin"
+						},
+						"deviceType": [
+							"SERVER",
+							"CHASSIS"
+						],
+						"ips": [
+							"100.68.124.95",
+							"100.68.124.98"
+						]
+					},
+					{
+						"ips": [
+							"100.68.124.95"
+						]
+					}
+				]
+			},
+			"discoverByRange": {
+				"microserviceURL": "http://localhost:46002/api/1.0/discover/range",
+				"payload": [
+					{
+						"credential": {
+							"userName": "root",
+							"password": "calvin"
+						},
+							"discoverIpRangeDeviceRequests": [
+							{
+							"deviceType": [
+									"SERVER","CHASSIS"
+								],
+								"deviceStartIp": "100.68.124.95",
+								"deviceEndIp": "100.68.124.98"
+							}
+						]
+					},
+					{
+						"discoverIpRangeDeviceRequests": [
+							{
+								"deviceType": [
+									"SERVER"
+								],
+								"deviceStartIp": "100.68.124.95",
+								"deviceEndIp": "100.68.124.98",
+								"credential": {
+									"userName": "root",
+									"password": "calvin"
+								}
+							}
+						]
+					},
+					{
+						"discoverIpRangeDeviceRequests": [
+							{
+								"deviceType": [
+									"CHASSIS"
+								],
+								"deviceStartIp": "100.68.124.95",
+								"deviceEndIp": "100.68.124.98"
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}
