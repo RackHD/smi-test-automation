@@ -1,0 +1,8 @@
+{
+	"services": {
+		"getVirtualIdentities": {
+			"url": "/api/1.0/virtualIdentities",
+			"data": { }
+		}
+    }
+}
