@@ -1,0 +1,20 @@
+{
+	"services": {
+		"getVersion": {
+			"url": "/api/1.0/server/firmware/version",
+			"data": {
+
+            }
+		},
+
+        "getCatalog": {
+            "url": "/api/1.0/server/firmware/downloader?fileName={0}&fileUrl={1}&targetLocation={2}",
+            "data": {
+                
+            }
+        }
+    }
+}
+
+
+
