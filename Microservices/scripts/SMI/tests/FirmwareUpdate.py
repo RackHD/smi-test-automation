@@ -24,7 +24,7 @@ class FirmwareUpdateTest(unittest.TestCase):
     ########################################################################
     # Test Get Version
     def test001_GetVersion(self):
-        try:
+      try:
             response = FirmwareUpdateHandler().getVersion()
             logger.info("FirmwareUpdateTest: test001_GetVersion(): Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
