@@ -49,7 +49,7 @@ class FirmwareUpdateTest(unittest.TestCase):
 
             # Check that the file name returned is what we passed in
             responseJson = json.loads(response.text)
-            self.assertGreater(responseJson["name"], fileName, "Returned filename should match what was passed in")
+            self.assertEqual(responseJson["name"], fileName, "Returned filename should match what was passed in")
 
 
         except Exception as e1:
