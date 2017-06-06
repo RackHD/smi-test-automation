@@ -60,7 +60,6 @@ if __name__=="__main__":
     if len(sys.argv) > 1:
         FirmwareUpdateHandler.host = sys.argv.pop()
     else:
-        FirmwareUpdateHandler.host = "http://100.68.123.238:46010"
-#        FirmwareUpdateHandler.host = "http://localhost:46010"
+        FirmwareUpdateHandler.host = "http://localhost:46010"
 
     unittest.main()
