@@ -37,20 +37,14 @@ class FirmwareUpdateTest(unittest.TestCase):
     # Test Get Catalog
     def test002_GetCatalog(self):
         try:
-            fileName  = 'Catalog.xml.gz'
-            fileUrl   = 'ftp.dell.com/catalog'
-            targetLoc = '/temp/'
-            response  = FirmwareUpdateHandler().getCatalog([fileName, fileUrl, targetLoc])
+            response  = FirmwareUpdateHandler().getCatalog()
             logger.info("FirmwareUpdateTest: test002_GetCatalog(): Response Status Code: " + str(response.status_code))           
             logger.info("FirmwareUpdateTest: test002_GetCatalog(): Response Text: " + response.text)
 
             # Check that the call returns a 200 (Success)
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
-            # Check that the file name returned is what we passed in
-            responseJson = json.loads(response.text)
-            self.assertEqual(responseJson["name"], fileName, "Returned filename should match what was passed in")
-
+            
 
         except Exception as e1:
             logger.error("FirmwareUpdateTest: test002_GetCatalog():  Exception: " + str(e1))
@@ -75,7 +69,7 @@ if __name__=="__main__":
     if len(sys.argv) > 1:
         FirmwareUpdateHandler.host = sys.argv.pop()
     else:
-        FirmwareUpdateHandler.host = "http://100.68.123.238:46010"
+        FirmwareUpdateHandler.host = "http://100.68.125.170:46010"
         #FirmwareUpdateHandler.host = "http://localhost:46010"
 
     unittest.main()

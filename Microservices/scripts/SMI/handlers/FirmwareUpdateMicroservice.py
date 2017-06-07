@@ -28,14 +28,11 @@ class FirmwareUpdateHandler(Utility):
         logger.info("Results from FirmwareUpdateHandler: getVersion(): \n" + result.text)
         return result
 
-    def getCatalog(self, parameter_list):
+    def getCatalog(self):
         logger.info("FirmwareUpdateHandler: getCatalog()")
         requestData, url = self.getRequestData("getCatalog")
         headers = {'Content-Type': 'application/json'}
         action="GET"
-        for index, param in enumerate(parameter_list):
-            sub = "{" + str(index) + "}"
-            url = url.replace(sub, param)
         result = self.getResponse(action, url, requestData, headers)
         logger.info("Results from FirmwareUpdateHandler getCatalog(): \n" + result.text)
         return result

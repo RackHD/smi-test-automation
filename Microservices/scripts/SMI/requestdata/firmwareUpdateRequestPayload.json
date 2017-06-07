@@ -8,7 +8,7 @@
 		},
 
         "getCatalog": {
-            "url": "/api/1.0/server/firmware/downloader?fileName={0}&fileUrl={1}&targetLocation={2}",
+            "url": "/api/1.0/server/firmware/downloader?fileName=Catalog.xml.gz&fileUrl=ftp.dell.com%2Fcatalog&targetLocation=%2Ftemp%2F",
             "data": {
                 
             }
