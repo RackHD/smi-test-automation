@@ -12,6 +12,19 @@
             "data": {
                 
             }
+        },
+
+        "getApplicableUpdates": {
+            "url": "/api/1.0/server/firmware/comparer",
+            "data": {
+                "address": "",
+                "catalogPath": "/temp/Catalog.xml",
+                "password": "calvin",
+                "serverAddress": "100.68.123.226",
+                "type": "wsman",
+                "updateableComponentInventory":"",
+                "userName":"root"
+            }
         }
     }
 }

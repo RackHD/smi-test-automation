@@ -40,6 +40,7 @@ class FirmwareUpdateHandler(Utility):
         logger.info("Results from FirmwareUpdateHandler getCatalog(): \n" + result.text)
         return result
         
+    def getApplicableUpdates(self, parameter_list);
 
     def getRequestData(self, task):
         logger.info("FirmwareUpdateHandler: getRequestData()")
