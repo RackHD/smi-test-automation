@@ -40,7 +40,14 @@ class FirmwareUpdateHandler(Utility):
         logger.info("Results from FirmwareUpdateHandler getCatalog(): \n" + result.text)
         return result
         
-    def getApplicableUpdates(self, parameter_list);
+    def getApplicableUpdates(self):
+        logger.info("FirmwareUpdateHandler: getApplicableUpdates()")
+        requestData, url = self.getRequestData("getApplicableUpdates")
+        headers = {'Content-Type': 'application/json'}
+        action="POST"
+        result = self.getResponse(action, url, requestData, headers)
+        logger.info("Results from FirmwareUpdateHandler: getApplicableUpdates(): \n" + result.text)
+        return result
 
     def getRequestData(self, task):
         logger.info("FirmwareUpdateHandler: getRequestData()")

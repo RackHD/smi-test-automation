@@ -56,10 +56,26 @@ class FirmwareUpdateTest(unittest.TestCase):
             logger.error("FirmwareUpdateTest: test002_GetCatalog():  Exception: " + str(e1))
             raise e1
 
+    ########################################################################
+    # Test Get Applicable Updates
+    def test003_GetApplicableUpdates(self):
+        try:
+            response  = FirmwareUpdateHandler().getApplicableUpdates()
+            logger.info("FirmwareUpdateTest: test003_GetApplicableUpdates(): Response Status Code: " + str(response.status_code))           
+            logger.info("FirmwareUpdateTest: test003_GetApplicableUpdates(): Response Text: " + response.text)
+
+            # Check that the call returns a 200 (Success)
+            self.assertEqual(response.status_code, 200, "Response code should equal 200")
+
+        except Exception as e1:
+            logger.error("FirmwareUpdateTest: test003_GetApplicableUpdates():  Exception: " + str(e1))
+            raise e1
+
 if __name__=="__main__":
     if len(sys.argv) > 1:
         FirmwareUpdateHandler.host = sys.argv.pop()
     else:
-        FirmwareUpdateHandler.host = "http://localhost:46010"
+        FirmwareUpdateHandler.host = "http://100.68.123.238:46010"
+        #FirmwareUpdateHandler.host = "http://localhost:46010"
 
     unittest.main()
