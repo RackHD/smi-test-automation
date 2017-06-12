@@ -4,15 +4,49 @@ Created on May 2, 2017
 @author: mkowkab
 '''
 import logging.config
-
 import requests
-
+import getopt
+import sys
 
 class Utility(object):
     
+        # host ip and directory defaults
+    ip = "http://localhost"
+    directory  = "../requestdata"
+
     def __init__(self):
         print ("Initializing.. ")
+        
+        self.getCommandArguments()
+
+        print( "USING: host = {}".format(Utility.ip))
+        print( "USING: directory = {}".format(Utility.directory))
     
+    def getCommandArguments(self):
+        try:
+            options, remainder = getopt.getopt(sys.argv[1:], "hi:d:", ["help","ip=","directory="])
+    
+        except getopt.GetoptError:
+            print ("\nUsage: python {} [arguments]".format(__file__))
+            print ("\nArguments:\n")
+            print ("\t-h or --help\tHelp")
+            print ("\t-i or --ip\tIP and port (e.g. 192.168.0.1)")
+            print ("\t-d or --dir\tDirectory of test JSON files")
+            sys.exit(2)
+    
+        for opt, arg in options:
+            if opt in ("-h", "--help"):
+                print ("Usage: python {} [arguments]".format(__file__))
+                print ("\nArguments:\n")
+                print ("\t-h or --help\tHelp")
+                print ("\t-i or --ip\tIP and port (e.g. 192.168.0.1)")
+                print ("\t-d or --dir\tDirectory of test JSON files")
+                sys.exit()
+            elif opt in ("-i", "--ip"):
+                Utility.ip = "http://{}".format(arg)
+            elif opt in ("-d", "--dir"):
+                Utility.directory = arg
+
     def getLoggerInstance(self):
         logging.config.fileConfig("../logs/logging_config.ini")
         logger = logging.getLogger('DellSMI')

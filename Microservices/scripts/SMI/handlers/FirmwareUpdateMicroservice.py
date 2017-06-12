@@ -52,6 +52,9 @@ class FirmwareUpdateHandler(Utility):
             data = json.load(data_file)
             requestData = data["services"][task]["data"]
             url = self.__class__.host + data["services"][task]["url"]
+            
+            print("#### URL = {}".format(url))
+            
             return requestData, url
         
 
