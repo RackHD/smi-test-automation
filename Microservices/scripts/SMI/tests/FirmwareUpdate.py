@@ -66,6 +66,10 @@ class FirmwareUpdateTest(unittest.TestCase):
             raise e1
 
 if __name__=="__main__":
-    FirmwareUpdateHandler.host = "{}:{}".format(Utility.ip, 46010)
+    if len(sys.argv) > 1:
+        FirmwareUpdateHandler.host = sys.argv.pop()
+    else:
+        FirmwareUpdateHandler.host = "http://100.68.125.170:46010"
+        #FirmwareUpdateHandler.host = "http://localhost:46010"
 
     unittest.main()
