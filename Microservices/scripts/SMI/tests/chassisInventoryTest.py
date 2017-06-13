@@ -11,36 +11,52 @@ class ChassisInventoryMicroserviceTest(unittest.TestCase):
     global logger 
     logger = Utility().getLoggerInstance()
 
-    def testSummary(self):
+    def testChassisDetail(self):
         try :
             response = ChassisInventoryHandler().Inventory("summary")
-            logger.info("ChassisInventoryMicroserviceTest: testSummary: Response: " + response.text)
+            logger.info("ChassisInventoryMicroserviceTest: testChassisDetail: Response: " + response.text)
             responseJson = json.loads(response.text)
 
-            model = "PowerEdge FX2s"
-            serviceTag = "9XLTW52"
+            value = "9XLTW52"
             
-            self.assertEqual(responseJson["model"], model, "Model doesn't match response returned from Chassis Inventory Microservice")
-            self.assertEqual(responseJson["serviceTag"], serviceTag, "Service Tag doesn't match response returned from Chassis Inventory Microservice")
+            if("error" in responseJson):
+                if(int(responseJson["status"]) > 206):
+                    self.assertFalse(True, str(responseJson))
+            
+            if("serviceTag" in responseJson):
+                self.assertEqual(responseJson["serviceTag"], value, "CHASSIS summary missing/incomplete in response from Inventory Microservice")
+            else:
+                self.assertFalse(True, "CHASSIS summary missing/incomplete in response from Inventory Microservice")
+            
             
         except Exception as e1:
-            logger.error("ChassisInventoryMicroserviceTest: testSummary:  Exception: " + str(e1))
+            logger.error("ChassisInventoryMicroserviceTest: testChassisDetail:  Exception: " + str(e1))
             raise e1      
 
 
     def testDetails(self):
         try :
             response = ChassisInventoryHandler().Inventory("details")
-            logger.info("ChassisInventoryMicroserviceTest: testDetails: Response: " + response.text)
+            logger.info("ChassisInventoryMicroserviceTest: testChassisSummary: Response: " + response.text)
             responseJson = json.loads(response.text)
 
-            value = "CMC-9XLTW52"
-            
-            self.assertEqual(responseJson["chassisControllers"][0]["name"], value, "Controller name value doesn't match response returned from Chassis Inventory Microservice")
+            if("error" in responseJson):
+                if(int(responseJson["status"]) > 206):
+                    self.assertFalse(True, str(responseJson))
+               
+            if("chassisControllers" in responseJson):
+                self.assertTrue(len(responseJson["chassisControllers"]) > 0, "CHASSIS details missing/incomplete in response from Inventory Microservice")
+            else:
+                self.assertFalse(True, "CHASSIS details missing/incomplete in response from Inventory Microservice")
+
             
         except Exception as e1:
-            logger.error("ChassisInventoryMicroserviceTest: testDetails:  Exception: " + str(e1))
+            logger.error("ChassisInventoryMicroserviceTest: testChassisSummary:  Exception: " + str(e1))
             raise e1      
  
 if __name__=="__main__":
+    if len(sys.argv) > 1:
+        ChassisInventoryHandler.host = sys.argv.pop()
+    else:
+        ChassisInventoryHandler.host = "http://localhost:46001"
     unittest.main()

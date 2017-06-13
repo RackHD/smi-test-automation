@@ -3,26 +3,26 @@ import sys
 
 from utility.UtilBase import Utility
 
-class ChassisInventoryHandler(Utility):    
+class ServerInventoryHandler(Utility):    
     
     def __init__(self):
         global logger
         logger = self.getLoggerInstance()
-        host = "" 
-    
+        global host
+
     def Inventory(self, task):
-        logger.info("ChassisInventoryHandler: ChassisInventory")
+        logger.info("ServerInventoryHandler: Inventory")
         requestData, url = self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "POST"
         result = self.getResponse(action, url, requestData, headers)
-        logger.info("Result from the ChassisInventory Microservice: \n" + result.text)        
+        logger.info("Result from the Server Inventory Microservice: \n" + result.text)        
         return result
         
     def getRequestData(self, task):
-        logger.info("ChassisInventoryTestCase: getRequestData")
+        logger.info("InventoryTestCase: getRequestData")
         
-        with open("../requestdata/chassisInventoryRequestPayload.json") as data_file:
+        with open("../requestdata/serverInventoryRequestPayload.json") as data_file:
             data = json.load(data_file)
             
             requestData = data["services"][task]["credential"]
@@ -30,6 +30,7 @@ class ChassisInventoryHandler(Utility):
             return requestData, url
         
 if __name__ == "__main__":    
-    test = ChassisInventoryHandler()
-    test.Inventory("summary")
+    test = ServerInventoryHandler()
+    test.Inventory("hardware")
+    test.Inventory("software")
     
