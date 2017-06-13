@@ -19,40 +19,39 @@ class FirmwareUpdateHandler(Utility):
         global logger
         logger = self.getLoggerInstance()
     
-    def getVersion(self):
-        logger.info("FirmwareUpdateHandler: getVersion()")
-        requestData, url = self.getRequestData("getVersion")
-        headers = {'Content-Type': 'application/json'}
-        action="GET"
-        result = self.getResponse(action, url, requestData, headers)
-        logger.info("Results from FirmwareUpdateHandler: getVersion(): \n" + result.text)
-        return result
-
-    def getCatalog(self):
-        logger.info("FirmwareUpdateHandler: getCatalog()")
-        requestData, url = self.getRequestData("getCatalog")
-        headers = {'Content-Type': 'application/json'}
-        action="GET"
-        result = self.getResponse(action, url, requestData, headers)
-        logger.info("Results from FirmwareUpdateHandler getCatalog(): \n" + result.text)
-        return result
-        
-    def getApplicableUpdates(self):
-        logger.info("FirmwareUpdateHandler: getApplicableUpdates()")
-        requestData, url = self.getRequestData("getApplicableUpdates")
-        headers = {'Content-Type': 'application/json'}
-        action="POST"
-        result = self.getResponse(action, url, requestData, headers)
-        logger.info("Results from FirmwareUpdateHandler: getApplicableUpdates(): \n" + result.text)
-        return result
-
-    def getRequestData(self, task):
+    def getTestData(self, task):
         logger.info("FirmwareUpdateHandler: getRequestData()")
         with open("../requestdata/firmwareUpdateRequestPayload.json") as data_file:
             data = json.load(data_file)
-            requestData = data["services"][task]["data"]
             url = self.__class__.host + data["services"][task]["url"]
-            return requestData, url
+            parameters = data["services"][task]["parameters"]
+            payload = data["services"][task]["payload"]
+            return url, parameters, payload
+    
+    def addQueryParameters(self, url, parameters):
+        url += "?"
+        for index, key in enumerate(parameters):
+            value = parameters[key]
+            url += "{}={}".format(key, value)
+            if (index < len(parameters)-1):
+                url += "&"
+        return url
+    
+    def makeGetRestCall(self, url):
+        logger.info("Calling GET: {}".format(url))
+        headers = {'Content-Type': 'application/json'}
+        action="GET"
+        result = self.getResponse(action, url, None , headers)
+        logger.info("Results from GET: {}\n".format(result))
+        return result        
+
+    def makePostRestCall(self, url, requestdata):
+        logger.info("Calling POST: {}".format(url))
+        headers = {'Content-Type': 'application/json'}
+        action="POST"
+        result = self.getResponse(action, url, requestData , headers)
+        logger.info("Results from POST: {}\n".format(result))
+        return result        
         
 
 if __name__ == "__main__":  

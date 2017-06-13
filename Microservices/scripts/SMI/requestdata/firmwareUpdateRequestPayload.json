@@ -2,21 +2,24 @@
 	"services": {
 		"getVersion": {
 			"url": "/api/1.0/server/firmware/version",
-			"data": {
-
-            }
+            "parameters":{ },
+			"payload": { }
 		},
 
-        "getCatalog": {
-            "url": "/api/1.0/server/firmware/downloader?fileName=Catalog.xml.gz&fileUrl=ftp.dell.com%2Fcatalog&targetLocation=%2Ftemp%2F",
-            "data": {
-                
-            }
+        "getDownloader": {
+            "url": "/api/1.0/server/firmware/downloader",
+            "parameters": {
+                "fileName": "Catalog.xml.gz",
+                "fileUrl": "ftp.dell.com%2Fcatalog",
+                "targetLocation": "%2Ftemp%2F"
+            },
+            "payload": { }
         },
 
         "getApplicableUpdates": {
             "url": "/api/1.0/server/firmware/comparer",
-            "data": {
+            "parameters":{ },
+            "payload": {
                 "address": "",
                 "catalogPath": "/temp/Catalog.xml",
                 "password": "calvin",
