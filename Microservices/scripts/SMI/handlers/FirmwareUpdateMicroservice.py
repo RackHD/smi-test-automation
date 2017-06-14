@@ -21,7 +21,7 @@ class FirmwareUpdateHandler(Utility):
     
     def getTestData(self, task):
         logger.info("FirmwareUpdateHandler: getRequestData()")
-        with open("../requestdata/firmwareUpdateRequestPayload.json") as data_file:
+        with open(self.__class__.directory + "firmwareUpdateRequestPayload.json") as data_file:
             data = json.load(data_file)
             url = self.__class__.host + data["services"][task]["url"]
             parameters = data["services"][task]["parameters"]
