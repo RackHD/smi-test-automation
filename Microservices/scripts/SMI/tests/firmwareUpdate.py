@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 '''
+Copyright © 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 Created on June 5, 2017
 @author: Michael Regert
 '''
