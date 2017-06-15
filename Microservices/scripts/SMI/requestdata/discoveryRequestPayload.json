@@ -2,7 +2,7 @@
 	"dell": {
 		"services": {
 			"discoverByIPS": {
-				"microserviceURL": "http://localhost:46002/api/1.0/discover/ips",
+				"microserviceURL": "/api/1.0/discover/ips",
 				"payload": [
 					{
 						"credential": {
@@ -38,7 +38,7 @@
 				]
 			},
 			"discoverByRange": {
-				"microserviceURL": "http://localhost:46002/api/1.0/discover/range",
+				"microserviceURL": "/api/1.0/discover/range",
 				"payload": [
 					{
 						"credential": {
