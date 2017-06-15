@@ -22,6 +22,7 @@ class DiscoveryHandler(Utility):
     def __init__(self):
         global logger
         logger = self.getLoggerInstance()
+        hots = ""
     
     def discoveryByIPS(self,index):
         logger.info("DiscoveryHandler: discoveryByIPS")
@@ -50,7 +51,7 @@ class DiscoveryHandler(Utility):
             data = json.load(data_file)
             
             requestData = data["dell"]["services"]["discoverByIPS"]["payload"]
-            url = data["dell"]["services"]["discoverByIPS"]["microserviceURL"]
+            url = self.__class__.host + data["dell"]["services"]["discoverByIPS"]["microserviceURL"]
             return requestData, url
     
     def getByRangeRequestData(self):
@@ -60,7 +61,7 @@ class DiscoveryHandler(Utility):
             data = json.load(data_file)
             
             requestData = data["dell"]["services"]["discoverByRange"]["payload"]
-            url = data["dell"]["services"]["discoverByRange"]["microserviceURL"]
+            url = self.__class__.host + data["dell"]["services"]["discoverByRange"]["microserviceURL"]
             return requestData, url
     
         
