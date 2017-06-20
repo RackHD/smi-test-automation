@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 '''
+Copyright © 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 Created on May 2, 2017
 
 @author: Prashanth_L_Gowda
@@ -94,7 +96,7 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
             responseJson = json.loads(response.text)
             requestData, url = DiscoveryHandler().getByIpsRequestData()
             requestIPAddress = requestData[x]["ips"]         
-            # logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSDefaultCredentialServer: Request IP Address: " + requestIPAddress[:])           
+            #logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSDefaultCredentialServer: Request IP Address: " + requestIPAddress[0])           
             for obj in responseJson:
                 deviceGroup = obj["deviceGroup"]
                 if deviceGroup == 'SERVER':
@@ -206,4 +208,9 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
             logger.error("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeDefaultCredentialChassis:  Exception: " + str(e1))
             raise e1  
 if __name__ == "__main__":
+    if len(sys.argv) > 1:
+        DiscoveryHandler.host = sys.argv.pop()
+    else:
+        DiscoveryHandler.host = "http://localhost:46002"
+
     unittest.main()
