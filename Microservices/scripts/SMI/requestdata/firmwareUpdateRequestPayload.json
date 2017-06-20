@@ -2,7 +2,7 @@
 	"services": {
 		"getVersion": {
 			"url": "/api/1.0/server/firmware/version",
-            "parameters":{ },
+            "parameters": { },
 			"payload": { }
 		},
 
@@ -18,7 +18,7 @@
 
         "getApplicableUpdates": {
             "url": "/api/1.0/server/firmware/comparer",
-            "parameters":{ },
+            "parameters": { },
             "payload": {
                 "address": "",
                 "catalogPath": "/temp/Catalog.xml",
@@ -27,6 +27,15 @@
                 "type": "wsman",
                 "updateableComponentInventory":"",
                 "userName":"root"
+            }
+        },
+
+        "compareCatalogs": {
+            "url": "/api/1.0/server/firmware/comparer/catalog",
+            "parameters": { },
+            "payload":{
+                "sourceCatalog": "%2Ftemp%2F",
+                "targetCatalog": "%2Ftemp2%2F"
             }
         }
     }

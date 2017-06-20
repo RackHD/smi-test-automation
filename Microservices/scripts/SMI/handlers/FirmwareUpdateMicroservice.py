@@ -45,11 +45,11 @@ class FirmwareUpdateHandler(Utility):
         logger.info("Results from GET: {}\n".format(result))
         return result        
 
-    def makePostRestCall(self, url, requestdata):
+    def makePostRestCall(self, url, payload):
         logger.info("Calling POST: {}".format(url))
         headers = {'Content-Type': 'application/json'}
         action="POST"
-        result = self.getResponse(action, url, requestData , headers)
+        result = self.getResponse(action, url, payload , headers)
         logger.info("Results from POST: {}\n".format(result))
         return result        
         
