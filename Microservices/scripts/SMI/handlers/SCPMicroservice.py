@@ -65,5 +65,4 @@ class SCPHandler(Utility):
 if __name__ == "__main__":
     test = SCPHandler()
     test.exportSCP()
-            
-        
+    

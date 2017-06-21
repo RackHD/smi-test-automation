@@ -53,4 +53,5 @@ if __name__=="__main__":
     else:
         VirtualIdentityHandler.host = "http://localhost:46015"
 
-    unittest.main()
+    from run_tests import run_tests
+    run_tests('VID')
