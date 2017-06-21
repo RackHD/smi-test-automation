@@ -175,9 +175,10 @@ if __name__=="__main__":
         FirmwareUpdateHandler.host = sys.argv.pop()
         FirmwareUpdateHandler.directory = sys.argv.pop() + "/"
     else:
-        FirmwareUpdateHandler.host = "http://100.68.123.238:46010"
-        #FirmwareUpdateHandler.host = "http://localhost:46010"
+        # FirmwareUpdateHandler.host = "http://100.68.123.238:46010"
+        FirmwareUpdateHandler.host = "http://localhost:46010"
 
         FirmwareUpdateHandler.directory = "../requestdata/"
 
-    unittest.main()
+    from run_tests import run_tests
+    run_tests('FWUP')

@@ -8,12 +8,13 @@ Created on May 2, 2017
 import json
 import os
 import unittest
-
+import sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from handlers.SCPMicroservice import SCPHandler
 from utility.UtilBase import Utility
 
 
-#import sys
+
 #from scripts.SMI.utility.UtilBase import Utility
 #from scripts.SMI.handlers.SCPMicroservice import SCPHandler
 #run_dir=os.path.abspath(os.path.dirname(__file__))
@@ -87,5 +88,11 @@ class SCPMicroserviceTest(unittest.TestCase):
             
         
 if __name__=="__main__":
-    unittest.main()
+    if len(sys.argv) > 1:
+        SCPMicroserviceTest.host = sys.argv.pop()
+    else:
+        SCPMicroserviceTest.host = "http://localhost:46018"
+    from run_tests import run_tests
+    run_tests('SCP')
+
     

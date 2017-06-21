@@ -16,7 +16,8 @@ class PowerThermalHandler(Utility):
     def __init__(self):
         global logger
         global apiHost
-        apiHost = "http://100.68.124.118:46019" ;
+        apiHost = "http://localhost:46019"
+        # apiHost = "http://100.68.124.118:46019"
         logger = self.getLoggerInstance()
         
     def getAPIVersion(self):
