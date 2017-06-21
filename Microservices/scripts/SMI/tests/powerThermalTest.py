@@ -47,6 +47,11 @@ class PowerThermalMicroserviceTest(unittest.TestCase):
            
         
 if __name__=="__main__":
-      unittest.main()
-      
+    if len(sys.argv) > 1:
+        host = sys.argv.pop()
+    else:
+        host = "http://localhost:46019"
+    from run_tests import run_tests
+    run_tests('PWTH')
+
     
