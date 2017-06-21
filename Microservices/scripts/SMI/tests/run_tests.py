@@ -8,7 +8,7 @@ Run tests on the specified microservices.
 Tests run in no particular order.
 
 Alias Reference
-DISC:1 FWUP:2 CHIN:3 SVIN:4 PWTH:5 SCP:6 VID:7 VNW:8
+DISC:1 CHIN:2 SVIN:3 PWTH:4 SCP:5 VID:6 VNW:7 FWUP:8
 
 Microservice IDs can be separated with or without a space
 Microservice Aliases are case insensitive
@@ -18,10 +18,10 @@ Argument format examples:
 
 >>> run_tests - Run All Tests
 >>> run_tests 4 - Run Test With ID 4
->>> run_tests 8451825 - Run Tests With ID 8, 4, 1, 2, and 5
+>>> run_tests 7451725 - Run Tests With ID 7, 4, 1, 2, and 5
 >>> run_tests SVIN - Run Test With ID 4
 >>> run_tests DISC SCP CHIN - Run Tests with ID 1, 6, and 3
->>> run_tests 24 vNw 314 ScP - Run Tests with ID 2, 4, 8, 3, and 6
+>>> run_tests 24 vNw 314 ScP - Run Tests with ID 2, 4, 7, 3, 1, and 6
 
 :Copyright: (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 :License: Apache 2.0, see LICENSE for more details.
@@ -38,13 +38,13 @@ import sys
 import unittest
 
 from discoveryTest import DiscoveryMicroserviceTest as disc
-from firmwareUpdateTest import FirmwareUpdateTest as fwup
 from chassisInventoryTest import ChassisInventoryMicroserviceTest as chin
 from serverInventoryTest import ServerInventoryMicroserviceTest as svin
 from powerThermalTest import PowerThermalMicroserviceTest as pwth
 from scpTest import SCPMicroserviceTest as scp
 from virtualIdentityTest import VirtualIdentityTest as vid
 from virtualNetworkTest import VirtualNetworkTest as vnw
+from firmwareUpdateTest import FirmwareUpdateTest as fwup
 
 # ----- ARGUMENT CONFIGURATION PROFILE -----
 ##############################################
@@ -53,31 +53,31 @@ from virtualNetworkTest import VirtualNetworkTest as vnw
 ID = {
     # Device Discovery
     disc : 1,
-    # Server Firmware Update
-    fwup : 2,
     # Chassis Inventory
-    chin : 3,
+    chin : 2,
     # Server Inventory
-    svin : 4,
+    svin : 3,
     # Power Thermal Monitoring
-    pwth : 5,
+    pwth : 4,
     # Server Configuration Profile
-    scp : 6,
+    scp : 5,
     # Virtual Identity
-    vid : 7,
+    vid : 6,
     # Virtual Network
-    vnw : 8
+    vnw : 7,
+    # Server Firmware Update
+    fwup : 8
 }
 # Microservice Alias
 ALIAS = {
     'DISC' : ID[disc],
-    'FWUP' : ID[fwup],
     'CHIN' : ID[chin],
     'SVIN' : ID[svin],
     'PWTH' : ID[pwth],
     'SCP' : ID[scp],
     'VID' : ID[vid],
     'VNW' : ID[vnw],
+    'FWUP' : ID[fwup]
 }
 
 ##############################################
