@@ -66,4 +66,6 @@ if __name__=="__main__":
         ChassisInventoryHandler.host = sys.argv.pop()
     else:
         ChassisInventoryHandler.host = "http://localhost:46001"
-    unittest.main()
+    from run_tests import run_tests
+    run_tests('CHIN')
+
