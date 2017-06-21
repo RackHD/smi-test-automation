@@ -83,7 +83,7 @@ def _generate_test_keys(arguments):
 
     # Default to returning keys for all tests
     if not arguments:
-        return {n for n in range(1, 8)}
+        return {val for val in ALIAS.values()}
 
     test_keys = set()
 
