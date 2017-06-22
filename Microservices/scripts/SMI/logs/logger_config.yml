@@ -1,0 +1,41 @@
+
+# YAML logger configuration for smi-test-automation
+
+# Author: Akash Kwatra
+
+# Copyright (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
+# License Apache 2.0, see LICENSE for more details.
+
+version: 1
+disable_existing_loggers: false
+
+root:
+  level: INFO
+  handlers: [console, logFile]
+  propagate: true
+
+formatters:
+  compact:
+    format: '%(asctime)s | %(levelname)s | %(name)s - %(message)s'
+  verbose:
+    format: '%(asctime)s | %(levelname)s | %(name)s.%(funcName)s LINE:%(lineno)d - %(message)s'
+
+loggers:
+  default:
+    handlers: [console, logFile]
+    propagate: true
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: WARNING
+    formatter: compact
+    stream: ext://sys.stdout
+  logFile:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: INFO
+    formatter: compact
+    when: H
+    interval: 1
+    backupCount: 4
+    filename: ../logs/smi-test-automation.log

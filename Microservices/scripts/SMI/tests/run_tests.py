@@ -27,7 +27,7 @@ Microservice IDs can be separated with or without a space [123 or 1 2 3]
 Microservice Aliases are case insensitive [DISC or disc]
 Use the modifier '^' or '!' to skip a test
 Host, Aliases, and IDs can be passed as parameters in any order
-[host:node-example CHIN svin 1 56 !2 ]
+[host:node-example CHIN svin 1 56 !2]
 
 Argument format examples:
 
@@ -55,6 +55,8 @@ __copyright__ = 'Copyright 2017 DELL Inc.'
 import sys
 import unittest
 import re
+import logging
+import logging.config
 
 from discoveryTest import DiscoveryMicroserviceTest as disc
 from chassisInventoryTest import ChassisInventoryMicroserviceTest as chin
@@ -64,6 +66,21 @@ from scpTest import SCPMicroserviceTest as scp
 from virtualIdentityTest import VirtualIdentityTest as vid
 from virtualNetworkTest import VirtualNetworkTest as vnw
 from firmwareUpdateTest import FirmwareUpdateTest as fwup
+import loggerdebug
+
+def configure_logger_from_yaml(path):
+    """Attempts to configure root logger from given YAML file"""
+    import yaml
+    try:
+        with open(path, 'r') as stream:
+            config = yaml.load(stream)
+            logging.config.dictConfig(config)
+    except (FileNotFoundError, yaml.YAMLError) as exc:
+        print("Could not load logger configuraton from YAML file :: {}".format(exc))
+
+
+configure_logger_from_yaml('../logs/logger_config.yml')
+LOG = logging.getLogger(__name__)
 
 # ------------ ARGUMENT CONFIGURATION PROFILE ------------
 ##########################################################
@@ -82,6 +99,7 @@ M_ID = {
     '6' : vid,
     '7' : vnw,
     '8' : fwup
+
 
 }
 
@@ -105,7 +123,7 @@ ALIAS = {
 ##########################################################
 
 def _parse_arguments(arguments):
-    "Parse data from arguments to determine which tests will be loaded"
+    """Parse data from arguments to determine which tests will be loaded"""
     test_keys = set() # Store all keys for tests to run
     remove_keys = set() # Store all keys for tests to skip
     test_arguments = [] # Arguments to be parsed into keys
@@ -158,24 +176,25 @@ def _parse_arguments(arguments):
     return host, (test_keys - remove_keys)
 
 def _load_tests(test_keys):
-    "Load tests into suite for each of the test keys passed in"
+    """Load tests into suite for each of the test keys passed in"""
     test_suite = []
     for key in test_keys:
         test_suite.append(unittest.TestLoader().loadTestsFromTestCase(M_ID[key]))
     return unittest.TestSuite(test_suite)
 
 def run_tests(*args):
-    "Run specified tests using arguments"
+    """Run specified tests using arguments"""
     arguments = [arg for arg in args]
-    # logger.info("Arguments: {}".format(arguments))
+    LOG.info("Input: %s", arguments)
     host, keys = _parse_arguments(arguments)
-    # logger.info("Parsed Host: {}".format(host))
-    # logger.info("Parsed Keys: {}".format(keys))
+    LOG.info("Host: %s", host)
+    LOG.info("Test Keys: %s", keys)
     test_suite = _load_tests(keys)
-    # logger.debug("Loaded Tests: {}".format(test_suite))
+    LOG.debug("Loaded Tests: %s", test_suite)
     unittest.TextTestRunner(verbosity=2).run(test_suite)
 
 def _parse_keys_tester():
+    """Test cases to make sure correct keys are parsed from given arguments"""
     test_cases = [[], [123], ['SCP'], ['chin', 2, 'DIsc'], [13, 'vnw', 455],
                   ['^5'], ['host:node-wright'], ['!chin'], ['192.168.0.1'],
                   ['localhost', 32, 'SCP', '^3', '!2', '100.0.0.255'],
@@ -185,7 +204,8 @@ def _parse_keys_tester():
         print("{} : {}".format(ALIAS[alias], alias))
     print("\n")
     for index, case in enumerate(test_cases):
-        print("--Test {}--\n Args:{}".format(index, case))
+        LOG.info("Running test %s", index + 1)
+        print("\n--Test {}--\n Args:{}".format(index + 1, case))
         host, keys = _parse_arguments(case)
         print("Host: {}".format(host))
         print("Parsed Keys: {}\n".format(keys))
@@ -193,3 +213,4 @@ def _parse_keys_tester():
 if __name__ == '__main__':
     # _parse_keys_tester()
     run_tests(*sys.argv[1:])
+    loggerdebug.run_logs()
