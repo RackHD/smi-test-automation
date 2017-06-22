@@ -28,7 +28,7 @@ loggers:
 handlers:
   console:
     class: logging.StreamHandler
-    level: WARNING
+    level: DEBUG
     formatter: compact
     stream: ext://sys.stdout
   logFile:

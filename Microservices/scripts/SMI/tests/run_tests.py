@@ -66,7 +66,7 @@ from scpTest import SCPMicroserviceTest as scp
 from virtualIdentityTest import VirtualIdentityTest as vid
 from virtualNetworkTest import VirtualNetworkTest as vnw
 from firmwareUpdateTest import FirmwareUpdateTest as fwup
-import loggerdebug
+from dummy_tests import DummyMicroserviceTest as dummy
 
 def configure_logger_from_yaml(path):
     """Attempts to configure root logger from given YAML file"""
@@ -98,7 +98,8 @@ M_ID = {
     '5' : scp,
     '6' : vid,
     '7' : vnw,
-    '8' : fwup
+    '8' : fwup,
+    'D' : dummy
 
 
 }
@@ -116,7 +117,8 @@ ALIAS = {
     'SCP' : M_ID_R[scp],
     'VID' : M_ID_R[vid],
     'VNW' : M_ID_R[vnw],
-    'FWUP' : M_ID_R[fwup]
+    'FWUP' : M_ID_R[fwup],
+    'DUMMY' : M_ID_R[dummy]
 
 }
 
@@ -213,4 +215,3 @@ def _parse_keys_tester():
 if __name__ == '__main__':
     # _parse_keys_tester()
     run_tests(*sys.argv[1:])
-    loggerdebug.run_logs()
