@@ -79,6 +79,7 @@ def configure_logger_from_yaml(path):
         print("Could not load logger configuraton from YAML file :: {}".format(exc))
 
 
+
 configure_logger_from_yaml('../logs/logger_config.yml')
 LOG = logging.getLogger(__name__)
 
@@ -150,7 +151,7 @@ def _parse_arguments(arguments):
         test_arguments = {val for val in ALIAS.values()}
 
     def _add_arguments_to_set(set_arguments, target_set):
-
+        """ Take in arguments with special parameters removed and add to target set """
         def _add_key_from_m_id(m_id_string):
             for m_id in str(m_id_string):
                 if m_id in M_ID:
@@ -206,7 +207,7 @@ def _parse_keys_tester():
         print("{} : {}".format(ALIAS[alias], alias))
     print("\n")
     for index, case in enumerate(test_cases):
-        LOG.info("Running test %s", index + 1)
+        LOG.info("Running test %s", (index + 1))
         print("\n--Test {}--\n Args:{}".format(index + 1, case))
         host, keys = _parse_arguments(case)
         print("Host: {}".format(host))

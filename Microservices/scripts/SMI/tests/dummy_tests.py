@@ -12,31 +12,38 @@ import os
 import logging
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-logger = logging.getLogger(__name__)
+# logger.debug("OUTSIDE CLASS DEBUG TEST")
+# logger.info("OUTSIDE CLASS INFO TEST")
+# logger.warning("OUTSIDE CLASS WARNING TEST")
+# logger.error("OUTSIDE CLASS ERROR TEST")
+# logger.critical("OUTSIDE CLASS CRITICAL TEST")
 
-logger.debug("OUTSIDE CLASS DEBUG TEST")
-logger.info("OUTSIDE CLASS INFO TEST")
-logger.warning("OUTSIDE CLASS WARNING TEST")
-logger.error("OUTSIDE CLASS ERROR TEST")
-logger.critical("OUTSIDE CLASS CRITICAL TEST")
+logger = logging.getLogger(__name__)
 
 class DummyMicroserviceTest(unittest.TestCase):    
 
+    def setUp(self):
+        # self.logger = logging.getLogger(__name__)
+        pass
+        
+
     def test_001(self): 
-        print("")       
+        print("")
         logger.debug("DEBUG TEST 1")
         logger.info("INFO TEST 1")
         logger.warning("WARNING TEST 1")
         logger.error("ERROR TEST 1")
         logger.critical("CRITICAL TEST 1")
+        self.assertTrue(5 == 5)
 
     def test_002(self):
-        print("")   
+        print("")
         logger.debug("DEBUG TEST 2")
         logger.info("INFO TEST 2")
         logger.warning("WARNING TEST 2")
         logger.error("ERROR TEST 2")
-        logger.critical("CRITICAL TEST 2")   
+        logger.critical("CRITICAL TEST 2")
+        self.assertTrue(5 == 5)
 
 
 if __name__=="__main__":

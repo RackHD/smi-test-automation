@@ -7,7 +7,8 @@ Created on June 4, 2017
 '''
 import json
 import unittest
-import sys, os
+import sys
+import os
 import logging
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from handlers.ChassisInventoryMicroservice import ChassisInventoryHandler
