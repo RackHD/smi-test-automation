@@ -9,7 +9,7 @@ import json
 import unittest
 import sys
 import os
-import sys
+
 run_dir=os.path.abspath(os.path.dirname(__file__))
 current_dir = os.getcwd()
 os.chdir(run_dir)
@@ -30,11 +30,11 @@ class FirmwareUpdateTest(unittest.TestCase):
         try:
             url, parameters, payload = FirmwareUpdateHandler().getTestData("getVersion")
             response = FirmwareUpdateHandler().makeGetRestCall(url)
-            logger.info("FirmwareUpdateTest: test001_GetVersion(): Response Status Code: " + str(response.status_code))
+            logger.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: test001_GetVersion():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
 
     ########################################################################
@@ -46,11 +46,11 @@ class FirmwareUpdateTest(unittest.TestCase):
             # Tack on query parameters to end of URL
             url = FirmwareUpdateHandler().addQueryParameters(url, parameters)
             response = FirmwareUpdateHandler().makeGetRestCall(url)
-            logger.info("FirmwareUpdateTest: test0100_GetDownloaderWithAllParams(): Response Status Code: " + str(response.status_code))
+            logger.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: test0100_GetDownloaderWithAllParams():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
     
     def test0101_GetDownloaderWithMissingParameter(self):
@@ -66,14 +66,14 @@ class FirmwareUpdateTest(unittest.TestCase):
                 # Tack on query parameters to end of URL
                 url = FirmwareUpdateHandler().addQueryParameters(url, parameters)
                 response = FirmwareUpdateHandler().makeGetRestCall(url)
-                logger.info("FirmwareUpdateTest: test0101_GetDownloaderWithMissingParameter(): Response Status Code: " + str(response.status_code))
+                logger.info("Response Status Code: " + str(response.status_code))
                 self.assertEqual(response.status_code, 400, "Response code should equal 400")
                 # reset for next run
                 url = origUrl
                 parameters = dict.copy(origParams)
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: test0101_GetDownloaderWithMissingParameter():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
 
     def test0102_GetDownloaderWithInvalidParameter(self):
@@ -89,14 +89,14 @@ class FirmwareUpdateTest(unittest.TestCase):
                 # Tack on query parameters to end of URL
                 url = FirmwareUpdateHandler().addQueryParameters(url, parameters)
                 response = FirmwareUpdateHandler().makeGetRestCall(url)
-                logger.info("FirmwareUpdateTest: test0102_GetDownloaderWithInvalidParameter(): Response Status Code: " + str(response.status_code))
+                logger.info("Response Status Code: " + str(response.status_code))
                 self.assertEqual(response.status_code, 400, "Response code should equal 400")
                 # reset for next run
                 url = origUrl
                 parameters = dict.copy(origParams)  
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: test0102_GetDownloaderWithInvalidParameter():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
 
     def test0200_GetApplicableUpdatesWithValidPayload(self):
@@ -104,11 +104,11 @@ class FirmwareUpdateTest(unittest.TestCase):
             # Positive test case - Test passing in all valid data for payload
             url, parameters, payload = FirmwareUpdateHandler().getTestData("getApplicableUpdates")
             response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("FirmwareUpdateTest: 0200_GetApplicableUpdatesWithValidPayload(): Response Status Code: " + str(response.status_code))
+            logger.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: 0200_GetApplicableUpdatesWithValidPayload():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
 
     def test0201_GetApplicableUpdatesWithInvalidIP(self):
@@ -117,11 +117,11 @@ class FirmwareUpdateTest(unittest.TestCase):
             url, parameters, payload = FirmwareUpdateHandler().getTestData("getApplicableUpdates")
             payload["serverAddress"] = "100.100.100.100"
             response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("FirmwareUpdateTest: 0201_GetApplicableUpdatesWithInvalidIP(): Response Status Code: " + str(response.status_code))
+            logger.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: 0201_GetApplicableUpdatesWithInvalidIP():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
 
     def test0202_GetApplicableUpdatesWithBadCredentials(self):
@@ -131,11 +131,11 @@ class FirmwareUpdateTest(unittest.TestCase):
             payload["userName"] = "foo"
             payload["password"] = "bar"
             response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("FirmwareUpdateTest: 0202_GetApplicableUpdatesWithBadCredentials(): Response Status Code: " + str(response.status_code))
+            logger.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: 0202_GetApplicableUpdatesWithBadCredentials():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
 
     def test0203_GetApplicableUpdatesWithBadCatalog(self):
@@ -144,11 +144,11 @@ class FirmwareUpdateTest(unittest.TestCase):
             url, parameters, payload = FirmwareUpdateHandler().getTestData("getApplicableUpdates")
             payload["catalogPath"] = "/foo/cat.xml"
             response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("FirmwareUpdateTest: 0203_GetApplicableUpdatesWithBadCatalog(): Response Status Code: " + str(response.status_code))
+            logger.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: 0202_GetApplicableUpdatesWithBadCredentials():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
     '''
     def test0300_CompareSameCatalogs(self):
@@ -166,7 +166,7 @@ class FirmwareUpdateTest(unittest.TestCase):
 
 
         except Exception as e1:
-            logger.error("FirmwareUpdateTest: test0300_CompareSameCatalogs():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
     '''
 

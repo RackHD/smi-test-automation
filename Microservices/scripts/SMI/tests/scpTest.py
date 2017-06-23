@@ -29,7 +29,7 @@ class SCPMicroserviceTest(unittest.TestCase):
     def test_exportSCP(self):        
         try:
             response = SCPHandler().exportSCP()
-            logger.info("SCPMicroserviceTest: test_exportSCP: Response: " + response.text)
+            logger.info("Response: " + response.text)
              
             task = "export"
              
@@ -39,7 +39,7 @@ class SCPMicroserviceTest(unittest.TestCase):
             shareName = requestData["shareName"]
             fileName = requestData["fileName"]
              
-            logger.info("SCPMicroserviceTest: test_exportSCP: shareIP: " + shareIPAddress + "  shareName: " + shareName + " fileName: " + fileName)
+            logger.info("shareIPAdress: " + shareIPAddress + "  shareName: " + shareName + " fileName: " + fileName)
              
             output = os.path.isfile(shareName+"/"+fileName)
              
@@ -47,13 +47,13 @@ class SCPMicroserviceTest(unittest.TestCase):
              
              
         except Exception as e:
-            logger.error("SCPMicroserviceTest:test_exportSCP: Exception: " + str(e))
+            logger.error("Exception: " + str(e))
             raise e
         
     def test_importSCP(self):
         try:
             response = SCPHandler().importSCP()
-            logger.info("SCPMicroserviceTest: test_importSCP: Response: " + response.text)
+            logger.info("Response: " + response.text)
             jsonResponse = json.loads(response.text)
             idracResponseMessage = jsonResponse["xmlConfig"]["message"]
             expectedMessage = "No changes occurred. Current component configuration matched the requested configuration."
@@ -66,13 +66,13 @@ class SCPMicroserviceTest(unittest.TestCase):
             self.assertEqual(responseSuccess, "SUCCESS", "Response is not SUCCESS for Import SCP task.")   
             
         except Exception as e:
-            logger.error("SCPMicroserviceTest:test_importSCP: Exception: " + str(e))
+            logger.error("Exception: " + str(e))
             raise e
         
     def test_getComponents(self):
         try:
             response = SCPHandler().getComponents()
-            logger.info("SCPMicroserviceTest: test_getComponents: Response: " + response.text)
+            logger.info("Response: " + response.text)
             jsonResponse = json.loads(response.text)
             
             responseComponentName = jsonResponse["serverComponents"][0]["fqdd"]

@@ -22,26 +22,26 @@ class PowerThermalMicroserviceTest(unittest.TestCase):
     def test_getVersion(self):        
                 
         try:
-           logger.info("PowerThermalMicroserviceTest - test_getVersion() - Running")
+           logger.info("Running")
            response = PowerThermalHandler().getAPIVersion()
-           logger.info("PowerThermalHandlerTest: getAPI: Response: " + response.text)
+           logger.info("Response: " + response.text)
                       
              
         except Exception as e:
-            logger.error("SCPMicroserviceTest:test_exportSCP: Exception: " + str(e))
+            logger.error("Exception: " + str(e))
             raise e
         
     def test_getPowerThermal(self):
            
         
         try:
-            logger.info("PowerThermalMicroserviceTest - test_getPowerThermal() - Running")
+            logger.info("Running")
             response = PowerThermalHandler().getPowerThermal()
-            logger.info("PowerThermalHandlerTest: " + response.text)
+            logger.info("Response: " + response.text)
            
              
         except Exception as e:
-            logger.error("PowerThermalMicroserviceTest Exception: " + str(e))
+            logger.error("Exception: " + str(e))
             raise e
         
            
