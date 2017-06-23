@@ -66,7 +66,7 @@ from scpTest import SCPMicroserviceTest as scp
 from virtualIdentityTest import VirtualIdentityTest as vid
 from virtualNetworkTest import VirtualNetworkTest as vnw
 from firmwareUpdateTest import FirmwareUpdateTest as fwup
-from dummy_tests import DummyMicroserviceTest as dummy
+from dummy_tests import DummyTest as dummy
 
 def configure_logger_from_yaml(path):
     """Attempts to configure root logger from given YAML file"""
