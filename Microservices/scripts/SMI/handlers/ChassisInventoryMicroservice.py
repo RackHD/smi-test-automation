@@ -18,16 +18,16 @@ class ChassisInventoryHandler(Utility):
         host = "" 
     
     def Inventory(self, task):
-        logger.info("ChassisInventoryHandler: ChassisInventory")
+        logger.info("Inventory")
         requestData, url = self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "POST"
         result = self.getResponse(action, url, requestData, headers)
-        logger.info("Result from the ChassisInventory Microservice: \n" + result.text)        
+        logger.info("Result " + result.text)        
         return result
         
     def getRequestData(self, task):
-        logger.info("ChassisInventoryTestCase: getRequestData")
+        logger.info("getRequestData")
         
         with open("../requestdata/chassisInventoryRequestPayload.json") as data_file:
             data = json.load(data_file)

@@ -20,16 +20,16 @@ class FirmwareUpdateHandler(Utility):
     def __init__(self):
         global logger
         logger = self.getLoggerInstance()
-    
+
     def getTestData(self, task):
-        logger.info("FirmwareUpdateHandler: getRequestData()")
+        logger.info("getRequestData()")
         with open(self.__class__.directory + "firmwareUpdateRequestPayload.json") as data_file:
             data = json.load(data_file)
             url = self.__class__.host + data["services"][task]["url"]
             parameters = data["services"][task]["parameters"]
             payload = data["services"][task]["payload"]
             return url, parameters, payload
-    
+
     def addQueryParameters(self, url, parameters):
         url += "?"
         for index, key in enumerate(parameters):
@@ -38,7 +38,7 @@ class FirmwareUpdateHandler(Utility):
             if (index < len(parameters)-1):
                 url += "&"
         return url
-    
+
     def makeGetRestCall(self, url):
         logger.info("Calling GET: {}".format(url))
         headers = {'Content-Type': 'application/json'}
@@ -53,8 +53,8 @@ class FirmwareUpdateHandler(Utility):
         action="POST"
         result = self.getResponse(action, url, payload , headers)
         logger.info("Results from POST: {}\n".format(result))
-        return result        
-        
+        return result
+
 
 if __name__ == "__main__":  
     test = FirmwareUpdateHandler()
