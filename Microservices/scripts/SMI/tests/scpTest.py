@@ -91,7 +91,7 @@ if __name__=="__main__":
         SCPMicroserviceTest.host = sys.argv.pop()
     else:
         SCPMicroserviceTest.host = "http://localhost:46018"
-    from run_tests import run_tests
+    from test_manager import run_tests
     run_tests('SCP')
 
     

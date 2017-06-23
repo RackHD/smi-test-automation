@@ -180,5 +180,5 @@ if __name__=="__main__":
 
         FirmwareUpdateHandler.directory = "../requestdata/"
 
-    from run_tests import run_tests
+    from test_manager import run_tests
     run_tests('FWUP')

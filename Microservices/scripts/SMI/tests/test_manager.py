@@ -31,15 +31,15 @@ Host, Aliases, and IDs can be passed as parameters in any order
 
 Argument format examples:
 
->>> run_tests - Run all tests
->>> run_tests 4 - Run test with ID 4
->>> run_tests 7451725 - Run tests with ID 7, 4, 1, 2, and 5
->>> run_tests SVIN - Run test with ID 4
->>> run_tests DISC SCP CHIN - Run tests with ID 1, 6, and 3
->>> run_tests 24 vNw 314 ScP - Run tests with ID 2, 4, 7, 3, 1, and 6
->>> run_tests ^345 - Run all tests except those with ID 3, 4, and 5
->>> run_tests 100.68.125.170 5! - Run all tests on specified host except test 5
->>> run_tests host:node-example 345 - Run tests with ID 3, 4, 5 on specified host
+>>> test_manager - Run all tests
+>>> test_manager 4 - Run test with ID 4
+>>> test_manager 7451725 - Run tests with ID 7, 4, 1, 2, and 5
+>>> test_manager SVIN - Run test with ID 4
+>>> test_manager DISC SCP CHIN - Run tests with ID 1, 6, and 3
+>>> test_manager 24 vNw 314 ScP - Run tests with ID 2, 4, 7, 3, 1, and 6
+>>> test_manager ^345 - Run all tests except those with ID 3, 4, and 5
+>>> test_manager 100.68.125.170 5! - Run all tests on specified host except test 5
+>>> test_manager host:node-example 345 - Run tests with ID 3, 4, 5 on specified host
 
 :Copyright: (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 :License: Apache 2.0, see LICENSE for more details.
@@ -47,7 +47,7 @@ Argument format examples:
 Created on June 20, 2017
 
 '''
-__title__ = 'run_tests'
+__title__ = 'test_manager'
 __author__ = 'Akash Kwatra'
 __license__ = 'Apache 2.0'
 __copyright__ = 'Copyright 2017 DELL Inc.'

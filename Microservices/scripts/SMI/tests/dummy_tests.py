@@ -10,7 +10,7 @@ import sys
 import os
 import logging
 import unittest
-import run_tests
+import test_manager
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -25,8 +25,8 @@ if __name__ == "__main__":
         HOST_OVERRIDE = sys.argv.pop()
     run_tests('DUMMY')
 
-# HOST = HOST_OVERRIDE if HOST_OVERRIDE else run_tests.HOST
-print(run_tests.HOST)
+# HOST = HOST_OVERRIDE if HOST_OVERRIDE else test_manager.HOST
+print(test_manager.HOST)
 PORT = '55555'
 
 class DummyTest(unittest.TestCase):

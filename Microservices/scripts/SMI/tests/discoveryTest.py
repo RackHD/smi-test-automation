@@ -214,5 +214,5 @@ if __name__ == "__main__":
         DiscoveryHandler.host = sys.argv.pop()
     else:
         DiscoveryHandler.host = "http://localhost:46002"
-    from run_tests import run_tests
+    from test_manager import run_tests
     run_tests('DISC')

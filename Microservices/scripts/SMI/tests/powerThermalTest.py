@@ -50,7 +50,7 @@ if __name__=="__main__":
         host = sys.argv.pop()
     else:
         host = "http://localhost:46019"
-    from run_tests import run_tests
+    from test_manager import run_tests
     run_tests('PWTH')
 
     

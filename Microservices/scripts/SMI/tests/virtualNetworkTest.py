@@ -156,5 +156,5 @@ if __name__=="__main__":
     else:
         VirtualNetworkHandler.host = "http://localhost:46016"
 
-    from run_tests import run_tests
+    from test_manager import run_tests
     run_tests('VNW')
