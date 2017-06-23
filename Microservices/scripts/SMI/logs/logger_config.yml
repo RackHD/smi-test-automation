@@ -33,7 +33,7 @@ handlers:
     stream: ext://sys.stdout
   logFile:
     class: logging.handlers.TimedRotatingFileHandler
-    level: INFO
+    level: DEBUG
     formatter: compact
     when: H
     interval: 1

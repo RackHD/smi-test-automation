@@ -6,10 +6,10 @@ Created on May 2, 2017
 @author: Prashanth_L_Gowda
 '''
 import json
-
+import logging
 from utility.UtilBase import Utility
 
-
+logger = logging.getLogger(__name__)
 #import os
 #import sys
 #from scripts.SMI.utility.UtilBase import Utility
@@ -20,8 +20,6 @@ from utility.UtilBase import Utility
 class DiscoveryHandler(Utility):    
     
     def __init__(self):
-        global logger
-        logger = self.getLoggerInstance()
         hots = ""
     
     def discoveryByIPS(self,index):

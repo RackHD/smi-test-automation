@@ -14,6 +14,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 logger = logging.getLogger(__name__)
 
+logger.debug("OUTSIDE CLASS DEBUG TEST")
+logger.info("OUTSIDE CLASS INFO TEST")
+logger.warning("OUTSIDE CLASS WARNING TEST")
+logger.error("OUTSIDE CLASS ERROR TEST")
 logger.critical("OUTSIDE CLASS CRITICAL TEST")
 
 class DummyMicroserviceTest(unittest.TestCase):    

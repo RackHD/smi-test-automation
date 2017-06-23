@@ -9,7 +9,7 @@ import json
 import unittest
 import sys
 import os
-import sys
+import logging
 run_dir=os.path.abspath(os.path.dirname(__file__))
 current_dir = os.getcwd()
 os.chdir(run_dir)
@@ -19,10 +19,9 @@ sys.path.append(os.path.abspath('../handlers'))
 from UtilBase import Utility
 from VirtualIdentityMicroservice import VirtualIdentityHandler
 
+logger = logging.getLogger(__name__)
+
 class VirtualIdentityTest(unittest.TestCase):
-    
-    global logger
-    logger = Utility().getLoggerInstance()
     global networkId
     networkId = 0
     networkJson = ""

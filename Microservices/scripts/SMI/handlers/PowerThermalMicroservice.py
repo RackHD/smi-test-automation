@@ -6,19 +6,19 @@ Created on May 2, 2017
 @author: Rahman Muhammad
 '''
 import json
+import logging
 
 from utility.UtilBase import Utility
 
+logger = logging.getLogger(__name__)
 
 class PowerThermalHandler(Utility):
     
     
     def __init__(self):
-        global logger
         global apiHost
         apiHost = "http://localhost:46019"
         # apiHost = "http://100.68.124.118:46019"
-        logger = self.getLoggerInstance()
         
     def getAPIVersion(self):
         logger.info("PowerThermalHandler -  getAPIVersion()")

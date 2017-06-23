@@ -8,6 +8,7 @@ Created on June 5, 2017
 import json
 import os
 import sys
+import logging
 
 run_dir=os.path.abspath(os.path.dirname(__file__))
 current_dir = os.getcwd()
@@ -16,10 +17,11 @@ sys.path.insert(0,os.path.abspath('../utility'))
 
 from UtilBase import Utility
 
+logger = logging.getLogger(__name__)
+
 class FirmwareUpdateHandler(Utility):
     def __init__(self):
-        global logger
-        logger = self.getLoggerInstance()
+        pass
     
     def getTestData(self, task):
         logger.info("FirmwareUpdateHandler: getRequestData()")

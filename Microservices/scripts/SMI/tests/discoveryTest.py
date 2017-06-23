@@ -8,6 +8,7 @@ Created on May 2, 2017
 import json
 import unittest
 import sys, os
+import logging
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from handlers.DiscoveryMicroservice import DiscoveryHandler
 from utility.UtilBase import Utility
@@ -22,10 +23,11 @@ from utility.UtilBase import Utility
 # os.chdir(run_dir)
 # sys.path.insert(0,os.path.abspath('../utility'))
 # sys.path.append(os.path.abspath('../handlers'))
+
+logger = logging.getLogger(__name__)
 class DiscoveryMicroserviceTest(unittest.TestCase):
     
-    global logger 
-    logger = Utility().getLoggerInstance()
+
 
     def testDiscoveryEndpointIPSGlobalCredentialServer(self):
         try :

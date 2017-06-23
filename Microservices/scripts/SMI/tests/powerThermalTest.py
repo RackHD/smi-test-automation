@@ -8,16 +8,15 @@ Created on May 2, 2017
 import json
 import unittest
 import sys, os
+import logging
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from handlers.PowerThermalMicroservice import PowerThermalHandler
 from utility.UtilBase import Utility
 
-
+logger = logging.getLogger(__name__)
 
 class PowerThermalMicroserviceTest(unittest.TestCase):    
-    global logger
-    logger = Utility().getLoggerInstance()
     
     def test_getVersion(self):        
                 

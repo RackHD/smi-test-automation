@@ -7,14 +7,15 @@ Created on June 4, 2017
 '''
 import json
 import sys
+import logging
 
 from utility.UtilBase import Utility
+
+logger = logging.getLogger(__name__)
 
 class ChassisInventoryHandler(Utility):    
     
     def __init__(self):
-        global logger
-        logger = self.getLoggerInstance()
         host = "" 
     
     def Inventory(self, task):

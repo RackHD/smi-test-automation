@@ -5,21 +5,24 @@ Created on May 2, 2017
 
 @author: mkowkab
 '''
-import logging.config
+import logging
 import requests
+
+logger = logging.getLogger(__name__)
 
 class Utility(object):
     
     def __init__(self):
-        print ("Initializing.. ")
+        # print ("Initializing.. ")
+        pass
         
     def getLoggerInstance(self):
-        logging.config.fileConfig("../logs/logging_config.ini")
-        logger = logging.getLogger('DellSMI')
-        return logger
+        # logging.config.fileConfig("../logs/logging_config.ini")
+        # logger = logging.getLogger('DellSMI')
+        # return logger
+        pass
     
     def getResponse(self, action, url, jsonData, headers):
-        logger = self.getLoggerInstance()
         logger.info("UtilBase: getResponse")
         
         headers = {'Content-Type': 'application/json'}

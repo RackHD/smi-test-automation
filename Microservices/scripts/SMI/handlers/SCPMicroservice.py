@@ -9,7 +9,9 @@ import json
 
 from utility.UtilBase import Utility
 
+import logging
 
+logger = logging.getLogger(__name__)
 #import os
 #import sys
 #from scripts.SMI.utility.UtilBase import Utility
@@ -20,8 +22,7 @@ from utility.UtilBase import Utility
 class SCPHandler(Utility):
     
     def __init__(self):
-        global logger
-        logger = self.getLoggerInstance()
+        pass
         
     def exportSCP(self):
         logger.info("SCPHandler: export")

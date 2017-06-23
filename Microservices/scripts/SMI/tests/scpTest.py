@@ -9,11 +9,12 @@ import json
 import os
 import unittest
 import sys
+import logging
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from handlers.SCPMicroservice import SCPHandler
 from utility.UtilBase import Utility
 
-
+logger = logging.getLogger(__name__)
 
 #from scripts.SMI.utility.UtilBase import Utility
 #from scripts.SMI.handlers.SCPMicroservice import SCPHandler
@@ -23,8 +24,6 @@ from utility.UtilBase import Utility
 #sys.path.insert(0,os.path.abspath('../utility'))
 #sys.path.append(os.path.abspath('../handlers'))
 class SCPMicroserviceTest(unittest.TestCase):    
-    global logger
-    logger = Utility().getLoggerInstance()
     
     def test_exportSCP(self):        
         try:

@@ -9,6 +9,7 @@ Created on May 4, 2017
 import json
 import os
 import sys
+import logging
 
 run_dir=os.path.abspath(os.path.dirname(__file__))
 current_dir = os.getcwd()
@@ -17,11 +18,11 @@ sys.path.insert(0,os.path.abspath('../utility'))
 
 from UtilBase import Utility
 
+logger = logging.getLogger(__name__)
+
 class VirtualIdentityHandler(Utility):
 
     def __init__(self):
-        global logger
-        logger = self.getLoggerInstance()
         host = ""
 
     def getVirtualIdentities(self): 
