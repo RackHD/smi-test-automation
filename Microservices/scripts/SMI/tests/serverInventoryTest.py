@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 class ServerInventoryMicroserviceTest(unittest.TestCase):
     
-    global logger 
-    logger = Utility().getLoggerInstance()
+    def setUp(self):
+        print("")
 
     def testHardware(self):
         try :

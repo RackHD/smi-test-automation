@@ -24,7 +24,10 @@ logger = logging.getLogger(__name__)
 #sys.path.insert(0,os.path.abspath('../utility'))
 #sys.path.append(os.path.abspath('../handlers'))
 class SCPMicroserviceTest(unittest.TestCase):    
-    
+
+    def setUp(self):
+        print("")
+
     def test_exportSCP(self):        
         try:
             response = SCPHandler().exportSCP()

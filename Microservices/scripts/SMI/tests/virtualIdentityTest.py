@@ -26,6 +26,9 @@ class VirtualIdentityTest(unittest.TestCase):
     networkId = 0
     networkJson = ""
 
+    def setUp(self):
+        print("")
+
     ########################################################################
     # Test that Get Virtual Identities returns an empty list when empty
     def test001_GetVirtualIdentitiesEmpty(self):

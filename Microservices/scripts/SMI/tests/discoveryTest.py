@@ -27,7 +27,8 @@ from utility.UtilBase import Utility
 logger = logging.getLogger(__name__)
 class DiscoveryMicroserviceTest(unittest.TestCase):
     
-
+    def setUp(self):
+        print("")
 
     def testDiscoveryEndpointIPSGlobalCredentialServer(self):
         try :

@@ -17,7 +17,10 @@ from utility.UtilBase import Utility
 logger = logging.getLogger(__name__)
 
 class PowerThermalMicroserviceTest(unittest.TestCase):    
-    
+
+    def setUp(self):
+        print("")
+
     def test_getVersion(self):        
                 
         try:

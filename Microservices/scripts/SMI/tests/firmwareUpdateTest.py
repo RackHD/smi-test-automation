@@ -23,6 +23,9 @@ logger = logging.getLogger(__name__)
 
 class FirmwareUpdateTest(unittest.TestCase):
 
+    def setUp(self):
+        print("")
+
     ########################################################################
     # Test GET Version
     

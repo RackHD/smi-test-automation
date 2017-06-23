@@ -18,7 +18,9 @@ logger = logging.getLogger(__name__)
 
 class ChassisInventoryMicroserviceTest(unittest.TestCase):
 
-
+    def setUp(self):
+        print("")
+        
     def testChassisDetail(self):
         try :
             response = ChassisInventoryHandler().Inventory("summary")

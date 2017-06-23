@@ -78,8 +78,6 @@ def configure_logger_from_yaml(path):
     except (FileNotFoundError, yaml.YAMLError) as exc:
         print("Could not load logger configuraton from YAML file :: {}".format(exc))
 
-
-
 configure_logger_from_yaml('../logs/logger_config.yml')
 LOG = logging.getLogger(__name__)
 

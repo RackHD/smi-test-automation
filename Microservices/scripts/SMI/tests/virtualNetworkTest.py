@@ -26,6 +26,9 @@ class VirtualNetworkTest(unittest.TestCase):
     networkId = 0
     networkJson = ""
 
+    def setUp(self):
+        print("")
+
     ########################################################################
     # Test Get Networks returns an empty list
     def test001_GetNetworksEmpty(self):
