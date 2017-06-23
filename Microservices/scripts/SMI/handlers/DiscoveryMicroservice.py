@@ -23,7 +23,7 @@ class DiscoveryHandler(Utility):
         hots = ""
     
     def discoveryByIPS(self,index):
-        logger.info("DiscoveryHandler: discoveryByIPS")
+        logger.info("discoveryByIPS")
         requestData, url = self.getByIpsRequestData()
         headers = {'Content-Type': 'application/json'}
         action = "POST"
@@ -33,7 +33,7 @@ class DiscoveryHandler(Utility):
         return result
     
     def discoveryByRange(self,index):
-        logger.info("DiscoveryHandler: discoverByRange")
+        logger.info("discoverByRange")
         requestData, url = self.getByRangeRequestData()
         headers = {'Content-Type': 'application/json'}
         action = "POST"
@@ -43,7 +43,7 @@ class DiscoveryHandler(Utility):
         return result
         
     def getByIpsRequestData(self):
-        logger.info("DiscoveryTestCase: getByIpsRequestData")
+        logger.info("getByIpsRequestData")
         
         with open("../requestdata/discoveryRequestPayload.json") as data_file:
             data = json.load(data_file)
@@ -53,7 +53,7 @@ class DiscoveryHandler(Utility):
             return requestData, url
     
     def getByRangeRequestData(self):
-        logger.info("DiscoveryTestCase: getByRangeRequestData")
+        logger.info("getByRangeRequestData")
         
         with open("../requestdata/discoveryRequestPayload.json") as data_file:
             data = json.load(data_file)

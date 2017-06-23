@@ -21,19 +21,19 @@ class PowerThermalHandler(Utility):
         # apiHost = "http://100.68.124.118:46019"
         
     def getAPIVersion(self):
-        logger.info("PowerThermalHandler -  getAPIVersion()")
+        logger.info("getAPIVersion()")
         task = "getVersion"
         url = apiHost+"/api/1.0/version" 
         #self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "GET"
         result = self.getResponse(action, url,"", headers)
-        logger.info("Result from getVersion\n" + result.text)        
+        logger.info("Result " + result.text)        
         return result
     
     
     def getPowerThermal(self):
-        logger.info("PowerThermalHandler - getPowerThermal() ")
+        logger.info("getPowerThermal() ")
         task = "getPowerThermal"
         #requestData, url = self.getRequestDataWithPayload(task)
         url = apiHost+"/api/1.0/powerthermal"
@@ -52,7 +52,7 @@ class PowerThermalHandler(Utility):
     
     
     def getRequestDataWithPayload(self, task):
-        logger.info("PowerThermalHandler: getRequestDataWithPayload")
+        logger.info("getRequestDataWithPayload")
         
         with open("../requestdata/powerThermalRequestPayload.json") as data_file:
           data = json.load(data_file)
@@ -61,7 +61,7 @@ class PowerThermalHandler(Utility):
           return requestData, url
        
     def getRequestData(self, task):
-        logger.info("PowerThermalHandler: getRequestData")
+        logger.info("getRequestData")
         
         with open("../requestdata/powerThermalRequestPayload.json") as data_file:
             data = json.load(data_file)

@@ -26,16 +26,16 @@ class VirtualIdentityHandler(Utility):
         host = ""
 
     def getVirtualIdentities(self): 
-        logger.info("VirtualIdentityHandler: getVirtualIdentities()")
+        logger.info("getVirtualIdentities()")
         requestData, url = self.getRequestData("getVirtualIdentities")
         headers = {'Content-Type': 'application/json'}
         action="GET"
         result = self.getResponse(action, url, requestData, headers)
-        logger.info("Results from VirtualIdentityHandler getVirtualIdentities(): \n" + result.text)
+        logger.info("Result " + result.text)
         return result
 
     def getRequestData(self, task):
-        logger.info("VirtualIdentityHandler: getRequestData()")
+        logger.info("getRequestData()")
 
         with open("../requestdata/virtualIdentityRequestPayload.json") as data_file:
             data = json.load(data_file)

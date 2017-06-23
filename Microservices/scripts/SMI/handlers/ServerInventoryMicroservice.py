@@ -14,25 +14,25 @@ from utility.UtilBase import Utility
 logger = logging.getLogger(__name__)
 
 class ServerInventoryHandler(Utility):    
-    
+
     def __init__(self):
         global host
 
     def Inventory(self, task):
-        logger.info("ServerInventoryHandler: Inventory")
+        logger.info("Inventory")
         requestData, url = self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "POST"
         result = self.getResponse(action, url, requestData, headers)
-        logger.info("Result from the Server Inventory Microservice: \n" + result.text)        
+        logger.info("Result " + result.text)
         return result
-        
+
     def getRequestData(self, task):
-        logger.info("InventoryTestCase: getRequestData")
-        
+        logger.info("getRequestData")
+
         with open("../requestdata/serverInventoryRequestPayload.json") as data_file:
             data = json.load(data_file)
-            
+
             requestData = data["services"][task]["credential"]
             url = self.__class__.host + data["services"][task]["url"]
             return requestData, url

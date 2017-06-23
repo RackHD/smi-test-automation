@@ -22,7 +22,7 @@ class ChassisInventoryMicroserviceTest(unittest.TestCase):
     def testChassisDetail(self):
         try :
             response = ChassisInventoryHandler().Inventory("summary")
-            logger.info("ChassisInventoryMicroserviceTest: testChassisDetail: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             value = "9XLTW52"
@@ -38,14 +38,14 @@ class ChassisInventoryMicroserviceTest(unittest.TestCase):
             
             
         except Exception as e1:
-            logger.error("ChassisInventoryMicroserviceTest: testChassisDetail:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
 
 
     def testDetails(self):
         try :
             response = ChassisInventoryHandler().Inventory("details")
-            logger.info("ChassisInventoryMicroserviceTest: testChassisSummary: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -59,7 +59,7 @@ class ChassisInventoryMicroserviceTest(unittest.TestCase):
 
             
         except Exception as e1:
-            logger.error("ChassisInventoryMicroserviceTest: testChassisSummary:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
  
 if __name__=="__main__":

@@ -23,7 +23,7 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
     def testHardware(self):
         try :
             response = ServerInventoryHandler().Inventory("hardware")
-            logger.info("ServerInventoryMicroserviceTest: testInventory: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -38,14 +38,14 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
                 self.assertFalse(True, "Service Tag missing in response from Inventory Microservice")
             
         except Exception as e1:
-            logger.error("ServerInventoryMicroserviceTest: testInventory:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
 
 
     def testSoftware(self):
         try :
             response = ServerInventoryHandler().Inventory("software")
-            logger.info("ServerInventoryMicroserviceTest: testInventory: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -61,14 +61,14 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
             self.assertFalse(True, "iDRAC details missing / incomplete in response from Inventory Microservice")
             
         except Exception as e1:
-            logger.error("ServerInventoryMicroserviceTest: testInventory:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
             
 
     def testNics(self):
         try :
             response = ServerInventoryHandler().Inventory("nics")
-            logger.info("ServerInventoryMicroserviceTest: testInventory: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -84,14 +84,14 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
             self.assertFalse(True, "NIC details missing / incomplete in response from Inventory Microservice")
             
         except Exception as e1:
-            logger.error("ServerInventoryMicroserviceTest: testInventory:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
             
 
     def testBios(self):
         try :
             response = ServerInventoryHandler().Inventory("bios")
-            logger.info("ServerInventoryMicroserviceTest: testInventory: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -105,14 +105,14 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
                 self.assertFalse(True, "BIOS details missing/incomplete in response from Inventory Microservice")
 
         except Exception as e1:
-            logger.error("ServerInventoryMicroserviceTest: testInventory:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
             
 
     def testBoot(self):
         try :
             response = ServerInventoryHandler().Inventory("boot")
-            logger.info("ServerInventoryMicroserviceTest: testInventory: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -126,14 +126,14 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
                 self.assertFalse(True, "BOOT details missing/incomplete in response from Inventory Microservice")
 
         except Exception as e1:
-            logger.error("ServerInventoryMicroserviceTest: testInventory:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
 
 
     def testLC(self):
         try :
             response = ServerInventoryHandler().Inventory("lc")
-            logger.info("ServerInventoryMicroserviceTest: testInventory: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -148,14 +148,14 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
                 logger.info("LC log is EMPTY.")
 
         except Exception as e1:
-            logger.error("ServerInventoryMicroserviceTest: testInventory:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
 
 
     def testSEL(self):
         try :
             response = ServerInventoryHandler().Inventory("sel")
-            logger.info("ServerInventoryMicroserviceTest: testInventory: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
 
             if("error" in responseJson):
@@ -170,7 +170,7 @@ class ServerInventoryMicroserviceTest(unittest.TestCase):
                 logger.info("SEL log is EMPTY.")
 
         except Exception as e1:
-            logger.error("ServerInventoryMicroserviceTest: testInventory:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
 
             

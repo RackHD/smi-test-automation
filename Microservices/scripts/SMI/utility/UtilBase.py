@@ -11,37 +11,35 @@ import requests
 logger = logging.getLogger(__name__)
 
 class Utility(object):
-    
+
     def __init__(self):
-        # print ("Initializing.. ")
         pass
-        
+
     def getLoggerInstance(self):
-        # logging.config.fileConfig("../logs/logging_config.ini")
-        # logger = logging.getLogger('DellSMI')
-        # return logger
         pass
-    
+
     def getResponse(self, action, url, jsonData, headers):
-        logger.info("UtilBase: getResponse")
-        
+        logger = self.getLoggerInstance()
+        logger.info("getResponse")
+
         headers = {'Content-Type': 'application/json'}
-        
+
         if action == "POST":
-            logger.info("Utility: Action POST")
+            logger.info("POST")
             response = requests.post(url, json=jsonData, headers=headers)
         elif action == "GET":
-            logger.info("Utility: Action GET")
+            logger.info("GET")
             response = requests.get(url, json=jsonData, headers=headers)
         elif action == "PUT":
-            logger.info("Utility: Action PUT")
+            logger.info("PUT")
             response = requests.put(url, json=jsonData, headers=headers)
         elif action == "DELETE":
-            logger.info("Utility: Action DELETE")
+            logger.info("DELETE")
             response = requests.delete(url, json=jsonData, headers=headers)
-            
-        else: 
-            raise Exception("Utility: Invalid Action " + action)
-            
-        return response    
+
+        else:
+            raise Exception("Invalid Action : " + action)
+
+        return response
+
         

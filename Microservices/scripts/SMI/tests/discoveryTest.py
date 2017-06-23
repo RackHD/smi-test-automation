@@ -34,11 +34,11 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
             
             x = 0;
             response = DiscoveryHandler().discoveryByIPS(x)
-            logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServer: " + response.text)
+            logger.info("Response:" + response.text)
             responseJson = json.loads(response.text)
             requestData, url = DiscoveryHandler().getByIpsRequestData()
             requestIPAddress = requestData[x]["ips"]         
-            # logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServer: Request IP Address: " + requestIPAddress[:])           
+            # logger.info("Request IP Address: " + requestIPAddress[:])           
             for obj in responseJson:
                 deviceGroup = obj["deviceGroup"]
                 if deviceGroup == 'SERVER':
@@ -51,12 +51,12 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
                             deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
                             for deviceInfo in deviceInfoList:
                                 discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServer: Response IP Address after Discovery: " + discoveredIP)   
+                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
                                 if discoveredIP in requestIPAddress :
                                     status = deviceInfo["status"]
                                     self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                            
         except Exception as e1:
-            logger.error("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServer:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1      
     
     def testDiscoveryEndpointIPSGlobalCredentialServerChassis(self):
@@ -64,11 +64,11 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
             
             x = 1
             response = DiscoveryHandler().discoveryByIPS(x)
-            logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServerChassis: " + response.text)
+            logger.info("Response" + response.text)
             responseJson = json.loads(response.text)
             requestData, url = DiscoveryHandler().getByIpsRequestData()
             requestIPAddress = requestData[x]["ips"]         
-            # logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServerChassis: Request IP Address: " + requestIPAddress[:])           
+            # logger.info("Request IP Address: " + requestIPAddress[:])           
             for obj in responseJson:
                 deviceGroup = obj["deviceGroup"]
                 if deviceGroup == 'SERVER' or deviceGroup == 'CHASSIS':
@@ -81,12 +81,12 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
                             deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
                             for deviceInfo in deviceInfoList:
                                 discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServerChassis: Response IP Address after Discovery: " + discoveredIP)   
+                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
                                 if discoveredIP in requestIPAddress :
                                     status = deviceInfo["status"]
                                     self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                            
         except Exception as e1:
-            logger.error("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSGlobalCredentialServerChassis:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1   
         
     def testDiscoveryEndpointIPSDefaultCredentialServer(self):
@@ -94,11 +94,11 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
             
             x = 2
             response = DiscoveryHandler().discoveryByIPS(x)
-            logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSDefaultCredentialServer: " + response.text)
+            logger.info("Response" + response.text)
             responseJson = json.loads(response.text)
             requestData, url = DiscoveryHandler().getByIpsRequestData()
             requestIPAddress = requestData[x]["ips"]         
-            #logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSDefaultCredentialServer: Request IP Address: " + requestIPAddress[0])           
+            #logger.info("Request IP Address: " + requestIPAddress[0])           
             for obj in responseJson:
                 deviceGroup = obj["deviceGroup"]
                 if deviceGroup == 'SERVER':
@@ -111,12 +111,12 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
                             deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
                             for deviceInfo in deviceInfoList:
                                 discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSDefaultCredentialServer: Response IP Address after Discovery: " + discoveredIP)   
+                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
                                 if discoveredIP in requestIPAddress :
                                     status = deviceInfo["status"]
                                     self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                            
         except Exception as e1:
-            logger.error("DiscoveryMicroserviceTest: testDiscoveryEndpointIPSDefaultCredentialServer:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1       
     
     
@@ -125,7 +125,7 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
         try :                                                
             x = 0
             response = DiscoveryHandler().discoveryByRange(x)
-            logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeGlobalCredentialServerChassis: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
             requestData, url = DiscoveryHandler().getByRangeRequestData()
             requestIPAddress = [requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceStartIp"] , requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceEndIp"]]           
@@ -142,12 +142,12 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
                             deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
                             for deviceInfo in deviceInfoList:
                                 discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeGlobalCredentialServerChassis: Response IP Address after Discovery: " + discoveredIP)   
+                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
                                 if discoveredIP in requestIPAddress :
                                     status = deviceInfo["status"]
                                     self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                          
         except Exception as e1:
-            logger.error("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeGlobalCredentialServerChassis:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1          
  
  
@@ -156,7 +156,7 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
         try :                                                
             x = 1
             response = DiscoveryHandler().discoveryByRange(x)
-            logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeLocalCredentialServer: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
             requestData, url = DiscoveryHandler().getByRangeRequestData()
             requestIPAddress = [requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceStartIp"] , requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceEndIp"]]           
@@ -173,19 +173,19 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
                             deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
                             for deviceInfo in deviceInfoList:
                                 discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeLocalCredentialServer: Response IP Address after Discovery: " + discoveredIP)   
+                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
                                 if discoveredIP in requestIPAddress :
                                     status = deviceInfo["status"]
                                     self.assertEqual(status, "SUCCESS", "Discovery status NOT success")   
         except Exception as e1:
-            logger.error("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeLocalCredentialServer:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1         
     
     def testDiscoveryEndpointRangeDefaultCredentialChassis(self):
         try :                                                
             x =2
             response = DiscoveryHandler().discoveryByRange(x)
-            logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeDefaultCredentialChassis: Response: " + response.text)
+            logger.info("Response: " + response.text)
             responseJson = json.loads(response.text)
             requestData, url = DiscoveryHandler().getByRangeRequestData()
             requestIPAddress = [requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceStartIp"] , requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceEndIp"]]           
@@ -202,12 +202,12 @@ class DiscoveryMicroserviceTest(unittest.TestCase):
                             deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
                             for deviceInfo in deviceInfoList:
                                 discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeDefaultCredentialChassis: Response IP Address after Discovery: " + discoveredIP)   
+                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
                                 if discoveredIP in requestIPAddress :
                                     status = deviceInfo["status"]
                                     self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                          
         except Exception as e1:
-            logger.error("DiscoveryMicroserviceTest: testDiscoveryEndpointRangeDefaultCredentialChassis:  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1  
 if __name__ == "__main__":
     if len(sys.argv) > 1:

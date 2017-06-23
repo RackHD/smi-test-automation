@@ -31,17 +31,17 @@ class VirtualIdentityTest(unittest.TestCase):
     def test001_GetVirtualIdentitiesEmpty(self):
         try:
             response = VirtualIdentityHandler().getVirtualIdentities()
-            logger.info("VirtualIdentitiesTest: test001_GetVirtualIdentitiesEmpty(): Response Status Code: " + str(response.status_code))
+            logger.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
-            logger.info("VirtualIdentitiesTest: test001_GetVirtualIdentitiesEmpty(): Response Text: " + response.text)
+            logger.info("Response Text: " + response.text)
             responseJson = json.loads(response.text)
             #assert here
             self.assertEqual(responseJson["pagination"]["total"], 0, "Pagination total count should be 0")
             self.assertEqual(responseJson["pages"]["total"], 0, "Pages total count should be 0")
 
         except Exception as e1:
-            logger.error("VirtualIdentitiesTest: test001_GetVirtualIdentitiesEmpty():  Exception: " + str(e1))
+            logger.error("Exception: " + str(e1))
             raise e1
 
 
