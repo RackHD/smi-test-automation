@@ -58,14 +58,14 @@ import re
 import logging
 import logging.config
 
-from discoveryTest import DiscoveryMicroserviceTest as disc
-from chassisInventoryTest import ChassisInventoryMicroserviceTest as chin
-from serverInventoryTest import ServerInventoryMicroserviceTest as svin
-from powerThermalTest import PowerThermalMicroserviceTest as pwth
-from scpTest import SCPMicroserviceTest as scp
-from virtualIdentityTest import VirtualIdentityTest as vid
-from virtualNetworkTest import VirtualNetworkTest as vnw
-from firmwareUpdateTest import FirmwareUpdateTest as fwup
+# from discoveryTest import DiscoveryMicroserviceTest as disc
+# from chassisInventoryTest import ChassisInventoryMicroserviceTest as chin
+# from serverInventoryTest import ServerInventoryMicroserviceTest as svin
+# from powerThermalTest import PowerThermalMicroserviceTest as pwth
+# from scpTest import SCPMicroserviceTest as scp
+# from virtualIdentityTest import VirtualIdentityTest as vid
+# from virtualNetworkTest import VirtualNetworkTest as vnw
+# from firmwareUpdateTest import FirmwareUpdateTest as fwup
 from dummy_tests import DummyTest as dummy
 
 def configure_logger_from_yaml(path):
@@ -90,14 +90,14 @@ HOST = "localhost"
 # Microservice ID
 M_ID = {
 
-    '1' : disc,
-    '2' : chin,
-    '3' : svin,
-    '4' : pwth,
-    '5' : scp,
-    '6' : vid,
-    '7' : vnw,
-    '8' : fwup,
+    # '1' : disc,
+    # '2' : chin,
+    # '3' : svin,
+    # '4' : pwth,
+    # '5' : scp,
+    # '6' : vid,
+    # '7' : vnw,
+    # '8' : fwup,
     'D' : dummy
 
 
@@ -109,14 +109,14 @@ M_ID_R = {m_id: mservice for mservice, m_id in M_ID.items()}
 # Microservice Alias
 ALIAS = {
 
-    'DISC' : M_ID_R[disc],
-    'CHIN' : M_ID_R[chin],
-    'SVIN' : M_ID_R[svin],
-    'PWTH' : M_ID_R[pwth],
-    'SCP' : M_ID_R[scp],
-    'VID' : M_ID_R[vid],
-    'VNW' : M_ID_R[vnw],
-    'FWUP' : M_ID_R[fwup],
+    # 'DISC' : M_ID_R[disc],
+    # 'CHIN' : M_ID_R[chin],
+    # 'SVIN' : M_ID_R[svin],
+    # 'PWTH' : M_ID_R[pwth],
+    # 'SCP' : M_ID_R[scp],
+    # 'VID' : M_ID_R[vid],
+    # 'VNW' : M_ID_R[vnw],
+    # 'FWUP' : M_ID_R[fwup],
     'DUMMY' : M_ID_R[dummy]
 
 }

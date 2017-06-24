@@ -1,0 +1,17 @@
+2017-06-23 17:05:13,305 |  WARNING |               dummy_tests | LINE:31  | WARNING TEST 1
+2017-06-23 17:05:13,305 |    ERROR |               dummy_tests | LINE:32  | ERROR TEST 1
+2017-06-23 17:05:13,305 | CRITICAL |               dummy_tests | LINE:33  | CRITICAL TEST 1
+2017-06-23 17:05:20,911 |  WARNING |               dummy_tests | LINE:31  | WARNING TEST 1
+2017-06-23 17:05:20,911 |    ERROR |               dummy_tests | LINE:32  | ERROR TEST 1
+2017-06-23 17:05:20,911 | CRITICAL |               dummy_tests | LINE:33  | CRITICAL TEST 1
+2017-06-23 17:21:21,612 |    ERROR |      chassisInventoryTest | LINE:43  | Exception: 'NoneType' object has no attribute 'info'
+2017-06-23 17:21:21,614 |    ERROR |      chassisInventoryTest | LINE:64  | Exception: 'NoneType' object has no attribute 'info'
+2017-06-23 17:42:57,267 |  WARNING |               dummy_tests | LINE:30  | WARNING TEST 1
+2017-06-23 17:42:57,268 |    ERROR |               dummy_tests | LINE:31  | ERROR TEST 1
+2017-06-23 17:42:57,269 | CRITICAL |               dummy_tests | LINE:32  | CRITICAL TEST 1
+2017-06-23 17:44:10,944 |  WARNING |               dummy_tests | LINE:30  | WARNING TEST 1
+2017-06-23 17:44:10,944 |    ERROR |               dummy_tests | LINE:31  | ERROR TEST 1
+2017-06-23 17:44:10,945 | CRITICAL |               dummy_tests | LINE:32  | CRITICAL TEST 1
+2017-06-23 17:44:36,212 |  WARNING |               dummy_tests | LINE:30  | WARNING TEST 1
+2017-06-23 17:44:36,212 |    ERROR |               dummy_tests | LINE:31  | ERROR TEST 1
+2017-06-23 17:44:36,212 | CRITICAL |               dummy_tests | LINE:32  | CRITICAL TEST 1
