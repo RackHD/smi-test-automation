@@ -10,13 +10,7 @@ import json
 import os
 import sys
 import logging
-
-run_dir=os.path.abspath(os.path.dirname(__file__))
-current_dir = os.getcwd()
-os.chdir(run_dir)
-sys.path.insert(0,os.path.abspath('../utility'))
-
-from UtilBase import Utility
+from . import handler_tools as tools
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +28,7 @@ class VirtualNetworkHandler(Utility):
         requestData, url = self.getRequestData("getNetworks")
         headers = {'Content-Type': 'application/json'}
         action = "GET"
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result " + result.text)
         return result
 
@@ -44,7 +38,7 @@ class VirtualNetworkHandler(Utility):
         headers = {'Content-Type': 'application/json'}
         action="GET"
         url = url + "/" + str(networkId)
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result " + result.text)
         return result
     
@@ -53,7 +47,7 @@ class VirtualNetworkHandler(Utility):
         requestData, url = self.getRequestData("createNetwork")
         headers = {'Content-Type': 'application/json'}
         action="POST"
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result " + result.text)
         return result
 
@@ -63,7 +57,7 @@ class VirtualNetworkHandler(Utility):
         headers = {'Content-Type': 'application/json'}
         action="DELETE"
         url = url + "/" + str(networkId)
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result ("+ str(networkId) + "): " + result.text)
         return result
 
@@ -74,7 +68,7 @@ class VirtualNetworkHandler(Utility):
         action="PUT"
         url = url + "/" + str(networkId)
         requestData["id"] = str(networkId)
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result  \n" + result.text)
         return result
 
@@ -84,7 +78,7 @@ class VirtualNetworkHandler(Utility):
         headers = {'Content-Type': 'application/json'}
         action="GET"
         url = url.replace("{0}", str(networkId))
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result " + result.text)
         return result
 

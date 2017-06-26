@@ -10,9 +10,7 @@ import sys
 import os
 import logging
 import unittest
-from toolkit import httptools
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import handlers.dummy
 
 # Get default logger
 LOG = logging.getLogger(__name__)

@@ -15,7 +15,7 @@ from utility.UtilBase import Utility
 
 logger = logging.getLogger(__name__)
 
-class ServerInventoryMicroserviceTest(unittest.TestCase):
+class ServerInventoryTest(unittest.TestCase):
     
     def setUp(self):
         print("")

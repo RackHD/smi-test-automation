@@ -56,29 +56,9 @@ import sys
 import unittest
 import re
 import logging
-import logging.config
+import test_microservice as tests
 
-# from discoveryTest import DiscoveryMicroserviceTest as disc
-# from chassisInventoryTest import ChassisInventoryMicroserviceTest as chin
-# from serverInventoryTest import ServerInventoryMicroserviceTest as svin
-# from powerThermalTest import PowerThermalMicroserviceTest as pwth
-# from scpTest import SCPMicroserviceTest as scp
-# from virtualIdentityTest import VirtualIdentityTest as vid
-# from virtualNetworkTest import VirtualNetworkTest as vnw
-# from firmwareUpdateTest import FirmwareUpdateTest as fwup
-from dummy_tests import DummyTest as dummy
-
-def configure_logger_from_yaml(path):
-    """Attempts to configure root logger from given YAML file"""
-    import yaml
-    try:
-        with open(path, 'r') as stream:
-            config = yaml.load(stream)
-            logging.config.dictConfig(config)
-    except (FileNotFoundError, yaml.YAMLError) as exc:
-        print("Could not load logger configuraton from YAML file :: {}".format(exc))
-
-configure_logger_from_yaml('../logs/logger_config.yml')
+tests.toolkit.logtools.configure_logger_from_yaml('./logs/logger_config.yml')
 LOG = logging.getLogger(__name__)
 
 # ------------ ARGUMENT CONFIGURATION PROFILE ------------
@@ -90,15 +70,15 @@ HOST = "localhost"
 # Microservice ID
 M_ID = {
 
-    # '1' : disc,
-    # '2' : chin,
-    # '3' : svin,
-    # '4' : pwth,
-    # '5' : scp,
-    # '6' : vid,
-    # '7' : vnw,
-    # '8' : fwup,
-    'D' : dummy
+    '1' : tests.test_discovery,
+    '2' : tests.test_chassisinventory,
+    '3' : tests.test_serverinventory,
+    '4' : tests.test_powerthermal,
+    '5' : tests.test_scp,
+    '6' : tests.test_virtualidentity,
+    '7' : tests.test_virtualnetwork,
+    '8' : tests.test_firmwareupdate,
+    'D' : tests.test_dummy
 
 
 }
@@ -109,15 +89,15 @@ M_ID_R = {m_id: mservice for mservice, m_id in M_ID.items()}
 # Microservice Alias
 ALIAS = {
 
-    # 'DISC' : M_ID_R[disc],
-    # 'CHIN' : M_ID_R[chin],
-    # 'SVIN' : M_ID_R[svin],
-    # 'PWTH' : M_ID_R[pwth],
-    # 'SCP' : M_ID_R[scp],
-    # 'VID' : M_ID_R[vid],
-    # 'VNW' : M_ID_R[vnw],
-    # 'FWUP' : M_ID_R[fwup],
-    'DUMMY' : M_ID_R[dummy]
+    'DISC' : M_ID_R[tests.test_discovery],
+    'CHIN' : M_ID_R[tests.test_chassisinventory],
+    'SVIN' : M_ID_R[tests.test_serverinventory],
+    'PWTH' : M_ID_R[tests.test_powerthermal],
+    'SCP' : M_ID_R[tests.test_scp],
+    'VID' : M_ID_R[tests.test_virtualidentity],
+    'VNW' : M_ID_R[tests.test_virtualnetwork],
+    'FWUP' : M_ID_R[tests.test_firmwareupdate],
+    'DUMMY' : M_ID_R[tests.test_dummy]
 
 }
 
@@ -180,7 +160,7 @@ def _load_tests(test_keys):
     """Load tests into suite for each of the test keys passed in"""
     test_suite = []
     for key in test_keys:
-        test_suite.append(unittest.TestLoader().loadTestsFromTestCase(M_ID[key]))
+        test_suite.append(unittest.TestLoader().loadTestsFromModule(M_ID[key]))
     return unittest.TestSuite(test_suite)
 
 def run_tests(*args):
@@ -192,7 +172,8 @@ def run_tests(*args):
     LOG.info("Test Keys: %s", keys)
     test_suite = _load_tests(keys)
     LOG.debug("Loaded Tests: %s", test_suite)
-    unittest.TextTestRunner(verbosity=2).run(test_suite)
+    # unittest.TextTestRunner(verbosity=2).run(test_suite)
+
 
 def _parse_keys_tester():
     """Test cases to make sure correct keys are parsed from given arguments"""

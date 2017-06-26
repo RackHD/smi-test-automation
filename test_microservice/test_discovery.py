@@ -25,14 +25,13 @@ from utility.UtilBase import Utility
 # sys.path.append(os.path.abspath('../handlers'))
 
 logger = logging.getLogger(__name__)
-class DiscoveryMicroserviceTest(unittest.TestCase):
-    
+class DiscoveryTest(unittest.TestCase):
+
     def setUp(self):
         print("")
 
     def testDiscoveryEndpointIPSGlobalCredentialServer(self):
         try :
-            
             x = 0;
             response = DiscoveryHandler().discoveryByIPS(x)
             logger.info("Response:" + response.text)

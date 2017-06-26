@@ -6,8 +6,7 @@ Created on May 2, 2017
 @author: mkowkab
 '''
 import json
-
-from utility.UtilBase import Utility
+from . import handler_tools as tools
 
 import logging
 
@@ -30,7 +29,7 @@ class SCPHandler(Utility):
         requestData, url = self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "POST"
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result " + result.text)
         return result
 
@@ -40,7 +39,7 @@ class SCPHandler(Utility):
         requestData, url = self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "POST"
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         return result
 
     def getComponents(self):
@@ -49,7 +48,7 @@ class SCPHandler(Utility):
         requestData, url = self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "POST"
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         return result
 
     def getRequestData(self, task):

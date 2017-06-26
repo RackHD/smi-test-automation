@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 #os.chdir(run_dir)
 #sys.path.insert(0,os.path.abspath('../utility'))
 #sys.path.append(os.path.abspath('../handlers'))
-class SCPMicroserviceTest(unittest.TestCase):    
+class SCPTest(unittest.TestCase):    
 
     def setUp(self):
         print("")

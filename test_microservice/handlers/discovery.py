@@ -7,7 +7,7 @@ Created on May 2, 2017
 '''
 import json
 import logging
-from utility.UtilBase import Utility
+from . import handler_tools as tools
 
 logger = logging.getLogger(__name__)
 #import os
@@ -28,7 +28,7 @@ class DiscoveryHandler(Utility):
         headers = {'Content-Type': 'application/json'}
         action = "POST"
         request_json = requestData[index]
-        result = self.getResponse(action, url, request_json, headers)
+        result = get_response(action, url, request_json, headers)
         logger.info("Result from the Discovery Microservice: \n" + result.text)        
         return result
     
@@ -38,7 +38,7 @@ class DiscoveryHandler(Utility):
         headers = {'Content-Type': 'application/json'}
         action = "POST"
         request_json = requestData[index]
-        result = self.getResponse(action, url, request_json, headers)
+        result = get_response(action, url, request_json, headers)
         logger.info("Result from the Discovery Microservice: \n" + result.text)        
         return result
         

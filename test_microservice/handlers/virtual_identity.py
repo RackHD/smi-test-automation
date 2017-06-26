@@ -10,13 +10,7 @@ import json
 import os
 import sys
 import logging
-
-run_dir=os.path.abspath(os.path.dirname(__file__))
-current_dir = os.getcwd()
-os.chdir(run_dir)
-sys.path.insert(0,os.path.abspath('../utility'))
-
-from UtilBase import Utility
+from . import handler_tools as tools
 
 logger = logging.getLogger(__name__)
 
@@ -30,7 +24,7 @@ class VirtualIdentityHandler(Utility):
         requestData, url = self.getRequestData("getVirtualIdentities")
         headers = {'Content-Type': 'application/json'}
         action="GET"
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         logger.info("Result " + result.text)
         return result
 

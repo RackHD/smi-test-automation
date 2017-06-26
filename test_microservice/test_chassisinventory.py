@@ -10,13 +10,11 @@ import unittest
 import sys
 import os
 import logging
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from handlers.ChassisInventoryMicroservice import ChassisInventoryHandler
-from utility.UtilBase import Utility
+
 
 logger = logging.getLogger(__name__)
 
-class ChassisInventoryMicroserviceTest(unittest.TestCase):
+class ChassisInventoryTest(unittest.TestCase):
 
     def setUp(self):
         print("")

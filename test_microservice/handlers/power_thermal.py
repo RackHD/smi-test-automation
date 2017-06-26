@@ -7,8 +7,7 @@ Created on May 2, 2017
 '''
 import json
 import logging
-
-from utility.UtilBase import Utility
+from . import handler_tools as tools
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +26,7 @@ class PowerThermalHandler(Utility):
         #self.getRequestData(task)
         headers = {'Content-Type': 'application/json'}
         action = "GET"
-        result = self.getResponse(action, url,"", headers)
+        result = get_response(action, url,"", headers)
         logger.info("Result " + result.text)        
         return result
     
@@ -47,7 +46,7 @@ class PowerThermalHandler(Utility):
         
         headers = {'Content-Type': 'application/json'}
         action ="POST"
-        result = self.getResponse(action, url, requestData, headers)
+        result = get_response(action, url, requestData, headers)
         return result
     
     
