@@ -1,0 +1,23 @@
+{
+    "services": {
+
+        "getVersion": {
+            "url": "http://100.68.124.118:8080/api/1.0/version",
+            "parameters": { },
+			"payload": { }
+          },
+
+        "getPowerThermal": {
+            "url": "http://100.68.124.118:8080/api/1.0/api/1.0/powerthermal",
+            "parameters": { },
+            "payload": {
+
+                "serverAddress": "100.68.124.121",
+                "userName": "root",
+                "password": "calvin"
+
+            }
+        }
+
+    }
+}

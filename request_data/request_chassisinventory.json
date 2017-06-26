@@ -1,20 +1,29 @@
-{  
-    "services":{  
-        "details":{  
+{
+    "services":{
+
+        "details":{
             "url":"/api/1.0/chassis/inventory/details",
-            "credential":{  
+            "parameters": { },
+            "payload":{
+
                 "address":"100.68.124.98",
                 "userName":"root",
                 "password":"calvin"
+
             }
         },
-        "summary":{  
+
+        "summary":{
             "url":"/api/1.0/chassis/inventory/summary",
-            "credential":{  
+            "parameters": { },
+            "payload":{
+
                 "address":"100.68.124.98",
                 "userName":"root",
                 "password":"calvin"
+
             }
         }
+
     }
 }

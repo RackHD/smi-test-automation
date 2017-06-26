@@ -1,60 +1,79 @@
-{  
-    "services":{  
-        "hardware":{  
+{
+    "services":{
+
+        "hardware":{
             "url":"/api/1.0/server/inventory/hardware",
-            "credential":{  
+            "credential":{
+
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
+
             }
         },
-        "software":{  
+
+        "software":{
             "url":"/api/1.0/server/inventory/software",
-            "credential":{  
+            "credential":{
+
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
+
             }
         },
-        "nics":{  
+
+        "nics":{
             "url":"/api/1.0/server/inventory/nics",
-            "credential":{  
+            "credential":{
+
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
+
             }
         },
-        "bios":{  
+
+        "bios":{
             "url":"/api/1.0/server/inventory/bios",
-            "credential":{  
+            "credential":{
+
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
+
             }
         },
-        "boot":{  
+
+        "boot":{
             "url":"/api/1.0/server/inventory/boot",
-            "credential":{  
+            "credential":{
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
             }
         },
-        "sel":{  
+        "sel":{
             "url":"/api/1.0/server/inventory/logs/get/SEL",
-            "credential":{  
+            "credential":{
+
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
+
             }
         },
-        "lc":{  
+
+        "lc":{
             "url":"/api/1.0/server/inventory/logs/get/LC",
-            "credential":{  
+            "credential":{
+
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
+
             }
         }
+
     }
 }

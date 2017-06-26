@@ -1,12 +1,17 @@
 {
 	"services": {
+
 		"getNetworks": {
 			"url": "/api/1.0/networks",
-			"data": { }
+			"parameters": { },
+			"payload": { }
 		},
+
 		"createNetwork": {
 			"url": "/api/1.0/networks",
-			"data": {
+			"parameters": { },
+			"payload": {
+
 				"static": true,
 				"name": "Network1",
 				"description": "Private Network 1",
@@ -23,15 +28,21 @@
 						"endingIp": "172.31.142.254"
 					}]
 				}
+
 			}
 		},
+
 		"deleteNetwork": {
 			"url": "/api/1.0/networks",
-			"data": { }
+			"parameters": { },
+			"payload": { }
 		},
+
 		"updateNetwork": {
 			"url": "/api/1.0/networks",
-			"data": {
+			"parameters": { },
+			"payload": {
+
 				"id": "{0}",
 				"static": true,
 				"name": "Network1-Updated",
@@ -45,11 +56,15 @@
 					"secondaryDns": "172.31.143.251",
 					"dnsSuffix": "customer.local"
 				}
+
 			}
 		},
+
 		"getIpAddressPools": {
 			"url": "/api/1.0/networks/{0}/ipAddressPools",
-			"data":{ }
+			"parameters": { },
+			"payload":{ }
 		}
+
 	}
 }
