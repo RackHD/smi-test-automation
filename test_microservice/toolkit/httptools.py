@@ -38,32 +38,49 @@ def create_base_url(host, port):
 
 def add_query_parameters(base_url, parameters):
     """Add query parameters to http get request"""
-    url += "?"
+    base_url += "?"
     for key in parameters:
         value = parameters[key]
-        url += "{}={}".format(key, value)
-        url += '&'
-    url -= '&'
-    return url
+        base_url += "{}={}&".format(key, value)
+    return base_url[:-1]
 
-def get_response(action, url, request_json, headers):
+def rest_get(url):
+    """Make a GET rest call to the specified URL"""
+    LOG.info("Calling GET: %s", url)
+    headers = {'Content-Type': 'application/json'}
+    action = 'GET'
+    response = _get_response(action, url, None, headers)
+    LOG.info("Results from GET: %s\n", response)
+    return response
+
+def rest_post(url, payload):
+    """Make a POST rest call to the specified URL and payload"""
+    LOG.info("Calling POST: %s", url)
+    headers = {'Content-Type': 'application/json'}
+    action = 'POST'
+    response = _get_response(action, url, payload, headers)
+    LOG.info("Results from POST: %s\n", response)
+    return response
+
+def _get_response(action, url, request_json, headers):
     """Generate an http request and return response"""
     LOG.info("get_response")
     headers = {'Content-Type': 'application/json'}
     if action == "POST":
-        LOG.info("POST")
+        LOG.info("POST Request")
         response = requests.post(url, json=request_json, headers=headers)
     elif action == "GET":
-        LOG.info("GET")
+        LOG.info("GET Request")
         response = requests.get(url, json=request_json, headers=headers)
     elif action == "PUT":
-        LOG.info("PUT")
+        LOG.info("PUT Request")
         response = requests.put(url, json=request_json, headers=headers)
     elif action == "DELETE":
-        LOG.info("DELETE")
+        LOG.info("DELETE Request")
         response = requests.delete(url, json=request_json, headers=headers)
     else:
         raise Exception("Invalid Action : " + action)
-    LOG.debug("Generated response :: %s", response.txt)
+    LOG.debug("Generated response :: %s", response.text)
     return response
+
 
