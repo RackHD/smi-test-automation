@@ -77,8 +77,7 @@ M_ID = {
     '5' : tests.test_scp,
     '6' : tests.test_virtualidentity,
     '7' : tests.test_virtualnetwork,
-    '8' : tests.test_firmwareupdate,
-    'D' : tests.test_dummy
+    '8' : tests.test_firmwareupdate
 
 
 }
@@ -96,8 +95,7 @@ ALIAS = {
     'SCP' : M_ID_R[tests.test_scp],
     'VID' : M_ID_R[tests.test_virtualidentity],
     'VNW' : M_ID_R[tests.test_virtualnetwork],
-    'FWUP' : M_ID_R[tests.test_firmwareupdate],
-    'DUMMY' : M_ID_R[tests.test_dummy]
+    'FWUP' : M_ID_R[tests.test_firmwareupdate]
 
 }
 

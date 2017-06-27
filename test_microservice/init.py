@@ -11,4 +11,3 @@ from . import test_scp
 from . import test_virtualidentity
 from . import test_virtualnetwork
 from . import test_firmwareupdate
-from . import test_dummy
