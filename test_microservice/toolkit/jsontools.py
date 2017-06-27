@@ -40,7 +40,7 @@ def load_test_data(directory, task):
     """Load test data from provided json file"""
     with open(directory) as stream:
         data = json.load(stream)
-        url = data["services"][task]["url"]
+        extention = data["services"][task]["url"]
         parameters = data["services"][task]["parameters"]
         payload = data["services"][task]["payload"]
-        return url, parameters, payload
+        return extention, parameters, payload

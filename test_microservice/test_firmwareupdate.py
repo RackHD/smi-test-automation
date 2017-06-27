@@ -36,6 +36,8 @@ class FirmwareUpdateTest(unittest.TestCase):
         cls.BASE_URL = httptools.create_base_url(cls.HOST, cls.PORT)
         cls.JSON_FILE = jsontools.create_json_reference(cls.DIRECTORY, cls.JSON_NAME)
 
+########################################################################
+# Test Get Version
 
 class GetVersion(FirmwareUpdateTest):
     """Get Version Test"""
@@ -47,14 +49,11 @@ class GetVersion(FirmwareUpdateTest):
 
     def setUp(self):
         print("")
-
-    ########################################################################
-    # Test GET Version
+        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'getVersion')
 
     def test0001_GetVersion(self):
         try:
-            extention, parameters, payload = jsontools.load_test_data(self.JSON_FILE, 'getVersion')
-            response = httptools.rest_get(self.BASE_URL + extention)
+            response = httptools.rest_get(self.URL)
             LOG.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
@@ -62,73 +61,65 @@ class GetVersion(FirmwareUpdateTest):
             LOG.error("Exception: " + str(exc))
             raise exc
 
-"""
+########################################################################
+# Test Get Downloader
 class GetDownloader(FirmwareUpdateTest):
+
+    @classmethod
+    def setUpClass(cls):
+        """Initalize base url"""
+        service_url = '/api/1.0/server/firmware/downloader'
+        cls.URL = cls.BASE_URL + service_url
 
     def setUp(self):
         print("")
+        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'getDownloader')
 
-    ########################################################################
-    # Test GET Downloader
     def test0100_GetDownloaderWithAllParams(self):
+        # Positive test case - Test passing in all valid data for the query strings
         try:
-            # Positive test case - Test passing in all valid data for the query strings
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getDownloader")
             # Tack on query parameters to end of URL
-            url = FirmwareUpdateHandler().addQueryParameters(url, parameters)
-            response = FirmwareUpdateHandler().makeGetRestCall(url)
-            logger.info("Response Status Code: " + str(response.status_code))
+            query_url = httptools.add_query_parameters(self.URL, self.parameters)
+            print(query_url)
+            response = httptools.rest_get(query_url)
+            LOG.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
-    
-    def test0101_GetDownloaderWithMissingParameter(self):
-        try:
-            # Negative test case - Remove each parameter one by one and verify a 400 is returned
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getDownloader")
-            origUrl = url
-            origParams = dict.copy(parameters)
-            
-            # Loop through each parameter and remove it
-            for index, key in enumerate(origParams):
-                del parameters[key]
-                # Tack on query parameters to end of URL
-                url = FirmwareUpdateHandler().addQueryParameters(url, parameters)
-                response = FirmwareUpdateHandler().makeGetRestCall(url)
-                logger.info("Response Status Code: " + str(response.status_code))
-                self.assertEqual(response.status_code, 400, "Response code should equal 400")
-                # reset for next run
-                url = origUrl
-                parameters = dict.copy(origParams)
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+    def test0101_GetDownloaderWithMissingParameter(self):
+        # Negative test case - Remove each parameter one by one and verify a 400 is returned
+        try:
+            # Loop through each parameter and remove it
+            for param_combo in httptools.missing_parameter_combinations(self.parameters):
+                # Tack on query parameters to end of URL
+                query_url = httptools.add_query_parameters(self.URL, param_combo)
+                response = httptools.rest_get(query_url)
+                LOG.info("Response Status Code: " + str(response.status_code))
+                self.assertEqual(response.status_code, 400, "Response code should equal 400")
+
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
 
     def test0102_GetDownloaderWithInvalidParameter(self):
+        # Negative test case - Set each parameter to an invalid value and verify a 400 is returned
         try:
-            # Negative test case - Set each parameter to an invalid value and verify a 400 is returned
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getDownloader")
-            origUrl = url
-            origParams = dict.copy(parameters)
-            
-            # Loop through each parameter and make it an empty string
-            for index, key in enumerate(origParams):
-                parameters[key] = " "
+            # Loop through each parameter and empty it
+            for param_combo in httptools.empty_parameter_combinations(self.parameters):
                 # Tack on query parameters to end of URL
-                url = FirmwareUpdateHandler().addQueryParameters(url, parameters)
-                response = FirmwareUpdateHandler().makeGetRestCall(url)
-                logger.info("Response Status Code: " + str(response.status_code))
+                query_url = httptools.add_query_parameters(self.URL, param_combo)
+                response = httptools.rest_get(query_url)
+                LOG.info("Response Status Code: " + str(response.status_code))
                 self.assertEqual(response.status_code, 400, "Response code should equal 400")
-                # reset for next run
-                url = origUrl
-                parameters = dict.copy(origParams)  
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
+
+"""
 class GetApplicableUpdates(FirmwareUpdateTest):
 
     def setUp(self):

@@ -19,6 +19,7 @@ __copyright__ = 'Copyright 2017 DELL Inc.'
 
 import logging
 import requests
+import itertools
 
 LOG = logging.getLogger(__name__)
 
@@ -43,6 +44,23 @@ def add_query_parameters(base_url, parameters):
         value = parameters[key]
         base_url += "{}={}&".format(key, value)
     return base_url[:-1]
+
+def missing_parameter_combinations(parameters):
+    """Generate all combinations of missing paramters"""
+    for count in len(parameters) - 1:
+        for combo in itertools.combinations(parameters, count):
+            yield combo
+
+def empty_parameter_combinations(parameters):
+    """Generate all combinations of empty paramters"""
+    for count in len(parameters) - 1:
+        for combo in itertools.combinations(parameters, count):
+            result = parameters.copy()
+            for key in result:
+                if key not in combo:
+                    result[key] = ''
+            yield result
+
 
 def rest_get(url):
     """Make a GET rest call to the specified URL"""
