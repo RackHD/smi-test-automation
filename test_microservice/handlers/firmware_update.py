@@ -37,7 +37,7 @@ def makeGetRestCall(self, url):
     action="GET"
     result = get_response(action, url, None , headers)
     logger.info("Results from GET: {}\n".format(result))
-    return result        
+    return result
 
 def makePostRestCall(self, url, payload):
     logger.info("Calling POST: {}".format(url))

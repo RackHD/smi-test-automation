@@ -5,33 +5,68 @@ Created on June 5, 2017
 @author: Michael Regert
 '''
 
-import json
 import unittest
 import sys
 import os
 import logging
-from .handlers import 
+from toolkit import httptools, jsontools, logtools
 
-logger = logging.getLogger(__name__)
+LOG = logging.getLogger(__name__)
+# Leave as None to use default Host
+HOST_OVERRIDE = '100.68.125.170'
+# Leave as None to use default json directory
+DIRECTORY_OVERRIDE = None
+
+def setUpModule():
+    FirmwareUpdateTest.initialize_data(HOST_OVERRIDE, DIRECTORY_OVERRIDE)
 
 class FirmwareUpdateTest(unittest.TestCase):
+    """Collection of data to test the firmware update microservice"""
+
+    HOST = 'localhost' # will grab default from elsewhere
+    PORT = '46010'
+    DIRECTORY = '../request_data' # will grab default from elsewhere
+    JSON_NAME = 'request_firmwareupdate.json'
+
+    @classmethod
+    def initialize_data(cls, host_override, directory_override):
+        """Initalize base url"""
+        cls.HOST = httptools.select_host(cls.HOST, host_override)
+        cls.DIRECTORY = jsontools.select_directory(cls.DIRECTORY, directory_override)
+        cls.BASE_URL = httptools.create_base_url(cls.HOST, cls.PORT)
+        cls.JSON_FILE = jsontools.create_json_reference(cls.DIRECTORY, cls.JSON_NAME)
+
+
+class GetVersion(FirmwareUpdateTest):
+    """Get Version Test"""
+    @classmethod
+    def setUpClass(cls):
+        """Initalize base url"""
+        service_url = '/api/1.0/server/firmware/version'
+        cls.URL = cls.BASE_URL + service_url
 
     def setUp(self):
         print("")
 
     ########################################################################
     # Test GET Version
-    
+
     def test0001_GetVersion(self):
         try:
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getVersion")
-            response = FirmwareUpdateHandler().makeGetRestCall(url)
-            logger.info("Response Status Code: " + str(response.status_code))
+            extention, parameters, payload = jsontools.load_test_data(self.JSON_FILE, 'getVersion')
+            response = httptools.rest_get(self.BASE_URL + extention)
+            LOG.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
+
+"""
+class GetDownloader(FirmwareUpdateTest):
+
+    def setUp(self):
+        print("")
 
     ########################################################################
     # Test GET Downloader
@@ -94,6 +129,10 @@ class FirmwareUpdateTest(unittest.TestCase):
         except Exception as e1:
             logger.error("Exception: " + str(e1))
             raise e1
+class GetApplicableUpdates(FirmwareUpdateTest):
+
+    def setUp(self):
+        print("")
 
     def test0200_GetApplicableUpdatesWithValidPayload(self):
         try:
@@ -146,7 +185,12 @@ class FirmwareUpdateTest(unittest.TestCase):
         except Exception as e1:
             logger.error("Exception: " + str(e1))
             raise e1
-    '''
+
+@unittest.skip("Compare has not been implemented yet")
+class CompareCatalogs(FirmwareUpdateTest):
+    def setUp(self):
+        print("")
+
     def test0300_CompareSameCatalogs(self):
         try:
             # First, download a second catalog to use for the comparison
@@ -160,21 +204,20 @@ class FirmwareUpdateTest(unittest.TestCase):
             url, parameters, payload = FirmwareUpdateHandler().getTestData("compareCatalogs")
             response = FirmwareUpdateHandler().makePostRestCall(url, payload)
 
-
         except Exception as e1:
             logger.error("Exception: " + str(e1))
             raise e1
-    '''
+"""
+if __name__ == "__main__":
+    ARGS = sys.argv[1:].copy()
+    if ARGS:
+        HOST_OVERRIDE = ARGS.pop(0)
+        LOG.info("Host Override : %s", HOST_OVERRIDE)
+        sys.argv.pop()
+        if ARGS:
+            DIRECTORY_OVERRIDE = ARGS.pop(0)
+            LOG.info("Directory Override : %s", DIRECTORY_OVERRIDE)
+            sys.argv.pop()
 
-if __name__=="__main__":
-    if len(sys.argv) > 1:
-        FirmwareUpdateHandler.host = sys.argv.pop()
-        FirmwareUpdateHandler.directory = sys.argv.pop() + "/"
-    else:
-        # FirmwareUpdateHandler.host = "http://100.68.123.238:46010"
-        FirmwareUpdateHandler.host = "http://localhost:46010"
-
-        FirmwareUpdateHandler.directory = "../requestdata/"
-
-    from test_manager import run_tests
-    run_tests('FWUP')
+    logtools.configure_logger_from_yaml('../logs/logger_config.yml')
+    unittest.main()
