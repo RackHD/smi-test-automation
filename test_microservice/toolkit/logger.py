@@ -12,7 +12,7 @@ Series of tools designed to control the logger
 Copyright (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 Created on June 23, 2017
 """
-__title__ = 'logtools'
+__title__ = 'Logger Toolkit'
 __author__ = 'Akash Kwatra'
 __license__ = 'Apache 2.0'
 __copyright__ = 'Copyright 2017 DELL Inc.'

@@ -7,19 +7,19 @@
 """
 HTTP Toolkit
 ~~~~~~~~~~~~
-Series of tools designed around HTTP
+Series of tools designed around HTTP requests
 
 Copyright (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 Created on June 23, 2017
 """
-__title__ = 'httptools'
+__title__ = 'HTTP Toolkit'
 __author__ = 'Akash Kwatra'
 __license__ = 'Apache 2.0'
 __copyright__ = 'Copyright 2017 DELL Inc.'
 
 import logging
-import requests
 import itertools
+import requests
 
 LOG = logging.getLogger(__name__)
 
