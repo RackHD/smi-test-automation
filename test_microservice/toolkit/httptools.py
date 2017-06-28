@@ -7,7 +7,7 @@
 """
 HTTP Toolkit
 ~~~~~~~~~~~~
-Series of tools designed aroudn HTTP
+Series of tools designed around HTTP
 
 Copyright (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 Created on June 23, 2017

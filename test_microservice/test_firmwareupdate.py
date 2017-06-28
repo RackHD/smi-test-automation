@@ -119,86 +119,98 @@ class GetDownloader(FirmwareUpdateTest):
             LOG.error("Exception: " + str(exc))
             raise exc
 
-"""
+
 class GetApplicableUpdates(FirmwareUpdateTest):
+
+    @classmethod
+    def setUpClass(cls):
+        """Initalize base url"""
+        service_url = '/api/1.0/server/firmware/comparer'
+        cls.URL = cls.BASE_URL + service_url
 
     def setUp(self):
         print("")
+        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'getApplicableUpdates')
 
     def test0200_GetApplicableUpdatesWithValidPayload(self):
         try:
             # Positive test case - Test passing in all valid data for payload
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getApplicableUpdates")
-            response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("Response Status Code: " + str(response.status_code))
+            response = httptools.rest_post(self.URL, self.payload)
+            LOG.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
 
     def test0201_GetApplicableUpdatesWithInvalidIP(self):
         try:
             # Negative test case - Test passing invalid system IP for the payload
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getApplicableUpdates")
-            payload["serverAddress"] = "100.100.100.100"
-            response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("Response Status Code: " + str(response.status_code))
+            bad_payload = self.payload.copy()
+            bad_payload["serverAddress"] = "100.100.100.100"
+            response = httptools.rest_post(self.URL, bad_payload)
+            LOG.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
 
     def test0202_GetApplicableUpdatesWithBadCredentials(self):
         try:
             # Negative test case - Test passing invalid credentials for the payload
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getApplicableUpdates")
-            payload["userName"] = "foo"
-            payload["password"] = "bar"
-            response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("Response Status Code: " + str(response.status_code))
+            bad_payload = self.payload.copy()
+            bad_payload["userName"] = "foo"
+            bad_payload["password"] = "bar"
+            response = httptools.rest_post(self.URL, bad_payload)
+            LOG.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
 
     def test0203_GetApplicableUpdatesWithBadCatalog(self):
         try:
             # Negative test case - Test passing invalid catalog for the payload
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getApplicableUpdates")
-            payload["catalogPath"] = "/foo/cat.xml"
-            response = FirmwareUpdateHandler().makePostRestCall(url, payload)
-            logger.info("Response Status Code: " + str(response.status_code))
+            bad_payload = self.payload.copy()
+            bad_payload["catalogPath"] = "/foo/cat.xml"
+            response = httptools.rest_post(self.URL, bad_payload)
+            LOG.info("Response Status Code: " + str(response.status_code))
             self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
 
 @unittest.skip("Compare has not been implemented yet")
 class CompareCatalogs(FirmwareUpdateTest):
+    @classmethod
+    def setUpClass(cls):
+        """Initalize base url"""
+        service_url = '/api/1.0/server/firmware/comparer/catalog'
+        cls.URL = cls.BASE_URL + service_url
+
     def setUp(self):
         print("")
+        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'compareCatalogs')
 
     def test0300_CompareSameCatalogs(self):
         try:
             # First, download a second catalog to use for the comparison
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("getDownloader")
-            parameters["targetLocation"] = "%2F/temp2%2F"
+            dl_extention, dl_parameters, dl_payload = jsontools.load_test_data(self.JSON_FILE, 'getDownloader')
+            dl_parameters["targetLocation"] = "%2F/temp2%2F"
+            dl_url = self.BASE_URL + dl_extention
             # Tack on query parameters to end of URL
-            url = FirmwareUpdateHandler().addQueryParameters(url, parameters)
-            response = FirmwareUpdateHandler().makeGetRestCall(url)
-
+            query_url = httptools.add_query_parameters(dl_url, dl_parameters)
+            response = httptools.rest_get(query_url)
             # Second, get the details for the comparison function
-            url, parameters, payload = FirmwareUpdateHandler().getTestData("compareCatalogs")
-            response = FirmwareUpdateHandler().makePostRestCall(url, payload)
+            response = httptools.rest_post(self.URL, self.payload)
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
-"""
+        except Exception as exc:
+            LOG.error("Exception: " + str(exc))
+            raise exc
+
 if __name__ == "__main__":
     ARGS = sys.argv[1:].copy()
     if ARGS:
