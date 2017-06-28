@@ -1,21 +1,15 @@
 # -*- coding: utf-8 -*-
-
-#   __      ___  ___ _  __ ___          ___ _           ___ ___  _
-#  (_  |\/|  | __ | |_ (_   | __ /\  | | | / \ |\/|  /\  |   |  / \ |\ |
-#  __) |  | _|_   | |_ __)  |   /--\ |_| | \_/ |  | /--\ |  _|_ \_/ | \|
-
 """
 JSON Toolkit
 ~~~~~~~~~~~~
-Series of tools designed around JSON
+Series of tools designed around using JSON files
 
-Copyright (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
+:Copyright: (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
+:License: Apache 2.0, see LICENSE for more details.
+:Author: Akash Kwatra
+
 Created on June 26, 2017
 """
-__title__ = 'JSON Toolkit'
-__author__ = 'Akash Kwatra'
-__license__ = 'Apache 2.0'
-__copyright__ = 'Copyright 2017 DELL Inc.'
 
 import logging
 import json
