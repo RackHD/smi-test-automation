@@ -39,6 +39,13 @@ def load_inital_test_data(directory, endpoint):
         payload = data["services"][endpoint]["payload"][0]
         return path, parameters, payload
 
+def load_test_path(directory, endpoint):
+    """Load url path at specified endpoint"""
+    with open(directory) as stream:
+        data = json.load(stream)
+        path = data["services"][endpoint]["path"]
+        return path
+
 def load_test_parameters(directory, endpoint, index):
     """Load modified paramters at specified endpoint and index"""
     with open(directory) as stream:

@@ -22,3 +22,18 @@ def configure_logger_from_yaml(path):
             logging.config.dictConfig(config)
     except (FileNotFoundError, yaml.YAMLError) as exc:
         print("Could not load logger configuraton from YAML file :: {}".format(exc))
+
+def exception(logger):
+    """
+    Deturn decorator to log exceptions using the specified logger
+    """
+    def decorator(func):
+        """Decorate function with a try catch and a log record"""
+        def wrapper(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except:
+                logger.exception("Exception in %s", func.__name__)
+                raise
+        return wrapper
+    return decorator
