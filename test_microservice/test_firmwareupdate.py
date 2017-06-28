@@ -7,9 +7,8 @@ Created on June 5, 2017
 
 import unittest
 import sys
-import os
 import logging
-from toolkit import httptools, jsontools, logtools
+from toolkit import http, json, logger, testing
 
 LOG = logging.getLogger(__name__)
 # Leave as None to use default Host
@@ -18,6 +17,7 @@ HOST_OVERRIDE = '100.68.125.170'
 DIRECTORY_OVERRIDE = None
 
 def setUpModule():
+    """Initialize data for all test cases using overrides"""
     FirmwareUpdateTest.initialize_data(HOST_OVERRIDE, DIRECTORY_OVERRIDE)
 
 class FirmwareUpdateTest(unittest.TestCase):
@@ -25,164 +25,124 @@ class FirmwareUpdateTest(unittest.TestCase):
 
     HOST = 'localhost' # will grab default from elsewhere
     PORT = '46010'
-    DIRECTORY = '../request_data' # will grab default from elsewhere
+    DIRECTORY = 'request_data' # will grab default from elsewhere
     JSON_NAME = 'request_firmwareupdate.json'
 
     @classmethod
     def initialize_data(cls, host_override, directory_override):
-        """Initalize base url"""
-        cls.HOST = httptools.select_host(cls.HOST, host_override)
-        cls.DIRECTORY = jsontools.select_directory(cls.DIRECTORY, directory_override)
-        cls.BASE_URL = httptools.create_base_url(cls.HOST, cls.PORT)
-        cls.JSON_FILE = jsontools.create_json_reference(cls.DIRECTORY, cls.JSON_NAME)
+        """Initialize base url and json file path"""
+        cls.HOST = http.select_host(cls.HOST, host_override)
+        cls.DIRECTORY = json.select_directory(cls.DIRECTORY, directory_override)
+        cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
+        cls.JSON_FILE = json.create_json_reference(cls.DIRECTORY, cls.JSON_NAME)
 
 ########################################################################
-# Test Get Version
+# Version
+########################################################################
 
-class GetVersion(FirmwareUpdateTest):
-    """Get Version Test"""
+class Version(FirmwareUpdateTest):
+    """Tests for Version Endpoint"""
     @classmethod
     def setUpClass(cls):
-        """Initalize base url"""
-        service_url = '/api/1.0/server/firmware/version'
-        cls.URL = cls.BASE_URL + service_url
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'version'
+        cls.path, cls.param, cls.payload = json.load_inital_test_data(cls.JSON_FILE, cls.ENDPOINT)
+        cls.URL = cls.BASE_URL + cls.path
 
-    def setUp(self):
-        print("")
-        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'getVersion')
-
-    def test0001_GetVersion(self):
-        try:
-            response = httptools.rest_get(self.URL)
-            LOG.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 200, "Response code should equal 200")
-
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
+    @logger.exception(LOG)
+    def test_01(self):
+        """Make a request to get version, check for success"""
+        response = http.rest_get(self.URL)
+        LOG.info("Response Status Code: %s", response.status_code)
+        self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
 ########################################################################
-# Test Get Downloader
-class GetDownloader(FirmwareUpdateTest):
+# Downloader
+########################################################################
 
+class Downloader(FirmwareUpdateTest):
+    """Tests for Downloader Endpoint"""
     @classmethod
     def setUpClass(cls):
-        """Initalize base url"""
-        service_url = '/api/1.0/server/firmware/downloader'
-        cls.URL = cls.BASE_URL + service_url
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'downloader'
+        cls.path, cls.param, cls.payload = json.load_inital_test_data(cls.JSON_FILE, cls.ENDPOINT)
+        cls.URL = cls.BASE_URL + cls.path
 
-    def setUp(self):
-        print("")
-        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'getDownloader')
+    @logger.exception(LOG)
+    def test_01(self):
+        """Make a request to downloader with valid parameters, check for success"""
+        query_url = http.add_query_parameters(self.URL, self.param)
+        LOG.info("Query: %s", query_url)
+        response = http.rest_get(query_url)
+        LOG.info("Response Status Code: %s", response.status_code)
+        self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
-    def test0100_GetDownloaderWithAllParams(self):
-        # Positive test case - Test passing in all valid data for the query strings
-        try:
-            # Tack on query parameters to end of URL
-            query_url = httptools.add_query_parameters(self.URL, self.parameters)
-            print(query_url)
-            response = httptools.rest_get(query_url)
-            LOG.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 200, "Response code should equal 200")
-
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
-
-    def test0101_GetDownloaderWithMissingParameter(self):
-        # Negative test case - Remove each parameter one by one and verify a 400 is returned
-        try:
-            # Loop through each parameter and remove it
-            for param_combo in httptools.missing_parameter_combinations(self.parameters):
-                # Tack on query parameters to end of URL
-                query_url = httptools.add_query_parameters(self.URL, param_combo)
-                response = httptools.rest_get(query_url)
-                LOG.info("Response Status Code: " + str(response.status_code))
+    @logger.exception(LOG)
+    def test_02(self):
+        """Make a request to downloader with missing parameters, check for failure"""
+        for param_combo in http.missing_parameter_combinations(self.param):
+            query_url = http.add_query_parameters(self.URL, param_combo)
+            LOG.info("Query: %s", query_url)
+            response = http.rest_get(query_url)
+            LOG.info("Response Status Code: %s", response.status_code)
+            with self.subTest(parameters=param_combo):
                 self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
-
-    def test0102_GetDownloaderWithInvalidParameter(self):
-        # Negative test case - Set each parameter to an invalid value and verify a 400 is returned
-        try:
-            # Loop through each parameter and empty it
-            for param_combo in httptools.empty_parameter_combinations(self.parameters):
-                # Tack on query parameters to end of URL
-                query_url = httptools.add_query_parameters(self.URL, param_combo)
-                response = httptools.rest_get(query_url)
-                LOG.info("Response Status Code: " + str(response.status_code))
+    @logger.exception(LOG)
+    def test_03(self):
+        """Make a request to downloader with empty parameters, check for failure"""
+        for param_combo in http.empty_parameter_combinations(self.param):
+            query_url = http.add_query_parameters(self.URL, param_combo)
+            LOG.info("Query: %s", query_url)
+            response = http.rest_get(query_url)
+            LOG.info("Response Status Code: %s", response.status_code)
+            with self.subTest(parameters=param_combo):
                 self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
+########################################################################
+# Comparer
+########################################################################
 
-
-class GetApplicableUpdates(FirmwareUpdateTest):
-
+class Comparer(FirmwareUpdateTest):
+    """Tests for Comparer Endpoint"""
     @classmethod
     def setUpClass(cls):
-        """Initalize base url"""
-        service_url = '/api/1.0/server/firmware/comparer'
-        cls.URL = cls.BASE_URL + service_url
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'comparer'
+        cls.path, cls.param, cls.payload = json.load_inital_test_data(cls.JSON_FILE, cls.ENDPOINT)
+        cls.URL = cls.BASE_URL + cls.path
 
-    def setUp(self):
-        print("")
-        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'getApplicableUpdates')
+    @logger.exception(LOG)
+    def test_01(self):
+        """Make a request to comparer with valid parameters, check for success"""
+        response = http.rest_post(self.URL, self.payload)
+        LOG.info("Response Status Code: %s", response.status_code)
+        self.assertEqual(response.status_code, 200, "Response code should equal 200")
 
-    def test0200_GetApplicableUpdatesWithValidPayload(self):
-        try:
-            # Positive test case - Test passing in all valid data for payload
-            response = httptools.rest_post(self.URL, self.payload)
-            LOG.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 200, "Response code should equal 200")
+    @logger.exception(LOG)
+    def test_02(self):
+        """Make a request to comparer with invalid IP, check for failure"""
+        bad_payload = json.load_test_payload(self.JSON_FILE, self.ENDPOINT, 1)
+        response = http.rest_post(self.URL, bad_payload)
+        LOG.info("Response Status Code: %s", response.status_code)
+        self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
+    def test_03(self):
+        """Make a request to comparer with invalid username and password, check for failure"""
+        bad_payload = json.load_test_payload(self.JSON_FILE, self.ENDPOINT, 2)
+        response = http.rest_post(self.URL, bad_payload)
+        LOG.info("Response Status Code: %s", response.status_code)
+        self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-    def test0201_GetApplicableUpdatesWithInvalidIP(self):
-        try:
-            # Negative test case - Test passing invalid system IP for the payload
-            bad_payload = self.payload.copy()
-            bad_payload["serverAddress"] = "100.100.100.100"
-            response = httptools.rest_post(self.URL, bad_payload)
-            LOG.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 400, "Response code should equal 400")
+    def test_04(self):
+        """Make a request to comparer with invalid catalog path, check for failure"""
+        bad_payload = json.load_test_payload(self.JSON_FILE, self.ENDPOINT, 3)
+        response = http.rest_post(self.URL, bad_payload)
+        LOG.info("Response Status Code: %s", response.status_code)
+        self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
-
-    def test0202_GetApplicableUpdatesWithBadCredentials(self):
-        try:
-            # Negative test case - Test passing invalid credentials for the payload
-            bad_payload = self.payload.copy()
-            bad_payload["userName"] = "foo"
-            bad_payload["password"] = "bar"
-            response = httptools.rest_post(self.URL, bad_payload)
-            LOG.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 400, "Response code should equal 400")
-
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
-
-    def test0203_GetApplicableUpdatesWithBadCatalog(self):
-        try:
-            # Negative test case - Test passing invalid catalog for the payload
-            bad_payload = self.payload.copy()
-            bad_payload["catalogPath"] = "/foo/cat.xml"
-            response = httptools.rest_post(self.URL, bad_payload)
-            LOG.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 400, "Response code should equal 400")
-
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
-
+'''
 @unittest.skip("Compare has not been implemented yet")
 class CompareCatalogs(FirmwareUpdateTest):
     @classmethod
@@ -193,24 +153,24 @@ class CompareCatalogs(FirmwareUpdateTest):
 
     def setUp(self):
         print("")
-        self.extention, self.parameters, self.payload = jsontools.load_test_data(self.JSON_FILE, 'compareCatalogs')
+        self.ext, self.param, self.payload = json.load_test_data(self.JSON_FILE, 'compareCatalogs')
 
     def test0300_CompareSameCatalogs(self):
         try:
             # First, download a second catalog to use for the comparison
-            dl_extention, dl_parameters, dl_payload = jsontools.load_test_data(self.JSON_FILE, 'getDownloader')
-            dl_parameters["targetLocation"] = "%2F/temp2%2F"
-            dl_url = self.BASE_URL + dl_extention
+            dl_ext, dl_param, dl_payload = json.load_test_data(self.JSON_FILE, 'getDownloader')
+            dl_param["targetLocation"] = "%2F/temp2%2F"
+            dl_url = self.BASE_URL + dl_ext
             # Tack on query parameters to end of URL
-            query_url = httptools.add_query_parameters(dl_url, dl_parameters)
-            response = httptools.rest_get(query_url)
+            query_url = http.add_query_parameters(dl_url, dl_param)
+            response = http.rest_get(query_url)
             # Second, get the details for the comparison function
-            response = httptools.rest_post(self.URL, self.payload)
+            response = http.rest_post(self.URL, self.payload)
 
         except Exception as exc:
             LOG.error("Exception: " + str(exc))
             raise exc
-
+'''
 if __name__ == "__main__":
     ARGS = sys.argv[1:].copy()
     if ARGS:
@@ -222,5 +182,5 @@ if __name__ == "__main__":
             LOG.info("Directory Override : %s", DIRECTORY_OVERRIDE)
             sys.argv.pop()
 
-    logtools.configure_logger_from_yaml('../logs/logger_config.yml')
+    logger.configure_logger_from_yaml('../logs/logger_config.yml')
     unittest.main()
