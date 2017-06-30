@@ -49,14 +49,6 @@ def empty_parameter_combinations(payload):
                     result[key] = ''
             yield result
 
-def bad_parameter_combos(payload):
-    """Generate all combinations of empty and missing parameters"""
-    for empty_combo in empty_parameter_combinations(payload):
-        yield empty_combo
-    for incomplete_combo in missing_parameter_combinations(payload):
-        yield incomplete_combo
-
-
 def rest_get_url(url):
     """Make a GET rest call to the specified URL"""
     LOG.debug("Calling GET: %s", url)
@@ -68,18 +60,12 @@ def rest_get(url, payload):
     """Make a GET rest call to the specified URL with parameters"""
     LOG.debug("Calling GET: %s Parameters : %s", url, payload)
     response = requests.get(url, headers=JSON_HEADER, params=payload)
-    LOG.debug("Results from GET: %s\n", response)
+    LOG.debug("Results from GET: %s", response)
     return response
 
 def rest_post(url, payload):
     """Make a POST rest call to the specified URL and payload"""
     LOG.debug("Calling POST: %s", url)
     response = requests.post(url, headers=JSON_HEADER, json=payload)
-    LOG.debug("Results from POST: %s\n", response)
+    LOG.debug("Results from POST: %s", response)
     return response
-
-def has_status_code(response, status):
-    """Check if response status code is equal to specifed code"""
-    LOG.debug("Response Status Code: %s", response.status_code)
-    return response.status_code == status
-

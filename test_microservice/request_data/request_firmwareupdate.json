@@ -1,15 +1,15 @@
 {
-	"services": {
+	"endpoints": {
 
 		"version": {
 			"path": "/api/1.0/server/firmware/version",
 			"test_data": [
                 [
                     {
-                        "test_description": "Make a request to get version, check for success"
+                        "DESCRIPTION": "Make a request to get version, check for success"
                     },
                     {
-                        "status_code": 200
+                        "STATUS_CODE": 200
                     }
                 ]
             ]
@@ -20,13 +20,13 @@
             "test_data": [
                 [
                     {
-                        "test_description": "Make a request to downloader with valid parameters, check for success",
+                        "DESCRIPTION": "Make a request to downloader with valid parameters, check for success",
                         "fileName": "Catalog.xml.gz",
                         "fileUrl": "ftp.dell.com%2Fcatalog",
                         "targetLocation": "%2Ftemp%2F"
                     },
                     {
-                        "status_code": 200
+                        "STATUS_CODE": 200
                     }
                 ]
             ]
@@ -37,7 +37,7 @@
             "test_data": [
                 [
                     {   
-                        "test_description": "Make a request to comparer with valid parameters, check for success",
+                        "DESCRIPTION": "Make a request to comparer with valid parameters, check for success",
                         "address": "",
                         "catalogPath": "/temp/Catalog.xml",
                         "password": "calvin",
@@ -47,35 +47,35 @@
                         "userName":"root"
                     },
                     {
-                        "status_code" : 200
+                        "STATUS_CODE" : 200
                     }
                 ],
                 [
-                    {
-                        "test_description": "Make a request to comparer with invalid IP, check for failure",
+                    {   
+                        "DESCRIPTION": "Make a request to comparer with invalid IP, check for failure",
                         "serverAddress": "100.100.100.100"
                     },
                     {
-                        "status_code" : 400
+                        "STATUS_CODE" : 400
                     }
                 ],
                 [
                     {
-                        "test_description": "Make a request to comparer with invalid username and password, check for failure",
+                        "DESCRIPTION": "Make a request to comparer with invalid username and password, check for failure",
                         "userName": "foo",
                         "password": "bar"
                     },
                     {
-                        "status_code" : 400
+                        "STATUS_CODE" : 400
                     }
                 ],
                 [
                     {
-                        "test_description": "Make a request to comparer with invalid catalog path, check for failure",
+                        "DESCRIPTION": "Make a request to comparer with invalid catalog path, check for failure",
                         "catalogPath": "/foo/cat.xml"
                     },
                     {
-                        "status_code": 400
+                        "STATUS_CODE": 400
                     }
                 ]       
             ]
@@ -90,7 +90,7 @@
                         "targetCatalog": "%2Ftemp2%2F"
                     },
                     {
-                        "status_code": 200
+                        "STATUS_CODE": 200
                     }
                 ]
             ]

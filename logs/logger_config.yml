@@ -11,7 +11,7 @@ disable_existing_loggers: false
 
 root:
 
-  level: WARNING
+  level: DEBUG
   handlers: [console, logFile]
   propagate: true
 
@@ -41,9 +41,9 @@ handlers:
 
   logFile:
     class: logging.handlers.TimedRotatingFileHandler
-    level: WARNING
+    level: DEBUG
     formatter: verbose
     when: H
     interval: 1
-    backupCount: 4
+    backupCount: 0
     filename: ../logs/smi-test-automation.log
