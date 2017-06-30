@@ -25,11 +25,12 @@ def configure_logger_from_yaml(path):
 
 def exception(logger):
     """
-    Deturn decorator to log exceptions using the specified logger
+    Return decorator to log exceptions using the specified logger
     """
     def decorator(func):
         """Decorate function with a try catch and a log record"""
         def wrapper(*args, **kwargs):
+            """Wraps around each test case"""
             try:
                 return func(*args, **kwargs)
             except:
