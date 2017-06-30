@@ -3,56 +3,96 @@
 
 		"version": {
 			"path": "/api/1.0/server/firmware/version",
-            "parameters": [{}],
-			"payload": [{}]
+			"test_data": [
+                [
+                    {
+                        "test_description": "Make a request to get version, check for success"
+                    },
+                    {
+                        "status_code": 200
+                    }
+                ]
+            ]
 		},
 
         "downloader": {
             "path": "/api/1.0/server/firmware/downloader",
-            "parameters": [
-                {
-                    "fileName": "Catalog.xml.gz",
-                    "fileUrl": "ftp.dell.com%2Fcatalog",
-                    "targetLocation": "%2Ftemp%2F"
-                }
-            ],
-            "payload": [{}]
+            "test_data": [
+                [
+                    {
+                        "test_description": "Make a request to downloader with valid parameters, check for success",
+                        "fileName": "Catalog.xml.gz",
+                        "fileUrl": "ftp.dell.com%2Fcatalog",
+                        "targetLocation": "%2Ftemp%2F"
+                    },
+                    {
+                        "status_code": 200
+                    }
+                ]
+            ]
         },
 
         "comparer": {
             "path": "/api/1.0/server/firmware/comparer",
-            "parameters": [{}],
-            "payload": [
-                {
-                    "address": "",
-                    "catalogPath": "/temp/Catalog.xml",
-                    "password": "calvin",
-                    "serverAddress": "100.68.123.226",
-                    "type": "wsman",
-                    "updateableComponentInventory":"",
-                    "userName":"root"
-                },
-                {
-                    "serverAddress": "100.100.100.100"
-                },
-                {
-                    "userName": "foo",
-                    "password": "bar"
-                },
-                {
-                    "catalogPath": "/foo/cat.xml"
-                }
+            "test_data": [
+                [
+                    {   
+                        "test_description": "Make a request to comparer with valid parameters, check for success",
+                        "address": "",
+                        "catalogPath": "/temp/Catalog.xml",
+                        "password": "calvin",
+                        "serverAddress": "100.68.123.226",
+                        "type": "wsman",
+                        "updateableComponentInventory":"",
+                        "userName":"root"
+                    },
+                    {
+                        "status_code" : 200
+                    }
+                ],
+                [
+                    {
+                        "test_description": "Make a request to comparer with invalid IP, check for failure",
+                        "serverAddress": "100.100.100.100"
+                    },
+                    {
+                        "status_code" : 400
+                    }
+                ],
+                [
+                    {
+                        "test_description": "Make a request to comparer with invalid username and password, check for failure",
+                        "userName": "foo",
+                        "password": "bar"
+                    },
+                    {
+                        "status_code" : 400
+                    }
+                ],
+                [
+                    {
+                        "test_description": "Make a request to comparer with invalid catalog path, check for failure",
+                        "catalogPath": "/foo/cat.xml"
+                    },
+                    {
+                        "status_code": 400
+                    }
+                ]       
             ]
         },
 
         "comparer_catalog": {
             "path": "/api/1.0/server/firmware/comparer/catalog",
-            "parameters": [{}],
-            "payload":[
-                {
-                    "sourceCatalog": "%2Ftemp%2F",
-                    "targetCatalog": "%2Ftemp2%2F"
-                }
+            "test_data":[
+                [
+                    {
+                        "sourceCatalog": "%2Ftemp%2F",
+                        "targetCatalog": "%2Ftemp2%2F"
+                    },
+                    {
+                        "status_code": 200
+                    }
+                ]
             ]
         }
 

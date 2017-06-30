@@ -46,15 +46,17 @@ class Version(FirmwareUpdateTest):
     def setUpClass(cls):
         """Load initial test data from json"""
         cls.ENDPOINT = 'version'
-        cls.path, cls.param, cls.payload = json.load_inital_test_data(cls.JSON_FILE, cls.ENDPOINT)
-        cls.URL = cls.BASE_URL + cls.path
+        cls.URL = cls.BASE_URL + json.load_endpoint_path(cls.JSON_FILE, cls.ENDPOINT)
 
     @logger.exception(LOG)
-    def test_01(self):
-        """Make a request to get version, check for success"""
-        response = http.rest_get(self.URL)
-        LOG.info("Response Status Code: %s", response.status_code)
-        self.assertEqual(response.status_code, 200, "Response code should equal 200")
+    def test_json(self):
+        """Run tests specified in JSON"""
+        for i in range(len(json.get_test_list(self.JSON_FILE, self.ENDPOINT))):
+            description, payload, expected = json.load_test_data(self.JSON_FILE, self.ENDPOINT, i)
+            print(description)
+            response = http.rest_get(self.URL, payload)
+            with self.subTest(test=i):
+                self.assertTrue(json.compare_response(response, expected), "Bad Response")
 
 ########################################################################
 # Downloader
@@ -66,39 +68,25 @@ class Downloader(FirmwareUpdateTest):
     def setUpClass(cls):
         """Load initial test data from json"""
         cls.ENDPOINT = 'downloader'
-        cls.path, cls.param, cls.payload = json.load_inital_test_data(cls.JSON_FILE, cls.ENDPOINT)
-        cls.URL = cls.BASE_URL + cls.path
+        cls.URL = cls.BASE_URL + json.load_endpoint_path(cls.JSON_FILE, cls.ENDPOINT)
 
     @logger.exception(LOG)
-    def test_01(self):
-        """Make a request to downloader with valid parameters, check for success"""
-        query_url = http.add_query_parameters(self.URL, self.param)
-        LOG.info("Query: %s", query_url)
-        response = http.rest_get(query_url)
-        LOG.info("Response Status Code: %s", response.status_code)
-        self.assertEqual(response.status_code, 200, "Response code should equal 200")
-
+    def test_bad_params(self):
+        """Make a request to downloader with missing or empty parameters, check for failure"""
+        for combo in http.bad_parameter_combos(json.base_payload(self.JSON_FILE, self.ENDPOINT)):
+            response = http.rest_get(self.URL, combo)
+            with self.subTest(parameters=combo):
+                self.assertTrue(http.has_status_code(response, 400), "Expected Response Code : 400")
     @logger.exception(LOG)
-    def test_02(self):
-        """Make a request to downloader with missing parameters, check for failure"""
-        for param_combo in http.missing_parameter_combinations(self.param):
-            query_url = http.add_query_parameters(self.URL, param_combo)
-            LOG.info("Query: %s", query_url)
-            response = http.rest_get(query_url)
-            LOG.info("Response Status Code: %s", response.status_code)
-            with self.subTest(parameters=param_combo):
-                self.assertEqual(response.status_code, 400, "Response code should equal 400")
+    def test_json(self):
+        """Run tests specified in JSON"""
+        for i in range(len(json.get_test_list(self.JSON_FILE, self.ENDPOINT))):
+            description, payload, expected = json.load_test_data(self.JSON_FILE, self.ENDPOINT, i)
+            print(description)
+            response = http.rest_get(self.URL, payload)
+            with self.subTest(test=i):
+                self.assertTrue(json.compare_response(response, expected), "Bad Response")
 
-    @logger.exception(LOG)
-    def test_03(self):
-        """Make a request to downloader with empty parameters, check for failure"""
-        for param_combo in http.empty_parameter_combinations(self.param):
-            query_url = http.add_query_parameters(self.URL, param_combo)
-            LOG.info("Query: %s", query_url)
-            response = http.rest_get(query_url)
-            LOG.info("Response Status Code: %s", response.status_code)
-            with self.subTest(parameters=param_combo):
-                self.assertEqual(response.status_code, 400, "Response code should equal 400")
 
 ########################################################################
 # Comparer
@@ -110,67 +98,46 @@ class Comparer(FirmwareUpdateTest):
     def setUpClass(cls):
         """Load initial test data from json"""
         cls.ENDPOINT = 'comparer'
-        cls.path, cls.param, cls.payload = json.load_inital_test_data(cls.JSON_FILE, cls.ENDPOINT)
-        cls.URL = cls.BASE_URL + cls.path
+        cls.URL = cls.BASE_URL + json.load_endpoint_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    @logger.exception(LOG)
+    def test_json(self):
+        """Run tests specified in JSON"""
+        for i in range(len(json.get_test_list(self.JSON_FILE, self.ENDPOINT))):
+            description, payload, expected = json.load_test_data(self.JSON_FILE, self.ENDPOINT, i)
+            print(description)
+            response = http.rest_post(self.URL, payload)
+            with self.subTest(test=i):
+                self.assertTrue(json.compare_response(response, expected), "Bad Response")
+
+########################################################################
+# Comparer Catalog
+########################################################################
+
+@unittest.skip("Compare has not been implemented yet")
+class ComparerCatalog(FirmwareUpdateTest):
+    """Tests for Comparer Catalog Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'comparer_catalog'
+        cls.URL = cls.BASE_URL + json.load_endpoint_path(cls.JSON_FILE, cls.ENDPOINT)
 
     @logger.exception(LOG)
     def test_01(self):
-        """Make a request to comparer with valid parameters, check for success"""
-        response = http.rest_post(self.URL, self.payload)
-        LOG.info("Response Status Code: %s", response.status_code)
-        self.assertEqual(response.status_code, 200, "Response code should equal 200")
+        """Compare this catalog to identical catalog in different directory"""
+        # First, download a second catalog to use for the comparison
+        dl_payload = json.base_payload(self.JSON_FILE, 'downloader')
+        dl_payload["targetLocation"] = "%2F/temp2%2F"
+        url = self.BASE_URL + json.load_endpoint_path(self.JSON_FILE, 'downloader')
+        http.rest_get(url, dl_payload)
+        # Second, get the details for the comparison function
+        response = http.rest_post(self.URL, json.base_payload(self.JSON_FILE, self.ENDPOINT))
 
-    @logger.exception(LOG)
-    def test_02(self):
-        """Make a request to comparer with invalid IP, check for failure"""
-        bad_payload = json.load_test_payload(self.JSON_FILE, self.ENDPOINT, 1)
-        response = http.rest_post(self.URL, bad_payload)
-        LOG.info("Response Status Code: %s", response.status_code)
-        self.assertEqual(response.status_code, 400, "Response code should equal 400")
+########################################################################
+# Placeholder
+########################################################################
 
-    def test_03(self):
-        """Make a request to comparer with invalid username and password, check for failure"""
-        bad_payload = json.load_test_payload(self.JSON_FILE, self.ENDPOINT, 2)
-        response = http.rest_post(self.URL, bad_payload)
-        LOG.info("Response Status Code: %s", response.status_code)
-        self.assertEqual(response.status_code, 400, "Response code should equal 400")
-
-    def test_04(self):
-        """Make a request to comparer with invalid catalog path, check for failure"""
-        bad_payload = json.load_test_payload(self.JSON_FILE, self.ENDPOINT, 3)
-        response = http.rest_post(self.URL, bad_payload)
-        LOG.info("Response Status Code: %s", response.status_code)
-        self.assertEqual(response.status_code, 400, "Response code should equal 400")
-
-'''
-@unittest.skip("Compare has not been implemented yet")
-class CompareCatalogs(FirmwareUpdateTest):
-    @classmethod
-    def setUpClass(cls):
-        """Initalize base url"""
-        service_url = '/api/1.0/server/firmware/comparer/catalog'
-        cls.URL = cls.BASE_URL + service_url
-
-    def setUp(self):
-        print("")
-        self.ext, self.param, self.payload = json.load_test_data(self.JSON_FILE, 'compareCatalogs')
-
-    def test0300_CompareSameCatalogs(self):
-        try:
-            # First, download a second catalog to use for the comparison
-            dl_ext, dl_param, dl_payload = json.load_test_data(self.JSON_FILE, 'getDownloader')
-            dl_param["targetLocation"] = "%2F/temp2%2F"
-            dl_url = self.BASE_URL + dl_ext
-            # Tack on query parameters to end of URL
-            query_url = http.add_query_parameters(dl_url, dl_param)
-            response = http.rest_get(query_url)
-            # Second, get the details for the comparison function
-            response = http.rest_post(self.URL, self.payload)
-
-        except Exception as exc:
-            LOG.error("Exception: " + str(exc))
-            raise exc
-'''
 if __name__ == "__main__":
     ARGS = sys.argv[1:].copy()
     if ARGS:

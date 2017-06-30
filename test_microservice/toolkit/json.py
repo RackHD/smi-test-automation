@@ -30,56 +30,111 @@ def create_json_reference(directory, filename):
     LOG.debug("Generated Reference :: %s", json_reference)
     return json_reference
 
-def load_inital_test_data(directory, endpoint):
-    """Load initial test data from provided json file"""
-    with open(directory) as stream:
-        data = json.load(stream)
-        path = data["services"][endpoint]["path"]
-        parameters = data["services"][endpoint]["parameters"][0]
-        payload = data["services"][endpoint]["payload"][0]
-        return path, parameters, payload
-
-def load_test_path(directory, endpoint):
+def load_endpoint_path(directory, endpoint):
     """Load url path at specified endpoint"""
     with open(directory) as stream:
         data = json.load(stream)
         path = data["services"][endpoint]["path"]
+        LOG.debug("Loaded Path : %s", path)
         return path
 
-def load_test_parameters(directory, endpoint, index):
-    """Load modified paramters at specified endpoint and index"""
+def get_test_list(directory, endpoint):
+    """Load list of all test payloads and expected results from endpoint"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_parameters = data["services"][endpoint]["parameters"][0]
-        mod_parameters = data["services"][endpoint]["parameters"][index]
-        return _combine_dictionaries(base_parameters, mod_parameters)
+        test_list = data["services"][endpoint]["test_data"]
+        LOG.debug("Loaded test data : %s", test_list)
+        return test_list
+
+def load_test_data(directory, endpoint, index):
+    """Load test description, payload, and expected results at index"""
+    with open(directory) as stream:
+        data = json.load(stream)
+        base_payload = data["services"][endpoint]["test_data"][0][0]
+        mod_payload = data["services"][endpoint]["test_data"][index][0]
+        expected = data["services"][endpoint]["test_data"][index][1]
+        description, payload = _build_payload(base_payload, mod_payload)
+        LOG.debug("Loaded description : %s", description)
+        LOG.debug("Loaded payload : %s", payload)
+        LOG.debug("Loaded expected results : %s", expected)
+        return description, payload, expected
+
+def base_payload(directory, endpoint):
+    """Load list of all test payloads and expected results from endpoint"""
+    return load_test_payload(directory, endpoint, 0)
 
 def load_test_payload(directory, endpoint, index):
-    """Load modified payload at specified endpoint and index"""
+    """Load expected data for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_payload = data["services"][endpoint]["parameters"][0]
-        mod_payload = data["services"][endpoint]["parameters"][index]
-        return _combine_dictionaries(base_payload, mod_payload)
+        base_payload = data["services"][endpoint]["test_data"][0][0]
+        mod_payload = data["services"][endpoint]["test_data"][index][0]
+        description, payload = _build_payload(base_payload, mod_payload)
+        LOG.debug("Loaded description : %s", description)
+        LOG.debug("Loaded payload : %s", payload)
+        return payload
 
-def _combine_dictionaries(base_dict, mod_dict):
+def load_expected_response(directory, endpoint, index):
+    """Load expected data for specified endpoint and test"""
+    with open(directory) as stream:
+        data = json.load(stream)
+        expected = data["services"][endpoint]["test_data"][index][1]
+        LOG.debug("Loaded expected data : %s", expected)
+        return expected
+
+def make_response_dict(response):
+    """Return a dictionary of the response body"""
+    response_dict = json.loads(response.text)
+    LOG.debug("Made dictionary from response : %s", response_dict)
+    return response_dict
+
+def _build_payload(base_dict, mod_dict):
     """
-    Compare base dictionary with modifications
-    Modify all values specified in modificaton dictionary
-    Use base dictionary for all unspecified values
-    If remove key is used, remove all keys associated with remove
-    If remove is passed all, ignore base dictionary
+    Assemble payload based on base payload and modificatons
+    Ignore remove and test_description keys
+    Anything specified in remove will be excluded from the payload
     """
     remove_list = []
+    description = "No description provided"
+    if "test_description" in mod_dict:
+        description = mod_dict["test_description"]
     if "remove" in mod_dict:
         remove_list = mod_dict["remove"]
+        LOG.debug("Keys to remove from base : %s", remove_list)
         if "all" in remove_list:
-            return mod_dict
-    combined_dict = {}
+            base_dict = []
+    built_dict = {key: mod_dict[key] for key in mod_dict
+                  if key != "remove" and key != "test_description"}
     for key in base_dict:
-        if key not in remove_list:
-            if key in mod_dict:
-                combined_dict[key] = mod_dict[key]
+        if key not in built_dict and key not in remove_list and key != "test_description":
+            built_dict[key] = base_dict[key]
+    LOG.debug("Assembled payload : %s", built_dict)
+    return description, built_dict
+
+def compare_response(response, exp_data):
+    """
+    Compare specified values in expected with those in response
+    If status_code is specified, compare with response status code as well
+    """
+    exp_status_code = None
+    if "status_code" in exp_data:
+        exp_status_code = exp_data["status_code"]
+    if exp_status_code:
+        if response.status_code != exp_status_code:
+            LOG.error("Bad response status code : %s Expected status code : %s",
+                      response.status_code, exp_status_code)
+            return False
+    exp_response_dict = {key: exp_data[key] for key in exp_data if key != "status_code"}
+    response_dict = make_response_dict(response)
+    for key in exp_response_dict:
+        if key in response_dict:
+            if exp_response_dict[key] == response_dict[key]:
+                continue
             else:
-                combined_dict[key] = base_dict[key]
-    return combined_dict
+                LOG.error("Bad Response for %s :: Expected : %s Actual Response : %s",
+                          key, exp_response_dict[key], response_dict[key])
+                return False
+        else:
+            LOG.error("Bad Response :: Expected key : %s not contained in response", key)
+            return False
+    return True
