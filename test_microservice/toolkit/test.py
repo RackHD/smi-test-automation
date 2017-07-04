@@ -23,9 +23,9 @@ def has_status_code(response, status):
 
 def bad_parameter_combos(payload):
     """Generate all combinations of empty and missing parameters"""
-    for empty_combo in http.empty_parameter_combinations(payload):
+    for empty_combo in http.empty_parameter_combos(payload):
         yield empty_combo
-    for incomplete_combo in http.missing_parameter_combinations(payload):
+    for incomplete_combo in http.missing_parameter_combos(payload):
         yield incomplete_combo
 
 def build_payload(base_dict, mod_dict):

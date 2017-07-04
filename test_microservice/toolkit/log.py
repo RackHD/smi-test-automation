@@ -12,6 +12,7 @@ Created on June 23, 2017
 """
 
 import logging.config
+ERROR_HEADER = "-----------------------------ERROR-----------------------------"
 
 def configure_logger_from_yaml(path):
     """Attempts to configure root logger from given YAML file"""
@@ -34,7 +35,7 @@ def exception(logger):
             try:
                 return func(*args, **kwargs)
             except:
-                logger.exception("Exception in %s", func.__name__)
+                logger.exception("Exception in %s\n%s\n", func.__name__, ERROR_HEADER)
                 raise
         return wrapper
     return decorator

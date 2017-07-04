@@ -33,19 +33,20 @@ def create_base_url(host, port):
     LOG.debug("Generated URL :: %s", formatted_host)
     return formatted_host
 
-def missing_parameter_combinations(payload):
+def missing_parameter_combos(payload):
     """Generate all combinations of missing paramters"""
-    for count in len(payload) - 1:
-        for combo in itertools.combinations(payload, count):
-            yield combo
+    for count, _ in enumerate(payload):
+        for key_combo in itertools.combinations(payload, count):
+            bad_dict = {key: payload[key] for key in key_combo}
+            yield bad_dict
 
-def empty_parameter_combinations(payload):
+def empty_parameter_combos(payload):
     """Generate all combinations of empty paramters"""
-    for count in len(payload) - 1:
-        for combo in itertools.combinations(payload, count):
+    for count, _ in enumerate(payload):
+        for key_combo in itertools.combinations(payload, count):
             result = payload.copy()
             for key in result:
-                if key not in combo:
+                if key not in key_combo:
                     result[key] = ''
             yield result
 
