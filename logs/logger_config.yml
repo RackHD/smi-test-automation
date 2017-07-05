@@ -11,7 +11,7 @@ disable_existing_loggers: false
 
 root:
 
-  level: DEBUG
+  level: INFO
   handlers: [console, logFile]
   propagate: true
 
@@ -35,13 +35,13 @@ handlers:
 
   console:
     class: logging.StreamHandler
-    level: WARNING
+    level: CRITICAL
     formatter: compact
     stream: ext://sys.stdout
 
   logFile:
     class: logging.handlers.TimedRotatingFileHandler
-    level: DEBUG
+    level: INFO
     formatter: verbose
     when: H
     interval: 1

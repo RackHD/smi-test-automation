@@ -49,22 +49,14 @@ class Version(FirmwareUpdateTest):
         cls.ENDPOINT = 'version'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
-    @log.exception(LOG)
     def test_json(self):
         """Run tests specified in JSON"""
-        for test_case in json.get_all_tests(self):
-            skip, description, payload, expected = json.parse_test(self, test_case)
-            if skip:
-                print(skip)
-            else:
-                response = http.rest_get(self.URL, payload)
-                with self.subTest(test=description):
-                    self.assertTrue(test.compare_response(response, expected), "Bad Response")
+        test.get_json(self)
 
 ###################################################################################################
 # Downloader
 ###################################################################################################
-@unittest.skip("debugging")
+
 class Downloader(FirmwareUpdateTest):
     """Tests for Downloader Endpoint"""
     @classmethod
@@ -73,31 +65,18 @@ class Downloader(FirmwareUpdateTest):
         cls.ENDPOINT = 'downloader'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
-    @log.exception(LOG)
-    def test_bad_params(self):
-        """Make a request to downloader with missing or empty parameters, check for failure"""
-        for combo in test.bad_parameter_combos(json.get_base_payload(self)):
-            response = http.rest_get(self.URL, combo)
-            with self.subTest(parameters=combo):
-                self.assertTrue(test.has_status_code(response, 400), "Expected Response Code : 400")
+    def test_bad_data(self):
+        """Run tests with missing or empty data, check for failure"""
+        test.get_bad_data(self)
 
-    @log.exception(LOG)
     def test_json(self):
         """Run tests specified in JSON"""
-        for test_case in json.get_all_tests(self):
-            skip, description, payload, expected = json.parse_test(self, test_case)
-            if skip:
-                print(skip)
-            else:
-                response = http.rest_get(self.URL, payload)
-                with self.subTest(test=description):
-                    self.assertTrue(test.compare_response(response, expected), "Bad Response")
-
+        test.get_json(self)
 
 ###################################################################################################
 # Comparer
 ###################################################################################################
-@unittest.skip("debugging")
+@unittest.skip("Compare has not been implemented yet")
 class Comparer(FirmwareUpdateTest):
     """Tests for Comparer Endpoint"""
     @classmethod
@@ -106,17 +85,9 @@ class Comparer(FirmwareUpdateTest):
         cls.ENDPOINT = 'comparer'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
-    @log.exception(LOG)
     def test_json(self):
         """Run tests specified in JSON"""
-        for test_case in json.get_all_tests(self):
-            skip, description, payload, expected = json.parse_test(self, test_case)
-            if skip:
-                print(skip)
-            else:
-                response = http.rest_post(self.URL, payload)
-                with self.subTest(test=description):
-                    self.assertTrue(test.compare_response(response, expected), "Bad Response")
+        test.post_json(self)
 
 ###################################################################################################
 # Comparer Catalog
@@ -130,7 +101,6 @@ class ComparerCatalog(FirmwareUpdateTest):
         cls.ENDPOINT = 'comparer_catalog'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
-    @log.exception(LOG)
     def test_01(self):
         """Compare this catalog to identical catalog in different directory"""
         # First, download a second catalog to use for the comparison

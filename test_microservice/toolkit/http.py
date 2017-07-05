@@ -14,10 +14,15 @@ Created on June 23, 2017
 import logging
 import itertools
 import requests
+from . import json
 
 LOG = logging.getLogger(__name__)
 
 JSON_HEADER = {'Content-Type': 'application/json'}
+
+###################################################################################################
+# Initialize Class Data
+###################################################################################################
 
 def select_host(default_host, override):
     """Compare default host and override to determine host"""
@@ -33,15 +38,19 @@ def create_base_url(host, port):
     LOG.debug("Generated URL :: %s", formatted_host)
     return formatted_host
 
-def missing_parameter_combos(payload):
-    """Generate all combinations of missing paramters"""
+###################################################################################################
+# Generate Request Data
+###################################################################################################
+
+def missing_data_combos(payload):
+    """Generate all combinations of missing data"""
     for count, _ in enumerate(payload):
         for key_combo in itertools.combinations(payload, count):
             bad_dict = {key: payload[key] for key in key_combo}
             yield bad_dict
 
-def empty_parameter_combos(payload):
-    """Generate all combinations of empty paramters"""
+def empty_data_combos(payload):
+    """Generate all combinations of empty data"""
     for count, _ in enumerate(payload):
         for key_combo in itertools.combinations(payload, count):
             result = payload.copy()
@@ -50,23 +59,27 @@ def empty_parameter_combos(payload):
                     result[key] = ''
             yield result
 
+###################################################################################################
+# Make Requests
+###################################################################################################
+
 def rest_get_url(url):
     """Make a GET rest call to the specified URL"""
-    LOG.debug("Calling GET: %s", url)
+    LOG.info("==== GET ==== :: URL : %s", url)
     response = requests.get(url, headers=JSON_HEADER)
-    LOG.debug("Results from GET: %s\n", response)
+    LOG.info("RESPONSE :: %s", json.make_response_dict(response))
     return response
 
 def rest_get(url, payload):
     """Make a GET rest call to the specified URL with parameters"""
-    LOG.debug("Calling GET: %s Parameters : %s", url, payload)
+    LOG.info("==== GET ==== :: URL : %s :: PAYLOAD : %s", url, payload)
     response = requests.get(url, headers=JSON_HEADER, params=payload)
-    LOG.debug("Results from GET: %s", response)
+    LOG.info("RESPONSE :: %s", json.make_response_dict(response))
     return response
 
 def rest_post(url, payload):
     """Make a POST rest call to the specified URL and payload"""
-    LOG.debug("Calling POST: %s", url)
+    LOG.info("==== POST ==== :: URL : %s :: PAYLOAD : %s", url, payload)
     response = requests.post(url, headers=JSON_HEADER, json=payload)
-    LOG.debug("Results from POST: %s", response)
+    LOG.info("RESPONSE :: %s", json.make_response_dict(response))
     return response

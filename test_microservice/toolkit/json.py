@@ -49,7 +49,7 @@ def endpoint_load_path(directory, endpoint):
 
 def get_path(end_class):
     """Load url path at for specified class"""
-    endpoint_load_path(end_class.JSON_FILE, end_class.ENDPOINT)
+    return endpoint_load_path(end_class.JSON_FILE, end_class.ENDPOINT)
 
 def get_all_tests(end_class):
     """Load list of all test payloads and expected results from class"""

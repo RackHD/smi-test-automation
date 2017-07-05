@@ -20,7 +20,6 @@
             "test_data": [
                 [
                     {
-                        "SKIP": "Downloader has a bug",
                         "DESCRIPTION": "Make a request to downloader with valid parameters, check for success",
                         "fileName": "Catalog.xml.gz",
                         "fileUrl": "ftp.dell.com%2Fcatalog",
@@ -33,45 +32,52 @@
             ]
         },
 
-        "comparer": {
-            "path": "/api/1.0/server/firmware/comparer",
+        "tomato": {
+            "path": "/get",
             "test_data": [
                 [
                     {   
-                        "DESCRIPTION": "Make a request to comparer with valid parameters, check for success",
-                        "address": "",
-                        "catalogPath": "/temp/Catalog.xml",
-                        "password": "calvin",
-                        "serverAddress": "100.68.123.226",
-                        "type": "wsman",
-                        "updateableComponentInventory":"",
-                        "userName":"root"
+                        "DESCRIPTION": "Base Test for dummy",
+                        "item1": "one",
+                        "item2": "two",
+                        "item3": "three"
                     },
                     {
-                        "STATUS_CODE" : 200
+                        "STATUS_CODE" : 200,
+                        "args": {
+                            "item1": "one", 
+                            "item2": "two",
+                            "item3": "three"
+                            },
+                        "origin": "143.166.81.254"
                     }
                 ],
                 [
                     {   
-                        "DESCRIPTION": "Make a request to comparer with invalid IP, check for failure",
-                        "serverAddress": "100.100.100.100"
+                        "DESCRIPTION": "change to flop",
+                        "item3": "flop"
                     },
                     {
-                        "STATUS_CODE" : 400
+                        "args": {
+                            "item1": "one", 
+                            "item2": "two",
+                            "item3": "flop"
+                            }
                     }
                 ],
                 [
                     {
-                        "DESCRIPTION": "Make a request to comparer with invalid username and password, check for failure",
-                        "userName": "foo",
-                        "password": "bar"
+                        "DESCRIPTION": "remove args because I can and there is no other reason",
+                        "REMOVE": ["all"]
                     },
                     {
-                        "STATUS_CODE" : 400
+                        "STATUS_CODE" : 200,
+                        "args": {}
                     }
                 ],
                 [
-                    {
+                    {   
+                        "SKIP": "cant think of a test",
                         "DESCRIPTION": "Make a request to comparer with invalid catalog path, check for failure",
                         "catalogPath": "/foo/cat.xml"
                     },

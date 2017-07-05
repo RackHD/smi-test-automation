@@ -180,7 +180,7 @@ class DiscoveryTest(unittest.TestCase):
         except Exception as e1:
             logger.error("Exception: " + str(e1))
             raise e1         
-    
+
     def testDiscoveryEndpointRangeDefaultCredentialChassis(self):
         try :                                                
             x =2
