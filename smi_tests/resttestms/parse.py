@@ -29,7 +29,7 @@ def is_host(arg):
 
 def get_host(arg):
     """Get host from provided argument"""
-    host = re.sub("host:", "", str(arg).lower())
+    host = re.sub(r'host:', "", str(arg).lower())
     return host
 
 def is_data(arg):
@@ -41,7 +41,7 @@ def is_data(arg):
 
 def get_data(arg):
     """Get data directory from provided argument"""
-    data = re.sub("data:", "", str(arg).lower())
+    data = re.sub(r'data:', "", str(arg).lower())
     return data
 
 def has_negate(arg):
@@ -59,6 +59,16 @@ def strip_negate(arg):
 ###################################################################################################
 # Test Data Parsers
 ###################################################################################################
+
+def status_code(status):
+    """Parse status code to get operation and code value"""
+    operation = '='
+    code = None
+    if re.search(r'[=<>]', str(status)):
+        operation = re.sub(r'[\d\s]', "", str(status))
+    if re.search(r'[\d]', str(status)):
+        code = int(re.sub(r'[=<>\s]', "", str(status)))
+    return operation, code
 
 def build_payload(base_dict, mod_dict):
     """

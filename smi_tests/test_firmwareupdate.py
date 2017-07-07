@@ -113,7 +113,7 @@ class ComparerCatalog(FirmwareUpdateTest):
         response = http.rest_post(self.URL, json.get_base_payload(self))
 
 ###################################################################################################
-# Placeholder
+# RUN MODULE
 ###################################################################################################
 
 if __name__ == "__main__":

@@ -1,101 +1,106 @@
 {
-	"endpoints": {
 
-		"version": {
-			"path": "/api/1.0/server/firmware/version",
-			"test_data": [
-                [
-                    {
-                        "DESCRIPTION": "Make a request to get version, check for success"
-                    },
-                    {
-                        "STATUS_CODE": 200
-                    }
-                ]
+    "version": 
+    {
+        "path": "/api/1.0/server/firmware/version",
+        "test_data":
+        [
+            [
+                {
+                    "DESCRIPTION": "Make a request to get version, check for success"
+                },
+                {
+                    "STATUS_CODE": "200"
+                }
             ]
-		},
+        ]
+    },
 
-        "downloader": {
-            "path": "/api/1.0/server/firmware/downloader",
-            "test_data": [
-                [
-                    {
-                        "DESCRIPTION": "Make a request to downloader with valid parameters, check for success",
-                        "fileName": "Catalog.xml.gz",
-                        "fileUrl": "ftp.dell.com%2Fcatalog",
-                        "targetLocation": "%2Ftemp%2F"
-                    },
-                    {
-                        "STATUS_CODE": 200
-                    }
-                ]
+    "downloader": 
+    {
+        "path": "/api/1.0/server/firmware/downloader",
+        "test_data": 
+        [
+            [
+                {
+                    "DESCRIPTION": "Make a request to downloader with valid parameters, check for success",
+                    "fileName": "Catalog.xml.gz",
+                    "fileUrl": "ftp.dell.com%2Fcatalog",
+                    "targetLocation": "%2Ftemp%2F"
+                },
+                {
+                    "STATUS_CODE": "200"
+                }
             ]
-        },
+        ]
+    },
 
-        "comparer": {
-            "path": "/api/1.0/server/firmware/comparer",
-            "test_data": [
-                [
-                    {   
-                        "DESCRIPTION": "Make a request to comparer with valid parameters, check for success",
-                        "address": "",
-                        "catalogPath": "/temp/Catalog.xml",
-                        "password": "calvin",
-                        "serverAddress": "100.68.123.226",
-                        "type": "wsman",
-                        "updateableComponentInventory":"",
-                        "userName":"root"
-                    },
-                    {
-                        "STATUS_CODE" : 200
-                    }
-                ],
-                [
-                    {   
-                        "DESCRIPTION": "Make a request to comparer with invalid IP, check for failure",
-                        "serverAddress": "100.100.100.100"
-                    },
-                    {
-                        "STATUS_CODE" : 400
-                    }
-                ],
-                [
-                    {
-                        "DESCRIPTION": "Make a request to comparer with invalid username and password, check for failure",
-                        "userName": "foo",
-                        "password": "bar"
-                    },
-                    {
-                        "STATUS_CODE" : 400
-                    }
-                ],
-                [
-                    {
-                        "DESCRIPTION": "Make a request to comparer with invalid catalog path, check for failure",
-                        "catalogPath": "/foo/cat.xml"
-                    },
-                    {
-                        "STATUS_CODE": 400
-                    }
-                ]       
+    "comparer": 
+    {
+        "path": "/api/1.0/server/firmware/comparer",
+        "test_data": 
+        [
+            [
+                {   
+                    "DESCRIPTION": "Make a request to comparer with valid parameters, check for success",
+                    "address": "",
+                    "catalogPath": "/temp/Catalog.xml",
+                    "password": "calvin",
+                    "serverAddress": "100.68.123.226",
+                    "type": "wsman",
+                    "updateableComponentInventory":"",
+                    "userName":"root"
+                },
+                {
+                    "STATUS_CODE" : "200"
+                }
+            ],
+            [
+                {   
+                    "DESCRIPTION": "Make a request to comparer with invalid IP, check for failure",
+                    "serverAddress": "100.100.100.100"
+                },
+                {
+                    "STATUS_CODE" : "400"
+                }
+            ],
+            [
+                {
+                    "DESCRIPTION": "Make a request to comparer with invalid username and password, check for failure",
+                    "userName": "foo",
+                    "password": "bar"
+                },
+                {
+                    "STATUS_CODE" : "400"
+                }
+            ],
+            [
+                {
+                    "DESCRIPTION": "Make a request to comparer with invalid catalog path, check for failure",
+                    "catalogPath": "/foo/cat.xml"
+                },
+                {
+                    "STATUS_CODE": "400"
+                }
+            ]       
+        ]
+    },
+
+    "comparer_catalog": 
+    {
+        "path": "/api/1.0/server/firmware/comparer/catalog",
+        "test_data":[
+            [
+                {
+                    "sourceCatalog": "%2Ftemp%2F",
+                    "targetCatalog": "%2Ftemp2%2F"
+                },
+                {
+                    "STATUS_CODE": "200"
+                }
             ]
-        },
-
-        "comparer_catalog": {
-            "path": "/api/1.0/server/firmware/comparer/catalog",
-            "test_data":[
-                [
-                    {
-                        "sourceCatalog": "%2Ftemp%2F",
-                        "targetCatalog": "%2Ftemp2%2F"
-                    },
-                    {
-                        "STATUS_CODE": 200
-                    }
-                ]
-            ]
-        }
-
+        ]
     }
+
 }
 

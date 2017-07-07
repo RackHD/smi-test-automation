@@ -1,29 +1,109 @@
 {
-    "services":{
 
-        "details":{
-            "url":"/api/1.0/chassis/inventory/details",
-            "parameters": { },
-            "payload":{
+    "callback": 
+    {
+        "path": "/api/1.0/chassis/inventory/callback",
+        "test_data": 
+        [
+            [
+                {   
+                    "SKIP": "Not Implemented",
+                    "DESCRIPTION": "No Description"
+                },
+                {
+                    "STATUS_CODE": "400"
+                }
+            ]
+        ]
+    },
 
-                "address":"100.68.124.98",
-                "userName":"root",
-                "password":"calvin"
+    "details":
+    {
+        "path": "/api/1.0/chassis/inventory/details",
+        "test_data": 
+        [
+            [
+                {
+                    "DESCRIPTION": "No Description",
+                    "address":"100.68.124.98",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                {
+                    "STATUS_CODE": "200",
+                    "chassisControllers": 
+                    [
+                        {
+                        "id": 0,
+                        "name": "CMC-9XLTW52",
+                        "location": "[UNDEFINED]",
+                        "firmwareVersion": "1.30",
+                        "hardwareVersion": "A01",
+                        "midplaneVersion": "1.0",
+                        "lastFirmwareUpdateTime": null,
+                        "controllerStatus": null
+                        }
+                    ]
+                }
+            ],
+            [
+                {
+                    "DESCRIPTION": "No Description",
+                    "REMOVE":["all"]
+                },
+                {
+                    "STATUS_CODE": ">206"
+                }
+            ]
+        ]
+    },
 
-            }
-        },
+    "ips": 
+    {
+        "path": "/api/1.0/chassis/inventory/ips",
+        "test_data": 
+        [
+            [
+                {   
+                    "SKIP": "Not Implemented",
+                    "DESCRIPTION": "No Description"
+                },
+                {
+                    "STATUS_CODE": "400"
+                }
+            ]
+        ]
+    },
 
-        "summary":{
-            "url":"/api/1.0/chassis/inventory/summary",
-            "parameters": { },
-            "payload":{
-
-                "address":"100.68.124.98",
-                "userName":"root",
-                "password":"calvin"
-
-            }
-        }
-
+    "summary": 
+    {
+        "path": "/api/1.0/chassis/inventory/summary",
+        "test_data": 
+        [
+            [
+                {
+                    "DESCRIPTION": "No Description",
+                    "address":"100.68.124.98",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                {
+                    "STATUS_CODE": "200",
+                    "serviceTag": "9XLTW52"
+                }
+            ],
+            [
+                {
+                    "DESCRIPTION": "No Description",
+                    "REMOVE":["all"]
+                },
+                {
+                    "STATUS_CODE": ">206"
+                }
+            ]
+        ]
     }
+
 }
+
+

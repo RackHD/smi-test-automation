@@ -12,7 +12,7 @@ Created on June 28, 2017
 """
 
 import logging
-from . import json, http, log
+from . import json, http, log, parse
 
 LOG = logging.getLogger(__name__)
 
@@ -26,7 +26,7 @@ def get_bad_data(end_class):
     for combo in _bad_data_combos(json.get_base_payload(end_class)):
         response = http.rest_get(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertFalse(has_status_code(response, 200), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(response, "<= 400"), "Expected Response Code : 400")
 
 @log.exception(LOG)
 def post_bad_data(end_class):
@@ -34,7 +34,7 @@ def post_bad_data(end_class):
     for combo in _bad_data_combos(json.get_base_payload(end_class)):
         response = http.rest_post(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertFalse(has_status_code(response, 200), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(response, "<= 400"), "Expected Response Code : 400")
 
 @log.exception(LOG)
 def get_bad_data_except(end_class, good_combos):
@@ -42,7 +42,7 @@ def get_bad_data_except(end_class, good_combos):
     for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
         response = http.rest_get(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertFalse(has_status_code(response, 200), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(response, "<= 400"), "Expected Response Code : 400")
 
 @log.exception(LOG)
 def post_bad_data_except(end_class, good_combos):
@@ -50,7 +50,7 @@ def post_bad_data_except(end_class, good_combos):
     for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
         response = http.rest_post(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertFalse(has_status_code(response, 200), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(response, ">= 400"), "Expected Response Code : 400")
 
 @log.exception(LOG)
 def get_json(end_class):
@@ -104,9 +104,19 @@ def _bad_data_combos_except(payload, good_combos):
 ###################################################################################################
 
 def has_status_code(response, status):
-    """Check if response status code is equal to specifed code"""
-    LOG.debug("Checking Response Status Code :: Expected : %s Actual : %s", status, response.status_code)
-    return response.status_code == status
+    """Check if response status code is less than, greater than, or equal to specifed code"""
+    operation, code = parse.status_code(status)
+    LOG.debug("Checking Response Status Code :: Expected : %s %s Actual : %s", operation, code, response.status_code)
+    if operation == '=' or operation == '==':
+        return response.status_code == code
+    elif operation == '>':
+        return response.status_code > code
+    elif operation == '<':
+        return response.status_code < code
+    elif operation == '>=':
+        return response.status_code >= code
+    elif operation == '<=':
+        return response.status_code <= code
 
 def compare_response(response, exp_data):
     """
