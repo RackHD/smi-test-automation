@@ -13,7 +13,7 @@ Created on June 26, 2017
 
 import logging
 import json
-from . import test
+from . import parse
 
 LOG = logging.getLogger(__name__)
 
@@ -59,7 +59,7 @@ def parse_test(end_class, test_data):
     """Parse test description, payload, and expected results from test data"""
     base_payload = get_base_payload(end_class)
     mod_payload, expected = test_data[0], test_data[1]
-    skip, description, payload = test.build_payload(base_payload, mod_payload)
+    skip, description, payload = parse.build_payload(base_payload, mod_payload)
     if skip:
         LOG.debug("Skip this test")
     LOG.debug("Description : %s", description)
@@ -102,7 +102,7 @@ def endpoint_load_test(directory, endpoint, index):
         base_payload = data["endpoints"][endpoint]["test_data"][0][0]
         mod_payload = data["endpoints"][endpoint]["test_data"][index][0]
         expected = data["endpoints"][endpoint]["test_data"][index][1]
-        skip, description, payload = test.build_payload(base_payload, mod_payload)
+        skip, description, payload = parse.build_payload(base_payload, mod_payload)
         if skip:
             LOG.debug("Skip this test")
         LOG.debug("Description : %s", description)
@@ -120,7 +120,7 @@ def endpoint_load_test_payload(directory, endpoint, index):
         data = json.load(stream)
         base_payload = data["endpoints"][endpoint]["test_data"][0][0]
         mod_payload = data["endpoints"][endpoint]["test_data"][index][0]
-        payload = test.build_payload(base_payload, mod_payload)[2]
+        payload = parse.build_payload(base_payload, mod_payload)[2]
         if index != 0:
             LOG.debug("Loaded payload at index %s: %s", index, payload)
         return payload

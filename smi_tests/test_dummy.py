@@ -14,28 +14,28 @@ LOG = logging.getLogger(__name__)
 # Leave as None to use default Host
 HOST_OVERRIDE = 'httpbin.org'
 # Leave as None to use default json directory
-DIRECTORY_OVERRIDE = None
+DATA_OVERRIDE = None
 
 def setUpModule():
     """Initialize data for all test cases using overrides"""
     LOG.info("Begin Firmware Update Tests")
-    FirmwareUpdateTest.initialize_data(HOST_OVERRIDE, DIRECTORY_OVERRIDE)
+    FirmwareUpdateTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE)
 
 class FirmwareUpdateTest(unittest.TestCase):
     """Collection of data to test the firmware update microservice"""
 
     HOST = 'localhost' # will grab default from elsewhere
     PORT = '80'
-    DIRECTORY = 'request_data' # will grab default from elsewhere
-    JSON_NAME = 'request_dummy.json'
+    DATA = 'test_data' # will grab default from elsewhere
+    JSON_NAME = 'data_dummy.json'
 
     @classmethod
     def initialize_data(cls, host_override, directory_override):
         """Initialize base url and json file path"""
         cls.HOST = http.select_host(cls.HOST, host_override)
-        cls.DIRECTORY = json.select_directory(cls.DIRECTORY, directory_override)
+        cls.DATA = json.select_directory(cls.DATA, directory_override)
         cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
-        cls.JSON_FILE = json.create_json_reference(cls.DIRECTORY, cls.JSON_NAME)
+        cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
 # Version
@@ -67,8 +67,8 @@ if __name__ == "__main__":
         LOG.info("Host Override : %s", HOST_OVERRIDE)
         sys.argv.pop()
         if ARGS:
-            DIRECTORY_OVERRIDE = ARGS.pop(0)
-            LOG.info("Directory Override : %s", DIRECTORY_OVERRIDE)
+            DATA_OVERRIDE = ARGS.pop(0)
+            LOG.info("Directory Override : %s", DATA_OVERRIDE)
             sys.argv.pop()
 
     log.configure_logger_from_yaml('../logs/logger_config.yml')

@@ -78,11 +78,6 @@ def post_json(end_class):
             with end_class.subTest(test=description):
                 end_class.assertTrue(compare_response(response, expected), "Bad Response")
 
-def has_status_code(response, status):
-    """Check if response status code is equal to specifed code"""
-    LOG.debug("Checking Response Status Code :: Expected : %s Actual : %s", status, response.status_code)
-    return response.status_code == status
-
 ###################################################################################################
 # Test Data Generators
 ###################################################################################################
@@ -105,33 +100,13 @@ def _bad_data_combos_except(payload, good_combos):
             yield bad_combo
 
 ###################################################################################################
-# Test Data Parsers
+# Test Results
 ###################################################################################################
 
-def build_payload(base_dict, mod_dict):
-    """
-    Assemble payload based on base payload and modificatons
-    Ignore remove and test_description keys
-    Anything specified in remove will be excluded from the payload
-    """
-    remove_list = ["REMOVE", "DESCRIPTION", "SKIP"]
-    description = "No description provided"
-    skip = None
-    built_dict = {key: mod_dict[key] for key in mod_dict
-                  if key not in remove_list}
-    if "SKIP" in mod_dict:
-        skip = "TEST SKIPPED :: " + mod_dict["SKIP"]
-    if "DESCRIPTION" in mod_dict:
-        description = mod_dict["DESCRIPTION"]
-    if "REMOVE" in mod_dict:
-        remove_list.extend(mod_dict["REMOVE"])
-        LOG.debug("Keys to remove from base : %s", remove_list)
-        if "all" in remove_list:
-            base_dict = []
-    for key in base_dict:
-        if key not in built_dict and key not in remove_list:
-            built_dict[key] = base_dict[key]
-    return skip, description, built_dict
+def has_status_code(response, status):
+    """Check if response status code is equal to specifed code"""
+    LOG.debug("Checking Response Status Code :: Expected : %s Actual : %s", status, response.status_code)
+    return response.status_code == status
 
 def compare_response(response, exp_data):
     """

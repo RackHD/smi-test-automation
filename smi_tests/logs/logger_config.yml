@@ -41,9 +41,9 @@ handlers:
 
   logFile:
     class: logging.handlers.TimedRotatingFileHandler
-    level: INFO
+    level: DEBUG
     formatter: verbose
     when: H
-    interval: 1
-    backupCount: 0
-    filename: ../logs/smi-test-automation.log
+    interval: 2
+    backupCount: 5
+    filename: logs/smi_test_automation.log

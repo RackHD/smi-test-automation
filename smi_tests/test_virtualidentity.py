@@ -10,14 +10,7 @@ import unittest
 import sys
 import os
 import logging
-run_dir=os.path.abspath(os.path.dirname(__file__))
-current_dir = os.getcwd()
-os.chdir(run_dir)
-sys.path.insert(0,os.path.abspath('../utility'))
-sys.path.append(os.path.abspath('../handlers'))
 
-from UtilBase import Utility
-from VirtualIdentityMicroservice import VirtualIdentityHandler
 
 logger = logging.getLogger(__name__)
 

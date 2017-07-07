@@ -8,34 +8,37 @@ Created on June 5, 2017
 import unittest
 import sys
 import logging
-from toolkit import http, json, log, test
+import auto_test
+from resttestms import http, json, log, test, parse
 
 LOG = logging.getLogger(__name__)
+
 # Leave as None to use default Host
-HOST_OVERRIDE = '100.68.125.170'
+HOST_OVERRIDE = None
+
 # Leave as None to use default json directory
-DIRECTORY_OVERRIDE = None
+DATA_OVERRIDE = None
 
 def setUpModule():
     """Initialize data for all test cases using overrides"""
     LOG.info("Begin Firmware Update Tests")
-    FirmwareUpdateTest.initialize_data(HOST_OVERRIDE, DIRECTORY_OVERRIDE)
+    FirmwareUpdateTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE)
 
 class FirmwareUpdateTest(unittest.TestCase):
     """Collection of data to test the firmware update microservice"""
 
-    HOST = 'localhost' # will grab default from elsewhere
+    HOST = auto_test.HOST
     PORT = '46010'
-    DIRECTORY = 'request_data' # will grab default from elsewhere
-    JSON_NAME = 'request_firmwareupdate.json'
+    DATA = auto_test.DATA
+    JSON_NAME = 'data_firmwareupdate.json'
 
     @classmethod
     def initialize_data(cls, host_override, directory_override):
         """Initialize base url and json file path"""
         cls.HOST = http.select_host(cls.HOST, host_override)
-        cls.DIRECTORY = json.select_directory(cls.DIRECTORY, directory_override)
+        cls.DATA = json.select_directory(cls.DATA, directory_override)
         cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
-        cls.JSON_FILE = json.create_json_reference(cls.DIRECTORY, cls.JSON_NAME)
+        cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
 # Version
@@ -56,7 +59,7 @@ class Version(FirmwareUpdateTest):
 ###################################################################################################
 # Downloader
 ###################################################################################################
-
+@unittest.skip("Downloader is broken")
 class Downloader(FirmwareUpdateTest):
     """Tests for Downloader Endpoint"""
     @classmethod
@@ -116,15 +119,8 @@ class ComparerCatalog(FirmwareUpdateTest):
 ###################################################################################################
 
 if __name__ == "__main__":
-    ARGS = sys.argv[1:].copy()
-    if ARGS:
-        HOST_OVERRIDE = ARGS.pop(0)
-        LOG.info("Host Override : %s", HOST_OVERRIDE)
-        sys.argv.pop()
-        if ARGS:
-            DIRECTORY_OVERRIDE = ARGS.pop(0)
-            LOG.info("Directory Override : %s", DIRECTORY_OVERRIDE)
-            sys.argv.pop()
-
-    log.configure_logger_from_yaml('../logs/logger_config.yml')
+    HOST, DATA = parse.single_microservice_args(sys.argv)
+    HOST_OVERRIDE = HOST if HOST else HOST_OVERRIDE
+    DATA_OVERRIDE = DATA if DATA else DATA_OVERRIDE
+    log.configure_logger_from_yaml('logs/logger_config.yml')
     unittest.main()

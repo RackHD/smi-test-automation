@@ -20,7 +20,6 @@
             "test_data": [
                 [
                     {
-                        "SKIP": "Downloader has a bug",
                         "DESCRIPTION": "Make a request to downloader with valid parameters, check for success",
                         "fileName": "Catalog.xml.gz",
                         "fileUrl": "ftp.dell.com%2Fcatalog",

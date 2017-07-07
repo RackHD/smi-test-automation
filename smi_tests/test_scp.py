@@ -10,9 +10,7 @@ import os
 import unittest
 import sys
 import logging
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from handlers.SCPMicroservice import SCPHandler
-from utility.UtilBase import Utility
+
 
 logger = logging.getLogger(__name__)
 
