@@ -8,7 +8,7 @@ Created on June 5, 2017
 import unittest
 import sys
 import logging
-import auto_test
+import config
 from resttestms import http, json, log, test, parse
 
 LOG = logging.getLogger(__name__)
@@ -26,17 +26,15 @@ def setUpModule():
 
 class FirmwareUpdateTest(unittest.TestCase):
     """Collection of data to test the firmware update microservice"""
-
-    HOST = auto_test.HOST
+    
     PORT = '46010'
-    DATA = auto_test.DATA
     JSON_NAME = 'data_firmwareupdate.json'
 
     @classmethod
     def initialize_data(cls, host_override, directory_override):
         """Initialize base url and json file path"""
-        cls.HOST = http.select_host(cls.HOST, host_override)
-        cls.DATA = json.select_directory(cls.DATA, directory_override)
+        cls.HOST = http.select_host(config.HOST, host_override)
+        cls.DATA = json.select_directory(config.DATA, directory_override)
         cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
         cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
 

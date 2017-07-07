@@ -22,6 +22,8 @@ Each microservice ID is associated with an alias
 -- Input --
 Enter an IP address to assign it as host [100.68.125.170]
 Use the prefix 'host:' to set a named host [host:node-example]
+Enter a directory path to assign it as data directory [./test_data]
+Use the prefix 'data:' to set a data directory [data:test_data]
 If no tests are specified, all will run by default
 Microservice IDs can be separated with or without a space [123 or 1 2 3]
 Microservice Aliases are case insensitive [DISC or disc]
@@ -30,6 +32,7 @@ Host, Aliases, and IDs can be passed as parameters in any order
 [host:node-example CHIN svin 1 56 !2]
 
 Argument format examples:
+==================================================================================
 
 >>> auto_test - Run all tests
 >>> auto_test 4 - Run test with ID 4
@@ -38,9 +41,11 @@ Argument format examples:
 >>> auto_test DISC SCP CHIN - Run tests with ID 1, 6, and 3
 >>> auto_test 24 vNw 314 ScP - Run tests with ID 2, 4, 7, 3, 1, and 6
 >>> auto_test ^345 - Run all tests except those with ID 3, 4, and 5
->>> auto_test 100.68.125.170 5! - Run all tests on specified host except test 5
+>>> auto_test 100.68.125.170 ./test_data 5! - Run all tests from test_data on specified host except test 5
 >>> auto_test host:node-example 345 - Run tests with ID 3, 4, 5 on specified host
+>>> auto_test host:node-example 345 data:test_data - Run tests with ID 3, 4, 5 from test_data on specified host
 
+==================================================================================
 :Copyright: (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 :License: Apache 2.0, see LICENSE for more details.
 
@@ -55,19 +60,8 @@ __copyright__ = 'Copyright 2017 DELL Inc.'
 import sys
 import unittest
 import logging
-
-from resttestms import http, json, log, parse
-
-log.configure_logger_from_yaml('logs/logger_config.yml')
-LOG = logging.getLogger(__name__)
-
-# ------------ ARGUMENT CONFIGURATION PROFILE ------------
-##########################################################
-
-# Default host
-HOST = 'localhost'
-# Default directory for test data
-DATA = 'test_data'
+import config
+from resttestms import log, parse
 
 import test_discovery as disc
 import test_chassisinventory as chin
@@ -77,6 +71,12 @@ import test_scp as scp
 import test_virtualidentity as vid
 import test_virtualnetwork as vnw
 import test_firmwareupdate as fwup
+
+log.configure_logger_from_yaml('logs/logger_config.yml')
+LOG = logging.getLogger(__name__)
+
+# ------------ ARGUMENT CONFIGURATION PROFILE ------------
+##########################################################
 
 # Microservice ID
 M_ID = {
@@ -120,8 +120,8 @@ def _load_tests(test_keys):
 
 def run_tests(keys):
     """Run specified tests using key set"""
-    LOG.info("Host: %s", HOST)
-    LOG.info("Data Directory: %s", DATA)
+    LOG.info("Host: %s", config.HOST)
+    LOG.info("Data Directory: %s", config.DATA)
     LOG.info("Test Keys: %s", keys)
     test_suite = _load_tests(keys)
     LOG.debug("Loaded Tests: %s", test_suite)
@@ -152,8 +152,7 @@ def parse_keys_tester():
             LOG.exception("Test failed with args {}".format(case))
 
 if __name__ == '__main__':
-    PARSED_HOST, PARSED_DATA, PARSED_KEYS = parse.auto_test_args(M_ID, ALIAS, *sys.argv[1:])
-    print()
-    HOST = PARSED_HOST #if PARSED_HOST else HOST
-    DATA = PARSED_DATA #if PARSED_DATA else DATA
-    run_tests(PARSED_KEYS)
+    PARSED_HOST, PARSED_DATA, KEYS = parse.auto_test_args(M_ID, ALIAS, *sys.argv[1:])
+    config.HOST = PARSED_HOST if PARSED_HOST else config.HOST
+    config.DATA = PARSED_DATA if PARSED_DATA else config.DATA
+    run_tests(KEYS)

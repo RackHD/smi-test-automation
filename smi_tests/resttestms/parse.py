@@ -16,6 +16,10 @@ import re
 
 LOG = logging.getLogger(__name__)
 
+###################################################################################################
+# Special Argument Parsers
+###################################################################################################
+
 def is_host(arg):
     """Check to see if provided argument is a host"""
     host = False
@@ -52,6 +56,10 @@ def strip_negate(arg):
     stripped = re.sub("[\\^\\!]", "", str(arg))
     return stripped
 
+###################################################################################################
+# Test Data Parsers
+###################################################################################################
+
 def build_payload(base_dict, mod_dict):
     """
     Assemble payload based on base payload and modificatons
@@ -77,6 +85,10 @@ def build_payload(base_dict, mod_dict):
             built_dict[key] = base_dict[key]
     return skip, description, built_dict
 
+###################################################################################################
+# System argument parsers
+###################################################################################################
+
 def single_microservice_args(sys_args):
     """Parse arguments when running a single microservice"""
     host_override = None
@@ -95,9 +107,7 @@ def single_microservice_args(sys_args):
 
 def auto_test_args(data_m_id, data_alias, *args):
     """Parse arguments from auto_tester to determine which tests will be loaded"""
-    
     arguments = [arg for arg in args]
-    
     test_keys = set()
     remove_keys = set()
     test_arguments = []
