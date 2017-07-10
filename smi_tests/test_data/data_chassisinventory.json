@@ -34,14 +34,7 @@
                     "chassisControllers": 
                     [
                         {
-                        "id": 0,
-                        "name": "CMC-9XLTW52",
-                        "location": "[UNDEFINED]",
-                        "firmwareVersion": "1.30",
-                        "hardwareVersion": "A01",
-                        "midplaneVersion": "1.0",
-                        "lastFirmwareUpdateTime": null,
-                        "controllerStatus": null
+                        "name": "CMC-9XLTW52"
                         }
                     ]
                 }

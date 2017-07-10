@@ -25,7 +25,7 @@ def select_directory(default_directory, override):
     """Compare default directory and override to determine json directory"""
     LOG.debug("Default Directory :: %s Override :: %s", default_directory, override)
     directory = override if override else default_directory
-    LOG.info("Selected host was %s", directory)
+    LOG.info("Selected data directory was %s", directory)
     return directory
 
 def create_json_reference(directory, filename):
@@ -39,7 +39,7 @@ def endpoint_load_path(directory, endpoint):
     """Load url path at specified endpoint"""
     with open(directory) as stream:
         data = json.load(stream)
-        path = data["endpoints"][endpoint]["path"]
+        path = data[endpoint]["path"]
         LOG.debug("Loaded Path : %s", path)
         return path
 
@@ -91,7 +91,7 @@ def endpoint_load_all_tests(directory, endpoint):
     """Load list of all test payloads and expected results from endpoint"""
     with open(directory) as stream:
         data = json.load(stream)
-        test_list = data["endpoints"][endpoint]["test_data"]
+        test_list = data[endpoint]["test_data"]
         LOG.debug("Loaded test data : %s", test_list)
         return test_list
 
@@ -99,9 +99,9 @@ def endpoint_load_test(directory, endpoint, index):
     """Load test description, payload, and expected results at index"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_payload = data["endpoints"][endpoint]["test_data"][0][0]
-        mod_payload = data["endpoints"][endpoint]["test_data"][index][0]
-        expected = data["endpoints"][endpoint]["test_data"][index][1]
+        base_payload = data[endpoint]["test_data"][0][0]
+        mod_payload = data[endpoint]["test_data"][index][0]
+        expected = data[endpoint]["test_data"][index][1]
         skip, description, payload = parse.build_payload(base_payload, mod_payload)
         if skip:
             LOG.debug("Skip this test")
@@ -118,8 +118,8 @@ def endpoint_load_test_payload(directory, endpoint, index):
     """Load expected data for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_payload = data["endpoints"][endpoint]["test_data"][0][0]
-        mod_payload = data["endpoints"][endpoint]["test_data"][index][0]
+        base_payload = data[endpoint]["test_data"][0][0]
+        mod_payload = data[endpoint]["test_data"][index][0]
         payload = parse.build_payload(base_payload, mod_payload)[2]
         if index != 0:
             LOG.debug("Loaded payload at index %s: %s", index, payload)
@@ -129,7 +129,7 @@ def endpoint_load_test_response(directory, endpoint, index):
     """Load expected data for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        expected = data["endpoints"][endpoint]["test_data"][index][1]
+        expected = data[endpoint]["test_data"][index][1]
         LOG.debug("Loaded expected data at index %s: %s", index, expected)
         return expected
 

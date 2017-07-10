@@ -47,7 +47,7 @@ class Callback(ChassisInventoryTest):
     @classmethod
     def setUpClass(cls):
         """Load initial test data from json"""
-        cls.ENDPOINT = 'ips'
+        cls.ENDPOINT = 'callback'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
@@ -63,7 +63,7 @@ class Details(ChassisInventoryTest):
     @classmethod
     def setUpClass(cls):
         """Load initial test data from json"""
-        cls.ENDPOINT = 'ips'
+        cls.ENDPOINT = 'details'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):

@@ -82,7 +82,7 @@ def build_payload(base_dict, mod_dict):
     built_dict = {key: mod_dict[key] for key in mod_dict
                   if key not in remove_list}
     if "SKIP" in mod_dict:
-        skip = "TEST SKIPPED :: " + mod_dict["SKIP"]
+        skip = "JSON TEST SKIPPED :: " + mod_dict["SKIP"]
     if "DESCRIPTION" in mod_dict:
         description = mod_dict["DESCRIPTION"]
     if "REMOVE" in mod_dict:
