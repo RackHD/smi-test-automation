@@ -169,7 +169,7 @@ def recursive_equal(response, expected):
                 return False
             if not recursive_equal(response[item], expected[item]):
                 LOG.error("============ BAD RESPONSE ============ :: Key: %s Expected : %s Actual : %s",
-                        item, response[item], expected[item])
+                        item, expected[item], response[item])
                 return False
         return True
     if isinstance(expected, (list, tuple, set)):

@@ -5,201 +5,95 @@ Created on May 2, 2017
 
 @author: Prashanth_L_Gowda
 '''
-import json
+
 import unittest
-import sys, os
+import sys
 import logging
+import config
+from resttestms import http, json, log, test, parse
 
+LOG = logging.getLogger(__name__)
 
-logger = logging.getLogger(__name__)
+# Leave as None to use default Host
+HOST_OVERRIDE = None
+
+# Leave as None to use default json directory
+DATA_OVERRIDE = None
+
+def setUpModule():
+    """Initialize data for all test cases using overrides"""
+    LOG.info("Begin Discovery Tests")
+    DiscoveryTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE)
+
 class DiscoveryTest(unittest.TestCase):
-
-    def setUp(self):
-        print("")
-
-    def testDiscoveryEndpointIPSGlobalCredentialServer(self):
-        try :
-            x = 0;
-            response = DiscoveryHandler().discoveryByIPS(x)
-            logger.info("Response:" + response.text)
-            responseJson = json.loads(response.text)
-            requestData, url = DiscoveryHandler().getByIpsRequestData()
-            requestIPAddress = requestData[x]["ips"]         
-            # logger.info("Request IP Address: " + requestIPAddress[:])           
-            for obj in responseJson:
-                deviceGroup = obj["deviceGroup"]
-                if deviceGroup == 'SERVER':
-                    discoveredDeviceTypeList = obj["discoveredDeviceList"]
-                    for deviceTypes in discoveredDeviceTypeList:
-                        deviceName = deviceTypes["deviceName"]
-                        discovered = deviceTypes["discovered"]
-                        if deviceName == 'IDRAC8':
-                            self.assertTrue(discovered >= 1, "NO IP Discovered")
-                            deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
-                            for deviceInfo in deviceInfoList:
-                                discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
-                                if discoveredIP in requestIPAddress :
-                                    status = deviceInfo["status"]
-                                    self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                            
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
-    
-    def testDiscoveryEndpointIPSGlobalCredentialServerChassis(self):
-        try :
-            
-            x = 1
-            response = DiscoveryHandler().discoveryByIPS(x)
-            logger.info("Response" + response.text)
-            responseJson = json.loads(response.text)
-            requestData, url = DiscoveryHandler().getByIpsRequestData()
-            requestIPAddress = requestData[x]["ips"]         
-            # logger.info("Request IP Address: " + requestIPAddress[:])           
-            for obj in responseJson:
-                deviceGroup = obj["deviceGroup"]
-                if deviceGroup == 'SERVER' or deviceGroup == 'CHASSIS':
-                    discoveredDeviceTypeList = obj["discoveredDeviceList"]
-                    for deviceTypes in discoveredDeviceTypeList:
-                        deviceName = deviceTypes["deviceName"]
-                        discovered = deviceTypes["discovered"]
-                        if deviceName == 'IDRAC8' or deviceName == 'CMC_FX2':
-                            self.assertTrue(discovered >= 1, "NO IP Discovered")
-                            deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
-                            for deviceInfo in deviceInfoList:
-                                discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
-                                if discoveredIP in requestIPAddress :
-                                    status = deviceInfo["status"]
-                                    self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                            
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1   
-        
-    def testDiscoveryEndpointIPSDefaultCredentialServer(self):
-        try :
-            
-            x = 2
-            response = DiscoveryHandler().discoveryByIPS(x)
-            logger.info("Response" + response.text)
-            responseJson = json.loads(response.text)
-            requestData, url = DiscoveryHandler().getByIpsRequestData()
-            requestIPAddress = requestData[x]["ips"]         
-            #logger.info("Request IP Address: " + requestIPAddress[0])           
-            for obj in responseJson:
-                deviceGroup = obj["deviceGroup"]
-                if deviceGroup == 'SERVER':
-                    discoveredDeviceTypeList = obj["discoveredDeviceList"]
-                    for deviceTypes in discoveredDeviceTypeList:
-                        deviceName = deviceTypes["deviceName"]
-                        discovered = deviceTypes["discovered"]
-                        if deviceName == 'IDRAC8':
-                            self.assertTrue(discovered >= 1, "NO IP Discovered")
-                            deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
-                            for deviceInfo in deviceInfoList:
-                                discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
-                                if discoveredIP in requestIPAddress :
-                                    status = deviceInfo["status"]
-                                    self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                            
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1       
-    
-    
-    
-    def testDiscoveryEndpointRangeGlobalCredentialServerChassis(self):
-        try :                                                
-            x = 0
-            response = DiscoveryHandler().discoveryByRange(x)
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-            requestData, url = DiscoveryHandler().getByRangeRequestData()
-            requestIPAddress = [requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceStartIp"] , requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceEndIp"]]           
-            # logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRange: Request IP Address: " + requestIPAddress[:])           
-            for obj in responseJson:
-                deviceGroup = obj["deviceGroup"]
-                if deviceGroup == 'SERVER' or deviceGroup == 'CHASSIS':
-                    discoveredDeviceTypeList = obj["discoveredDeviceList"]
-                    for deviceTypes in discoveredDeviceTypeList:
-                        deviceName = deviceTypes["deviceName"]
-                        discovered = deviceTypes["discovered"]
-                        if deviceName == 'IDRAC8' or deviceName == 'CMC_FX':
-                            self.assertTrue(discovered >= 1, "NO IP Discovered")
-                            deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
-                            for deviceInfo in deviceInfoList:
-                                discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
-                                if discoveredIP in requestIPAddress :
-                                    status = deviceInfo["status"]
-                                    self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                          
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1          
+    """Collection of data to test the discovery microservice"""
  
- 
- 
-    def testDiscoveryEndpointRangeLocalCredentialServer(self):
-        try :                                                
-            x = 1
-            response = DiscoveryHandler().discoveryByRange(x)
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-            requestData, url = DiscoveryHandler().getByRangeRequestData()
-            requestIPAddress = [requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceStartIp"] , requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceEndIp"]]           
-            # logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRange: Request IP Address: " + requestIPAddress[:])           
-            for obj in responseJson:
-                deviceGroup = obj["deviceGroup"]
-                if deviceGroup == 'SERVER':
-                    discoveredDeviceTypeList = obj["discoveredDeviceList"]
-                    for deviceTypes in discoveredDeviceTypeList:
-                        deviceName = deviceTypes["deviceName"]
-                        discovered = deviceTypes["discovered"]
-                        if deviceName == 'IDRAC8':
-                            self.assertTrue(discovered >= 1, "NO IP Discovered")
-                            deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
-                            for deviceInfo in deviceInfoList:
-                                discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
-                                if discoveredIP in requestIPAddress :
-                                    status = deviceInfo["status"]
-                                    self.assertEqual(status, "SUCCESS", "Discovery status NOT success")   
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1         
+    PORT = '46002'
+    JSON_NAME = 'data_discovery.json'
 
-    def testDiscoveryEndpointRangeDefaultCredentialChassis(self):
-        try :                                                
-            x =2
-            response = DiscoveryHandler().discoveryByRange(x)
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-            requestData, url = DiscoveryHandler().getByRangeRequestData()
-            requestIPAddress = [requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceStartIp"] , requestData[x]["discoverIpRangeDeviceRequests"][0]["deviceEndIp"]]           
-            # logger.info("DiscoveryMicroserviceTest: testDiscoveryEndpointRange: Request IP Address: " + requestIPAddress[:])           
-            for obj in responseJson:
-                deviceGroup = obj["deviceGroup"]
-                if deviceGroup == 'CHASSIS':
-                    discoveredDeviceTypeList = obj["discoveredDeviceList"]
-                    for deviceTypes in discoveredDeviceTypeList:
-                        deviceName = deviceTypes["deviceName"]
-                        discovered = deviceTypes["discovered"]
-                        if deviceName == 'CMC_FX2':
-                            self.assertTrue(discovered >= 1, "NO IP Discovered")
-                            deviceInfoList = deviceTypes["discoveredDeviceInfoList"]                        
-                            for deviceInfo in deviceInfoList:
-                                discoveredIP = deviceInfo["ipAddress"]
-                                logger.info("Response IP Address after Discovery: " + discoveredIP)   
-                                if discoveredIP in requestIPAddress :
-                                    status = deviceInfo["status"]
-                                    self.assertEqual(status, "SUCCESS", "Discovery status NOT success")                                          
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1  
+    @classmethod
+    def initialize_data(cls, host_override, directory_override):
+        """Initialize base url and json file path"""
+        cls.HOST = http.select_host(config.HOST, host_override)
+        cls.DATA = json.select_directory(config.DATA, directory_override)
+        cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
+        cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
+
+###################################################################################################
+# Config Device
+###################################################################################################
+
+class ConfigDevice(DiscoveryTest):
+    """Tests for Config Device Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'config_device'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """Run tests specified in JSON"""
+        test.get_json(self)
+
+###################################################################################################
+# IPS
+###################################################################################################
+
+class IPS(DiscoveryTest):
+    """Tests for IPS Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'ips'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """Run tests specified in JSON"""
+        test.post_json(self)
+
+###################################################################################################
+# Range
+###################################################################################################
+
+class Range(DiscoveryTest):
+    """Tests for Range Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'range'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """Run tests specified in JSON"""
+        test.post_json(self)
+
+###################################################################################################
+# RUN MODULE
+###################################################################################################
+
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        DiscoveryHandler.host = sys.argv.pop()
-    else:
-        DiscoveryHandler.host = "http://localhost:46002"
-    from test_manager import run_tests
-    run_tests('DISC')
+    HOST, DATA = parse.single_microservice_args(sys.argv)
+    HOST_OVERRIDE = HOST if HOST else HOST_OVERRIDE
+    DATA_OVERRIDE = DATA if DATA else DATA_OVERRIDE
+    log.configure_logger_from_yaml('logs/logger_config.yml')
+    unittest.main()

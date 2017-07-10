@@ -10,13 +10,7 @@ import logging
 from . import handler_tools as tools
 
 logger = logging.getLogger(__name__)
-#import os
-#import sys
-#from scripts.SMI.utility.UtilBase import Utility
-#run_dir=os.path.abspath(os.path.dirname(__file__))
-#current_dir = os.getcwd()
-#os.chdir(run_dir)
-#sys.path.insert(0,os.path.abspath('../utility'))
+
 class DiscoveryHandler(Utility):    
     
     def __init__(self):
@@ -31,7 +25,7 @@ class DiscoveryHandler(Utility):
         result = get_response(action, url, request_json, headers)
         logger.info("Result from the Discovery Microservice: \n" + result.text)        
         return result
-    
+
     def discoveryByRange(self,index):
         logger.info("discoverByRange")
         requestData, url = self.getByRangeRequestData()
@@ -41,10 +35,10 @@ class DiscoveryHandler(Utility):
         result = get_response(action, url, request_json, headers)
         logger.info("Result from the Discovery Microservice: \n" + result.text)        
         return result
-        
+
     def getByIpsRequestData(self):
         logger.info("getByIpsRequestData")
-        
+
         with open("../requestdata/discoveryRequestPayload.json") as data_file:
             data = json.load(data_file)
             

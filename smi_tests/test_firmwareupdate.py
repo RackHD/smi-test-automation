@@ -57,7 +57,7 @@ class Version(FirmwareUpdateTest):
 ###################################################################################################
 # Downloader
 ###################################################################################################
-@unittest.skip("Downloader is broken")
+@unittest.skip("Downloader is not working")
 class Downloader(FirmwareUpdateTest):
     """Tests for Downloader Endpoint"""
     @classmethod

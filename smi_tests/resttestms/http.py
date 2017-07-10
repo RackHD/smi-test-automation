@@ -67,19 +67,19 @@ def rest_get_url(url):
     """Make a GET rest call to the specified URL"""
     LOG.info("==== GET ==== :: URL : %s", url)
     response = requests.get(url, headers=JSON_HEADER)
-    LOG.info("RESPONSE :: %s", json.make_response_dict(response))
+    LOG.info("RESPONSE :: %s", json.get_response_data(response))
     return response
 
 def rest_get(url, payload):
     """Make a GET rest call to the specified URL with parameters"""
     LOG.info("==== GET ==== :: URL : %s :: PAYLOAD : %s", url, payload)
     response = requests.get(url, headers=JSON_HEADER, params=payload)
-    LOG.info("RESPONSE :: %s", json.make_response_dict(response))
+    LOG.info("RESPONSE :: %s", json.get_response_data(response))
     return response
 
 def rest_post(url, payload):
     """Make a POST rest call to the specified URL and payload"""
     LOG.info("==== POST ==== :: URL : %s :: PAYLOAD : %s", url, payload)
     response = requests.post(url, headers=JSON_HEADER, json=payload)
-    LOG.info("RESPONSE :: %s", json.make_response_dict(response))
+    LOG.info("RESPONSE :: %s", json.get_response_data(response))
     return response
