@@ -136,24 +136,27 @@ def compare_response(response, exp_data):
     Compare specified values in expected with those in response
     If status_code is specified, compare with response status code as well
     """
-    response_dict = json.make_response_dict(response)
-    return compare_data(response.status_code, response_dict, exp_data)
+    response_data = json.get_response_data(response)
+    return compare_data(response.status_code, response_data, exp_data)
 
-def compare_data(status_code, response_dict, exp_data):
+def compare_data(status_code, response_data, exp_data):
     """
-    Compare specified values in expected with those in response dictionary
+    Compare specified values in expected with those in response data
     If status_code is specified, compare with response status code as well
     """
     exp_status_code = None
     if "STATUS_CODE" in exp_data:
         exp_status_code = exp_data["STATUS_CODE"]
+    if "RESPONSE" in exp_data:
+        exp_response_data = exp_data["RESPONSE"]
+    else:
+        exp_response_data = {key: exp_data[key] for key in exp_data if key not in ["STATUS_CODE"]}
     if exp_status_code:
         if not check_status_code(status_code, exp_status_code):
             LOG.error("============ BAD RESPONSE ============ :: Expected status code : %s Actual Status Code : %s",
                       exp_status_code, status_code)
             return False
-    exp_response_dict = {key: exp_data[key] for key in exp_data if key != "STATUS_CODE"}
-    return recursive_equal(response_dict, exp_response_dict)
+    return recursive_equal(response_data, exp_response_data)
 
 def recursive_equal(response, expected):
     """Recursively compare iterable data to check for equality"""

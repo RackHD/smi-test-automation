@@ -137,8 +137,8 @@ def endpoint_load_test_response(directory, endpoint, index):
 # JSON Utilites
 ###################################################################################################
 
-def make_response_dict(response):
-    """Return a dictionary of the response body"""
-    response_dict = json.loads(response.text)
-    LOG.debug("Made dictionary from response : %s", response_dict)
-    return response_dict
+def get_response_data(response):
+    """Return the data of the response body"""
+    response_data = json.loads(response.text)
+    LOG.debug("Getting data from response : %s", response_data)
+    return response_data
