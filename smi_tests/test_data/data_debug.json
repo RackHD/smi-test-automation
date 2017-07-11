@@ -1,0 +1,299 @@
+{
+    "debug":
+    {
+        "path": "/api/1.0/discover/ips",
+        "test_data": 
+        [
+            [
+				{
+					"DESCRIPTION": "No Description",
+					"credential": 
+					{
+						"userName": "root",
+						"password": "calvin"
+					},
+					"deviceType": 
+					[
+						"SERVER",
+						"CHASSIS"
+					],
+					"ips": 
+					[
+						"100.68.124.95",
+						"100.68.124.98"
+					]
+					
+				},
+				{
+					"RESPONSE":
+					[
+						{
+							"deviceGroup": "SERVER",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "IDRAC8",
+									"discovered": 1,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.95",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						},
+						{
+							"deviceGroup": "CHASSIS",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "CMC_FX2",
+									"discovered": 1,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.98",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+            ],
+			[
+				{
+					"DESCRIPTION": "No Description",
+					"deviceType": 
+					[
+						"SERVER"
+					],
+					"ips": 
+					[
+						"100.68.124.95"
+					]
+				},
+				{
+                    "STATUS_CODE": "200",
+					"RESPONSE":
+					[
+						{
+							"deviceGroup": "SERVER",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "IDRAC8",
+									"discovered": 1,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.95",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						}
+					]
+                }
+			],
+			[
+				{
+					"DESCRIPTION": "No Description",
+					"REMOVE": ["credential", "deviceType"],
+					"ips": [
+						"100.68.124.95"
+					]
+				},
+				{
+                    "STATUS_CODE": "200",
+					"RESPONSE":
+					[
+						{
+							"deviceGroup": "SERVER",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "IDRAC8",
+									"discovered": 1,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.95",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						}
+					]
+                }
+			]
+        ]
+    },
+
+    "range": 
+    {
+        "path": "/api/1.0/discover/range",
+        "test_data": 
+        [
+            [
+				{
+					"DESCRIPTION": "No Description",
+					"credential":
+					{
+						"userName": "root",
+						"password": "calvin"
+					},
+					"discoverIpRangeDeviceRequests":
+					[
+						{
+						"deviceType": 
+						[
+							"SERVER",
+							"CHASSIS"
+						],
+						"deviceStartIp": "100.68.124.95",
+						"deviceEndIp": "100.68.124.98"
+						}
+					]
+				},
+                {
+                    "STATUS_CODE": "200",
+					"RESPONSE":
+					[
+						{
+							"deviceGroup": "SERVER",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "IDRAC8",
+									"discovered": 1,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.95",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						},
+						{
+							"deviceGroup": "CHASSIS",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "CMC_FX2",
+									"discovered": 2,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.98",
+											"status": "SUCCESS"
+										},
+										{
+											"ipAddress": "100.68.124.97",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						}
+					]
+                }
+            ],
+			[
+				{
+					"DESCRIPTION": "No Description",
+					"discoverIpRangeDeviceRequests": 
+					[
+						{
+							"deviceType": 
+							[
+								"SERVER"
+							],
+							"deviceStartIp": "100.68.124.95",
+							"deviceEndIp": "100.68.124.98",
+							"credential": 
+							{
+								"userName": "root",
+								"password": "calvin"
+							}
+						}
+					]
+				},
+                {
+                    "STATUS_CODE": "200",
+					"RESPONSE":
+					[
+						{
+							"deviceGroup": "SERVER",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "IDRAC8",
+									"discovered": 1,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.95",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						}
+					]
+                }
+            ],
+			[
+				{
+					"DESCRIPTION": "No Description",
+					"discoverIpRangeDeviceRequests": 
+					[
+						{
+							"deviceType": 
+							[
+								"CHASSIS"
+							],
+							"deviceStartIp": "100.68.124.95",
+							"deviceEndIp": "100.68.124.98"
+						}
+					]
+				},
+                {
+                    "STATUS_CODE": "200",
+					"RESPONSE":
+					[
+						{
+							"deviceGroup": "CHASSIS",
+							"discoveredDeviceList":
+							[
+								{
+									"deviceName": "CMC_FX2",
+									"discovered": 2,
+									"discoveredDeviceInfoList":
+									[
+										{
+											"ipAddress": "100.68.124.97",
+											"status": "SUCCESS"
+										},
+										{
+											"ipAddress": "100.68.124.98",
+											"status": "SUCCESS"
+										}
+									]
+								}
+							]
+						}
+					]
+                }
+            ]
+        ]
+    }
+
+}

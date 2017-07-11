@@ -70,30 +70,119 @@ def status_code(status):
         code = int(re.sub(r'[=<>\s]', "", str(status)))
     return operation, code
 
-def build_payload(base_dict, mod_dict):
-    """
-    Assemble payload based on base payload and modificatons
-    Ignore remove and test_description keys
-    Anything specified in remove will be excluded from the payload
-    """
-    remove_list = ["REMOVE", "DESCRIPTION", "SKIP"]
-    description = "No description provided"
+def is_list_mod(potential_mod_string):
+    "Check if list element is a modifier string"
+    list_mod = False
+    if re.search(r'REMOVE\s*:\s*|REPLACE\s*:|INSERT\s*:\s*|APPEND\s*:?\s*', str(potential_mod_string)):
+        list_mod = True
+    return list_mod
+
+def get_list_mod(mod_string):
+    if "APPEND" in mod_string:
+        return "APPEND", None
+    else:
+        spaceless_string = re.sub(r'\s', "", str(mod_string))
+        mod_list = re.split(r':', spaceless_string)
+        operation = mod_list[0]
+        if operation == 'REMOVE' and 'all' in mod_list[1].lower():
+            locations = 'all'
+        else:
+            locations = re.split(r',', mod_list[1])
+        return operation, locations
+
+def build_test_case(test_data, test_name):
+    """Parse out all test case information using provided test data"""
     skip = None
-    built_dict = {key: mod_dict[key] for key in mod_dict
-                  if key not in remove_list}
-    if "SKIP" in mod_dict:
-        skip = "JSON TEST SKIPPED :: " + mod_dict["SKIP"]
-    if "DESCRIPTION" in mod_dict:
-        description = mod_dict["DESCRIPTION"]
-    if "REMOVE" in mod_dict:
-        remove_list.extend(mod_dict["REMOVE"])
-        LOG.debug("Keys to remove from base : %s", remove_list)
-        if "all" in remove_list:
-            base_dict = []
-    for key in base_dict:
-        if key not in built_dict and key not in remove_list:
-            built_dict[key] = base_dict[key]
-    return skip, description, built_dict
+    description = "No Description"
+    error = "Bad Response"
+    if "SKIP" in test_data:
+        skip = test_data["SKIP"]
+    if "DESCRIPTION" in test_data:
+        description = test_data["DESCRIPTION"]
+    if "ERROR" in test_data:
+        error = test_data["ERROR"]
+    mod_payload = test_data[test_name]["payload"]
+    mod_response = test_data[test_name]["response"]
+    try:
+        base_payload = test_data["test_base"]["payload"]
+        base_response = test_data["test_base"]["response"]
+    except KeyError:
+        base_payload = mod_payload
+        base_response = mod_response
+        LOG.info("No base test data found for %s", test_name)
+    payload = build_payload(base_payload, mod_payload)
+    response = build_response(base_response, mod_response)
+    if skip:
+        LOG.debug("Skip this test")
+    LOG.debug("Description : %s", description)
+    LOG.debug("Payload : %s", payload)
+    LOG.debug("Expected response : %s", response)
+    LOG.debug("Error Message : %s", error)
+    return skip, description, payload, response, error
+
+def build_payload(base_payload, mod_payload):
+    """
+    """
+    return _combine_items(base_payload, mod_payload)
+
+def build_response(base_response, mod_response):
+    """
+    """
+    return _combine_items(base_response, mod_response)
+
+def _combine_items(base_item, mod_item):
+    """Recursive utility to assemble items using the base and modifications"""
+    if not isinstance(mod_item, type(base_item)):
+        LOG.error("Type mismatch between base and modification data :: Base : %s Modification : %s",
+                  type(base_item), type(mod_item))
+        raise TypeError
+    if isinstance(mod_item, (dict)):
+        base_dict, mod_dict = base_item, mod_item
+        remove_list = ["REMOVE"]
+        if "REMOVE" in mod_dict:
+            remove_list.extend(mod_dict["REMOVE"])
+            if "all" in remove_list:
+                del mod_dict["REMOVE"]
+                return mod_dict
+        combined_dict = {}
+        for key in base_dict not in remove_list:
+            if key in mod_dict:
+                combined_dict[key] = _combine_items(base_dict[key], mod_dict[key])
+            else:
+                combined_dict[key] = base_dict[key]
+        return combined_dict  
+    elif isinstance(mod_item, (list)):
+        base_list, mod_list = base_item, mod_item
+        combined_list = base_list
+        mod_args = None
+        mod_mode = 'APPEND'
+        replace, insert = {}, {}
+        for item in mod_list:
+            if is_list_mod(item):
+                mod_mode, mod_args = get_list_mod(item)
+                if mod_mode == 'REMOVE':
+                    if mod_args = 'all':
+                        combined_list = []
+                    else:
+                        for index in sorted(mod_args, reverse=True):
+                            del combined_list[index]
+                    mod_mode == 'APPEND'
+            else:
+                if mod_mode == 'REPLACE' and mod_args:
+                    index = mod_args.pop(0)
+                    replace[index] = item
+                elif mod_mode == 'INSERT' and mod_args:
+                    index = mod_args.pop(0)
+                    inset[index] = mod_args.pop(0)
+                else:
+                    combined_list.append(item)
+        for index in sorted(replace.keys(), reverse=True):
+            combined_list[index] = _combine_items(combined_list[index], replace[index])
+        for index in sorted(insert.keys(), reverse=True):
+            combined_list.insert(index, insert[index])
+        return combined_list
+    else:
+        return mod_item
 
 ###################################################################################################
 # System argument parsers

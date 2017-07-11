@@ -63,28 +63,28 @@ def get_json(end_class):
     """Run tests specified in JSON using GET requests"""
     LOG.info("Begin JSON defined GET tests for %s", end_class.__class__.__name__)
     print("")
-    for test_case in json.get_all_tests(end_class):
-        skip, description, payload, expected = json.parse_test(end_class, test_case)
+    for test_name in json.get_all_tests(end_class):
+        skip, description, payload, expected, error = json.get_test(end_class, test_name)
         if skip:
             print(skip)
         else:
             response = http.rest_get(end_class.URL, payload)
             with end_class.subTest(test=description):
-                end_class.assertTrue(compare_response(response, expected), "Bad Response")
+                end_class.assertTrue(compare_response(response, expected), error)
 
 @log.exception(LOG)
 def post_json(end_class):
     """Run tests specified in JSON using POST requests"""
     LOG.info("Begin JSON defined POST tests for %s", end_class.__class__.__name__)
     print("")
-    for test_case in json.get_all_tests(end_class):
-        skip, description, payload, expected = json.parse_test(end_class, test_case)
+    for test_name in json.get_all_tests(end_class):
+        skip, description, payload, expected, error = json.get_test(end_class, test_name)
         if skip:
             print(skip)
         else:
             response = http.rest_post(end_class.URL, payload)
             with end_class.subTest(test=description):
-                end_class.assertTrue(compare_response(response, expected), "Bad Response")
+                end_class.assertTrue(compare_response(response, expected), error)
 
 ###################################################################################################
 # Test Data Generators

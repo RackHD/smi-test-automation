@@ -55,33 +55,33 @@ def get_all_tests(end_class):
     """Load list of all test payloads and expected results from class"""
     return endpoint_load_all_tests(end_class.JSON_FILE, end_class.ENDPOINT)
 
-def parse_test(end_class, test_data):
-    """Parse test description, payload, and expected results from test data"""
-    base_payload = get_base_payload(end_class)
-    mod_payload, expected = test_data[0], test_data[1]
-    skip, description, payload = parse.build_payload(base_payload, mod_payload)
-    if skip:
-        LOG.debug("Skip this test")
-    LOG.debug("Description : %s", description)
-    LOG.debug("Payload : %s", payload)
-    LOG.debug("Expected results : %s", expected)
-    return skip, description, payload, expected
+# def get_test(end_class, test_data):
+#     """Parse test description, payload, and expected results from test data"""
+#     base_payload = get_base_payload(end_class)
+#     mod_payload, expected = test_data[0], test_data[1]
+#     skip, description, payload = parse.build_payload(base_payload, mod_payload)
+#     if skip:
+#         LOG.debug("Skip this test")
+#     LOG.debug("Description : %s", description)
+#     LOG.debug("Payload : %s", payload)
+#     LOG.debug("Expected results : %s", expected)
+#     return skip, description, payload, expected
 
-def get_test(end_class, index):
+def get_test(end_class, test_name):
     """Load test description, payload, and expected results from class at index"""
-    return endpoint_load_test(end_class.JSON_FILE, end_class.ENDPOINT, index)
+    return endpoint_load_test(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
 
 def get_base_payload(end_class):
     """Load base payload in class for specified class"""
     return endpoint_load_base_payload(end_class.JSON_FILE, end_class.ENDPOINT)
 
-def get_test_payload(end_class, index):
+def get_test_payload(end_class, test_name):
     """Load payload in class for specified test"""
-    return endpoint_load_test_payload(end_class.JSON_FILE, end_class.ENDPOINT, index)
+    return endpoint_load_test_payload(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
 
-def get_test_response(end_class, index):
+def get_test_response(end_class, test_name):
     """Load expected data from class for specified test"""
-    return endpoint_load_test_response(end_class.JSON_FILE, end_class.ENDPOINT, index)
+    return endpoint_load_test_response(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
 
 ###################################################################################################
 # General Test Loaders
@@ -91,54 +91,49 @@ def endpoint_load_all_tests(directory, endpoint):
     """Load list of all test payloads and expected results from endpoint"""
     with open(directory) as stream:
         data = json.load(stream)
-        test_list = data[endpoint]["test_data"]
-        LOG.debug("Loaded test data : %s", test_list)
-        return test_list
+        test_dict = data[endpoint]["test_data"]
+        LOG.debug("Loaded test data : %s", test_dict)
+        return test_dict
 
-def endpoint_load_test(directory, endpoint, index):
+def endpoint_load_test(directory, endpoint, test_name):
     """Load test description, payload, and expected results at index"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_payload = data[endpoint]["test_data"][0][0]
-        mod_payload = data[endpoint]["test_data"][index][0]
-        expected = data[endpoint]["test_data"][index][1]
-        skip, description, payload = parse.build_payload(base_payload, mod_payload)
-        if skip:
-            LOG.debug("Skip this test")
-        LOG.debug("Description : %s", description)
-        LOG.debug("Payload : %s", payload)
-        LOG.debug("Expected results : %s", expected)
-        return skip, description, payload, expected
+        test_data = data[endpoint]["test_data"]
+        return parse.build_test_case(test_data, test_name)
 
 def endpoint_load_base_payload(directory, endpoint):
     """Load list of all test payloads and expected results from endpoint"""
-    return endpoint_load_test_payload(directory, endpoint, 0)
+    return endpoint_load_test_payload(directory, endpoint, "test_base")
 
-def endpoint_load_test_payload(directory, endpoint, index):
+def endpoint_load_test_payload(directory, endpoint, test_name):
     """Load expected data for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_payload = data[endpoint]["test_data"][0][0]
-        mod_payload = data[endpoint]["test_data"][index][0]
-        payload = parse.build_payload(base_payload, mod_payload)[2]
-        if index != 0:
-            LOG.debug("Loaded payload at index %s: %s", index, payload)
+        base_payload = data[endpoint]["test_data"]["test_base"]["payload"]
+        mod_payload = data[endpoint]["test_data"][test_name]["payload"]
+        payload = parse.build_payload(base_payload, mod_payload)
+        if test_name != "test_base":
+            LOG.debug("Loaded payload from test %s: %s", test_name, payload)
         return payload
 
-def endpoint_load_test_response(directory, endpoint, index):
+def endpoint_load_test_response(directory, endpoint, test_name):
     """Load expected data for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        expected = data[endpoint]["test_data"][index][1]
-        LOG.debug("Loaded expected data at index %s: %s", index, expected)
-        return expected
+        base_response = data[endpoint]["test_data"]["test_base"]["response"]
+        mod_response = data[endpoint]["test_data"][test_name]["response"]
+        response = parse.build_response(base_response, mod_response)
+        if test_name != "test_base":
+            LOG.debug("Loaded expected response from test %s: %s", test_name, response)
+        return response
 
 ###################################################################################################
 # JSON Utilites
 ###################################################################################################
 
-def get_response_data(response):
+def load_response_data(response):
     """Return the data of the response body"""
     response_data = json.loads(response.text)
-    LOG.debug("Getting data from response : %s", response_data)
+    LOG.debug("Loading data from response : %s", response_data)
     return response_data

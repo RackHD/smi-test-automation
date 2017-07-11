@@ -1,0 +1,117 @@
+{
+
+    "callback": 
+    {
+        "path": "/api/1.0/chassis/inventory/callback",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "SKIP": "Not Implemented",
+                "DESCRIPTION": "No Description",
+                "payload": { },
+                "response":
+                {
+                    "STATUS_CODE": "400"
+                }
+            }
+        }
+    },
+
+    "details":
+    {
+        "path": "/api/1.0/chassis/inventory/details",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "DESCRIPTION": "No Description",
+                "payload":
+                {
+                    "address":"100.68.124.98",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                {
+                    "STATUS_CODE": "200",
+                    "chassisControllers": 
+                    [
+                        {
+                        "name": "CMC-9XLTW52"
+                        }
+                    ]
+                }
+            },
+            "test_01":
+            {
+                "DESCRIPTION": "No Description",
+                "payload":
+                {
+                    "REMOVE":["all"]
+                },
+                "response":
+                {
+                    "STATUS_CODE": ">206"
+                }
+            }
+        }
+    },
+
+    "ips": 
+    {
+        "path": "/api/1.0/chassis/inventory/ips",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "SKIP": "Not Implemented",
+                "DESCRIPTION": "No Description",
+                "payload":
+                {   
+                    
+                },
+                "response":
+                {
+                    "STATUS_CODE": "400"
+                }
+            }
+        }
+    },
+
+    "summary": 
+    {
+        "path": "/api/1.0/chassis/inventory/summary",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "DESCRIPTION": "No Description",
+                "payload":
+                {
+                    "address":"100.68.124.98",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                {
+                    "STATUS_CODE": "200",
+                    "serviceTag": "9XLTW52"
+                }
+            },
+            "test_01":
+            {
+                "DESCRIPTION": "No Description",
+                "payload":
+                {
+                    "REMOVE":["all"]
+                },
+                "response":
+                {
+                    "STATUS_CODE": ">206"
+                }
+            }
+        }
+    }
+
+}
