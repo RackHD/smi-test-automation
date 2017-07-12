@@ -70,37 +70,20 @@ def status_code(status):
         code = int(re.sub(r'[=<>\s]', "", str(status)))
     return operation, code
 
-def is_list_mod(potential_mod_string):
-    "Check if list element is a modifier string"
-    list_mod = False
-    if re.search(r'REMOVE\s*:\s*|REPLACE\s*:|INSERT\s*:\s*|APPEND\s*:?\s*', str(potential_mod_string)):
-        list_mod = True
-    return list_mod
-
-def get_list_mod(mod_string):
-    if "APPEND" in mod_string:
-        return "APPEND", None
-    else:
-        spaceless_string = re.sub(r'\s', "", str(mod_string))
-        mod_list = re.split(r':', spaceless_string)
-        operation = mod_list[0]
-        if operation == 'REMOVE' and 'all' in mod_list[1].lower():
-            locations = 'all'
-        else:
-            locations = re.split(r',', mod_list[1])
-        return operation, locations
-
 def build_test_case(test_data, test_name):
     """Parse out all test case information using provided test data"""
     skip = None
     description = "No Description"
     error = "Bad Response"
-    if "SKIP" in test_data:
-        skip = test_data["SKIP"]
-    if "DESCRIPTION" in test_data:
-        description = test_data["DESCRIPTION"]
-    if "ERROR" in test_data:
-        error = test_data["ERROR"]
+    status_code = '200'
+    if "skip" in test_data:
+        skip = test_data["skip"]
+    if "description" in test_data:
+        description = test_data["description"]
+    if "error" in test_data:
+        error = test_data["error"]
+    if "status_code" in test_data:
+        error = test_data["status_code"]
     mod_payload = test_data[test_name]["payload"]
     mod_response = test_data[test_name]["response"]
     try:
@@ -117,26 +100,49 @@ def build_test_case(test_data, test_name):
     LOG.debug("Description : %s", description)
     LOG.debug("Payload : %s", payload)
     LOG.debug("Expected response : %s", response)
+    LOG.debug("Status Code : %s", status_code)
     LOG.debug("Error Message : %s", error)
-    return skip, description, payload, response, error
+    return skip, description, payload, response, status_code, error
+
+def is_list_mod(potential_mod_string):
+    "Check if list element is a modifier string"
+    list_mod = False
+    if re.search(r'REMOVE\s*:\s*|COMBINE\s*:\s*|REPLACE\s*:|INSERT\s*:\s*|APPEND\s*:?\s*', str(potential_mod_string)):
+        list_mod = True
+    return list_mod
+
+def get_list_mod(mod_string):
+    """Extract the list modification and arguments from a list modification string"""
+    if "APPEND" in mod_string:
+        return "APPEND", None
+    else:
+        spaceless_string = re.sub(r'\s', "", str(mod_string))
+        mod_list = re.split(r':', spaceless_string)
+        operation = mod_list[0]
+        if operation == 'REMOVE' and 'all' in mod_list[1].lower():
+            locations = 'all'
+        else:
+            locations = re.split(r',', mod_list[1])
+            for index, location in enumerate(locations):
+                if re.search(r'\d-\d', str(location)):
+                    index_range = re.split(r'-', str(location))
+                    index_start, index_finish = int(index_range[0]), int(index_range[1])
+                    del locations[index]
+                    locations[index:index] = [str(i) for i in range(index_start, index_finish)]
+            locations = [int(i) for i in locations]
+        return operation, locations
 
 def build_payload(base_payload, mod_payload):
-    """
-    """
+    """Construct test payload using base payload and modifications"""
     return _combine_items(base_payload, mod_payload)
 
 def build_response(base_response, mod_response):
-    """
-    """
+    """Construct test expected respose using base response and modifications"""
     return _combine_items(base_response, mod_response)
 
 def _combine_items(base_item, mod_item):
     """Recursive utility to assemble items using the base and modifications"""
-    if not isinstance(mod_item, type(base_item)):
-        LOG.error("Type mismatch between base and modification data :: Base : %s Modification : %s",
-                  type(base_item), type(mod_item))
-        raise TypeError
-    if isinstance(mod_item, (dict)):
+    if base_item and isinstance(mod_item, (dict)):
         base_dict, mod_dict = base_item, mod_item
         remove_list = ["REMOVE"]
         if "REMOVE" in mod_dict:
@@ -144,40 +150,46 @@ def _combine_items(base_item, mod_item):
             if "all" in remove_list:
                 del mod_dict["REMOVE"]
                 return mod_dict
-        combined_dict = {}
-        for key in base_dict not in remove_list:
-            if key in mod_dict:
-                combined_dict[key] = _combine_items(base_dict[key], mod_dict[key])
-            else:
-                combined_dict[key] = base_dict[key]
-        return combined_dict  
-    elif isinstance(mod_item, (list)):
+        combined_dict = {key: base_dict[key] for key in base_dict if key not in remove_list}
+        for key in mod_dict:
+            if key not in remove_list:
+                if key in combined_dict:
+                    combined_dict[key] = _combine_items(combined_dict[key], mod_dict[key])
+                else:
+                    combined_dict[key] = mod_dict[key]
+        return combined_dict
+    elif base_item and isinstance(mod_item, (list)):
         base_list, mod_list = base_item, mod_item
         combined_list = base_list
         mod_args = None
         mod_mode = 'APPEND'
-        replace, insert = {}, {}
+        combine, replace, insert = {}, {}, {}
         for item in mod_list:
             if is_list_mod(item):
                 mod_mode, mod_args = get_list_mod(item)
                 if mod_mode == 'REMOVE':
-                    if mod_args = 'all':
+                    if mod_args == 'all':
                         combined_list = []
                     else:
                         for index in sorted(mod_args, reverse=True):
                             del combined_list[index]
                     mod_mode == 'APPEND'
             else:
-                if mod_mode == 'REPLACE' and mod_args:
+                if mod_mode == 'COMBINE' and mod_args:
+                    index = mod_args.pop(0)
+                    combine[index] = item
+                elif mod_mode == 'REPLACE' and mod_args:
                     index = mod_args.pop(0)
                     replace[index] = item
                 elif mod_mode == 'INSERT' and mod_args:
                     index = mod_args.pop(0)
-                    inset[index] = mod_args.pop(0)
+                    insert[index] = item
                 else:
                     combined_list.append(item)
+        for index in sorted(combine.keys(), reverse=True):
+            combined_list[index] = _combine_items(combined_list[index], combine[index])
         for index in sorted(replace.keys(), reverse=True):
-            combined_list[index] = _combine_items(combined_list[index], replace[index])
+            combined_list[index] = replace[index]
         for index in sorted(insert.keys(), reverse=True):
             combined_list.insert(index, insert[index])
         return combined_list
