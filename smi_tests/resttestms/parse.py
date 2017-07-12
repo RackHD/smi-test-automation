@@ -99,10 +99,10 @@ def build_test_case(test_data, test_name):
         LOG.debug("Skip this test")
     LOG.debug("Description : %s", description)
     LOG.debug("Payload : %s", payload)
+    LOG.debug("Expected status code : %s", status_code)
     LOG.debug("Expected response : %s", response)
-    LOG.debug("Status Code : %s", status_code)
     LOG.debug("Error Message : %s", error)
-    return skip, description, payload, response, status_code, error
+    return skip, description, payload, status_code, response, error
 
 def is_list_mod(potential_mod_string):
     "Check if list element is a modifier string"

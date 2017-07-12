@@ -55,18 +55,6 @@ def get_all_tests(end_class):
     """Load list of all test payloads and expected results from class"""
     return endpoint_load_all_tests(end_class.JSON_FILE, end_class.ENDPOINT)
 
-# def get_test(end_class, test_data):
-#     """Parse test description, payload, and expected results from test data"""
-#     base_payload = get_base_payload(end_class)
-#     mod_payload, expected = test_data[0], test_data[1]
-#     skip, description, payload = parse.build_payload(base_payload, mod_payload)
-#     if skip:
-#         LOG.debug("Skip this test")
-#     LOG.debug("Description : %s", description)
-#     LOG.debug("Payload : %s", payload)
-#     LOG.debug("Expected results : %s", expected)
-#     return skip, description, payload, expected
-
 def get_test(end_class, test_name):
     """Load test description, payload, and expected results from class at index"""
     return endpoint_load_test(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
@@ -123,10 +111,14 @@ def endpoint_load_test_response(directory, endpoint, test_name):
         data = json.load(stream)
         base_response = data[endpoint]["test_data"]["test_base"]["response"]
         mod_response = data[endpoint]["test_data"][test_name]["response"]
+        try:
+            status_code = data[endpoint]["test_data"][test_name]["status_code"]
+        except KeyError:
+            status_code = '200'
         response = parse.build_response(base_response, mod_response)
         if test_name != "test_base":
             LOG.debug("Loaded expected response from test %s: %s", test_name, response)
-        return response
+        return status_code, response
 
 ###################################################################################################
 # JSON Utilites

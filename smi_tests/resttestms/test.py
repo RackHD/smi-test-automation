@@ -25,18 +25,18 @@ def get_bad_data(end_class):
     """Run GET requests with missing or empty data, check for failure"""
     LOG.info("Begin GET tests for %s using bad data", end_class.__class__.__name__)
     for combo in _bad_data_combos(json.get_base_payload(end_class)):
-        response = http.rest_get(end_class.URL, combo)
+        request = http.rest_get(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(response, "<= 400"), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
 
 @log.exception(LOG)
 def post_bad_data(end_class):
     """Run POST requests with missing or empty data, check for failure"""
     LOG.info("Begin POST tests for %s using bad data", end_class.__class__.__name__)
     for combo in _bad_data_combos(json.get_base_payload(end_class)):
-        response = http.rest_post(end_class.URL, combo)
+        request = http.rest_post(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(response, "<= 400"), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
 
 @log.exception(LOG)
 def get_bad_data_except(end_class, good_combos):
@@ -44,9 +44,9 @@ def get_bad_data_except(end_class, good_combos):
     LOG.info("Begin GET tests for %s using bad data with the following exceptions :: %s",
              end_class.__class__.__name__, good_combos)
     for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
-        response = http.rest_get(end_class.URL, combo)
+        request = http.rest_get(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(response, "<= 400"), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
 
 @log.exception(LOG)
 def post_bad_data_except(end_class, good_combos):
@@ -54,9 +54,9 @@ def post_bad_data_except(end_class, good_combos):
     LOG.info("Begin POST tests for %s using bad data with the following exceptions :: %s",
              end_class.__class__.__name__, good_combos)
     for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
-        response = http.rest_post(end_class.URL, combo)
+        request = http.rest_post(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(response, ">= 400"), "Expected Response Code : 400")
+            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
 
 @log.exception(LOG)
 def get_json(end_class):
@@ -64,13 +64,14 @@ def get_json(end_class):
     LOG.info("Begin JSON defined GET tests for %s", end_class.__class__.__name__)
     print("")
     for test_name in json.get_all_tests(end_class):
-        skip, description, payload, expected, error = json.get_test(end_class, test_name)
+        skip, description, payload, status_code, response, error = json.get_test(end_class, test_name)
         if skip:
             print(skip)
         else:
-            response = http.rest_get(end_class.URL, payload)
+            request = http.rest_get(end_class.URL, payload)
             with end_class.subTest(test=description):
-                end_class.assertTrue(compare_response(response, expected), error)
+                LOG.debug("Running Subtest : %s", description)
+                end_class.assertTrue(compare_request(request, status_code, response), error)
 
 @log.exception(LOG)
 def post_json(end_class):
@@ -78,13 +79,15 @@ def post_json(end_class):
     LOG.info("Begin JSON defined POST tests for %s", end_class.__class__.__name__)
     print("")
     for test_name in json.get_all_tests(end_class):
-        skip, description, payload, expected, error = json.get_test(end_class, test_name)
+        skip, description, payload, status_code, response, error = json.get_test(end_class, test_name)
         if skip:
             print(skip)
         else:
-            response = http.rest_post(end_class.URL, payload)
+            request = http.rest_post(end_class.URL, payload)
             with end_class.subTest(test=description):
-                end_class.assertTrue(compare_response(response, expected), error)
+                LOG.debug("Running Subtest : %s", description)
+                end_class.assertTrue(compare_request(request, status_code, response), error)
+
 
 ###################################################################################################
 # Test Data Generators
@@ -131,56 +134,41 @@ def check_status_code(status_code, exp_status):
     elif operation == '<=':
         return status_code <= exp_code
 
-def compare_response(response, exp_data):
+def compare_request(request, status_code, exp_data):
     """
     Compare specified values in expected with those in response
     If status_code is specified, compare with response status code as well
     """
-    response_data = json.get_response_data(response)
-    return compare_data(response.status_code, response_data, exp_data)
-
-def compare_data(status_code, response_data, exp_data):
-    """
-    Compare specified values in expected with those in response data
-    If status_code is specified, compare with response status code as well
-    """
-    exp_status_code = None
-    if "STATUS_CODE" in exp_data:
-        exp_status_code = exp_data["STATUS_CODE"]
-    if "RESPONSE" in exp_data:
-        exp_response_data = exp_data["RESPONSE"]
+    if not check_status_code(request.status_code, status_code):
+        LOG.error("============ BAD RESPONSE ============ :: Expected status code : %s Actual Status Code : %s",
+                    status_code, request.status_code)
+        return False
     else:
-        exp_response_data = {key: exp_data[key] for key in exp_data if key not in ["STATUS_CODE"]}
-    if exp_status_code:
-        if not check_status_code(status_code, exp_status_code):
-            LOG.error("============ BAD RESPONSE ============ :: Expected status code : %s Actual Status Code : %s",
-                      exp_status_code, status_code)
-            return False
-    return recursive_equal(response_data, exp_response_data)
+        request_data = json.load_response_data(request)
+        return contains_expected(request_data, exp_data)
 
-def recursive_equal(response, expected):
-    """Recursively compare iterable data to check for equality"""
-    if not isinstance(expected, type(response)):
+def contains_expected(container, expected):
+    """Recursively check container to make sure expected is contained within"""
+    if not isinstance(container, type(expected)):
         return False
     if isinstance(expected, (dict)):
         for item in expected:
-            if item not in response:
+            if item not in container:
                 LOG.error("============ BAD RESPONSE ============ :: Expected key \"%s\" not contained in response", item)
                 return False
-            if not recursive_equal(response[item], expected[item]):
+            if not contains_expected(container[item], expected[item]):
                 LOG.error("============ BAD RESPONSE ============ :: Key: %s Expected : %s Actual : %s",
-                        item, expected[item], response[item])
-                return False
+                item, expected[item], container[item])
         return True
-    if isinstance(expected, (list, tuple, set)):
-        for exp_item in expected:
-            found = False
-            for resp_item in response:
-                if(recursive_equal(resp_item, exp_item)):
-                    found = True
-            if not found:
-                LOG.error("============ BAD RESPONSE ============ :: Expected key \"%s\" not contained in response", exp_item)
-                return False
-        return True
+    if isinstance(expected, (list)):
+        everything_found = True
+        for item in expected:
+            item_found = False
+            for container_item in container:
+                if contains_expected(container_item, item):
+                    item_found = True
+            if not item_found:
+                everything_found = False
+        return everything_found
     else:
-        return response == expected
+        return container == expected
