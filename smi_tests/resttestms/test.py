@@ -70,7 +70,8 @@ def get_json(end_class):
         else:
             request = http.rest_get(end_class.URL, payload)
             with end_class.subTest(test=description):
-                LOG.debug("Running Subtest : %s", description)
+                print("Running JSON Subtest : " + description)
+                LOG.info("Running JSON Subtest : %s", description)
                 end_class.assertTrue(compare_request(request, status_code, response), error)
 
 @log.exception(LOG)
@@ -85,7 +86,8 @@ def post_json(end_class):
         else:
             request = http.rest_post(end_class.URL, payload)
             with end_class.subTest(test=description):
-                LOG.debug("Running Subtest : %s", description)
+                print("Running JSON Subtest : " + description)
+                LOG.info("Running JSON Subtest : %s", description)
                 end_class.assertTrue(compare_request(request, status_code, response), error)
 
 

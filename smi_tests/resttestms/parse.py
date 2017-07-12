@@ -16,6 +16,8 @@ import re
 
 LOG = logging.getLogger(__name__)
 
+BASE = 'test_base'
+
 ###################################################################################################
 # Special Argument Parsers
 ###################################################################################################
@@ -76,25 +78,31 @@ def build_test_case(test_data, test_name):
     description = "No Description"
     error = "Bad Response"
     status_code = '200'
-    if "skip" in test_data:
-        skip = test_data["skip"]
-    if "description" in test_data:
-        description = test_data["description"]
-    if "error" in test_data:
-        error = test_data["error"]
-    if "status_code" in test_data:
-        error = test_data["status_code"]
-    mod_payload = test_data[test_name]["payload"]
-    mod_response = test_data[test_name]["response"]
-    try:
-        base_payload = test_data["test_base"]["payload"]
-        base_response = test_data["test_base"]["response"]
-    except KeyError:
-        base_payload = mod_payload
-        base_response = mod_response
-        LOG.info("No base test data found for %s", test_name)
-    payload = build_payload(base_payload, mod_payload)
-    response = build_response(base_response, mod_response)
+    payload, response = {}, {}
+    if "skip" in test_data[test_name]:
+        skip = test_data[test_name]["skip"]
+    if "description" in test_data[test_name]:
+        description = test_data[test_name]["description"]
+    if "error" in test_data[test_name]:
+        error = test_data[test_name]["error"]
+    if "status_code" in test_data[test_name]:
+        status_code = test_data[test_name]["status_code"]
+    if "payload" in test_data[test_name]:
+        mod_payload = test_data[test_name]["payload"]
+        try:
+            base_payload = test_data[BASE]["payload"]
+        except KeyError:
+            base_payload = mod_payload
+            LOG.info("No base test data found for %s", test_name)
+        payload = build_payload(base_payload, mod_payload)
+    if "response" in test_data[test_name]:
+        mod_response = test_data[test_name]["response"]
+        try:
+            base_response = test_data[BASE]["response"]
+        except KeyError:
+            base_response = mod_response
+            LOG.info("No base test data found for %s", test_name)
+        response = build_response(base_response, mod_response)
     if skip:
         LOG.debug("Skip this test")
     LOG.debug("Description : %s", description)
@@ -142,7 +150,9 @@ def build_response(base_response, mod_response):
 
 def _combine_items(base_item, mod_item):
     """Recursive utility to assemble items using the base and modifications"""
-    if base_item and isinstance(mod_item, (dict)):
+    if base_item == mod_item:
+        return mod_item
+    elif base_item and isinstance(mod_item, (dict)):
         base_dict, mod_dict = base_item, mod_item
         remove_list = ["REMOVE"]
         if "REMOVE" in mod_dict:

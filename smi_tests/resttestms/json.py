@@ -17,6 +17,8 @@ from . import parse
 
 LOG = logging.getLogger(__name__)
 
+BASE = 'test_base'
+
 ###################################################################################################
 # Initialize Class Data
 ###################################################################################################
@@ -67,6 +69,18 @@ def get_test_payload(end_class, test_name):
     """Load payload in class for specified test"""
     return endpoint_load_test_payload(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
 
+def get_base_payload(end_class):
+    """Load base status code in class for specified class"""
+    return endpoint_load_base_status_code(end_class.JSON_FILE, end_class.ENDPOINT)
+
+def get_test_status_code(end_class, test_name):
+    """Load expected data from class for specified test"""
+    return endpoint_load_test_status_code(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
+
+def get_base_response(end_class):
+    """Load base response in class for specified class"""
+    return endpoint_load_base_response(end_class.JSON_FILE, end_class.ENDPOINT)
+
 def get_test_response(end_class, test_name):
     """Load expected data from class for specified test"""
     return endpoint_load_test_response(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
@@ -91,34 +105,50 @@ def endpoint_load_test(directory, endpoint, test_name):
         return parse.build_test_case(test_data, test_name)
 
 def endpoint_load_base_payload(directory, endpoint):
-    """Load list of all test payloads and expected results from endpoint"""
-    return endpoint_load_test_payload(directory, endpoint, "test_base")
+    """Load base payload from endpoint"""
+    return endpoint_load_test_payload(directory, endpoint, BASE)
 
 def endpoint_load_test_payload(directory, endpoint, test_name):
-    """Load expected data for specified endpoint and test"""
+    """Load expected payload for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_payload = data[endpoint]["test_data"]["test_base"]["payload"]
+        base_payload = data[endpoint]["test_data"][BASE]["payload"]
         mod_payload = data[endpoint]["test_data"][test_name]["payload"]
         payload = parse.build_payload(base_payload, mod_payload)
-        if test_name != "test_base":
+        if test_name != BASE:
             LOG.debug("Loaded payload from test %s: %s", test_name, payload)
         return payload
 
-def endpoint_load_test_response(directory, endpoint, test_name):
-    """Load expected data for specified endpoint and test"""
+def endpoint_load_base_status_code(directory, endpoint):
+    """Load base status_code from endpoint"""
+    return endpoint_load_test_status_code(directory, endpoint, BASE)
+
+def endpoint_load_test_status_code(directory, endpoint, test_name):
+    """Load expected status code for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_response = data[endpoint]["test_data"]["test_base"]["response"]
-        mod_response = data[endpoint]["test_data"][test_name]["response"]
-        try:
+        if "status_code" in data[endpoint]["test_data"][test_name]:
             status_code = data[endpoint]["test_data"][test_name]["status_code"]
-        except KeyError:
+        else:
             status_code = '200'
+        LOG.debug("Loaded expected status_code from test %s: %s", test_name, status_code)
+        return status_code
+
+def endpoint_load_base_response(directory, endpoint):
+    """Load base response from endpoint"""
+    return endpoint_load_test_response(directory, endpoint, BASE)
+
+
+def endpoint_load_test_response(directory, endpoint, test_name):
+    """Load expected response for specified endpoint and test"""
+    with open(directory) as stream:
+        data = json.load(stream)
+        base_response = data[endpoint]["test_data"][BASE]["response"]
+        mod_response = data[endpoint]["test_data"][test_name]["response"]
         response = parse.build_response(base_response, mod_response)
-        if test_name != "test_base":
+        if test_name != BASE:
             LOG.debug("Loaded expected response from test %s: %s", test_name, response)
-        return status_code, response
+        return response
 
 ###################################################################################################
 # JSON Utilites

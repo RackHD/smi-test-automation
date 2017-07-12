@@ -4,33 +4,35 @@
     {
         "path": "/api/1.0/chassis/inventory/callback",
         "test_data": 
-        [
-            [
-                {   
-                    "SKIP": "Not Implemented",
-                    "DESCRIPTION": "No Description"
-                },
-                {
-                    "STATUS_CODE": "400"
-                }
-            ]
-        ]
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description",
+                "payload": {},
+                "status_code": "500",
+                "response": {}
+            }
+        }
     },
 
     "details":
     {
         "path": "/api/1.0/chassis/inventory/details",
         "test_data": 
-        [
-            [
+        {
+            "test_base":
+            {
+                "description": "Details Base Test",
+                "payload":
                 {
-                    "DESCRIPTION": "No Description",
                     "address":"100.68.124.98",
                     "userName":"root",
                     "password":"calvin"
                 },
+                "status_code": "200",
+                "response":
                 {
-                    "STATUS_CODE": "200",
                     "chassisControllers": 
                     [
                         {
@@ -38,63 +40,61 @@
                         }
                     ]
                 }
-            ],
-            [
-                {
-                    "DESCRIPTION": "No Description",
-                    "REMOVE":["all"]
-                },
-                {
-                    "STATUS_CODE": ">206"
-                }
-            ]
-        ]
+            },
+            "test_01":
+            {
+                "description": "Remove Parameters",
+                "payload": {"REMOVE":["all"]},
+                "status_code" : ">206",
+                "response": {"REMOVE": ["all"]}
+            }
+        }
     },
 
     "ips": 
     {
         "path": "/api/1.0/chassis/inventory/ips",
         "test_data": 
-        [
-            [
-                {   
-                    "SKIP": "Not Implemented",
-                    "DESCRIPTION": "No Description"
-                },
-                {
-                    "STATUS_CODE": "400"
-                }
-            ]
-        ]
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description",
+                "payload": { },
+                "status_code": "400",
+                "response": { }
+            }
+        }
     },
 
     "summary": 
     {
         "path": "/api/1.0/chassis/inventory/summary",
         "test_data": 
-        [
-            [
+        {
+            "test_base":
+            {
+                "description": "Summary base test",
+                "payload":
                 {
-                    "DESCRIPTION": "No Description",
                     "address":"100.68.124.98",
                     "userName":"root",
                     "password":"calvin"
                 },
+                "status_code": "200",
+                "response":
                 {
-                    "STATUS_CODE": "200",
                     "serviceTag": "9XLTW52"
                 }
-            ],
-            [
-                {
-                    "DESCRIPTION": "No Description",
-                    "REMOVE":["all"]
-                },
-                {
-                    "STATUS_CODE": ">206"
-                }
-            ]
-        ]
+            },
+            "test_01":
+            {
+                "description": "Remove Parameters",
+                "payload": {"REMOVE":["all"]},
+                "status_code" : ">206",
+                "response": {"REMOVE": ["all"]}
+            }
+        }
     }
 
 }

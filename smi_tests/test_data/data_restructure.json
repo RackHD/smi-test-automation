@@ -7,13 +7,11 @@
         {
             "test_base":
             {
-                "SKIP": "Not Implemented",
-                "DESCRIPTION": "No Description",
-                "payload": { },
-                "response":
-                {
-                    "STATUS_CODE": "400"
-                }
+                "skip": "Not Implemented",
+                "description": "No Description",
+                "payload": {},
+                "status_code": "500",
+                "response": {}
             }
         }
     },
@@ -25,16 +23,16 @@
         {
             "test_base":
             {
-                "DESCRIPTION": "No Description",
+                "description": "No Description",
                 "payload":
                 {
                     "address":"100.68.124.98",
                     "userName":"root",
                     "password":"calvin"
                 },
+                "status_code": "200",
                 "response":
                 {
-                    "STATUS_CODE": "200",
                     "chassisControllers": 
                     [
                         {
@@ -45,15 +43,10 @@
             },
             "test_01":
             {
-                "DESCRIPTION": "No Description",
-                "payload":
-                {
-                    "REMOVE":["all"]
-                },
-                "response":
-                {
-                    "STATUS_CODE": ">206"
-                }
+                "description": "No Description",
+                "payload": {"REMOVE":["all"]},
+                "status_code" : ">206",
+                "response": {"REMOVE": ["all"]}
             }
         }
     },
@@ -65,16 +58,11 @@
         {
             "test_base":
             {
-                "SKIP": "Not Implemented",
-                "DESCRIPTION": "No Description",
-                "payload":
-                {   
-                    
-                },
-                "response":
-                {
-                    "STATUS_CODE": "400"
-                }
+                "skip": "Not Implemented",
+                "description": "No Description",
+                "payload": { },
+                "status_code": "400",
+                "response": { }
             }
         }
     },
@@ -86,30 +74,25 @@
         {
             "test_base":
             {
-                "DESCRIPTION": "No Description",
+                "description": "No Description",
                 "payload":
                 {
                     "address":"100.68.124.98",
                     "userName":"root",
                     "password":"calvin"
                 },
+                "status_code": "200",
                 "response":
                 {
-                    "STATUS_CODE": "200",
                     "serviceTag": "9XLTW52"
                 }
             },
             "test_01":
             {
-                "DESCRIPTION": "No Description",
-                "payload":
-                {
-                    "REMOVE":["all"]
-                },
-                "response":
-                {
-                    "STATUS_CODE": ">206"
-                }
+                "description": "No Description",
+                "payload": {"REMOVE":["all"]},
+                "status_code" : ">206",
+                "response": {"REMOVE": ["all"]}
             }
         }
     }
