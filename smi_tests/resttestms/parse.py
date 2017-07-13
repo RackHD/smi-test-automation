@@ -66,18 +66,22 @@ def status_code(status):
     """Parse status code to get operation and code value"""
     operation = '='
     code = None
+    negate = False
+    if re.search(r'[!^]', str(status)):
+        negate = True
+        status = re.sub(r'[!^]', "", str(status))
     if re.search(r'[=<>]', str(status)):
         operation = re.sub(r'[\d\s]', "", str(status))
     if re.search(r'[\d]', str(status)):
         code = int(re.sub(r'[=<>\s]', "", str(status)))
-    return operation, code
+    return negate, operation, code
 
 def build_test_case(test_data, test_name):
     """Parse out all test case information using provided test data"""
     skip = None
     description = "No Description"
     error = "Bad Response"
-    status_code = '200'
+    status_codes = ['>=200', '!500']
     payload, response = {}, {}
     if "skip" in test_data[test_name]:
         skip = test_data[test_name]["skip"]
@@ -86,7 +90,7 @@ def build_test_case(test_data, test_name):
     if "error" in test_data[test_name]:
         error = test_data[test_name]["error"]
     if "status_code" in test_data[test_name]:
-        status_code = test_data[test_name]["status_code"]
+        status_codes = test_data[test_name]["status_code"]
     if "payload" in test_data[test_name]:
         mod_payload = test_data[test_name]["payload"]
         try:
@@ -110,7 +114,7 @@ def build_test_case(test_data, test_name):
     LOG.debug("Expected status code : %s", status_code)
     LOG.debug("Expected response : %s", response)
     LOG.debug("Error Message : %s", error)
-    return skip, description, payload, status_code, response, error
+    return skip, description, payload, status_codes, response, error
 
 def is_list_mod(potential_mod_string):
     "Check if list element is a modifier string"

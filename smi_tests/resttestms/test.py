@@ -27,7 +27,7 @@ def get_bad_data(end_class):
     for combo in _bad_data_combos(json.get_base_payload(end_class)):
         request = http.rest_get(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
+            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
 
 @log.exception(LOG)
 def post_bad_data(end_class):
@@ -36,7 +36,7 @@ def post_bad_data(end_class):
     for combo in _bad_data_combos(json.get_base_payload(end_class)):
         request = http.rest_post(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
+            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
 
 @log.exception(LOG)
 def get_bad_data_except(end_class, good_combos):
@@ -46,7 +46,7 @@ def get_bad_data_except(end_class, good_combos):
     for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
         request = http.rest_get(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
+            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
 
 @log.exception(LOG)
 def post_bad_data_except(end_class, good_combos):
@@ -56,7 +56,7 @@ def post_bad_data_except(end_class, good_combos):
     for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
         request = http.rest_post(end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_status_code(request, ">=400"), "Expected Response Code : >= 400")
+            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
 
 @log.exception(LOG)
 def get_json(end_class):
@@ -64,15 +64,18 @@ def get_json(end_class):
     LOG.info("Begin JSON defined GET tests for %s", end_class.__class__.__name__)
     print("")
     for test_name in json.get_all_tests(end_class):
-        skip, description, payload, status_code, response, error = json.get_test(end_class, test_name)
+        skip, description, payload, status_codes, response, error = json.get_test(end_class, test_name)
         if skip:
-            print(skip)
+            test_skip_info = "{}.{} : {} : {}".format(end_class.__class__.__name__, test_name, skip, description)
+            print("Skipping " + test_skip_info)
+            LOG.info("Skipping %s", test_skip_info)
         else:
-            request = http.rest_get(end_class.URL, payload)
-            with end_class.subTest(test=description):
-                print("Running JSON Subtest : " + description)
-                LOG.info("Running JSON Subtest : %s", description)
-                end_class.assertTrue(compare_request(request, status_code, response), error)
+            test_info = "{}.{} : {}".format(end_class.__class__.__name__, test_name, description)
+            print("Running " + test_info)
+            LOG.info("Running %s", test_info)
+            with end_class.subTest(test=test_info):
+                request = http.rest_get(end_class.URL, payload)
+                end_class.assertTrue(compare_request(request, status_codes, response), error)
 
 @log.exception(LOG)
 def post_json(end_class):
@@ -80,15 +83,19 @@ def post_json(end_class):
     LOG.info("Begin JSON defined POST tests for %s", end_class.__class__.__name__)
     print("")
     for test_name in json.get_all_tests(end_class):
-        skip, description, payload, status_code, response, error = json.get_test(end_class, test_name)
+        skip, description, payload, status_codes, response, error = json.get_test(end_class, test_name)
+        
         if skip:
-            print(skip)
+            test_skip_info = "{}.{} : {} : {}".format(end_class.__class__.__name__, test_name, skip, description)
+            print("Skipping " + test_skip_info)
+            LOG.info("Skipping %s", test_skip_info)
         else:
-            request = http.rest_post(end_class.URL, payload)
-            with end_class.subTest(test=description):
-                print("Running JSON Subtest : " + description)
-                LOG.info("Running JSON Subtest : %s", description)
-                end_class.assertTrue(compare_request(request, status_code, response), error)
+            test_info = "{}.{} : {}".format(end_class.__class__.__name__, test_name, description)
+            print("Running " + test_info)
+            LOG.info("Running %s", test_info)
+            with end_class.subTest(test=test_info):
+                request = http.rest_post(end_class.URL, payload)
+                end_class.assertTrue(compare_request(request, status_codes, response), error)
 
 
 ###################################################################################################
@@ -120,30 +127,47 @@ def has_status_code(response, status_code):
     """Check if response status code is less than, greater than, or equal to specifed code"""
     check_status_code(response.status_code, status_code)
 
+def has_all_status_codes(response, status_codes):
+    """Check if response status code is less than, greater than, or equal to specifed code"""
+    check_all_status_codes(response.status_code, status_codes)
+
 def check_status_code(status_code, exp_status):
     """Check if provided status code is less than, greater than, or equal to specifed code"""
-    operation, exp_code = parse.status_code(exp_status)
+    negate, operation, exp_code = parse.status_code(exp_status)
     status_code, exp_code = int(status_code), int(exp_code)
-    LOG.debug("Checking Response Status Code :: Expected : %s %s Actual : %s", operation, exp_code, status_code)
+    LOG.debug("Checking Response Status Code :: Expected : %s%s %s Actual : %s",
+              "Not " if negate else "", operation, exp_code, status_code)
+    is_good_code = False
     if operation == '=' or operation == '==':
-        return status_code == exp_code
+        is_good_code = status_code == exp_code
     elif operation == '>':
-        return status_code > exp_code
+        is_good_code = status_code > exp_code
     elif operation == '<':
-        return status_code < exp_code
+        is_good_code = status_code < exp_code
     elif operation == '>=':
-        return status_code >= exp_code
+        is_good_code = status_code >= exp_code
     elif operation == '<=':
-        return status_code <= exp_code
+        is_good_code = status_code <= exp_code
+    if negate:
+        is_good_code = not is_good_code
+    return is_good_code
 
-def compare_request(request, status_code, exp_data):
+def check_all_status_codes(status_code, status_code_list):
+    """Check through list of status codes to make sure one is met"""
+    all_codes_met = True
+    for code in status_code_list:
+        if not check_status_code(status_code, code):
+            all_codes_met = False
+    return all_codes_met
+
+def compare_request(request, status_codes, exp_data):
     """
     Compare specified values in expected with those in response
     If status_code is specified, compare with response status code as well
     """
-    if not check_status_code(request.status_code, status_code):
+    if not check_all_status_codes(request.status_code, status_codes):
         LOG.error("============ BAD RESPONSE ============ :: Expected status code : %s Actual Status Code : %s",
-                    status_code, request.status_code)
+                    status_codes, request.status_code)
         return False
     else:
         request_data = json.load_response_data(request)

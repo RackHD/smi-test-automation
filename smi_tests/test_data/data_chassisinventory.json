@@ -10,7 +10,7 @@
                 "skip": "Not Implemented",
                 "description": "No Description",
                 "payload": {},
-                "status_code": "500",
+                "status_code": ["!500"],
                 "response": {}
             }
         }
@@ -30,7 +30,7 @@
                     "userName":"root",
                     "password":"calvin"
                 },
-                "status_code": "200",
+                "status_code": ["200"],
                 "response":
                 {
                     "chassisControllers": 
@@ -41,11 +41,11 @@
                     ]
                 }
             },
-            "test_01":
+            "test_empty_status_code":
             {
                 "description": "Remove Parameters",
                 "payload": {"REMOVE":["all"]},
-                "status_code" : ">206",
+                "status_code" : [">206", "!500"],
                 "response": {"REMOVE": ["all"]}
             }
         }
@@ -61,7 +61,7 @@
                 "skip": "Not Implemented",
                 "description": "No Description",
                 "payload": { },
-                "status_code": "400",
+                "status_code": ["!500"],
                 "response": { }
             }
         }
@@ -74,25 +74,26 @@
         {
             "test_base":
             {
-                "description": "Summary base test",
+                "description": "Send default payload and check service tag",
                 "payload":
                 {
                     "address":"100.68.124.98",
                     "userName":"root",
                     "password":"calvin"
                 },
-                "status_code": "200",
+                "status_code": ["200"],
                 "response":
                 {
                     "serviceTag": "9XLTW52"
                 }
             },
-            "test_01":
+            "test_empty_payload":
             {
-                "description": "Remove Parameters",
+                "description": "Send empty payload and check for bad response",
                 "payload": {"REMOVE":["all"]},
-                "status_code" : ">206",
-                "response": {"REMOVE": ["all"]}
+                "status_code" : [">206", "!500"],
+                "response": {"REMOVE": ["all"]},
+                "error": "Returned Success with bad payload"
             }
         }
     }
