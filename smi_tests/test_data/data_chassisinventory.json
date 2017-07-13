@@ -23,7 +23,7 @@
         {
             "test_base":
             {
-                "description": "Details Base Test",
+                "description": "Send default payload and check chassis controller name",
                 "payload":
                 {
                     "address":"100.68.124.98",
@@ -43,7 +43,7 @@
             },
             "test_empty_status_code":
             {
-                "description": "Remove Parameters",
+                "description": "Send empty payload and check for bad response",
                 "payload": {"REMOVE":["all"]},
                 "status_code" : [">206", "!500"],
                 "response": {"REMOVE": ["all"]}

@@ -51,13 +51,13 @@ class Version(FirmwareUpdateTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """VERSION JSON TESTS"""
         test.get_json(self)
 
 ###################################################################################################
 # Downloader
 ###################################################################################################
-@unittest.skip("Downloader is not working")
+@unittest.skip("Not working")
 class Downloader(FirmwareUpdateTest):
     """Tests for Downloader Endpoint"""
     @classmethod
@@ -67,17 +67,17 @@ class Downloader(FirmwareUpdateTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_bad_data(self):
-        """Run tests with missing or empty data, check for failure"""
+        """DOWNLOADER BAD DATA TESTS"""
         test.get_bad_data(self)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """DOWNLOADER JSON TESTS"""
         test.get_json(self)
 
 ###################################################################################################
 # Comparer
 ###################################################################################################
-@unittest.skip("Compare has not been implemented yet")
+@unittest.skip("Not Implemented")
 class Comparer(FirmwareUpdateTest):
     """Tests for Comparer Endpoint"""
     @classmethod
@@ -87,13 +87,13 @@ class Comparer(FirmwareUpdateTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """COMPARER JSON TESTS"""
         test.post_json(self)
 
 ###################################################################################################
 # Comparer Catalog
 ###################################################################################################
-@unittest.skip("Compare has not been implemented yet")
+@unittest.skip("Not Implemented")
 class ComparerCatalog(FirmwareUpdateTest):
     """Tests for Comparer Catalog Endpoint"""
     @classmethod

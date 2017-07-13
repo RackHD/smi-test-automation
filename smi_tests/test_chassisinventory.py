@@ -41,7 +41,7 @@ class ChassisInventoryTest(unittest.TestCase):
 ###################################################################################################
 # Callback
 ###################################################################################################
-@unittest.skip("Not been implemented yet")
+@unittest.skip("Not implemented yet")
 class Callback(ChassisInventoryTest):
     """Tests for Callback Endpoint"""
     @classmethod
@@ -49,9 +49,8 @@ class Callback(ChassisInventoryTest):
         """Load initial test data from json"""
         cls.ENDPOINT = 'callback'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
-
     def test_json(self):
-        """Run tests specified in JSON"""
+        """CALLBACK JSON TESTS"""
         test.post_json(self)
 
 ###################################################################################################
@@ -67,13 +66,13 @@ class Details(ChassisInventoryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """DETAILS JSON TESTS"""
         test.post_json(self)
 
 ###################################################################################################
 # IPS
 ###################################################################################################
-@unittest.skip("Not been implemented yet")
+@unittest.skip("Not implemented yet")
 class IPS(ChassisInventoryTest):
     """Tests for IPS Endpoint"""
     @classmethod
@@ -83,7 +82,7 @@ class IPS(ChassisInventoryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """IPS JSON TESTS"""
         test.post_json(self)
 
 ###################################################################################################
@@ -99,7 +98,7 @@ class Summary(ChassisInventoryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """SUMMARY JSON TESTS"""
         test.post_json(self)
 
 ###################################################################################################

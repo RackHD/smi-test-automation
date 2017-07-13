@@ -175,6 +175,7 @@ def compare_request(request, status_codes, exp_data):
 
 def contains_expected(container, expected):
     """Recursively check container to make sure expected is contained within"""
+    LOG.debug("Contains Expected :: Expected : %s Actual : %s", expected, container)
     if not isinstance(container, type(expected)):
         return False
     if isinstance(expected, (dict)):
@@ -185,13 +186,39 @@ def contains_expected(container, expected):
             if not contains_expected(container[item], expected[item]):
                 LOG.error("============ BAD RESPONSE ============ :: Key: %s Expected : %s Actual : %s",
                 item, expected[item], container[item])
+                return False
         return True
     if isinstance(expected, (list)):
         everything_found = True
         for item in expected:
             item_found = False
             for container_item in container:
-                if contains_expected(container_item, item):
+                if _contains_expected_unlogged(container_item, item):
+                    item_found = True
+            if not item_found:
+                LOG.error("============ BAD RESPONSE ============ :: Expected : %s not contained in Actual : %s",
+                item, container)
+                everything_found = False
+        return everything_found
+    else:
+        return container == expected
+
+def _contains_expected_unlogged(container, expected):
+    """Recursively check container to make sure expected is contained within"""
+    LOG.debug("Contains Expected :: Expected : %s Actual : %s", expected, container)
+    if not isinstance(container, type(expected)):
+        return False
+    if isinstance(expected, (dict)):
+        for item in expected:
+            if item not in container or not _contains_expected_unlogged(container[item], expected[item]):
+                return False
+        return True
+    if isinstance(expected, (list)):
+        everything_found = True
+        for item in expected:
+            item_found = False
+            for container_item in container:
+                if _contains_expected_unlogged(container_item, item):
                     item_found = True
             if not item_found:
                 everything_found = False

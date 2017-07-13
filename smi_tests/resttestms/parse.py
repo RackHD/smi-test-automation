@@ -83,6 +83,7 @@ def build_test_case(test_data, test_name):
     error = "Bad Response"
     status_codes = ['>=200', '!500']
     payload, response = {}, {}
+
     if "skip" in test_data[test_name]:
         skip = test_data[test_name]["skip"]
     if "description" in test_data[test_name]:
@@ -105,7 +106,6 @@ def build_test_case(test_data, test_name):
             base_response = test_data[BASE]["response"]
         except KeyError:
             base_response = mod_response
-            LOG.info("No base test data found for %s", test_name)
         response = build_response(base_response, mod_response)
     if skip:
         LOG.debug("Skip this test")
@@ -118,10 +118,12 @@ def build_test_case(test_data, test_name):
 
 def is_list_mod(potential_mod_string):
     "Check if list element is a modifier string"
-    list_mod = False
-    if re.search(r'REMOVE\s*:\s*|COMBINE\s*:\s*|REPLACE\s*:|INSERT\s*:\s*|APPEND\s*:?\s*', str(potential_mod_string)):
-        list_mod = True
-    return list_mod
+    if isinstance(potential_mod_string, (str)):
+        list_mod = False
+        if re.search(r'REMOVE\s*:\s*|COMBINE\s*:\s*|REPLACE\s*:|INSERT\s*:\s*|APPEND\s*:?\s*', str(potential_mod_string)):
+            list_mod = True
+        return list_mod
+    return False
 
 def get_list_mod(mod_string):
     """Extract the list modification and arguments from a list modification string"""
@@ -130,7 +132,9 @@ def get_list_mod(mod_string):
     else:
         spaceless_string = re.sub(r'\s', "", str(mod_string))
         mod_list = re.split(r':', spaceless_string)
+        LOG.debug("List modifications : %s", mod_list)
         operation = mod_list[0]
+        LOG.debug("List mod operation : %s", operation)
         if operation == 'REMOVE' and 'all' in mod_list[1].lower():
             locations = 'all'
         else:
@@ -141,6 +145,7 @@ def get_list_mod(mod_string):
                     index_start, index_finish = int(index_range[0]), int(index_range[1])
                     del locations[index]
                     locations[index:index] = [str(i) for i in range(index_start, index_finish)]
+            LOG.debug("List mod locations : %s", locations)
             locations = [int(i) for i in locations]
         return operation, locations
 
@@ -154,6 +159,7 @@ def build_response(base_response, mod_response):
 
 def _combine_items(base_item, mod_item):
     """Recursive utility to assemble items using the base and modifications"""
+    LOG.debug("Combine Items :: Expected : %s Actual : %s", base_item, mod_item)
     if base_item == mod_item:
         return mod_item
     elif base_item and isinstance(mod_item, (dict)):
@@ -189,6 +195,7 @@ def _combine_items(base_item, mod_item):
                             del combined_list[index]
                     mod_mode == 'APPEND'
             else:
+                LOG.debug("Mod mode : %s", mod_mode)
                 if mod_mode == 'COMBINE' and mod_args:
                     index = mod_args.pop(0)
                     combine[index] = item

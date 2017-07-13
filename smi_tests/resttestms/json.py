@@ -112,42 +112,32 @@ def endpoint_load_test_payload(directory, endpoint, test_name):
     """Load expected payload for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_payload = data[endpoint]["test_data"][BASE]["payload"]
-        mod_payload = data[endpoint]["test_data"][test_name]["payload"]
-        payload = parse.build_payload(base_payload, mod_payload)
-        if test_name != BASE:
-            LOG.debug("Loaded payload from test %s: %s", test_name, payload)
+        test_data = data[endpoint]["test_data"]
+        _, _, payload, _, _, _ = parse.build_test_case(test_data, test_name)
         return payload
 
-def endpoint_load_base_status_code(directory, endpoint):
+def endpoint_load_base_status_codes(directory, endpoint):
     """Load base status_code from endpoint"""
-    return endpoint_load_test_status_code(directory, endpoint, BASE)
+    return endpoint_load_test_status_codes(directory, endpoint, BASE)
 
-def endpoint_load_test_status_code(directory, endpoint, test_name):
+def endpoint_load_test_status_codes(directory, endpoint, test_name):
     """Load expected status code for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        if "status_code" in data[endpoint]["test_data"][test_name]:
-            status_code = data[endpoint]["test_data"][test_name]["status_code"]
-        else:
-            status_code = '200'
-        LOG.debug("Loaded expected status_code from test %s: %s", test_name, status_code)
-        return status_code
+        test_data = data[endpoint]["test_data"]
+        _, _, _, status_codes, _, _ = parse.build_test_case(test_data, test_name)
+        return status_codes
 
 def endpoint_load_base_response(directory, endpoint):
     """Load base response from endpoint"""
     return endpoint_load_test_response(directory, endpoint, BASE)
 
-
 def endpoint_load_test_response(directory, endpoint, test_name):
     """Load expected response for specified endpoint and test"""
     with open(directory) as stream:
         data = json.load(stream)
-        base_response = data[endpoint]["test_data"][BASE]["response"]
-        mod_response = data[endpoint]["test_data"][test_name]["response"]
-        response = parse.build_response(base_response, mod_response)
-        if test_name != BASE:
-            LOG.debug("Loaded expected response from test %s: %s", test_name, response)
+        test_data = data[endpoint]["test_data"]
+        _, _, _, _, response, _ = parse.build_test_case(test_data, test_name)
         return response
 
 ###################################################################################################

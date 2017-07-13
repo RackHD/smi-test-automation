@@ -52,7 +52,7 @@ class ConfigDevice(DiscoveryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """CONFIG DEVICE JSON TESTS"""
         test.get_json(self)
 
 ###################################################################################################
@@ -68,7 +68,7 @@ class IPS(DiscoveryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """IPS JSON TESTS"""
         test.post_json(self)
 
 ###################################################################################################
@@ -84,7 +84,7 @@ class Range(DiscoveryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):
-        """Run tests specified in JSON"""
+        """RANGE JSON TESTS"""
         test.post_json(self)
 
 ###################################################################################################
