@@ -51,7 +51,7 @@ class Callback(ChassisInventoryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
     def test_json(self):
         """CALLBACK JSON TESTS"""
-        test.post_json(self)
+        test.run_json('POST', self)
 
 ###################################################################################################
 # Details
@@ -67,7 +67,7 @@ class Details(ChassisInventoryTest):
 
     def test_json(self):
         """DETAILS JSON TESTS"""
-        test.post_json(self)
+        test.run_json('POST', self)
 
 ###################################################################################################
 # IPS
@@ -83,7 +83,7 @@ class IPS(ChassisInventoryTest):
 
     def test_json(self):
         """IPS JSON TESTS"""
-        test.post_json(self)
+        test.run_json('POST', self)
 
 ###################################################################################################
 # Summary
@@ -99,7 +99,7 @@ class Summary(ChassisInventoryTest):
 
     def test_json(self):
         """SUMMARY JSON TESTS"""
-        test.post_json(self)
+        test.run_json('POST', self)
 
 ###################################################################################################
 # RUN MODULE

@@ -63,17 +63,10 @@ def empty_data_combos(payload):
 # Make Requests
 ###################################################################################################
 
-def rest_get_url(url):
-    """Make a GET rest call to the specified URL"""
-    LOG.info("==== GET ==== :: URL : %s", url)
-    response = requests.get(url, headers=JSON_HEADER)
-    LOG.info("RESPONSE :: %s", json.load_response_data(response))
-    return response
-
-def rest_get(url, payload):
+def rest_get(url, parameters):
     """Make a GET rest call to the specified URL with parameters"""
-    LOG.info("==== GET ==== :: URL : %s :: PAYLOAD : %s", url, payload)
-    response = requests.get(url, headers=JSON_HEADER, params=payload)
+    LOG.info("==== GET ==== :: URL : %s :: PARAMETERS : %s", url, parameters)
+    response = requests.get(url, headers=JSON_HEADER, params=parameters)
     LOG.info("RESPONSE :: %s", json.load_response_data(response))
     return response
 
@@ -83,3 +76,42 @@ def rest_post(url, payload):
     response = requests.post(url, headers=JSON_HEADER, json=payload)
     LOG.info("RESPONSE :: %s", json.load_response_data(response))
     return response
+
+def rest_put(url, payload):
+    """Make a PUT rest call to the specified URL and payload"""
+    LOG.info("==== PUT ==== :: URL : %s :: PAYLOAD : %s", url, payload)
+    response = requests.put(url, headers=JSON_HEADER, json=payload)
+    LOG.info("RESPONSE :: %s", json.load_response_data(response))
+    return response
+
+def rest_patch(url, payload):
+    """Make a PATCH rest call to the specified URL and payload"""
+    LOG.info("==== PATCH ==== :: URL : %s :: PAYLOAD : %s", url, payload)
+    response = requests.patch(url, headers=JSON_HEADER, json=payload)
+    LOG.info("RESPONSE :: %s", json.load_response_data(response))
+    return response
+
+def rest_delete(url, payload):
+    """Make a DELETE rest call to the specified URL and payload"""
+    LOG.info("==== DELETE ==== :: URL : %s :: PAYLOAD : %s", url, payload)
+    response = requests.delete(url, headers=JSON_HEADER, json=payload)
+    LOG.info("RESPONSE :: %s", json.load_response_data(response))
+    return response
+
+def rest_call(action, url, payload):
+    """Make the appropriate rest call base on the provided action"""
+    action = str(action).upper()
+    if action == 'GET':
+        return rest_get(url, payload)
+    elif action == 'POST':
+        return rest_post(url, payload)
+    elif action == 'PUT':
+        return rest_put(url, payload)
+    elif action == 'PATCH':
+        return rest_patch(url, payload)
+    elif action == 'DELETE':
+        return rest_delete(url, payload)
+    else:
+        LOG.error("Invalid Rest Call : %s", action)
+        return rest_get(url, payload)
+    

@@ -53,7 +53,7 @@ class ConfigDevice(DiscoveryTest):
 
     def test_json(self):
         """CONFIG DEVICE JSON TESTS"""
-        test.get_json(self)
+        test.run_json('GET', self)
 
 ###################################################################################################
 # IPS
@@ -69,7 +69,7 @@ class IPS(DiscoveryTest):
 
     def test_json(self):
         """IPS JSON TESTS"""
-        test.post_json(self)
+        test.run_json('POST', self)
 
 ###################################################################################################
 # Range
@@ -85,7 +85,7 @@ class Range(DiscoveryTest):
 
     def test_json(self):
         """RANGE JSON TESTS"""
-        test.post_json(self)
+        test.run_json('POST', self)
 
 ###################################################################################################
 # RUN MODULE

@@ -110,9 +110,9 @@ def build_test_case(test_data, test_name):
     if skip:
         LOG.debug("Skip this test")
     LOG.debug("Description : %s", description)
-    LOG.debug("Payload : %s", payload)
-    LOG.debug("Expected status code : %s", status_code)
-    LOG.debug("Expected response : %s", response)
+    LOG.debug("Payload : %s", str(payload))
+    LOG.debug("Expected status code : %s", str(status_codes))
+    LOG.debug("Expected response : %s", str(response))
     LOG.debug("Error Message : %s", error)
     return skip, description, payload, status_codes, response, error
 

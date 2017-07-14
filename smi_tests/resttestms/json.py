@@ -69,13 +69,13 @@ def get_test_payload(end_class, test_name):
     """Load payload in class for specified test"""
     return endpoint_load_test_payload(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
 
-def get_base_payload(end_class):
+def get_base_status_codes(end_class):
     """Load base status code in class for specified class"""
-    return endpoint_load_base_status_code(end_class.JSON_FILE, end_class.ENDPOINT)
+    return endpoint_load_base_status_codes(end_class.JSON_FILE, end_class.ENDPOINT)
 
-def get_test_status_code(end_class, test_name):
+def get_test_status_codes(end_class, test_name):
     """Load expected data from class for specified test"""
-    return endpoint_load_test_status_code(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
+    return endpoint_load_test_status_codes(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
 
 def get_base_response(end_class):
     """Load base response in class for specified class"""

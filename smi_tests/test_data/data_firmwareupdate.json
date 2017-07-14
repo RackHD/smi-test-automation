@@ -1,42 +1,5 @@
 {
 
-    "version": 
-    {
-        "path": "/api/1.0/server/firmware/version",
-        "test_data":
-        {
-            "test_base":
-            {
-                "description": "Make a request to get version, check for success",
-                "status_code": ["200"],
-                "response": {
-                    "name": "Dell Update Service",
-                    "version": "1.0"
-                }
-            }
-        }
-    },
-
-    "downloader": 
-    {
-        "path": "/api/1.0/server/firmware/downloader",
-        "test_data": 
-        {
-            "test_base" : 
-            {
-                "description": "Make a request to downloader with valid parameters, check for success",
-                "payload":
-                {
-                    "fileName": "Catalog.xml.gz",
-                    "fileUrl": "ftp.dell.com%2Fcatalog",
-                    "targetLocation": "%2Ftemp%2F"
-                },
-                "status_code": ["200"],
-                "response": { }
-            }
-        }
-    },
-
     "comparer": 
     {
         "path": "/api/1.0/server/firmware/comparer",
@@ -99,10 +62,138 @@
                 "description": "No Description",
                 "payload":
                 {
-                    "sourceCatalog": "%2Ftemp%2F",
-                    "targetCatalog": "%2Ftemp2%2F"
+                    "sourceCatalog": "/temp/",
+                    "targetCatalog": "/temp2/"
                 },
                 "status_code": ["200"]
+            }
+        }
+    },
+
+    "comparer_custom": 
+    {
+        "path": "/api/1.0/server/firmware/comparer/custom",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "downloader": 
+    {
+        "path": "/api/1.0/server/firmware/downloader",
+        "test_data": 
+        {
+            "test_base" : 
+            {
+                "description": "Make a request to downloader with valid parameters, check for success",
+                "payload":
+                {
+                    "fileName": "Catalog.xml.gz",
+                    "fileUrl": "ftp.dell.com/catalog",
+                    "targetLocation": "/temp/"
+                },
+                "status_code": ["200"],
+                "response": { }
+            }
+        }
+    },
+
+    "uci": 
+    {
+        "path": "/api/1.0/server/firmware/uci",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "uci_si": 
+    {
+        "path": "/api/1.0/server/firmware/uci/si",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "updater": 
+    {
+        "path": "/api/1.0/server/firmware/updater",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "updater_dup": 
+    {
+        "path": "/api/1.0/server/firmware/updater/dup",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "updater_status": 
+    {
+        "path": "/api/1.0/server/firmware/updater/status",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "updater_testcallback": 
+    {
+        "path": "/api/1.0/server/firmware/updater/testcallback",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "version": 
+    {
+        "path": "/api/1.0/server/firmware/version",
+        "test_data":
+        {
+            "test_base":
+            {
+                "description": "Make a request to get version, check for success",
+                "status_code": ["200"],
+                "response": {
+                    "name": "Dell Update Service",
+                    "version": "1.0"
+                }
             }
         }
     }

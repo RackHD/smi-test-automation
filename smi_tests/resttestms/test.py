@@ -21,47 +21,28 @@ LOG = logging.getLogger(__name__)
 ###################################################################################################
 
 @log.exception(LOG)
-def get_bad_data(end_class):
-    """Run GET requests with missing or empty data, check for failure"""
-    LOG.info("Begin GET tests for %s using bad data", end_class.__class__.__name__)
+def bad_data(action, end_class):
+    """Run requests with missing or empty data, check for failure"""
+    LOG.info("Begin %s tests for %s using bad data", str(action).upper(), end_class.__class__.__name__)
     for combo in _bad_data_combos(json.get_base_payload(end_class)):
-        request = http.rest_get(end_class.URL, combo)
+        request = http.rest_call(action, end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
+            end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def post_bad_data(end_class):
-    """Run POST requests with missing or empty data, check for failure"""
-    LOG.info("Begin POST tests for %s using bad data", end_class.__class__.__name__)
-    for combo in _bad_data_combos(json.get_base_payload(end_class)):
-        request = http.rest_post(end_class.URL, combo)
-        with end_class.subTest(data=combo):
-            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
-
-@log.exception(LOG)
-def get_bad_data_except(end_class, good_combos):
-    """Run GET requests with missing or empty data excluding those specified, check for failure"""
-    LOG.info("Begin GET tests for %s using bad data with the following exceptions :: %s",
-             end_class.__class__.__name__, good_combos)
+def bad_data_except(action, end_class, good_combos):
+    """Run requests with missing or empty data excluding those specified, check for failure"""
+    LOG.info("Begin %s tests for %s using bad data with the following exceptions :: %s",
+             str(action).upper(), end_class.__class__.__name__, good_combos)
     for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
-        request = http.rest_get(end_class.URL, combo)
+        request = http.rest_call(action, end_class.URL, combo)
         with end_class.subTest(data=combo):
-            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
+           end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def post_bad_data_except(end_class, good_combos):
-    """Run POST requests with missing or empty data excluding those specified, check for failure"""
-    LOG.info("Begin POST tests for %s using bad data with the following exceptions :: %s",
-             end_class.__class__.__name__, good_combos)
-    for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
-        request = http.rest_post(end_class.URL, combo)
-        with end_class.subTest(data=combo):
-            end_class.assertTrue(has_all_status_codes(request, [">=400", "!500"]), "Expected Response Code : 400 - 409")
-
-@log.exception(LOG)
-def get_json(end_class):
-    """Run tests specified in JSON using GET requests"""
-    LOG.info("Begin JSON defined GET tests for %s", end_class.__class__.__name__)
+def run_json(action, end_class):
+    """Run tests specified in JSON"""
+    LOG.info("Begin JSON defined %s tests for %s", str(action).upper(), end_class.__class__.__name__)
     print("")
     for test_name in json.get_all_tests(end_class):
         skip, description, payload, status_codes, response, error = json.get_test(end_class, test_name)
@@ -74,27 +55,7 @@ def get_json(end_class):
             print("Running " + test_info)
             LOG.info("Running %s", test_info)
             with end_class.subTest(test=test_info):
-                request = http.rest_get(end_class.URL, payload)
-                end_class.assertTrue(compare_request(request, status_codes, response), error)
-
-@log.exception(LOG)
-def post_json(end_class):
-    """Run tests specified in JSON using POST requests"""
-    LOG.info("Begin JSON defined POST tests for %s", end_class.__class__.__name__)
-    print("")
-    for test_name in json.get_all_tests(end_class):
-        skip, description, payload, status_codes, response, error = json.get_test(end_class, test_name)
-        
-        if skip:
-            test_skip_info = "{}.{} : {} : {}".format(end_class.__class__.__name__, test_name, skip, description)
-            print("Skipping " + test_skip_info)
-            LOG.info("Skipping %s", test_skip_info)
-        else:
-            test_info = "{}.{} : {}".format(end_class.__class__.__name__, test_name, description)
-            print("Running " + test_info)
-            LOG.info("Running %s", test_info)
-            with end_class.subTest(test=test_info):
-                request = http.rest_post(end_class.URL, payload)
+                request = http.rest_call(action, end_class.URL, payload)
                 end_class.assertTrue(compare_request(request, status_codes, response), error)
 
 
@@ -125,11 +86,11 @@ def _bad_data_combos_except(payload, good_combos):
 
 def has_status_code(response, status_code):
     """Check if response status code is less than, greater than, or equal to specifed code"""
-    check_status_code(response.status_code, status_code)
+    return check_status_code(response.status_code, status_code)
 
 def has_all_status_codes(response, status_codes):
     """Check if response status code is less than, greater than, or equal to specifed code"""
-    check_all_status_codes(response.status_code, status_codes)
+    return check_all_status_codes(response.status_code, status_codes)
 
 def check_status_code(status_code, exp_status):
     """Check if provided status code is less than, greater than, or equal to specifed code"""
