@@ -192,7 +192,8 @@
                 "status_code": ["200"],
                 "response": {
                     "name": "Dell Update Service",
-                    "version": "1.0"
+                    "description" : "VALUE_EXPECTED",
+                    "version": "VALUE_EXPECTED"
                 }
             }
         }

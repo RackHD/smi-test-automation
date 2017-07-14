@@ -136,6 +136,10 @@ def compare_request(request, status_codes, exp_data):
 
 def contains_expected(container, expected):
     """Recursively check container to make sure expected is contained within"""
+    if expected == "KEY_PRESENT":
+            return True
+    if expected == "VALUE_PRESENT" and container != None:
+        return True
     LOG.debug("Contains Expected :: Expected : %s Actual : %s", expected, container)
     if not isinstance(container, type(expected)):
         return False
@@ -166,10 +170,16 @@ def contains_expected(container, expected):
 
 def _contains_expected_unlogged(container, expected):
     """Recursively check container to make sure expected is contained within"""
+    if expected == "KEY_PRESENT":
+            return True
+    if expected == "VALUE_PRESENT" and container != None:
+        return True
     LOG.debug("Contains Expected :: Expected : %s Actual : %s", expected, container)
     if not isinstance(container, type(expected)):
         return False
     if isinstance(expected, (dict)):
+        if expected == "KEY_PRESENT":
+            return True
         for item in expected:
             if item not in container or not _contains_expected_unlogged(container[item], expected[item]):
                 return False

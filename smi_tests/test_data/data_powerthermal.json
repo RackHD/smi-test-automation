@@ -1,23 +1,75 @@
 {
-    "services": {
 
-        "getVersion": {
-            "url": "http://100.68.124.118:8080/api/1.0/version",
-            "parameters": { },
-			"payload": { }
-          },
-
-        "getPowerThermal": {
-            "url": "http://100.68.124.118:8080/api/1.0/api/1.0/powerthermal",
-            "parameters": { },
-            "payload": {
+    "powerthermal_post": 
+    {
+        "path": "/api/1.0/powerthermal",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Send default payload, check that power thermal info is found",
+                "payload":
+                {
 
                 "serverAddress": "100.68.124.121",
                 "userName": "root",
                 "password": "calvin"
 
+                },
+                "status_code": ["200"],
+                "response":
+                {
+
+                    "powerCap": "401  W",
+                    "profile": "Performance"
+                    
+                }
             }
         }
+    },
 
+    "powerthermal_put": 
+    {
+        "path": "/api/1.0/powerthermal",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description",
+                "payload": 
+                {
+
+                    "enableCapping": true,
+                    "password": "string",
+                    "powerCap": 0,
+                    "serverAddress": "string",
+                    "userName": "string"
+   
+                },
+                "status_code": ["!500"],
+                "response": { }
+            }
+        }
+    },
+
+    "version": 
+    {
+        "path": "/api/1.0/version",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Make a request to get version, check for success",
+                "status_code": ["200"],
+                "response": {
+                    "name": "Power and Thermal Service ",
+                    "description": "VALUE_EXPECTED",
+                    "version": "VALUE_EXPECTED"
+                }
+            }
+        }
     }
+
+
 }
