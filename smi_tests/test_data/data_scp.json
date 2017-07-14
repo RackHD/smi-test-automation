@@ -1,61 +1,85 @@
 {
-    "services":{
-        "export":{
-            "url":"http://localhost:46018/api/1.0/server/configuration/export",
-            "parameters": { },
-            "payload":{
 
-                "componentNames":[
-
-                ],
-                "fileName":"unitTest.xml",
-                "serverIP":"100.68.124.31",
-                "serverUsername":"root",
-                "serverPassword":"calvin",
-                "shareAddress":"localhost",
-                "shareName":"/opt/dell/public",
-                "shareType":0
-
-            }
-        },
-
-        "import":{
-            "url":"http://localhost:46018/api/1.0/server/configuration/import",
-            "parameters": { },
-            "payload":{
-
-                "componentNames":[
-
-                ],
-                "fileName":"unitTest.xml",
-                "serverIP":"100.68.124.31",
-                "serverUsername":"root",
-                "serverPassword":"calvin",
-                "shareAddress":"localhost",
-                "shareName":"/opt/dell/public",
-                "shareType":0
-
-            }
-        },
-
-        "getComponents":{
-            "url":"http://localhost:46018/api/1.0/server/configuration/getComponents",
-            "parameters": { },
-            "payload":{
-
-                "componentNames":[
-                    "LifecycleController.Embedded.1"
-                ],
-                "fileName":"unitTest.xml",
-                "serverIP":"100.68.124.31",
-                "serverUsername":"root",
-                "serverPassword":"calvin",
-                "shareAddress":"localhost",
-                "shareName":"/opt/dell/public",
-                "shareType":0
-
+    "export": 
+    {
+        "path":"/api/1.0/server/configuration/export",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "Pass bad payload, check for failed copy",
+                "payload":
+                {
+                    "componentNames": [ ],
+                    "fileName": "unitTest.xml",
+                    "serverIP": "100.68.124.31",
+                    "serverUsername": "root",
+                    "serverPassword": "calvin",
+                    "shareAddress": "localhost",
+                    "shareName": "/opt/dell/public",
+                    "shareType": 0
+                },
+                "status_code": ["200"],
+                "response": { },
+                "error": "Failed to export SCP File from Server"
             }
         }
+    },
 
+    "getComponents":
+    {
+        "path":"/api/1.0/server/configuration/getComponents",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description",
+                "payload":
+                {
+                    "componentNames":
+                    [
+                        "LifecycleController.Embedded.1"
+                    ],
+                    "fileName": "unitTest.xml",
+                    "serverIP": "100.68.124.31",
+                    "serverUsername": "root",
+                    "serverPassword": "calvin",
+                    "shareAddress": "localhost",
+                    "shareName": "/opt/dell/public",
+                    "shareType": 0
+                },
+                "status_code": ["200"],
+                "response": { }
+            }
+        }
+    },
+
+    "import":
+    {
+        "path":"/api/1.0/server/configuration/import",
+        "test_data":
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description",
+                "payload":
+                {
+                    "componentNames": [ ],
+                    "fileName": "unitTest.xml",
+                    "serverIP": "100.68.124.31",
+                    "serverUsername": "root",
+                    "serverPassword": "calvin",
+                    "shareAddress": "localhost",
+                    "shareName": "/opt/dell/public",
+                    "shareType": 0
+                },
+                "status_code": ["200"],
+                "response": { }
+            }
+        }
     }
+
 }

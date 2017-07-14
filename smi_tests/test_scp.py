@@ -43,7 +43,7 @@ class SCPTest(unittest.TestCase):
              
             output = os.path.isfile(shareName+"/"+fileName)
              
-            self.assertTrue(output, "Failed to export SCP File from Server " + fileName)
+            self.assertTrue(output, "Failed to export SCP File from Server" + fileName)
              
              
         except Exception as e:

@@ -206,7 +206,7 @@ class UpdaterTestCallback(FirmwareUpdateTest):
     @classmethod
     def setUpClass(cls):
         """Load initial test data from json"""
-        cls.ENDPOINT = 'updater_testcallback'
+        cls.ENDPOINT = 'updater_testCallback'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
 
     def test_json(self):

@@ -168,9 +168,9 @@
         }
     },
 
-    "updater_testcallback": 
+    "updater_testCallback": 
     {
-        "path": "/api/1.0/server/firmware/updater/testcallback",
+        "path": "/api/1.0/server/firmware/updater/testCallback",
         "test_data":
         {
             "test_base":
@@ -192,8 +192,8 @@
                 "status_code": ["200"],
                 "response": {
                     "name": "Dell Update Service",
-                    "description" : "VALUE_EXPECTED",
-                    "version": "VALUE_EXPECTED"
+                    "description" : "VALUE_PRESENT",
+                    "version": "VALUE_PRESENT"
                 }
             }
         }

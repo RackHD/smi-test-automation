@@ -11,13 +11,7 @@ from . import handler_tools as tools
 import logging
 
 logger = logging.getLogger(__name__)
-#import os
-#import sys
-#from scripts.SMI.utility.UtilBase import Utility
-#run_dir=os.path.abspath(os.path.dirname(__file__))
-#current_dir = os.getcwd()
-#os.chdir(run_dir)
-#sys.path.insert(0,os.path.abspath('../utility'))
+
 class SCPHandler(Utility):
 
     def __init__(self):

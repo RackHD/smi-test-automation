@@ -178,8 +178,6 @@ def _contains_expected_unlogged(container, expected):
     if not isinstance(container, type(expected)):
         return False
     if isinstance(expected, (dict)):
-        if expected == "KEY_PRESENT":
-            return True
         for item in expected:
             if item not in container or not _contains_expected_unlogged(container[item], expected[item]):
                 return False
