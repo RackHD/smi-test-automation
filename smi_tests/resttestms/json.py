@@ -61,6 +61,14 @@ def get_test(end_class, test_name):
     """Load test description, payload, and expected results from class at index"""
     return endpoint_load_test(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
 
+def get_base_parameters(end_class):
+    """Load base parameters in class for specified class"""
+    return endpoint_load_base_parameters(end_class.JSON_FILE, end_class.ENDPOINT)
+
+def get_test_parameters(end_class, test_name):
+    """Load parameters in class for specified test"""
+    return endpoint_load_test_parameters(end_class.JSON_FILE, end_class.ENDPOINT, test_name)
+
 def get_base_payload(end_class):
     """Load base payload in class for specified class"""
     return endpoint_load_base_payload(end_class.JSON_FILE, end_class.ENDPOINT)
@@ -104,6 +112,18 @@ def endpoint_load_test(directory, endpoint, test_name):
         test_data = data[endpoint]["test_data"]
         return parse.build_test_case(test_data, test_name)
 
+def endpoint_load_base_parameters(directory, endpoint):
+    """Load base parameters from endpoint"""
+    return endpoint_load_test_parameters(directory, endpoint, BASE)
+
+def endpoint_load_test_parameters(directory, endpoint, test_name):
+    """Load expected parameters for specified endpoint and test"""
+    with open(directory) as stream:
+        data = json.load(stream)
+        test_data = data[endpoint]["test_data"]
+        _, _, parameters, _, _, _, _ = parse.build_test_case(test_data, test_name)
+        return parameters
+
 def endpoint_load_base_payload(directory, endpoint):
     """Load base payload from endpoint"""
     return endpoint_load_test_payload(directory, endpoint, BASE)
@@ -113,7 +133,7 @@ def endpoint_load_test_payload(directory, endpoint, test_name):
     with open(directory) as stream:
         data = json.load(stream)
         test_data = data[endpoint]["test_data"]
-        _, _, payload, _, _, _ = parse.build_test_case(test_data, test_name)
+        _, _, _, payload, _, _, _ = parse.build_test_case(test_data, test_name)
         return payload
 
 def endpoint_load_base_status_codes(directory, endpoint):
@@ -125,7 +145,7 @@ def endpoint_load_test_status_codes(directory, endpoint, test_name):
     with open(directory) as stream:
         data = json.load(stream)
         test_data = data[endpoint]["test_data"]
-        _, _, _, status_codes, _, _ = parse.build_test_case(test_data, test_name)
+        _, _, _, _, status_codes, _, _ = parse.build_test_case(test_data, test_name)
         return status_codes
 
 def endpoint_load_base_response(directory, endpoint):
@@ -137,7 +157,7 @@ def endpoint_load_test_response(directory, endpoint, test_name):
     with open(directory) as stream:
         data = json.load(stream)
         test_data = data[endpoint]["test_data"]
-        _, _, _, _, response, _ = parse.build_test_case(test_data, test_name)
+        _, _, _, _, _, response, _ = parse.build_test_case(test_data, test_name)
         return response
 
 ###################################################################################################
@@ -147,5 +167,4 @@ def endpoint_load_test_response(directory, endpoint, test_name):
 def load_response_data(response):
     """Return the data of the response body"""
     response_data = json.loads(response.text)
-    LOG.debug("Loading data from response : %s", response_data)
     return response_data

@@ -24,20 +24,22 @@ LOG = logging.getLogger(__name__)
 def bad_data(action, end_class):
     """Run requests with missing or empty data, check for failure"""
     LOG.info("Begin %s tests for %s using bad data", str(action).upper(), end_class.__class__.__name__)
-    for combo in _bad_data_combos(json.get_base_payload(end_class)):
-        request = http.rest_call(action, end_class.URL, combo)
-        with end_class.subTest(data=combo):
-            end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
+    for param_combo in _bad_data_combos(json.get_base_parameters(end_class)):
+        for payload_combo in _bad_data_combos(json.get_base_payload(end_class)):
+            request = http.rest_call(action, end_class.URL, param_combo, payload_combo)
+            with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
+                end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def bad_data_except(action, end_class, good_combos):
+def bad_data_except(action, end_class, good_params, good_payloads):
     """Run requests with missing or empty data excluding those specified, check for failure"""
-    LOG.info("Begin %s tests for %s using bad data with the following exceptions :: %s",
-             str(action).upper(), end_class.__class__.__name__, good_combos)
-    for combo in _bad_data_combos_except(json.get_base_payload(end_class), good_combos):
-        request = http.rest_call(action, end_class.URL, combo)
-        with end_class.subTest(data=combo):
-           end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
+    LOG.info("Begin %s tests for %s using bad data with the following exceptions :: %s : %s",
+             str(action).upper(), end_class.__class__.__name__, good_params, good_payloads)
+    for param_combo in _bad_data_combos_except(json.get_base_parameters(end_class), good_params):
+        for payload_combo in _bad_data_combos_except(json.get_base_payload(end_class), good_payloads):
+            request = http.rest_call(action, end_class.URL, param_combo, payload_combo)
+            with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
+                end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
 def run_json(action, end_class):
@@ -45,7 +47,7 @@ def run_json(action, end_class):
     LOG.info("Begin JSON defined %s tests for %s", str(action).upper(), end_class.__class__.__name__)
     print("")
     for test_name in json.get_all_tests(end_class):
-        skip, description, payload, status_codes, response, error = json.get_test(end_class, test_name)
+        skip, description, parameters, payload, status_codes, response, error = json.get_test(end_class, test_name)
         if skip:
             test_skip_info = "{}.{} : {} : {}".format(end_class.__class__.__name__, test_name, skip, description)
             print("Skipping " + test_skip_info)
@@ -55,7 +57,7 @@ def run_json(action, end_class):
             print("Running " + test_info)
             LOG.info("Running %s", test_info)
             with end_class.subTest(test=test_info):
-                request = http.rest_call(action, end_class.URL, payload)
+                request = http.rest_call(action, end_class.URL, parameters, payload)
                 end_class.assertTrue(compare_request(request, status_codes, response), error)
 
 
@@ -137,9 +139,11 @@ def compare_request(request, status_codes, exp_data):
 def contains_expected(container, expected):
     """Recursively check container to make sure expected is contained within"""
     if expected == "KEY_PRESENT":
-            return True
-    if expected == "VALUE_PRESENT" and container != None:
         return True
+    if expected == "VALUE_PRESENT":
+        return container != None
+    if expected == "DATA_PRESENT":
+        return len(container) > 0
     LOG.debug("Contains Expected :: Expected : %s Actual : %s", expected, container)
     if not isinstance(container, type(expected)):
         return False
@@ -171,9 +175,11 @@ def contains_expected(container, expected):
 def _contains_expected_unlogged(container, expected):
     """Recursively check container to make sure expected is contained within"""
     if expected == "KEY_PRESENT":
-            return True
-    if expected == "VALUE_PRESENT" and container != None:
         return True
+    if expected == "VALUE_PRESENT":
+        return container != None
+    if expected == "DATA_PRESENT":
+        return len(container) > 0
     LOG.debug("Contains Expected :: Expected : %s Actual : %s", expected, container)
     if not isinstance(container, type(expected)):
         return False

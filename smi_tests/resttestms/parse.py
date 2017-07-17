@@ -81,8 +81,8 @@ def build_test_case(test_data, test_name):
     skip = None
     description = "No Description"
     error = "Bad Response"
-    status_codes = ['>=200', '!500']
-    payload, response = {}, {}
+    status_codes = ['200']
+    parameters, payload, response = {}, {}, {}
 
     if "skip" in test_data[test_name]:
         skip = test_data[test_name]["skip"]
@@ -92,6 +92,14 @@ def build_test_case(test_data, test_name):
         error = test_data[test_name]["error"]
     if "status_code" in test_data[test_name]:
         status_codes = test_data[test_name]["status_code"]
+    if "parameters" in test_data[test_name]:
+        mod_parameters = test_data[test_name]["parameters"]
+        try:
+            base_parameters = test_data[BASE]["parameters"]
+        except KeyError:
+            base_parameters = mod_parameters
+            LOG.info("No base test data found for %s", test_name)
+        parameters = build_parameters(base_parameters, mod_parameters)
     if "payload" in test_data[test_name]:
         mod_payload = test_data[test_name]["payload"]
         try:
@@ -110,11 +118,12 @@ def build_test_case(test_data, test_name):
     if skip:
         LOG.debug("Skip this test")
     LOG.debug("Description : %s", description)
+    LOG.debug("Parameters : %s", str(parameters))
     LOG.debug("Payload : %s", str(payload))
     LOG.debug("Expected status code : %s", str(status_codes))
     LOG.debug("Expected response : %s", str(response))
     LOG.debug("Error Message : %s", error)
-    return skip, description, payload, status_codes, response, error
+    return skip, description, parameters, payload, status_codes, response, error
 
 def is_list_mod(potential_mod_string):
     "Check if list element is a modifier string"
@@ -148,6 +157,10 @@ def get_list_mod(mod_string):
             LOG.debug("List mod locations : %s", locations)
             locations = [int(i) for i in locations]
         return operation, locations
+
+def build_parameters(base_parameters, mod_parameters):
+    """Construct test parameters using base parameters and modifications"""
+    return _combine_items(base_parameters, mod_parameters)
 
 def build_payload(base_payload, mod_payload):
     """Construct test payload using base payload and modifications"""
