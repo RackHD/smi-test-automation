@@ -41,7 +41,7 @@ class ChassisInventoryTest(unittest.TestCase):
 ###################################################################################################
 # Callback
 ###################################################################################################
-@unittest.skip("Not implemented yet")
+
 class Callback(ChassisInventoryTest):
     """Tests for Callback Endpoint"""
     @classmethod
@@ -70,11 +70,11 @@ class Details(ChassisInventoryTest):
         test.run_json('POST', self)
 
 ###################################################################################################
-# IPS
+# Ips
 ###################################################################################################
-@unittest.skip("Not implemented yet")
-class IPS(ChassisInventoryTest):
-    """Tests for IPS Endpoint"""
+
+class Ips(ChassisInventoryTest):
+    """Tests for Ips Endpoint"""
     @classmethod
     def setUpClass(cls):
         """Load initial test data from json"""

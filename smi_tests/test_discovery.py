@@ -56,11 +56,11 @@ class ConfigDevice(DiscoveryTest):
         test.run_json('GET', self)
 
 ###################################################################################################
-# IPS
+# Ips
 ###################################################################################################
 
-class IPS(DiscoveryTest):
-    """Tests for IPS Endpoint"""
+class Ips(DiscoveryTest):
+    """Tests for Ips Endpoint"""
     @classmethod
     def setUpClass(cls):
         """Load initial test data from json"""

@@ -57,7 +57,7 @@ class PowerThermalPost(PowerThermalTest):
 ###################################################################################################
 # Powerthermal Put
 ###################################################################################################
-@unittest.skip("Not implemented yet")
+
 class PowerThermalPut(PowerThermalTest):
     """Tests for Powerthermal Put Endpoint"""
     @classmethod

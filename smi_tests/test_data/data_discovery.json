@@ -7,9 +7,7 @@
         {
 			"test_base":
 			{
-				"description": "Send default payload and check name",
-				"status_code": ["200"]
-				
+				"description": "Send default payload and check name"
 			}
 		}
     },
@@ -41,7 +39,6 @@
 					]
 					
 				},
-				"status_code": ["200"],
 				"response":
 				[
 					{
@@ -88,7 +85,6 @@
 					"deviceType": ["REMOVE : 1"],
 					"ips": ["REMOVE : 1"]
 				},
-				"status_code": ["200"],
 				"response": ["REMOVE : 1"]
 			},
 			"test_only_server_ip":
@@ -99,7 +95,6 @@
 					"REMOVE": ["credential", "deviceType"],
 					"ips": ["REMOVE : 1"]
 				},
-				"status_code": ["200"],
 				"response": ["REMOVE : 1"]
 			}
 		}
@@ -133,7 +128,6 @@
 						}
 					]
 				},
-				"status_code": ["200"],
 				"response":
 				[
 					{
@@ -194,7 +188,6 @@
 						}
 					]
 				},
-				"status_code": ["200"],
 				"response": ["REMOVE : 1"]
 			},
 			"test_only_chassis":
@@ -210,7 +203,6 @@
 						}
 					]
 				},
-				"status_code": ["200"],
 				"response": ["REMOVE : 0"]
 			}
 		}

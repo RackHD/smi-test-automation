@@ -5,177 +5,223 @@ Created on June 4, 2017
 
 @author: Prashanth_L_Gowda, Dan_Phelps
 '''
-import json
+
 import unittest
-import sys, os
+import sys
 import logging
+import config
+from resttestms import http, json, log, test, parse
 
+LOG = logging.getLogger(__name__)
 
-logger = logging.getLogger(__name__)
+# Leave as None to use default Host
+HOST_OVERRIDE = None
+
+# Leave as None to use default json directory
+DATA_OVERRIDE = None
+
+def setUpModule():
+    """Initialize data for all test cases using overrides"""
+    LOG.info("Begin Server Inventory Tests")
+    ServerInventoryTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE)
 
 class ServerInventoryTest(unittest.TestCase):
-    
-    def setUp(self):
-        print("")
+    """Collection of data to test the server inventory microservice"""
+ 
+    PORT = '46011'
+    JSON_NAME = 'data_serverinventory.json'
 
-    def testHardware(self):
-        try :
-            response = ServerInventoryHandler().Inventory("hardware")
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
+    @classmethod
+    def initialize_data(cls, host_override, directory_override):
+        """Initialize base url and json file path"""
+        cls.HOST = http.select_host(config.HOST, host_override)
+        cls.DATA = json.select_directory(config.DATA, directory_override)
+        cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
+        cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
 
-            if("error" in responseJson):
-                if(int(responseJson["status"]) > 206):
-                    self.assertFalse(True, str(responseJson))
+###################################################################################################
+# Bios
+###################################################################################################
 
-            serviceTag = "17M0D42"
-            
-            if("system" in responseJson and "serviceTag" in responseJson["system"]):
-                self.assertEqual(responseJson["system"]["serviceTag"], serviceTag, "Service Tag doesn't match response returned from Inventory Microservice")
-            else:
-                self.assertFalse(True, "Service Tag missing in response from Inventory Microservice")
-            
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
+class Bios(ServerInventoryTest):
+    """Tests for Bios Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'bios'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+    def test_json(self):
+        """BIOS JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Boot
+###################################################################################################
+
+class Boot(ServerInventoryTest):
+    """Tests for Boot Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'boot'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """BOOT JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Callback
+###################################################################################################
+
+class Callback(ServerInventoryTest):
+    """Tests for Callback Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'callback'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """CALLBACK JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# DummyCallback
+###################################################################################################
+
+class DummyCallback(ServerInventoryTest):
+    """Tests for DummyCallback Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'dummyCallback'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """DUMMYCALLBACK JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Hardware
+###################################################################################################
+
+class Hardware(ServerInventoryTest):
+    """Tests for Hardware Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'hardware'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """HARDWARE JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Ips
+###################################################################################################
+
+class Ips(ServerInventoryTest):
+    """Tests for Ips Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'ips'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """IPS JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Nics
+###################################################################################################
+
+class Nics(ServerInventoryTest):
+    """Tests for Nics Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'nics'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """NICS JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Software
+###################################################################################################
+
+class Software(ServerInventoryTest):
+    """Tests for Software Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'software'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """SOFTWARE JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Summary
+###################################################################################################
+
+class Summary(ServerInventoryTest):
+    """Tests for Summary Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'summary'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """SUMMARY JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# LogsGetLC
+###################################################################################################
+
+class LogsGetLC(ServerInventoryTest):
+    """Tests for LogsGetLC Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'logs_get_lc'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """LOGSGETLC JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# LogsGetSEL
+###################################################################################################
+
+class LogsGetSEL(ServerInventoryTest):
+    """Tests for LogsGetSEL Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'logs_get_sel'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """LOGSGETSEL JSON TESTS"""
+        test.run_json('POST', self)
 
 
-    def testSoftware(self):
-        try :
-            response = ServerInventoryHandler().Inventory("software")
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
+###################################################################################################
+# RUN MODULE
+###################################################################################################
 
-            if("error" in responseJson):
-                if(int(responseJson["status"]) > 206):
-                    self.assertFalse(True, str(responseJson))
-
-            value = "Integrated Dell Remote Access Controller"
-            
-            for obj in responseJson:
-                if(obj["elementName"]["value"] == value):
-                    return
-
-            self.assertFalse(True, "iDRAC details missing / incomplete in response from Inventory Microservice")
-            
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
-            
-
-    def testNics(self):
-        try :
-            response = ServerInventoryHandler().Inventory("nics")
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-
-            if("error" in responseJson):
-                if(int(responseJson["status"]) > 206):
-                    self.assertFalse(True, str(responseJson))
-
-            fqdd = "NIC.Integrated.1-1-1"
-            
-            for obj in responseJson:
-                if(obj["fqdd"] == fqdd):
-                    return
-
-            self.assertFalse(True, "NIC details missing / incomplete in response from Inventory Microservice")
-            
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
-            
-
-    def testBios(self):
-        try :
-            response = ServerInventoryHandler().Inventory("bios")
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-
-            if("error" in responseJson):
-                if(int(responseJson["status"]) > 206):
-                    self.assertFalse(True, str(responseJson))
-
-            if("dcimBIOSEnumerationTypeList" in responseJson and "dcimBIOSIntegerType" in responseJson and "dcimbiosstringType" in responseJson):
-                if 0 in (len(responseJson["dcimBIOSEnumerationTypeList"]), len(responseJson["dcimBIOSIntegerType"]), len(responseJson["dcimbiosstringType"])):
-                    self.assertFalse(True, "BIOS details missing/incomplete in response from Inventory Microservice")
-            else:
-                self.assertFalse(True, "BIOS details missing/incomplete in response from Inventory Microservice")
-
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
-            
-
-    def testBoot(self):
-        try :
-            response = ServerInventoryHandler().Inventory("boot")
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-
-            if("error" in responseJson):
-                if(int(responseJson["status"]) > 206):
-                    self.assertFalse(True, str(responseJson))
-
-            if("bootSourcesByBootModes" in responseJson and "bootSourcesByBootMode" in responseJson["bootSourcesByBootModes"]):
-                if(len(responseJson["bootSourcesByBootModes"]["bootSourcesByBootMode"]) == 0):
-                    self.assertFalse(True, "BOOT details missing/incomplete in response from Inventory Microservice")
-            else:
-                self.assertFalse(True, "BOOT details missing/incomplete in response from Inventory Microservice")
-
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
-
-
-    def testLC(self):
-        try :
-            response = ServerInventoryHandler().Inventory("lc")
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-
-            if("error" in responseJson):
-                if(int(responseJson["status"]) > 206):
-                    self.assertFalse(True, str(responseJson))
-
-            value = "LifeCycle Log"
-
-            if(len(responseJson) != 0):
-                self.assertEqual(responseJson[0]["logName"], value, "LC log details missing/incomplete in response from Inventory Microservice")
-            else:
-                logger.info("LC log is EMPTY.")
-
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
-
-
-    def testSEL(self):
-        try :
-            response = ServerInventoryHandler().Inventory("sel")
-            logger.info("Response: " + response.text)
-            responseJson = json.loads(response.text)
-
-            if("error" in responseJson):
-                if(int(responseJson["status"]) > 206):
-                    self.assertFalse(True, str(responseJson))
-
-            value = "System Event Log Entry"
-
-            if(len(responseJson) != 0):
-                self.assertEqual(responseJson[0]["elementName"], value, "SEL log details missing/incomplete in response from Inventory Microservice")
-            else:
-                logger.info("SEL log is EMPTY.")
-
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1      
-
-            
-if __name__=="__main__":
-    if len(sys.argv) > 1:
-        ServerInventoryHandler.host = sys.argv.pop()
-    else:
-        ServerInventoryHandler.host = "http://localhost:46011"
-
+if __name__ == "__main__":
+    HOST, DATA = parse.single_microservice_args(sys.argv)
+    HOST_OVERRIDE = HOST if HOST else HOST_OVERRIDE
+    DATA_OVERRIDE = DATA if DATA else DATA_OVERRIDE
+    log.configure_logger_from_yaml('logs/logger_config.yml')
     unittest.main()

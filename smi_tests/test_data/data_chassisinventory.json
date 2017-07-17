@@ -8,10 +8,7 @@
             "test_base":
             {
                 "skip": "Not Implemented",
-                "description": "No Description",
-                "payload": {},
-                "status_code": ["!500"],
-                "response": {}
+                "description": "No Description"
             }
         }
     },
@@ -30,7 +27,6 @@
                     "userName":"root",
                     "password":"calvin"
                 },
-                "status_code": ["200"],
                 "response":
                 {
                     "chassisControllers": 
@@ -45,7 +41,7 @@
             {
                 "description": "Send empty payload and check for bad response",
                 "payload": {"REMOVE":["all"]},
-                "status_code" : [">206", "!500"],
+                "status_code" : [">206", "<500"],
                 "response": {"REMOVE": ["all"]}
             }
         }
@@ -59,10 +55,7 @@
             "test_base":
             {
                 "skip": "Not Implemented",
-                "description": "No Description",
-                "payload": { },
-                "status_code": ["!500"],
-                "response": { }
+                "description": "No Description"
             }
         }
     },
@@ -81,7 +74,6 @@
                     "userName":"root",
                     "password":"calvin"
                 },
-                "status_code": ["200"],
                 "response":
                 {
                     "serviceTag": "9XLTW52"
@@ -91,9 +83,9 @@
             {
                 "description": "Send empty payload and check for bad response",
                 "payload": {"REMOVE":["all"]},
-                "status_code" : [">206", "!500"],
+                "status_code" : [">206", "<500"],
                 "response": {"REMOVE": ["all"]},
-                "error": "Returned Success with bad payload"
+                "error": "Returned success with bad payload"
             }
         }
     }

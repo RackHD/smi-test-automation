@@ -41,7 +41,7 @@ class FirmwareUpdateTest(unittest.TestCase):
 ###################################################################################################
 # Comparer
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class Comparer(FirmwareUpdateTest):
     """Tests for Comparer Endpoint"""
     @classmethod
@@ -57,7 +57,7 @@ class Comparer(FirmwareUpdateTest):
 ###################################################################################################
 # Comparer Catalog
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class ComparerCatalog(FirmwareUpdateTest):
     """Tests for Comparer Catalog Endpoint"""
     @classmethod
@@ -69,7 +69,7 @@ class ComparerCatalog(FirmwareUpdateTest):
     def test_json(self):
         """COMPARER CATALOG JSON TESTS"""
         test.run_json('POST', self)
-    
+    @unittest.skip("Not Implemented")
     def test_01(self):
         """Compare this catalog to identical catalog in different directory"""
         # First, download a second catalog to use for the comparison
@@ -78,12 +78,11 @@ class ComparerCatalog(FirmwareUpdateTest):
         url = self.BASE_URL + json.endpoint_load_path(self.JSON_FILE, 'downloader')
         http.rest_get(url, dl_payload)
         # Second, get the details for the comparison function
-        response = http.rest_post(self.URL, json.get_base_payload(self))
 
 ###################################################################################################
 # Comparer Custom
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class ComparerCustom(FirmwareUpdateTest):
     """Tests for Comparer Custom Endpoint"""
     @classmethod
@@ -100,7 +99,7 @@ class ComparerCustom(FirmwareUpdateTest):
 ###################################################################################################
 # Downloader
 ###################################################################################################
-# @unittest.skip("Too Slow")
+
 class Downloader(FirmwareUpdateTest):
     """Tests for Downloader Endpoint"""
     @classmethod
@@ -112,7 +111,7 @@ class Downloader(FirmwareUpdateTest):
     def test_bad_data(self):
         """DOWNLOADER BAD DATA TESTS"""
         test.bad_data('GET', self)
-    @unittest.skip("Too Slow")
+    
     def test_json(self):
         """DOWNLOADER JSON TESTS"""
         test.run_json('GET', self)
@@ -120,7 +119,7 @@ class Downloader(FirmwareUpdateTest):
 ###################################################################################################
 # UCI
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class UCI(FirmwareUpdateTest):
     """Tests for UCI Endpoint"""
     @classmethod
@@ -136,7 +135,7 @@ class UCI(FirmwareUpdateTest):
 ###################################################################################################
 # UCI SI
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class UCISI(FirmwareUpdateTest):
     """Tests for UCI SI Endpoint"""
     @classmethod
@@ -152,7 +151,7 @@ class UCISI(FirmwareUpdateTest):
 ###################################################################################################
 # Updater
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class Updater(FirmwareUpdateTest):
     """Tests for Updater Endpoint"""
     @classmethod
@@ -168,7 +167,7 @@ class Updater(FirmwareUpdateTest):
 ###################################################################################################
 # Updater DUP
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class UpdaterDUP(FirmwareUpdateTest):
     """Tests for Updater DUP Endpoint"""
     @classmethod
@@ -184,7 +183,7 @@ class UpdaterDUP(FirmwareUpdateTest):
 ###################################################################################################
 # Updater Status
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class UpdaterStatus(FirmwareUpdateTest):
     """Tests for Updater Status Endpoint"""
     @classmethod
@@ -200,7 +199,7 @@ class UpdaterStatus(FirmwareUpdateTest):
 ###################################################################################################
 # Updater TestCallback
 ###################################################################################################
-@unittest.skip("Not Implemented")
+
 class UpdaterTestCallback(FirmwareUpdateTest):
     """Tests for Updater TestCallback Endpoint"""
     @classmethod

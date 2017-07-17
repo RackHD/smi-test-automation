@@ -7,6 +7,7 @@
         {
             "test_base":
             {
+                "skip": "Not Implemented",
                 "description": "Make a request to comparer with valid parameters, check for success",
                 "payload": 
                 {   
@@ -17,11 +18,11 @@
                     "type": "wsman",
                     "updateableComponentInventory":"",
                     "userName":"root"
-                },
-                "status_code":["200"]
+                }
             },
             "test_bad_ip":
             {
+                "skip": "Not Implemented",
                 "description": "Make a request to comparer with invalid IP, check for failure",
                 "payload":
                 {   
@@ -31,6 +32,7 @@
             },
             "test_bad_credentials":
             {
+                "skip": "Not Implemented",
                 "description": "Make a request to comparer with invalid username and password, check for failure",
                 "payload": 
                 {
@@ -41,6 +43,7 @@
             },
             "test_bad_catalog_path":
             {
+                "skip": "Not Implemented",
                 "description": "Make a request to comparer with invalid catalog path, check for failure",
                 "payload":
                 {
@@ -64,8 +67,7 @@
                 {
                     "sourceCatalog": "/temp/",
                     "targetCatalog": "/temp2/"
-                },
-                "status_code": ["200"]
+                }
             }
         }
     },
@@ -90,8 +92,9 @@
         {
             "test_base" : 
             {
+                "skip": "Not Implemented",
                 "description": "Make a request to downloader with valid parameters, check for success",
-                "payload":
+                "parameters":
                 {
                     "fileName": "Catalog.xml.gz",
                     "fileUrl": "ftp.dell.com/catalog",

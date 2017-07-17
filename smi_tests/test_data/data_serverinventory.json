@@ -1,79 +1,228 @@
 {
-    "services":{
-
-        "hardware":{
-            "url":"/api/1.0/server/inventory/hardware",
-            "credential":{
-
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-
-            }
-        },
-
-        "software":{
-            "url":"/api/1.0/server/inventory/software",
-            "credential":{
-
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-
-            }
-        },
-
-        "nics":{
-            "url":"/api/1.0/server/inventory/nics",
-            "credential":{
-
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-
-            }
-        },
-
-        "bios":{
-            "url":"/api/1.0/server/inventory/bios",
-            "credential":{
-
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-
-            }
-        },
-
-        "boot":{
-            "url":"/api/1.0/server/inventory/boot",
-            "credential":{
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-            }
-        },
-        "sel":{
-            "url":"/api/1.0/server/inventory/logs/get/SEL",
-            "credential":{
-
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-
-            }
-        },
-
-        "lc":{
-            "url":"/api/1.0/server/inventory/logs/get/LC",
-            "credential":{
-
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-
+    "bios": 
+    {
+        "path": "/api/1.0/server/inventory/bios",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Test to make sure bios returns valid data",
+                "payload":
+                {
+                    "address":"100.68.124.35",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                {
+                    "dcimBIOSEnumerationTypeList": "DATA_PRESENT",
+                    "dcimBIOSIntegerType": "DATA_PRESENT",
+                    "dcimbiosstringType": "DATA_PRESENT"
+                }
             }
         }
+    },
 
+    "boot": 
+    {
+        "path": "/api/1.0/server/inventory/boot",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Test to make sure boot returns valid data",
+                "payload":
+                {
+                    "address":"100.68.124.35",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                {
+                    "bootSourcesByBootModes":
+                    {
+                        "bootSourcesByBootMode": "DATA_PRESENT"
+                    }
+                }
+            }
+        }
+    },
+
+    "callback": 
+    {
+        "path": "/api/1.0/server/inventory/callback",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "dummyCallback": 
+    {
+        "path": "/api/1.0/server/inventory/dummyCallback",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "hardware": 
+    {
+        "path": "/api/1.0/server/inventory/hardware",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Test to make sure correct serviceTag is returned",
+                "payload":
+                {
+                    "address":"100.68.124.35",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                {
+                    "system":
+                    {
+                        "serviceTag": "17M0D42"
+                    }
+                },
+                "error": "Incorrect service tag"
+            }
+        }
+    },
+
+    "ips": 
+    {
+        "path": "/api/1.0/server/inventory/ips",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "nics": 
+    {
+        "path": "/api/1.0/server/inventory/nics",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Check to make sure nics data is present",
+                "payload":
+                {
+                    "address":"100.68.124.35",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                [
+                    {
+                        "fqdd": "NIC.Integrated.1-1-1"
+                    }
+                ]
+            }
+        }
+    },
+
+    "software": 
+    {
+        "path": "/api/1.0/server/inventory/software",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Check to make element value is iDRAC",
+                "payload":
+                {
+                    "address":"100.68.124.35",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                [
+                    {
+                        "elementName":
+                        {
+                            "value": "Integrated Dell Remote Access Controller"
+                        }
+                    }
+                ]
+            }
+        }
+    },
+
+    "summary": 
+    {
+        "path": "/api/1.0/server/inventory/summary",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "logs_get_lc": 
+    {
+        "path": "/api/1.0/server/inventory/logs/get/LC",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Check that logName is LifeCycle Log",
+                "payload":
+                {
+                    "address":"100.68.124.35",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                [
+                    {
+                        "logName": "LifeCycle Log"
+                    }
+                ]
+            }
+        }
+    },
+
+    "logs_get_sel": 
+    {
+        "path": "/api/1.0/server/inventory/logs/get/SEL",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "description": "Check that element name is System Event Log Entry",
+                "payload":
+                {
+                    "address":"100.68.124.35",
+                    "userName":"root",
+                    "password":"calvin"
+                },
+                "response":
+                [
+                    {
+                        "elementName": "System Event Log Entry"
+                    }
+                ]
+            }
+        }
     }
+
 }
