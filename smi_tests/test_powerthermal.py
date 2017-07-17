@@ -27,7 +27,7 @@ def setUpModule():
 
 class PowerThermalTest(unittest.TestCase):
     """Collection of data to test the power thermal microservice"""
- 
+
     PORT = '46019'
     JSON_NAME = 'data_powerthermal.json'
 
@@ -40,33 +40,33 @@ class PowerThermalTest(unittest.TestCase):
         cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
-# Powerthermal Post
+# Post
 ###################################################################################################
 
-class PowerThermalPost(PowerThermalTest):
+class Post(PowerThermalTest):
     """Tests for Powerthermal Post Endpoint"""
     @classmethod
     def setUpClass(cls):
         """Load initial test data from json"""
-        cls.ENDPOINT = 'powerthermal_post'
+        cls.ENDPOINT = 'post'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
     def test_json(self):
-        """POWERTHERMAL POST JSON TESTS"""
+        """POST JSON TESTS"""
         test.run_json('POST', self)
 
 ###################################################################################################
-# Powerthermal Put
+# Put
 ###################################################################################################
 
-class PowerThermalPut(PowerThermalTest):
-    """Tests for Powerthermal Put Endpoint"""
+class Put(PowerThermalTest):
+    """Tests for Put Endpoint"""
     @classmethod
     def setUpClass(cls):
         """Load initial test data from json"""
-        cls.ENDPOINT = 'powerthermal_put'
+        cls.ENDPOINT = 'put'
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
     def test_json(self):
-        """POWERTHERMAL PUT JSON TESTS"""
+        """PUT JSON TESTS"""
         test.run_json('PUT', self)
 
 ###################################################################################################

@@ -1,6 +1,6 @@
 {
 
-    "powerthermal_post": 
+    "post": 
     {
         "path": "/api/1.0/powerthermal",
         "test_data": 
@@ -28,7 +28,7 @@
         }
     },
 
-    "powerthermal_put": 
+    "put": 
     {
         "path": "/api/1.0/powerthermal",
         "test_data": 
