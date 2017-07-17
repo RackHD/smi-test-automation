@@ -7,21 +7,26 @@
         {
             "test_base":
             {
-                "skip": "Not Implemented",
-                "description": "Pass bad payload, check for failed copy",
+                "description": "Export server configuration profile to 100.68.125.194",
                 "payload":
                 {
-                    "componentNames": [ ],
-                    "fileName": "unitTest.xml",
+                    "fileName": "fitFile.xml",
                     "serverIP": "100.68.124.31",
-                    "serverUsername": "root",
                     "serverPassword": "calvin",
-                    "shareAddress": "localhost",
-                    "shareName": "/opt/dell/public",
-                    "shareType": 0
+                    "serverUsername": "root",
+                    "shareAddress": "100.68.125.194",
+                    "shareName": "nfs",
+                    "shareType": 0,
+                    "shutdownType": 0
                 },
-                "status_code": ["200"],
-                "response": { },
+                "response": 
+                {
+                    "xmlConfig":
+                    {
+                        "result": "SUCCESS",
+                        "jobID": "VALUE_PRESENT"
+                    }
+                },
                 "error": "Failed to export SCP File from Server"
             }
         }
@@ -34,24 +39,31 @@
         {
             "test_base":
             {
-                "skip": "Not Implemented",
-                "description": "No Description",
+                "description": "Load configuration data for lifecycle controller",
                 "payload":
                 {
                     "componentNames":
                     [
                         "LifecycleController.Embedded.1"
                     ],
-                    "fileName": "unitTest.xml",
+                    "fileName": "fitFile.xml",
                     "serverIP": "100.68.124.31",
-                    "serverUsername": "root",
                     "serverPassword": "calvin",
-                    "shareAddress": "localhost",
-                    "shareName": "/opt/dell/public",
-                    "shareType": 0
+                    "serverUsername": "root",
+                    "shareAddress": "100.68.125.194",
+                    "shareName": "nfs",
+                    "shareType": 0,
+                    "shutdownType": 0
                 },
-                "status_code": ["200"],
-                "response": { }
+                "response":
+                {
+                    "serverComponents":
+                    [
+                        {
+                            "fqdd": "LifecycleController.Embedded.1"
+                        }
+                    ]
+                }
             }
         }
     },
@@ -63,21 +75,65 @@
         {
             "test_base":
             {
-                "skip": "Not Implemented",
-                "description": "No Description",
+                "description": "Try to import previously exported file",
                 "payload":
                 {
-                    "componentNames": [ ],
-                    "fileName": "unitTest.xml",
+                    "fileName": "fitFile.xml",
                     "serverIP": "100.68.124.31",
-                    "serverUsername": "root",
                     "serverPassword": "calvin",
-                    "shareAddress": "localhost",
-                    "shareName": "/opt/dell/public",
-                    "shareType": 0
+                    "serverUsername": "root",
+                    "shareAddress": "100.68.125.194",
+                    "shareName": "nfs",
+                    "shareType": 0,
+                    "shutdownType": 0
                 },
-                "status_code": ["200"],
-                "response": { }
+                "response": 
+                {
+                    "xmlConfig":
+                    {
+                        "result": "SUCCESS",
+                        "jobID": "VALUE_PRESENT"
+                    }
+                }
+            }
+        }
+    },
+
+    "updateComponents": 
+    {
+        "path": "/api/1.0/server/configuration/updateComponents",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "trap_configureTraps_foo": 
+    {
+        "path": "/api/1.0/server/configuration/trap/configureTraps/foo",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+    },
+
+    "trap_updateTrapFormat_foo": 
+    {
+        "path": "/api/1.0/server/configuration/trap/updateTrapFormat/foo",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
             }
         }
     }

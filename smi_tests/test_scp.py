@@ -5,94 +5,142 @@ Created on May 2, 2017
 
 @author: mkowkab
 '''
-import json
-import os
+
 import unittest
 import sys
 import logging
+import config
+from resttestms import http, json, log, test, parse
 
+LOG = logging.getLogger(__name__)
 
-logger = logging.getLogger(__name__)
+# Leave as None to use default Host
+HOST_OVERRIDE = None
 
-#from scripts.SMI.utility.UtilBase import Utility
-#from scripts.SMI.handlers.SCPMicroservice import SCPHandler
-#run_dir=os.path.abspath(os.path.dirname(__file__))
-#current_dir = os.getcwd()
-#os.chdir(run_dir)
-#sys.path.insert(0,os.path.abspath('../utility'))
-#sys.path.append(os.path.abspath('../handlers'))
-class SCPTest(unittest.TestCase):    
+# Leave as None to use default json directory
+DATA_OVERRIDE = None
 
-    def setUp(self):
-        print("")
+def setUpModule():
+    """Initialize data for all test cases using overrides"""
+    LOG.info("Begin Server Configuration Profile Tests")
+    SCPTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE)
 
-    def test_exportSCP(self):        
-        try:
-            response = SCPHandler().exportSCP()
-            logger.info("Response: " + response.text)
-             
-            task = "export"
-             
-            requestData, url = SCPHandler().getRequestData(task)
-             
-            shareIPAddress = requestData["shareAddress"]
-            shareName = requestData["shareName"]
-            fileName = requestData["fileName"]
-             
-            logger.info("shareIPAdress: " + shareIPAddress + "  shareName: " + shareName + " fileName: " + fileName)
-             
-            output = os.path.isfile(shareName+"/"+fileName)
-             
-            self.assertTrue(output, "Failed to export SCP File from Server" + fileName)
-             
-             
-        except Exception as e:
-            logger.error("Exception: " + str(e))
-            raise e
-        
-    def test_importSCP(self):
-        try:
-            response = SCPHandler().importSCP()
-            logger.info("Response: " + response.text)
-            jsonResponse = json.loads(response.text)
-            idracResponseMessage = jsonResponse["xmlConfig"]["message"]
-            expectedMessage = "No changes occurred. Current component configuration matched the requested configuration."
-            self.assertEqual(idracResponseMessage, expectedMessage, "IDRAC Message didn't match with the Expected message")
-            
-            idracJobID = jsonResponse["xmlConfig"]["jobID"]
-            self.assertIsNotNone(idracJobID, "No IDRAC JOBID returned for Import SCP task.")
-            
-            responseSuccess = jsonResponse["xmlConfig"]["result"]  
-            self.assertEqual(responseSuccess, "SUCCESS", "Response is not SUCCESS for Import SCP task.")   
-            
-        except Exception as e:
-            logger.error("Exception: " + str(e))
-            raise e
-        
-    def test_getComponents(self):
-        try:
-            response = SCPHandler().getComponents()
-            logger.info("Response: " + response.text)
-            jsonResponse = json.loads(response.text)
-            
-            responseComponentName = jsonResponse["serverComponents"][0]["fqdd"]
-            
-            task = "getComponents"             
-            requestData, url = SCPHandler().getRequestData(task)
-            expectedComponentName = requestData["componentNames"][0]
-            
-            self.assertEqual(responseComponentName, expectedComponentName, "ComponentName retunred from the IDRAC didn't match")
-            
-        except Exception as e:
-            raise e
-            
-        
-if __name__=="__main__":
-    if len(sys.argv) > 1:
-        SCPMicroserviceTest.host = sys.argv.pop()
-    else:
-        SCPMicroserviceTest.host = "http://localhost:46018"
-    from test_manager import run_tests
-    run_tests('SCP')
+class SCPTest(unittest.TestCase):
+    """Collection of data to test the scp microservice"""
 
-    
+    PORT = '46018'
+    JSON_NAME = 'data_scp.json'
+
+    @classmethod
+    def initialize_data(cls, host_override, directory_override):
+        """Initialize base url and json file path"""
+        cls.HOST = http.select_host(config.HOST, host_override)
+        cls.DATA = json.select_directory(config.DATA, directory_override)
+        cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
+        cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
+
+###################################################################################################
+# Export
+###################################################################################################
+
+class Export(SCPTest):
+    """Tests for Export Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'export'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+    def test_json(self):
+        """EXPORT JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# GetComponents
+###################################################################################################
+
+class GetComponents(SCPTest):
+    """Tests for GetComponents Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'getComponents'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """GETCOMPONENTS JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Import
+###################################################################################################
+
+class Import(SCPTest):
+    """Tests for Import Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'import'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """IMPORT JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# UpdateComponents
+###################################################################################################
+
+class UpdateComponents(SCPTest):
+    """Tests for UpdateComponents Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'updateComponents'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """UPDATECOMPONENTS JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Trap ConfigureTraps Foo
+###################################################################################################
+
+class TrapConfigureTrapsFoo(SCPTest):
+    """Tests for Trap ConfigureTraps Foo Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'trap_configureTraps_foo'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """TRAPS CONFIGURETRAPS FOO JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# Trap UpdateTrapFormat Foo
+###################################################################################################
+
+class TrapUpdateTrapFormatFoo(SCPTest):
+    """Tests for Trap UpdateTrapFormat Foo Endpoint"""
+    @classmethod
+    def setUpClass(cls):
+        """Load initial test data from json"""
+        cls.ENDPOINT = 'trap_updateTrapFormat_foo'
+        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    def test_json(self):
+        """TRAPS UPDATETRAPFORMAT FOO JSON TESTS"""
+        test.run_json('POST', self)
+
+###################################################################################################
+# RUN MODULE
+###################################################################################################
+
+if __name__ == "__main__":
+    HOST, DATA = parse.single_microservice_args(sys.argv)
+    HOST_OVERRIDE = HOST if HOST else HOST_OVERRIDE
+    DATA_OVERRIDE = DATA if DATA else DATA_OVERRIDE
+    log.configure_logger_from_yaml('logs/logger_config.yml')
+    unittest.main()
