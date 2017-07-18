@@ -52,7 +52,7 @@ class Post(PowerThermalTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
     def test_json(self):
         """POST JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Put
@@ -67,7 +67,7 @@ class Put(PowerThermalTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
     def test_json(self):
         """PUT JSON TESTS"""
-        test.run_json('PUT', self)
+        test.run_all_json_tests('PUT', self)
 
 ###################################################################################################
 # Version
@@ -83,7 +83,7 @@ class Version(PowerThermalTest):
 
     def test_json(self):
         """VERSION JSON TESTS"""
-        test.run_json('GET', self)
+        test.run_all_json_tests('GET', self)
 
 ###################################################################################################
 # RUN MODULE

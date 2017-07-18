@@ -1,11 +1,90 @@
 {
-	"services": {
-
-		"getVirtualIdentities": {
-			"url": "/api/1.0/virtualIdentities",
-			"parameters": { },
-			"payload": { }
-		}
-
+	"delete": 
+    {
+        "path": "/api/1.0/virtualIdentities",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+	},
+	
+	"get": 
+    {
+        "path": "/api/1.0/virtualIdentities",
+        "test_data": 
+        {
+            "test_base":
+            {
+				"description": "Send an empty request, make sure response has no data",
+				"response":
+				{
+					"pagination":
+					{
+						"total": 0
+					},
+					"pages":
+					{
+						"total": 0
+					}
+				}
+            }
+        }
+	},
+	
+	"post": 
+    {
+        "path": "/api/1.0/virtualIdentities",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+	},
+	
+	"put": 
+    {
+        "path": "/api/1.0/virtualIdentities",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+	},
+	
+	"delete_foo": 
+    {
+        "path": "/api/1.0/virtualIdentities/foo",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
+	},
+	
+	"get_foo": 
+    {
+        "path": "/api/1.0/virtualIdentities/foo",
+        "test_data": 
+        {
+            "test_base":
+            {
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+        }
 	}
+
 }

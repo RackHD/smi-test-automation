@@ -52,7 +52,7 @@ class Bios(ServerInventoryTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
     def test_json(self):
         """BIOS JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Boot
@@ -68,7 +68,7 @@ class Boot(ServerInventoryTest):
 
     def test_json(self):
         """BOOT JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Callback
@@ -84,7 +84,7 @@ class Callback(ServerInventoryTest):
 
     def test_json(self):
         """CALLBACK JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # DummyCallback
@@ -100,7 +100,7 @@ class DummyCallback(ServerInventoryTest):
 
     def test_json(self):
         """DUMMYCALLBACK JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Hardware
@@ -116,7 +116,7 @@ class Hardware(ServerInventoryTest):
 
     def test_json(self):
         """HARDWARE JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Ips
@@ -132,7 +132,7 @@ class Ips(ServerInventoryTest):
 
     def test_json(self):
         """IPS JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Nics
@@ -148,7 +148,7 @@ class Nics(ServerInventoryTest):
 
     def test_json(self):
         """NICS JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Software
@@ -164,7 +164,7 @@ class Software(ServerInventoryTest):
 
     def test_json(self):
         """SOFTWARE JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Summary
@@ -180,7 +180,7 @@ class Summary(ServerInventoryTest):
 
     def test_json(self):
         """SUMMARY JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # LogsGetLC
@@ -196,7 +196,7 @@ class LogsGetLC(ServerInventoryTest):
 
     def test_json(self):
         """LOGSGETLC JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # LogsGetSEL
@@ -212,7 +212,7 @@ class LogsGetSEL(ServerInventoryTest):
 
     def test_json(self):
         """LOGSGETSEL JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 
 ###################################################################################################

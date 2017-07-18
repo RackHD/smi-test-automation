@@ -52,7 +52,7 @@ class VirtualNetworkTest(unittest.TestCase):
             responseJson = json.loads(response.text)
             self.assertGreater(responseJson["id"], 0, "Network id should be greater than 0")
 
-            # set the network id as instance variable for subsequent tests 
+            # set the network id as instance variable for subsequent tests
             self.__class__.networkId = responseJson["id"]
 
         except Exception as e1:

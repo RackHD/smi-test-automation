@@ -52,7 +52,7 @@ class Comparer(FirmwareUpdateTest):
 
     def test_json(self):
         """COMPARER JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Comparer Catalog
@@ -68,7 +68,7 @@ class ComparerCatalog(FirmwareUpdateTest):
 
     def test_json(self):
         """COMPARER CATALOG JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
     @unittest.skip("Not Implemented")
     def test_01(self):
         """Compare this catalog to identical catalog in different directory"""
@@ -93,7 +93,7 @@ class ComparerCustom(FirmwareUpdateTest):
 
     def test_json(self):
         """COMPARER CUSTOM JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 
 ###################################################################################################
@@ -114,7 +114,7 @@ class Downloader(FirmwareUpdateTest):
     
     def test_json(self):
         """DOWNLOADER JSON TESTS"""
-        test.run_json('GET', self)
+        test.run_all_json_tests('GET', self)
 
 ###################################################################################################
 # UCI
@@ -130,7 +130,7 @@ class UCI(FirmwareUpdateTest):
 
     def test_json(self):
         """UCI JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # UCI SI
@@ -146,7 +146,7 @@ class UCISI(FirmwareUpdateTest):
 
     def test_json(self):
         """UCI SI JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Updater
@@ -162,7 +162,7 @@ class Updater(FirmwareUpdateTest):
 
     def test_json(self):
         """UPDATER JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Updater DUP
@@ -178,7 +178,7 @@ class UpdaterDUP(FirmwareUpdateTest):
 
     def test_json(self):
         """UPDATER DUP JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Updater Status
@@ -194,7 +194,7 @@ class UpdaterStatus(FirmwareUpdateTest):
 
     def test_json(self):
         """UPDATER STATUS JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Updater TestCallback
@@ -210,7 +210,7 @@ class UpdaterTestCallback(FirmwareUpdateTest):
 
     def test_json(self):
         """UPDATER TESTCALLBACK JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Version
@@ -226,7 +226,7 @@ class Version(FirmwareUpdateTest):
 
     def test_json(self):
         """VERSION JSON TESTS"""
-        test.run_json('GET', self)
+        test.run_all_json_tests('GET', self)
 
 ###################################################################################################
 # RUN MODULE

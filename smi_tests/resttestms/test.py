@@ -42,24 +42,29 @@ def bad_data_except(action, end_class, good_params, good_payloads):
                 end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def run_json(action, end_class):
+def run_json_test(action, end_class, test_name):
+    """Run test specified in JSON"""
+    print("")
+    skip, description, parameters, payload, status_codes, response, error = json.get_test(end_class, test_name)
+    if skip:
+        test_skip_info = "{}.{} : {} : {}".format(end_class.__class__.__name__, test_name, skip, description)
+        print("Skipping " + test_skip_info)
+        LOG.info("Skipping %s", test_skip_info)
+    else:
+        test_info = "{}.{} : {}".format(end_class.__class__.__name__, test_name, description)
+        print("Running " + test_info)
+        LOG.info("Running %s", test_info)
+        with end_class.subTest(test=test_info):
+            request = http.rest_call(action, end_class.URL, parameters, payload)
+            end_class.assertTrue(compare_request(request, status_codes, response), error)
+
+@log.exception(LOG)
+def run_all_json_tests(action, end_class):
     """Run tests specified in JSON"""
     LOG.info("Begin JSON defined %s tests for %s", str(action).upper(), end_class.__class__.__name__)
     print("")
     for test_name in json.get_all_tests(end_class):
-        skip, description, parameters, payload, status_codes, response, error = json.get_test(end_class, test_name)
-        if skip:
-            test_skip_info = "{}.{} : {} : {}".format(end_class.__class__.__name__, test_name, skip, description)
-            print("Skipping " + test_skip_info)
-            LOG.info("Skipping %s", test_skip_info)
-        else:
-            test_info = "{}.{} : {}".format(end_class.__class__.__name__, test_name, description)
-            print("Running " + test_info)
-            LOG.info("Running %s", test_info)
-            with end_class.subTest(test=test_info):
-                request = http.rest_call(action, end_class.URL, parameters, payload)
-                end_class.assertTrue(compare_request(request, status_codes, response), error)
-
+        run_json_test(action, end_class, test_name)
 
 ###################################################################################################
 # Test Data Generators

@@ -52,7 +52,7 @@ class Export(SCPTest):
         cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
     def test_json(self):
         """EXPORT JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # GetComponents
@@ -68,7 +68,7 @@ class GetComponents(SCPTest):
 
     def test_json(self):
         """GETCOMPONENTS JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Import
@@ -84,7 +84,7 @@ class Import(SCPTest):
 
     def test_json(self):
         """IMPORT JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # UpdateComponents
@@ -100,7 +100,7 @@ class UpdateComponents(SCPTest):
 
     def test_json(self):
         """UPDATECOMPONENTS JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Trap ConfigureTraps Foo
@@ -116,7 +116,7 @@ class TrapConfigureTrapsFoo(SCPTest):
 
     def test_json(self):
         """TRAPS CONFIGURETRAPS FOO JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # Trap UpdateTrapFormat Foo
@@ -132,7 +132,7 @@ class TrapUpdateTrapFormatFoo(SCPTest):
 
     def test_json(self):
         """TRAPS UPDATETRAPFORMAT FOO JSON TESTS"""
-        test.run_json('POST', self)
+        test.run_all_json_tests('POST', self)
 
 ###################################################################################################
 # RUN MODULE
