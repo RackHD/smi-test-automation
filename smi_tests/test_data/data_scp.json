@@ -2,98 +2,92 @@
 
     "export": 
     {
-        "path":"/api/1.0/server/configuration/export",
-        "test_data":
+        "test_base":
         {
-            "test_base":
+            "auto_run": true,
+            "path":"/api/1.0/server/configuration/export",
+            "description": "Export server configuration profile to 100.68.125.194",
+            "payload":
             {
-                "description": "Export server configuration profile to 100.68.125.194",
-                "payload":
+                "fileName": "fitFile.xml",
+                "serverIP": "100.68.124.31",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.125.194",
+                "shareName": "nfs",
+                "shareType": 0,
+                "shutdownType": 0
+            },
+            "response": 
+            {
+                "xmlConfig":
                 {
-                    "fileName": "fitFile.xml",
-                    "serverIP": "100.68.124.31",
-                    "serverPassword": "calvin",
-                    "serverUsername": "root",
-                    "shareAddress": "100.68.125.194",
-                    "shareName": "nfs",
-                    "shareType": 0,
-                    "shutdownType": 0
-                },
-                "response": 
-                {
-                    "xmlConfig":
-                    {
-                        "result": "SUCCESS",
-                        "jobID": "VALUE_PRESENT"
-                    }
-                },
-                "error": "Failed to export SCP File from Server"
-            }
+                    "result": "SUCCESS",
+                    "jobID": "VALUE_PRESENT"
+                }
+            },
+            "error": "Failed to export SCP File from Server"
         }
     },
 
     "getComponents":
     {
-        "path":"/api/1.0/server/configuration/getComponents",
-        "test_data":
+        "test_base":
         {
-            "test_base":
+            "auto_run": true,
+            "path":"/api/1.0/server/configuration/getComponents",
+            "description": "Load configuration data for lifecycle controller",
+            "payload":
             {
-                "description": "Load configuration data for lifecycle controller",
-                "payload":
-                {
-                    "componentNames":
-                    [
-                        "LifecycleController.Embedded.1"
-                    ],
-                    "fileName": "fitFile.xml",
-                    "serverIP": "100.68.124.31",
-                    "serverPassword": "calvin",
-                    "serverUsername": "root",
-                    "shareAddress": "100.68.125.194",
-                    "shareName": "nfs",
-                    "shareType": 0,
-                    "shutdownType": 0
-                },
-                "response":
-                {
-                    "serverComponents":
-                    [
-                        {
-                            "fqdd": "LifecycleController.Embedded.1"
-                        }
-                    ]
-                }
+                "componentNames":
+                [
+                    "LifecycleController.Embedded.1"
+                ],
+                "fileName": "fitFile.xml",
+                "serverIP": "100.68.124.31",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.125.194",
+                "shareName": "nfs",
+                "shareType": 0,
+                "shutdownType": 0
+            },
+            "response":
+            {
+                "serverComponents":
+                [
+                    {
+                        "fqdd": "LifecycleController.Embedded.1"
+                    }
+                ]
             }
         }
     },
 
     "import":
     {
-        "path":"/api/1.0/server/configuration/import",
-        "test_data":
+        "test_base":
         {
-            "test_base":
+            "auto_run": true,
+            "path":"/api/1.0/server/configuration/import",
+            "description": "Try to import previously exported file",
+            "payload":
             {
-                "description": "Try to import previously exported file",
-                "payload":
+                "fileName": "fitFile.xml",
+                "serverIP": "100.68.124.31",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.125.194",
+                "shareName": "nfs",
+                "shareType": 0,
+                "shutdownType": 0
+            },
+            "response": 
+            {
+                "xmlConfig":
                 {
-                    "fileName": "fitFile.xml",
-                    "serverIP": "100.68.124.31",
-                    "serverPassword": "calvin",
-                    "serverUsername": "root",
-                    "shareAddress": "100.68.125.194",
-                    "shareName": "nfs",
-                    "shareType": 0,
-                    "shutdownType": 0
-                },
-                "response": 
-                {
-                    "xmlConfig":
-                    {
-                        "result": "SUCCESS",
-                        "jobID": "VALUE_PRESENT"
-                    }
+                    "result": "SUCCESS",
+                    "jobID": "VALUE_PRESENT"
                 }
             }
         }
@@ -101,40 +95,31 @@
 
     "updateComponents": 
     {
-        "path": "/api/1.0/server/configuration/updateComponents",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/server/configuration/updateComponents",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
     },
 
     "trap_configureTraps_foo": 
     {
-        "path": "/api/1.0/server/configuration/trap/configureTraps/foo",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/server/configuration/trap/configureTraps/foo",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
     },
 
     "trap_updateTrapFormat_foo": 
     {
-        "path": "/api/1.0/server/configuration/trap/updateTrapFormat/foo",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/server/configuration/trap/updateTrapFormat/foo",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
     }
 

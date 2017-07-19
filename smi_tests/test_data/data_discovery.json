@@ -2,209 +2,207 @@
 
     "config_device": 
     {
-        "path": "/api/1.0/discover/config/device",
-        "test_data": 
-        {
-			"test_base":
-			{
-				"description": "Send default payload and check name"
-			}
+		"test_base":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/discover/config/device",
+			"description": "Send default payload and check name"
 		}
     },
 
     "ips":
     {
-        "path": "/api/1.0/discover/ips",
-        "test_data": 
-        {
-			"test_base":
+		"test_base":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/discover/ips",
+			"description": "Send default payload to search for sever and chassis, check that both are found",
+			"payload":
 			{
-				"description": "Send default payload to search for sever and chassis, check that both are found",
-				"payload":
+				"credential": 
 				{
-					"credential": 
-					{
-						"userName": "root",
-						"password": "calvin"
-					},
-					"deviceType": 
-					[
-						"SERVER",
-						"CHASSIS"
-					],
-					"ips": 
-					[
-						"100.68.124.95",
-						"100.68.124.98"
-					]
-					
+					"userName": "root",
+					"password": "calvin"
 				},
-				"response":
+				"deviceType": 
 				[
-					{
-						"deviceGroup": "SERVER",
-						"discoveredDeviceList":
-						[
-							{
-								"deviceName": "IDRAC8",
-								"discovered": 1,
-								"discoveredDeviceInfoList":
-								[
-									{
-										"ipAddress": "100.68.124.95",
-										"status": "SUCCESS"
-									}
-								]
-							}
-						]
-					},
-					{
-						"deviceGroup": "CHASSIS",
-						"discoveredDeviceList":
-						[
-							{
-								"deviceName": "CMC_FX2",
-								"discovered": 1,
-								"discoveredDeviceInfoList":
-								[
-									{
-										"ipAddress": "100.68.124.98",
-										"status": "SUCCESS"
-									}
-								]
-							}
-						]
-					}
+					"SERVER",
+					"CHASSIS"
+				],
+				"ips": 
+				[
+					"100.68.124.95",
+					"100.68.124.98"
 				]
+				
 			},
-			"test_server":
-			{
-				"description": "Only search for server, check that it is found",
-				"payload":
+			"response":
+			[
 				{
-					"deviceType": ["REMOVE : 1"],
-					"ips": ["REMOVE : 1"]
+					"deviceGroup": "SERVER",
+					"discoveredDeviceList":
+					[
+						{
+							"deviceName": "IDRAC8",
+							"discovered": 1,
+							"discoveredDeviceInfoList":
+							[
+								{
+									"ipAddress": "100.68.124.95",
+									"status": "SUCCESS"
+								}
+							]
+						}
+					]
 				},
-				"response": ["REMOVE : 1"]
+				{
+					"deviceGroup": "CHASSIS",
+					"discoveredDeviceList":
+					[
+						{
+							"deviceName": "CMC_FX2",
+							"discovered": 1,
+							"discoveredDeviceInfoList":
+							[
+								{
+									"ipAddress": "100.68.124.98",
+									"status": "SUCCESS"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		"test_server":
+		{
+			"auto_run": true,
+			"description": "Only search for server, check that it is found",
+			"payload":
+			{
+				"deviceType": ["REMOVE : 1"],
+				"ips": ["REMOVE : 1"]
 			},
-			"test_only_server_ip":
+			"response": ["REMOVE : 1"]
+		},
+		"test_only_server_ip":
+		{
+			"auto_run": true,
+			"description": "Only search using ip, check that server is found",
+			"payload":
 			{
-				"description": "Only search using ip, check that server is found",
-				"payload":
-				{
-					"REMOVE": ["credential", "deviceType"],
-					"ips": ["REMOVE : 1"]
-				},
-				"response": ["REMOVE : 1"]
-			}
+				"REMOVE": ["credential", "deviceType"],
+				"ips": ["REMOVE : 1"]
+			},
+			"response": ["REMOVE : 1"]
 		}
     },
 
     "range": 
     {
-        "path": "/api/1.0/discover/range",
-        "test_data": 
-        {
-			"test_base":
-            {
-				"description": "Send default payload to search range, check that server and chassis are found",
-				"payload":
+		"test_base":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/discover/range",
+			"description": "Send default payload to search range, check that server and chassis are found",
+			"payload":
+			{
+				"credential":
 				{
-					"credential":
-					{
-						"userName": "root",
-						"password": "calvin"
-					},
-					"discoverIpRangeDeviceRequests":
-					[
-						{
-							"deviceType": 
-							[
-								"SERVER",
-								"CHASSIS"
-							],
-							"deviceStartIp": "100.68.124.95",
-							"deviceEndIp": "100.68.124.98"
-						}
-					]
+					"userName": "root",
+					"password": "calvin"
 				},
-				"response":
+				"discoverIpRangeDeviceRequests":
 				[
 					{
-						"deviceGroup": "SERVER",
-						"discoveredDeviceList":
+						"deviceType": 
 						[
-							{
-								"deviceName": "IDRAC8",
-								"discovered": 1,
-								"discoveredDeviceInfoList":
-								[
-									{
-										"ipAddress": "100.68.124.95",
-										"status": "SUCCESS"
-									}
-								]
-							}
-						]
-					},
-					{
-						"deviceGroup": "CHASSIS",
-						"discoveredDeviceList":
-						[
-							{
-								"deviceName": "CMC_FX2",
-								"discovered": 2,
-								"discoveredDeviceInfoList":
-								[
-									{
-										"ipAddress": "100.68.124.98",
-										"status": "SUCCESS"
-									},
-									{
-										"ipAddress": "100.68.124.97",
-										"status": "SUCCESS"
-									}
-								]
-							}
-						]
+							"SERVER",
+							"CHASSIS"
+						],
+						"deviceStartIp": "100.68.124.95",
+						"deviceEndIp": "100.68.124.98"
 					}
 				]
 			},
-			"test_only_server":
-			{
-				"description": "Use same range but only search for server, specify credential, check for server",
-				"payload":
+			"response":
+			[
 				{
-					"discoverIpRangeDeviceRequests": 
+					"deviceGroup": "SERVER",
+					"discoveredDeviceList":
 					[
-						"COMBINE : 0",
 						{
-							"deviceType": ["REMOVE : 1"],
-							"credential": 
-							{
-								"userName": "root",
-								"password": "calvin"
-							}
+							"deviceName": "IDRAC8",
+							"discovered": 1,
+							"discoveredDeviceInfoList":
+							[
+								{
+									"ipAddress": "100.68.124.95",
+									"status": "SUCCESS"
+								}
+							]
 						}
 					]
 				},
-				"response": ["REMOVE : 1"]
+				{
+					"deviceGroup": "CHASSIS",
+					"discoveredDeviceList":
+					[
+						{
+							"deviceName": "CMC_FX2",
+							"discovered": 2,
+							"discoveredDeviceInfoList":
+							[
+								{
+									"ipAddress": "100.68.124.98",
+									"status": "SUCCESS"
+								},
+								{
+									"ipAddress": "100.68.124.97",
+									"status": "SUCCESS"
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		"test_only_server":
+		{
+			"auto_run": true,
+			"description": "Use same range but only search for server, specify credential, check for server",
+			"payload":
+			{
+				"discoverIpRangeDeviceRequests": 
+				[
+					"COMBINE : 0",
+					{
+						"deviceType": ["REMOVE : 1"],
+						"credential": 
+						{
+							"userName": "root",
+							"password": "calvin"
+						}
+					}
+				]
 			},
-			"test_only_chassis":
+			"response": ["REMOVE : 1"]
+		},
+		"test_only_chassis":
+		{
+			"auto_run": true,
+			"description": "Use same range but only search for chassis, specify credential, check for chassis",
+			"payload":
 			{
-				"description": "Use same range but only search for chassis, specify credential, check for chassis",
-				"payload":
-				{
-					"discoverIpRangeDeviceRequests": 
-					[
-						"COMBINE : 0",
-						{
-							"deviceType": ["REMOVE : 0"]
-						}
-					]
-				},
-				"response": ["REMOVE : 0"]
-			}
+				"discoverIpRangeDeviceRequests": 
+				[
+					"COMBINE : 0",
+					{
+						"deviceType": ["REMOVE : 0"]
+					}
+				]
+			},
+			"response": ["REMOVE : 0"]
 		}
     }
 

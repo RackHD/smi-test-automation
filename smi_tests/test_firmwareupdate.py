@@ -44,15 +44,12 @@ class FirmwareUpdateTest(unittest.TestCase):
 
 class Comparer(FirmwareUpdateTest):
     """Tests for Comparer Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'comparer'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'comparer'
 
     def test_json(self):
         """COMPARER JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Comparer Catalog
@@ -60,24 +57,12 @@ class Comparer(FirmwareUpdateTest):
 
 class ComparerCatalog(FirmwareUpdateTest):
     """Tests for Comparer Catalog Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'comparer_catalog'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'comparer_catalog'
 
     def test_json(self):
         """COMPARER CATALOG JSON TESTS"""
-        test.run_all_json_tests('POST', self)
-    @unittest.skip("Not Implemented")
-    def test_01(self):
-        """Compare this catalog to identical catalog in different directory"""
-        # First, download a second catalog to use for the comparison
-        dl_payload = json.endpoint_load_base_payload(self.JSON_FILE, 'downloader')
-        dl_payload["targetLocation"] = "%2F/temp2%2F"
-        url = self.BASE_URL + json.endpoint_load_path(self.JSON_FILE, 'downloader')
-        http.rest_get(url, dl_payload)
-        # Second, get the details for the comparison function
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Comparer Custom
@@ -85,15 +70,12 @@ class ComparerCatalog(FirmwareUpdateTest):
 
 class ComparerCustom(FirmwareUpdateTest):
     """Tests for Comparer Custom Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'comparer_custom'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'comparer_custom'
 
     def test_json(self):
         """COMPARER CUSTOM JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 
 ###################################################################################################
@@ -102,11 +84,8 @@ class ComparerCustom(FirmwareUpdateTest):
 
 class Downloader(FirmwareUpdateTest):
     """Tests for Downloader Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'downloader'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'downloader'
 
     def test_bad_data(self):
         """DOWNLOADER BAD DATA TESTS"""
@@ -114,7 +93,7 @@ class Downloader(FirmwareUpdateTest):
     
     def test_json(self):
         """DOWNLOADER JSON TESTS"""
-        test.run_all_json_tests('GET', self)
+        test.auto_run_json_tests('GET', self)
 
 ###################################################################################################
 # UCI
@@ -122,15 +101,12 @@ class Downloader(FirmwareUpdateTest):
 
 class UCI(FirmwareUpdateTest):
     """Tests for UCI Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'uci'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'uci'
 
     def test_json(self):
         """UCI JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # UCI SI
@@ -138,15 +114,12 @@ class UCI(FirmwareUpdateTest):
 
 class UCISI(FirmwareUpdateTest):
     """Tests for UCI SI Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'uci_si'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'uci_si'
 
     def test_json(self):
         """UCI SI JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Updater
@@ -154,15 +127,12 @@ class UCISI(FirmwareUpdateTest):
 
 class Updater(FirmwareUpdateTest):
     """Tests for Updater Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'updater'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'updater'
 
     def test_json(self):
         """UPDATER JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Updater DUP
@@ -170,15 +140,12 @@ class Updater(FirmwareUpdateTest):
 
 class UpdaterDUP(FirmwareUpdateTest):
     """Tests for Updater DUP Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'updater_dup'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'updater_dup'
 
     def test_json(self):
         """UPDATER DUP JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Updater Status
@@ -186,15 +153,12 @@ class UpdaterDUP(FirmwareUpdateTest):
 
 class UpdaterStatus(FirmwareUpdateTest):
     """Tests for Updater Status Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'updater_status'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'updater_status'
 
     def test_json(self):
         """UPDATER STATUS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Updater TestCallback
@@ -202,15 +166,12 @@ class UpdaterStatus(FirmwareUpdateTest):
 
 class UpdaterTestCallback(FirmwareUpdateTest):
     """Tests for Updater TestCallback Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'updater_testCallback'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'updater_testCallback'
 
     def test_json(self):
         """UPDATER TESTCALLBACK JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Version
@@ -218,15 +179,12 @@ class UpdaterTestCallback(FirmwareUpdateTest):
 
 class Version(FirmwareUpdateTest):
     """Tests for Version Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'version'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'version'
 
     def test_json(self):
         """VERSION JSON TESTS"""
-        test.run_all_json_tests('GET', self)
+        test.auto_run_json_tests('GET', self)
 
 ###################################################################################################
 # RUN MODULE

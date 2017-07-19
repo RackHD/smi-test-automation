@@ -45,14 +45,12 @@ class SCPTest(unittest.TestCase):
 
 class Export(SCPTest):
     """Tests for Export Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'export'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'export'
+
     def test_json(self):
         """EXPORT JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # GetComponents
@@ -60,15 +58,12 @@ class Export(SCPTest):
 
 class GetComponents(SCPTest):
     """Tests for GetComponents Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'getComponents'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'getComponents'
 
     def test_json(self):
         """GETCOMPONENTS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Import
@@ -76,15 +71,12 @@ class GetComponents(SCPTest):
 
 class Import(SCPTest):
     """Tests for Import Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'import'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'import'
 
     def test_json(self):
         """IMPORT JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # UpdateComponents
@@ -92,15 +84,12 @@ class Import(SCPTest):
 
 class UpdateComponents(SCPTest):
     """Tests for UpdateComponents Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'updateComponents'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'updateComponents'
 
     def test_json(self):
         """UPDATECOMPONENTS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Trap ConfigureTraps Foo
@@ -108,15 +97,12 @@ class UpdateComponents(SCPTest):
 
 class TrapConfigureTrapsFoo(SCPTest):
     """Tests for Trap ConfigureTraps Foo Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'trap_configureTraps_foo'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'trap_configureTraps_foo'
 
     def test_json(self):
         """TRAPS CONFIGURETRAPS FOO JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Trap UpdateTrapFormat Foo
@@ -124,15 +110,12 @@ class TrapConfigureTrapsFoo(SCPTest):
 
 class TrapUpdateTrapFormatFoo(SCPTest):
     """Tests for Trap UpdateTrapFormat Foo Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'trap_updateTrapFormat_foo'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'trap_updateTrapFormat_foo'
 
     def test_json(self):
         """TRAPS UPDATETRAPFORMAT FOO JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # RUN MODULE

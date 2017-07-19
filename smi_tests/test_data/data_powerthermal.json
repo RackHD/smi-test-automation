@@ -2,72 +2,64 @@
 
     "post": 
     {
-        "path": "/api/1.0/powerthermal",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
+            "auto_run": true,
+            "path": "/api/1.0/powerthermal",
+            "description": "Send default payload, check that power thermal info is found",
+            "payload":
             {
-                "description": "Send default payload, check that power thermal info is found",
-                "payload":
-                {
 
-                "serverAddress": "100.68.124.121",
-                "userName": "root",
-                "password": "calvin"
+            "serverAddress": "100.68.124.121",
+            "userName": "root",
+            "password": "calvin"
 
-                },
-                "status_code": ["200"],
-                "response":
-                {
+            },
+            "status_code": ["200"],
+            "response":
+            {
 
-                    "powerCap": "401  W",
-                    "profile": "Performance"
-                    
-                }
+                "powerCap": "401  W",
+                "profile": "Performance"
+                
             }
         }
     },
 
     "put": 
     {
-        "path": "/api/1.0/powerthermal",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
+            "path": "/api/1.0/powerthermal",
+            "skip": "Not Implemented",
+            "description": "No Description",
+            "payload": 
             {
-                "skip": "Not Implemented",
-                "description": "No Description",
-                "payload": 
-                {
-                    "enableCapping": true,
-                    "password": "string",
-                    "powerCap": 0,
-                    "serverAddress": "string",
-                    "userName": "string"
-                },
-                "status_code": ["!500"],
-                "response": { }
-            }
+                "enableCapping": true,
+                "password": "string",
+                "powerCap": 0,
+                "serverAddress": "string",
+                "userName": "string"
+            },
+            "status_code": ["!500"],
+            "response": { }
         }
     },
 
     "version": 
     {
-        "path": "/api/1.0/version",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "description": "Make a request to get version, check for success",
-                "status_code": ["200"],
-                "response": {
-                    "name": "Power and Thermal Service ",
-                    "description": "VALUE_PRESENT",
-                    "version": "VALUE_PRESENT"
-                }
+            "auto_run": true,
+            "path": "/api/1.0/version",
+            "description": "Make a request to get version, check for success",
+            "status_code": ["200"],
+            "response": {
+                "name": "Power and Thermal Service ",
+                "description": "VALUE_PRESENT",
+                "version": "VALUE_PRESENT"
             }
         }
     }
-
 
 }

@@ -2,91 +2,83 @@
 
     "callback": 
     {
-        "path": "/api/1.0/chassis/inventory/callback",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/chassis/inventory/callback",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
     },
 
     "details":
     {
-        "path": "/api/1.0/chassis/inventory/details",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
+            "auto_run": true,
+            "path": "/api/1.0/chassis/inventory/details",
+            "description": "Send default payload and check chassis controller name",
+            "payload":
             {
-                "description": "Send default payload and check chassis controller name",
-                "payload":
-                {
-                    "address":"100.68.124.98",
-                    "userName":"root",
-                    "password":"calvin"
-                },
-                "response":
-                {
-                    "chassisControllers": 
-                    [
-                        {
-                        "name": "CMC-9XLTW52"
-                        }
-                    ]
-                }
+                "address":"100.68.124.98",
+                "userName":"root",
+                "password":"calvin"
             },
-            "test_empty_status_code":
+            "response":
             {
-                "description": "Send empty payload and check for bad response",
-                "payload": {"REMOVE":["all"]},
-                "status_code" : [">206", "<500"],
-                "response": {"REMOVE": ["all"]}
+                "chassisControllers": 
+                [
+                    {
+                    "name": "CMC-9XLTW52"
+                    }
+                ]
             }
+        },
+        "test_empty_status_code":
+        {
+            "auto_run": true,
+            "description": "Send empty payload and check for bad response",
+            "payload": {"REMOVE":["all"]},
+            "status_code" : [">206", "<500"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
     "ips": 
     {
-        "path": "/api/1.0/chassis/inventory/ips",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/chassis/inventory/ips",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
     },
 
     "summary": 
     {
-        "path": "/api/1.0/chassis/inventory/summary",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
+            "auto_run": true,
+            "path": "/api/1.0/chassis/inventory/summary",
+            "description": "Send default payload and check service tag",
+            "payload":
             {
-                "description": "Send default payload and check service tag",
-                "payload":
-                {
-                    "address":"100.68.124.98",
-                    "userName":"root",
-                    "password":"calvin"
-                },
-                "response":
-                {
-                    "serviceTag": "9XLTW52"
-                }
+                "address":"100.68.124.98",
+                "userName":"root",
+                "password":"calvin"
             },
-            "test_empty_payload":
+            "response":
             {
-                "description": "Send empty payload and check for bad response",
-                "payload": {"REMOVE":["all"]},
-                "status_code" : [">206", "<500"],
-                "response": {"REMOVE": ["all"]},
-                "error": "Returned success with bad payload"
+                "serviceTag": "9XLTW52"
             }
+        },
+        "test_empty_payload":
+        {
+            "auto_run": true,
+            "description": "Send empty payload and check for bad response",
+            "payload": {"REMOVE":["all"]},
+            "status_code" : [">206", "<500"],
+            "response": {"REMOVE": ["all"]},
+            "error": "Returned success with bad payload"
         }
     }
 

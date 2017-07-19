@@ -45,14 +45,12 @@ class PowerThermalTest(unittest.TestCase):
 
 class Post(PowerThermalTest):
     """Tests for Powerthermal Post Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'post'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'post'
+
     def test_json(self):
         """POST JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Put
@@ -60,14 +58,12 @@ class Post(PowerThermalTest):
 
 class Put(PowerThermalTest):
     """Tests for Put Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'put'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'put'
+  
     def test_json(self):
         """PUT JSON TESTS"""
-        test.run_all_json_tests('PUT', self)
+        test.auto_run_json_tests('PUT', self)
 
 ###################################################################################################
 # Version
@@ -75,15 +71,12 @@ class Put(PowerThermalTest):
 
 class Version(PowerThermalTest):
     """Tests for Version Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'version'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'version'
 
     def test_json(self):
         """VERSION JSON TESTS"""
-        test.run_all_json_tests('GET', self)
+        test.auto_run_json_tests('GET', self)
 
 ###################################################################################################
 # RUN MODULE

@@ -44,14 +44,12 @@ class ChassisInventoryTest(unittest.TestCase):
 
 class Callback(ChassisInventoryTest):
     """Tests for Callback Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'callback'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'callback'
+
     def test_json(self):
         """CALLBACK JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Details
@@ -59,15 +57,12 @@ class Callback(ChassisInventoryTest):
 
 class Details(ChassisInventoryTest):
     """Tests for Details Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'details'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'details'
 
     def test_json(self):
         """DETAILS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Ips
@@ -75,15 +70,12 @@ class Details(ChassisInventoryTest):
 
 class Ips(ChassisInventoryTest):
     """Tests for Ips Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'ips'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'ips'
 
     def test_json(self):
         """IPS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Summary
@@ -91,15 +83,12 @@ class Ips(ChassisInventoryTest):
 
 class Summary(ChassisInventoryTest):
     """Tests for Summary Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'summary'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'summary'
 
     def test_json(self):
         """SUMMARY JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # RUN MODULE

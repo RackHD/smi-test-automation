@@ -27,7 +27,7 @@ def setUpModule():
 
 class DiscoveryTest(unittest.TestCase):
     """Collection of data to test the discovery microservice"""
- 
+
     PORT = '46002'
     JSON_NAME = 'data_discovery.json'
 
@@ -45,15 +45,12 @@ class DiscoveryTest(unittest.TestCase):
 
 class ConfigDevice(DiscoveryTest):
     """Tests for Config Device Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'config_device'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'config_device'
 
     def test_json(self):
         """CONFIG DEVICE JSON TESTS"""
-        test.run_all_json_tests('GET', self)
+        test.auto_run_json_tests('GET', self)
 
 ###################################################################################################
 # Ips
@@ -61,15 +58,12 @@ class ConfigDevice(DiscoveryTest):
 
 class Ips(DiscoveryTest):
     """Tests for Ips Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'ips'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'ips'
 
     def test_json(self):
         """IPS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Range
@@ -77,15 +71,12 @@ class Ips(DiscoveryTest):
 
 class Range(DiscoveryTest):
     """Tests for Range Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'range'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'range'
 
     def test_json(self):
         """RANGE JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # RUN MODULE

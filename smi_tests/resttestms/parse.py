@@ -78,52 +78,76 @@ def status_code(status):
 
 def build_test_case(test_data, test_name):
     """Parse out all test case information using provided test data"""
-    skip = None
-    description = "No Description"
-    error = "Bad Response"
-    status_codes = ['200']
-    parameters, payload, response = {}, {}, {}
+    try:
+        test_base = test_data[BASE]
+    except KeyError:
+        test_base = test_data[test_name]
+    test_mods = test_data[test_name]
+    return combine_test_cases(test_base, test_mods)
 
-    if "skip" in test_data[test_name]:
-        skip = test_data[test_name]["skip"]
-    if "description" in test_data[test_name]:
-        description = test_data[test_name]["description"]
-    if "error" in test_data[test_name]:
-        error = test_data[test_name]["error"]
-    if "status_code" in test_data[test_name]:
-        status_codes = test_data[test_name]["status_code"]
-    if "parameters" in test_data[test_name]:
-        mod_parameters = test_data[test_name]["parameters"]
+def combine_test_cases(base_case, mod_case):
+    """Combines data from base test and test modifications"""
+    test_case = {
+        "path": None,
+        "auto_run": False,
+        "skip": None,
+        "description": "No Description",
+        "error": "Bad Response",
+        "status_code": ['200'],
+        "parameters": {},
+        "payload": {},
+        "response": {}
+    }
+
+    for key in base_case:
+        if key in test_case and key != "auto_run":
+            test_case[key] = base_case[key]
+
+    if "path" in mod_case:
+        test_case["path"] = mod_case["path"]
+    if "auto_run" in mod_case:
+        test_case["auto_run"] = mod_case["auto_run"]
+    if "skip" in mod_case:
+        test_case["skip"] = mod_case["skip"]
+    if "description" in mod_case:
+        test_case["description"] = mod_case["description"]
+    if "error" in mod_case:
+        test_case["error"] = mod_case["error"]
+    if "status_code" in mod_case:
+        test_case["status_code"] = mod_case["status_code"]
+    if "parameters" in mod_case:
+        mod_parameters = mod_case["parameters"]
         try:
-            base_parameters = test_data[BASE]["parameters"]
+            base_parameters = base_case["parameters"]
         except KeyError:
             base_parameters = mod_parameters
-            LOG.info("No base test data found for %s", test_name)
-        parameters = build_parameters(base_parameters, mod_parameters)
-    if "payload" in test_data[test_name]:
-        mod_payload = test_data[test_name]["payload"]
+        test_case["parameters"] = build_parameters(base_parameters, mod_parameters)
+    if "payload" in mod_case:
+        mod_payload = mod_case["payload"]
         try:
-            base_payload = test_data[BASE]["payload"]
+            base_payload = base_case["payload"]
         except KeyError:
             base_payload = mod_payload
-            LOG.info("No base test data found for %s", test_name)
-        payload = build_payload(base_payload, mod_payload)
-    if "response" in test_data[test_name]:
-        mod_response = test_data[test_name]["response"]
+        test_case["payload"] = build_payload(base_payload, mod_payload)
+    if "response" in mod_case:
+        mod_response = mod_case["response"]
         try:
-            base_response = test_data[BASE]["response"]
+            base_response = base_case["response"]
         except KeyError:
             base_response = mod_response
-        response = build_response(base_response, mod_response)
-    if skip:
+        test_case["response"] = build_response(base_response, mod_response)
+    if test_case["skip"]:
         LOG.debug("Skip this test")
-    LOG.debug("Description : %s", description)
-    LOG.debug("Parameters : %s", str(parameters))
-    LOG.debug("Payload : %s", str(payload))
-    LOG.debug("Expected status code : %s", str(status_codes))
-    LOG.debug("Expected response : %s", str(response))
-    LOG.debug("Error Message : %s", error)
-    return skip, description, parameters, payload, status_codes, response, error
+    elif test_case["auto_run"]:
+        LOG.debug("Auto Running test")
+    LOG.debug("Path : %s", test_case["path"])
+    LOG.debug("Description : %s", test_case["description"])
+    LOG.debug("Parameters : %s", str(test_case["parameters"]))
+    LOG.debug("Payload : %s", str(test_case["payload"]))
+    LOG.debug("Expected status code : %s", str(test_case["status_code"]))
+    LOG.debug("Expected response : %s", str(test_case["response"]))
+    LOG.debug("Error Message : %s", test_case["error"])
+    return test_case
 
 def is_list_mod(potential_mod_string):
     "Check if list element is a modifier string"

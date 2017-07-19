@@ -1,9 +1,9 @@
 {
 	"delete": 
     {
-        "path": "/api/1.0/virtualIdentities",
         "test_data": 
         {
+            "path": "/api/1.0/virtualIdentities",
             "test_base":
             {
                 "skip": "Not Implemented",
@@ -14,77 +14,63 @@
 	
 	"get": 
     {
-        "path": "/api/1.0/virtualIdentities",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
+            "auto_run": true,
+            "path": "/api/1.0/virtualIdentities",
+            "description": "Send an empty request, make sure response has no data",
+            "response":
             {
-				"description": "Send an empty request, make sure response has no data",
-				"response":
-				{
-					"pagination":
-					{
-						"total": 0
-					},
-					"pages":
-					{
-						"total": 0
-					}
-				}
+                "pagination":
+                {
+                    "total": 0
+                },
+                "pages":
+                {
+                    "total": 0
+                }
             }
         }
 	},
 	
 	"post": 
     {
-        "path": "/api/1.0/virtualIdentities",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/virtualIdentities",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
 	},
 	
 	"put": 
     {
-        "path": "/api/1.0/virtualIdentities",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/virtualIdentities",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
-	},
+    },
 	
 	"delete_foo": 
     {
-        "path": "/api/1.0/virtualIdentities/foo",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/virtualIdentities/foo",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
 	},
 	
 	"get_foo": 
     {
-        "path": "/api/1.0/virtualIdentities/foo",
-        "test_data": 
+        "test_base":
         {
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "path": "/api/1.0/virtualIdentities/foo",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
-	}
+    }
 
 }

@@ -45,29 +45,25 @@ class VirtualIdentityTest(unittest.TestCase):
 
 class Delete(VirtualIdentityTest):
     """Tests for Delete Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'delete'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'delete'
+
     def test_json(self):
         """DELETE JSON TESTS"""
-        test.run_all_json_tests('DELETE', self)
-  
+        test.auto_run_json_tests('DELETE', self)
+
 ###################################################################################################
 # Get
 ###################################################################################################
 
 class Get(VirtualIdentityTest):
     """Tests for Get Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'get'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'get'
+
     def test_json(self):
         """GET JSON TESTS"""
-        test.run_all_json_tests('GET', self)
+        test.auto_run_json_tests('GET', self)
 
 ###################################################################################################
 # Post
@@ -75,14 +71,12 @@ class Get(VirtualIdentityTest):
 
 class Post(VirtualIdentityTest):
     """Tests for Post Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'post'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'post'
+
     def test_json(self):
         """POST JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Put
@@ -90,14 +84,12 @@ class Post(VirtualIdentityTest):
 
 class Put(VirtualIdentityTest):
     """Tests for Put Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'put'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'put'
+
     def test_json(self):
         """PUT JSON TESTS"""
-        test.run_all_json_tests('PUT', self)
+        test.auto_run_json_tests('PUT', self)
 
 ###################################################################################################
 # Delete Foo
@@ -105,29 +97,24 @@ class Put(VirtualIdentityTest):
 
 class DeleteFoo(VirtualIdentityTest):
     """Tests for Delete Foo Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'delete_foo'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'delete_foo'
+
     def test_json(self):
         """DELETE FOO JSON TESTS"""
-        test.run_all_json_tests('DELETE', self)
+        test.auto_run_json_tests('DELETE', self)
 
 ###################################################################################################
 # Get Foo
 ###################################################################################################
 
 class GetFoo(VirtualIdentityTest):
-    """Tests for Get Foo Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'get_foo'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'get_foo'
+
     def test_json(self):
         """GET FOO JSON TESTS"""
-        test.run_all_json_tests('GET', self)
+        test.auto_run_json_tests('GET', self)
 
 ###################################################################################################
 # RUN MODULE

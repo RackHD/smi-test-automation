@@ -27,7 +27,7 @@ def setUpModule():
 
 class ServerInventoryTest(unittest.TestCase):
     """Collection of data to test the server inventory microservice"""
- 
+
     PORT = '46011'
     JSON_NAME = 'data_serverinventory.json'
 
@@ -45,14 +45,12 @@ class ServerInventoryTest(unittest.TestCase):
 
 class Bios(ServerInventoryTest):
     """Tests for Bios Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'bios'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'bios'
+
     def test_json(self):
         """BIOS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Boot
@@ -60,15 +58,12 @@ class Bios(ServerInventoryTest):
 
 class Boot(ServerInventoryTest):
     """Tests for Boot Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'boot'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'boot'
 
     def test_json(self):
         """BOOT JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Callback
@@ -76,15 +71,12 @@ class Boot(ServerInventoryTest):
 
 class Callback(ServerInventoryTest):
     """Tests for Callback Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'callback'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'callback'
 
     def test_json(self):
         """CALLBACK JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # DummyCallback
@@ -92,15 +84,12 @@ class Callback(ServerInventoryTest):
 
 class DummyCallback(ServerInventoryTest):
     """Tests for DummyCallback Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'dummyCallback'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'dummyCallback'
 
     def test_json(self):
         """DUMMYCALLBACK JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Hardware
@@ -108,15 +97,12 @@ class DummyCallback(ServerInventoryTest):
 
 class Hardware(ServerInventoryTest):
     """Tests for Hardware Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'hardware'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'hardware'
 
     def test_json(self):
         """HARDWARE JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Ips
@@ -124,15 +110,12 @@ class Hardware(ServerInventoryTest):
 
 class Ips(ServerInventoryTest):
     """Tests for Ips Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'ips'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'ips'
 
     def test_json(self):
         """IPS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Nics
@@ -140,15 +123,12 @@ class Ips(ServerInventoryTest):
 
 class Nics(ServerInventoryTest):
     """Tests for Nics Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'nics'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'nics'
 
     def test_json(self):
         """NICS JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Software
@@ -156,15 +136,12 @@ class Nics(ServerInventoryTest):
 
 class Software(ServerInventoryTest):
     """Tests for Software Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'software'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'software'
 
     def test_json(self):
         """SOFTWARE JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Summary
@@ -172,15 +149,12 @@ class Software(ServerInventoryTest):
 
 class Summary(ServerInventoryTest):
     """Tests for Summary Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'summary'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'summary'
 
     def test_json(self):
         """SUMMARY JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # LogsGetLC
@@ -188,15 +162,12 @@ class Summary(ServerInventoryTest):
 
 class LogsGetLC(ServerInventoryTest):
     """Tests for LogsGetLC Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'logs_get_lc'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'logs_get_lc'
 
     def test_json(self):
         """LOGSGETLC JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # LogsGetSEL
@@ -204,15 +175,12 @@ class LogsGetLC(ServerInventoryTest):
 
 class LogsGetSEL(ServerInventoryTest):
     """Tests for LogsGetSEL Endpoint"""
-    @classmethod
-    def setUpClass(cls):
-        """Load initial test data from json"""
-        cls.ENDPOINT = 'logs_get_sel'
-        cls.URL = cls.BASE_URL + json.endpoint_load_path(cls.JSON_FILE, cls.ENDPOINT)
+
+    ENDPOINT = 'logs_get_sel'
 
     def test_json(self):
         """LOGSGETSEL JSON TESTS"""
-        test.run_all_json_tests('POST', self)
+        test.auto_run_json_tests('POST', self)
 
 
 ###################################################################################################
