@@ -50,7 +50,7 @@ class Export(SCPTest):
 
     def test_json(self):
         """EXPORT JSON TESTS"""
-        test.auto_run_json_tests('POST', self)
+        test.run_json_test(self, 'POST', self, "test_fitFile_export")
 
 ###################################################################################################
 # GetComponents
@@ -63,7 +63,8 @@ class GetComponents(SCPTest):
 
     def test_json(self):
         """GETCOMPONENTS JSON TESTS"""
-        test.auto_run_json_tests('POST', self)
+        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
+        test.run_json_test(self, 'POST', self, "test_lifecycle_controller")
 
 ###################################################################################################
 # Import
@@ -76,7 +77,8 @@ class Import(SCPTest):
 
     def test_json(self):
         """IMPORT JSON TESTS"""
-        test.auto_run_json_tests('POST', self)
+        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
+        test.run_json_test(self, 'POST', self, "test_fitFile_import")
 
 ###################################################################################################
 # UpdateComponents
@@ -92,29 +94,29 @@ class UpdateComponents(SCPTest):
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Trap ConfigureTraps Foo
+# Trap ConfigureTraps TrapDestination
 ###################################################################################################
 
-class TrapConfigureTrapsFoo(SCPTest):
-    """Tests for Trap ConfigureTraps Foo Endpoint"""
+class TrapConfigureTrapsTrapDestination(SCPTest):
+    """Tests for Trap ConfigureTraps TrapDestination Endpoint"""
 
-    ENDPOINT = 'trap_configureTraps_foo'
+    ENDPOINT = 'trap_configureTraps_trapDestination'
 
     def test_json(self):
-        """TRAPS CONFIGURETRAPS FOO JSON TESTS"""
+        """TRAPS CONFIGURETRAPS TRAPDESTINATION JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Trap UpdateTrapFormat Foo
+# Trap UpdateTrapFormat TrapFormat
 ###################################################################################################
 
 class TrapUpdateTrapFormatFoo(SCPTest):
-    """Tests for Trap UpdateTrapFormat Foo Endpoint"""
+    """Tests for Trap UpdateTrapFormat TrapFormat Endpoint"""
 
-    ENDPOINT = 'trap_updateTrapFormat_foo'
+    ENDPOINT = 'trap_updateTrapFormat_trapFormat'
 
     def test_json(self):
-        """TRAPS UPDATETRAPFORMAT FOO JSON TESTS"""
+        """TRAPS UPDATETRAPFORMAT TRAPFORMAT JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################

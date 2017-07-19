@@ -14,9 +14,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/chassis/inventory/details",
-            "description": "Send default payload and check chassis controller name",
             "payload":
             {
                 "address":"100.68.124.98",
@@ -33,12 +31,17 @@
                 ]
             }
         },
-        "test_empty_status_code":
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Send default payload and check chassis controller name"
+        },
+        "test_failure":
         {
             "auto_run": true,
             "description": "Send empty payload and check for bad response",
             "payload": {"REMOVE":["all"]},
-            "status_code" : [">206", "<500"],
+            "status_code" : [">=400", "<500"],
             "response": {"REMOVE": ["all"]}
         }
     },
@@ -57,9 +60,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/chassis/inventory/summary",
-            "description": "Send default payload and check service tag",
             "payload":
             {
                 "address":"100.68.124.98",
@@ -71,12 +72,17 @@
                 "serviceTag": "9XLTW52"
             }
         },
+        "test_serviceTag":
+        {
+            "auto_run": true,
+            "description": "Send default payload and check service tag"
+        },
         "test_empty_payload":
         {
             "auto_run": true,
             "description": "Send empty payload and check for bad response",
             "payload": {"REMOVE":["all"]},
-            "status_code" : [">206", "<500"],
+            "status_code" : [">=400", "<500"],
             "response": {"REMOVE": ["all"]},
             "error": "Returned success with bad payload"
         }

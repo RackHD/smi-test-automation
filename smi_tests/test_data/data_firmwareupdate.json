@@ -89,7 +89,6 @@
                 "fileUrl": "ftp.dell.com/catalog",
                 "targetLocation": "/temp/"
             },
-            "status_code": ["200"],
             "response": { }
         }
     },
@@ -158,16 +157,18 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/server/firmware/version",
-            "description": "Make a request to get version, check for success",
-            "status_code": ["200"],
             "response": 
             {
                 "name": "Dell Update Service",
                 "description" : "VALUE_PRESENT",
                 "version": "VALUE_PRESENT"
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Make a request to get version, check for success"
         }
     }
 

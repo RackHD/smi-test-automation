@@ -4,9 +4,9 @@
     {
 		"test_base":
 		{
-			"auto_run": true,
 			"path": "/api/1.0/discover/config/device",
-			"description": "Send default payload and check name"
+			"skip": "Not Implemented",
+            "description": "No Description"
 		}
     },
 
@@ -14,9 +14,7 @@
     {
 		"test_base":
 		{
-			"auto_run": true,
 			"path": "/api/1.0/discover/ips",
-			"description": "Send default payload to search for sever and chassis, check that both are found",
 			"payload":
 			{
 				"credential": 
@@ -88,13 +86,18 @@
 		"test_only_server_ip":
 		{
 			"auto_run": true,
-			"description": "Only search using ip, check that server is found",
+			"description": "Search using only ip, check that server is found",
 			"payload":
 			{
 				"REMOVE": ["credential", "deviceType"],
 				"ips": ["REMOVE : 1"]
 			},
 			"response": ["REMOVE : 1"]
+		},
+		"test_server_and_chassis":
+		{
+			"auto_run": true,
+			"description": "Send default payload to search for sever and chassis, check that both are found"
 		}
     },
 
@@ -102,9 +105,7 @@
     {
 		"test_base":
 		{
-			"auto_run": true,
 			"path": "/api/1.0/discover/range",
-			"description": "Send default payload to search range, check that server and chassis are found",
 			"payload":
 			{
 				"credential":
@@ -203,6 +204,11 @@
 				]
 			},
 			"response": ["REMOVE : 0"]
+		},
+		"test_server_and_chassis":
+		{
+			"auto_run": true,
+			"description": "Send default payload to search range, check that server and chassis are found"
 		}
     }
 

@@ -1,14 +1,11 @@
 {
 	"delete": 
     {
-        "test_data": 
+        "test_base":
         {
             "path": "/api/1.0/virtualIdentities",
-            "test_base":
-            {
-                "skip": "Not Implemented",
-                "description": "No Description"
-            }
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
 	},
 	
@@ -16,9 +13,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/virtualIdentities",
-            "description": "Send an empty request, make sure response has no data",
             "response":
             {
                 "pagination":
@@ -30,6 +25,11 @@
                     "total": 0
                 }
             }
+        },
+        "test_empty_request":
+        {
+            "auto_run": true,
+            "description": "Send an empty request, make sure response has no data"
         }
 	},
 	

@@ -6,7 +6,7 @@ Default configuration data for SMI-TEST-AUTOMATION
 #-------------- DEFAULT TEST CONFIGURATION ---------------
 ##########################################################
 
-HOST = '100.68.123.45'
+HOST = 'localhost'
 
 DATA = 'test_data'
 

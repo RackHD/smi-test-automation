@@ -60,7 +60,7 @@ class Put(PowerThermalTest):
     """Tests for Put Endpoint"""
 
     ENDPOINT = 'put'
-  
+
     def test_json(self):
         """PUT JSON TESTS"""
         test.auto_run_json_tests('PUT', self)

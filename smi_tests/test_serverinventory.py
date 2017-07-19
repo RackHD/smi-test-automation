@@ -157,31 +157,17 @@ class Summary(ServerInventoryTest):
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# LogsGetLC
+# Logs Get Type
 ###################################################################################################
 
-class LogsGetLC(ServerInventoryTest):
-    """Tests for LogsGetLC Endpoint"""
+class LogsGetType(ServerInventoryTest):
+    """Tests for Logs Get Type Endpoint"""
 
-    ENDPOINT = 'logs_get_lc'
+    ENDPOINT = 'logs_get_type'
 
     def test_json(self):
-        """LOGSGETLC JSON TESTS"""
+        """LOGS GET TYPE JSON TESTS"""
         test.auto_run_json_tests('POST', self)
-
-###################################################################################################
-# LogsGetSEL
-###################################################################################################
-
-class LogsGetSEL(ServerInventoryTest):
-    """Tests for LogsGetSEL Endpoint"""
-
-    ENDPOINT = 'logs_get_sel'
-
-    def test_json(self):
-        """LOGSGETSEL JSON TESTS"""
-        test.auto_run_json_tests('POST', self)
-
 
 ###################################################################################################
 # RUN MODULE

@@ -3,9 +3,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/server/inventory/bios",
-            "description": "Test to make sure bios returns valid data",
             "payload":
             {
                 "address":"100.68.124.35",
@@ -18,6 +16,11 @@
                 "dcimBIOSIntegerType": "DATA_PRESENT",
                 "dcimbiosstringType": "DATA_PRESENT"
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure bios returns valid data"
         }
     },
 
@@ -25,9 +28,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/server/inventory/boot",
-            "description": "Test to make sure boot returns valid data",
             "payload":
             {
                 "address":"100.68.124.35",
@@ -41,6 +42,11 @@
                     "bootSourcesByBootMode": "DATA_PRESENT"
                 }
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure boot returns valid data"
         }
     },
 
@@ -68,9 +74,8 @@
     {
         "test_base":
         {
-            "auto_run": true,
+            
             "path": "/api/1.0/server/inventory/hardware",
-            "description": "Test to make sure correct serviceTag is returned",
             "payload":
             {
                 "address":"100.68.124.35",
@@ -83,7 +88,12 @@
                 {
                     "serviceTag": "17M0D42"
                 }
-            },
+            }
+        },
+        "test_serviceTag":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct serviceTag is returned",
             "error": "Incorrect service tag"
         }
     },
@@ -102,9 +112,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/server/inventory/nics",
-            "description": "Check to make sure nics data is present",
             "payload":
             {
                 "address":"100.68.124.35",
@@ -117,16 +125,21 @@
                     "fqdd": "NIC.Integrated.1-1-1"
                 }
             ]
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make sure nics data is present"
         }
+
     },
 
     "software": 
     {
         "test_base":
         {
-            "auto_run": true,
+            
             "path": "/api/1.0/server/inventory/software",
-            "description": "Check to make element value is iDRAC",
             "payload":
             {
                 "address":"100.68.124.35",
@@ -142,6 +155,11 @@
                     }
                 }
             ]
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make element value is iDRAC"
         }
     },
 
@@ -155,41 +173,34 @@
         }
     },
 
-    "logs_get_lc": 
+    "logs_get_type": 
     {
         "test_base":
         {
-            "auto_run": true,
-            "path": "/api/1.0/server/inventory/logs/get/LC",
-            "description": "Check that logName is LifeCycle Log",
             "payload":
             {
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            },
+            }
+        },
+        "test_type_lc":
+        {
+            "auto_run": true,
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Check that logName is LifeCycle Log",
             "response":
             [
                 {
                     "logName": "LifeCycle Log"
                 }
             ]
-        }
-    },
-
-    "logs_get_sel": 
-    {
-        "test_base":
+        },
+        "test_type_sel":
         {
             "auto_run": true,
             "path": "/api/1.0/server/inventory/logs/get/SEL",
             "description": "Check that element name is System Event Log Entry",
-            "payload":
-            {
-                "address":"100.68.124.35",
-                "userName":"root",
-                "password":"calvin"
-            },
             "response":
             [
                 {

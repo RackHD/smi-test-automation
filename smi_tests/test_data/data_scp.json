@@ -4,9 +4,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path":"/api/1.0/server/configuration/export",
-            "description": "Export server configuration profile to 100.68.125.194",
             "payload":
             {
                 "fileName": "fitFile.xml",
@@ -25,7 +23,11 @@
                     "result": "SUCCESS",
                     "jobID": "VALUE_PRESENT"
                 }
-            },
+            }
+        },
+        "test_fitFile_export":
+        {
+            "description": "Export server configuration profile to 100.68.125.194",
             "error": "Failed to export SCP File from Server"
         }
     },
@@ -34,15 +36,10 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path":"/api/1.0/server/configuration/getComponents",
-            "description": "Load configuration data for lifecycle controller",
             "payload":
             {
-                "componentNames":
-                [
-                    "LifecycleController.Embedded.1"
-                ],
+                "componentNames":[],
                 "fileName": "fitFile.xml",
                 "serverIP": "100.68.124.31",
                 "serverPassword": "calvin",
@@ -52,15 +49,28 @@
                 "shareType": 0,
                 "shutdownType": 0
             },
+            "response": {}
+        },
+        "test_lifecycle_controller":
+        {
+            "description": "Load configuration data for lifecycle controller",
+            "paylaod":
+            {
+                "componentNames":
+                [
+                    "LifecycleController.Embedded.1"
+                ]
+            },
             "response":
             {
                 "serverComponents":
-                [
-                    {
-                        "fqdd": "LifecycleController.Embedded.1"
-                    }
-                ]
+                    [
+                        {
+                            "fqdd": "LifecycleController.Embedded.1"
+                        }
+                    ]
             }
+
         }
     },
 
@@ -68,9 +78,7 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path":"/api/1.0/server/configuration/import",
-            "description": "Try to import previously exported file",
             "payload":
             {
                 "fileName": "fitFile.xml",
@@ -90,6 +98,10 @@
                     "jobID": "VALUE_PRESENT"
                 }
             }
+        },
+        "test_fitFile_import":
+        {
+            "description": "Try to import fitFile.xml"
         }
     },
 
@@ -103,21 +115,21 @@
         }
     },
 
-    "trap_configureTraps_foo": 
+    "trap_configureTraps_trapDestination": 
     {
         "test_base":
         {
-            "path": "/api/1.0/server/configuration/trap/configureTraps/foo",
+            "path": "/api/1.0/server/configuration/trap/configureTraps/trapDestination",
             "skip": "Not Implemented",
             "description": "No Description"
         }
     },
 
-    "trap_updateTrapFormat_foo": 
+    "trap_updateTrapFormat_trapFormat": 
     {
         "test_base":
         {
-            "path": "/api/1.0/server/configuration/trap/updateTrapFormat/foo",
+            "path": "/api/1.0/server/configuration/trap/updateTrapFormat/trapFormat",
             "skip": "Not Implemented",
             "description": "No Description"
         }

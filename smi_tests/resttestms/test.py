@@ -44,7 +44,7 @@ def bad_data_except(action, end_class, good_params, good_payloads):
                 end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def run_modified_json_test(action, end_class, test_name, test_mods=None):
+def run_modified_json_test(self_class, action, end_class, test_name, test_mods=None):
     """Run test specified in json with indicated modifications"""
     test_case = json.get_test_case(end_class, test_name)
     if test_mods:
@@ -55,19 +55,19 @@ def run_modified_json_test(action, end_class, test_name, test_mods=None):
         LOG.info("Skipping %s", test_skip_info)
         return None
     else:
-        url = end_class.BASE_URL + test_case["path"]
+        url = self_class.BASE_URL + test_case["path"]
         test_info = "{}.{} : {}".format(end_class.__class__.__name__, test_name, test_case["description"])
         print("Running " + test_info)
         LOG.info("Running %s", test_info)
-        with end_class.subTest(test=test_info):
+        with self_class.subTest(test=test_info):
             request = http.rest_call(action, url, test_case["parameters"], test_case["payload"])
-            end_class.assertTrue(compare_request(request, test_case["status_code"], test_case["response"]), test_case["error"])
+            self_class.assertTrue(compare_request(request, test_case["status_code"], test_case["response"]), test_case["error"])
             return json.load_response_data(request)
 
 @log.exception(LOG)
-def run_json_test(action, end_class, test_name):
+def run_json_test(self_class, action, end_class, test_name):
     """Run a single test define in json file"""
-    return run_modified_json_test(action, end_class, test_name)
+    return run_modified_json_test(self_class, action, end_class, test_name)
 
 @log.exception(LOG)
 def auto_run_json_tests(action, end_class):
@@ -76,7 +76,7 @@ def auto_run_json_tests(action, end_class):
     print("")
     for test_name in json.get_all_tests(end_class):
         if json.check_auto_run(end_class, test_name):
-            run_json_test(action, end_class, test_name)
+            run_json_test(end_class, action, end_class, test_name)
 
 ###################################################################################################
 # Test Data Generators
@@ -197,7 +197,6 @@ def _contains_expected_unlogged(container, expected):
         return container != None
     if expected == "DATA_PRESENT":
         return len(container) > 0
-    LOG.debug("Contains Expected :: Expected : %s Actual : %s", expected, container)
     if not isinstance(container, type(expected)):
         return False
     if isinstance(expected, (dict)):

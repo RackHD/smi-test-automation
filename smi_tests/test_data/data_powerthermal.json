@@ -4,25 +4,23 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/powerthermal",
-            "description": "Send default payload, check that power thermal info is found",
             "payload":
             {
-
-            "serverAddress": "100.68.124.121",
-            "userName": "root",
-            "password": "calvin"
-
+                "serverAddress": "100.68.124.121",
+                "userName": "root",
+                "password": "calvin"
             },
-            "status_code": ["200"],
             "response":
             {
-
                 "powerCap": "401  W",
                 "profile": "Performance"
-                
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Send default payload, check that power thermal info is found"
         }
     },
 
@@ -50,15 +48,18 @@
     {
         "test_base":
         {
-            "auto_run": true,
             "path": "/api/1.0/version",
-            "description": "Make a request to get version, check for success",
-            "status_code": ["200"],
-            "response": {
+            "response": 
+            {
                 "name": "Power and Thermal Service ",
                 "description": "VALUE_PRESENT",
                 "version": "VALUE_PRESENT"
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Make a request to get version, check for success"
         }
     }
 
