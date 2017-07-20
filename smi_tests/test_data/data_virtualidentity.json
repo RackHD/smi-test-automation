@@ -53,21 +53,21 @@
         }
     },
 	
-	"delete_foo": 
+	"delete_virtualIdentityId": 
     {
         "test_base":
         {
-            "path": "/api/1.0/virtualIdentities/foo",
+            "path": "/api/1.0/virtualIdentities/virtualIdentityId",
             "skip": "Not Implemented",
             "description": "No Description"
         }
 	},
 	
-	"get_foo": 
+	"get_virtualIdentityId": 
     {
         "test_base":
         {
-            "path": "/api/1.0/virtualIdentities/foo",
+            "path": "/api/1.0/virtualIdentities/virtualIdentityId",
             "skip": "Not Implemented",
             "description": "No Description"
         }

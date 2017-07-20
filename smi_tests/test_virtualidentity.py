@@ -92,28 +92,28 @@ class Put(VirtualIdentityTest):
         test.auto_run_json_tests('PUT', self)
 
 ###################################################################################################
-# Delete Foo
+# Delete VirtualIdentityId
 ###################################################################################################
 
-class DeleteFoo(VirtualIdentityTest):
-    """Tests for Delete Foo Endpoint"""
+class DeleteVirtualIdentityId(VirtualIdentityTest):
+    """Tests for Delete VirtualIdentityId Endpoint"""
 
-    ENDPOINT = 'delete_foo'
+    ENDPOINT = 'delete_virtualIdentityId'
 
     def test_json(self):
-        """DELETE FOO JSON TESTS"""
+        """DELETE VIRTUALIDENTITYID JSON TESTS"""
         test.auto_run_json_tests('DELETE', self)
 
 ###################################################################################################
-# Get Foo
+# Get VirtualIdentityId
 ###################################################################################################
 
-class GetFoo(VirtualIdentityTest):
-
-    ENDPOINT = 'get_foo'
+class GetVirtualIdentityId(VirtualIdentityTest):
+    """Tests for Get VirtualIdentityId Endpoint"""
+    ENDPOINT = 'get_virtualIdentityId'
 
     def test_json(self):
-        """GET FOO JSON TESTS"""
+        """GET VIRTUALIDENTITYID JSON TESTS"""
         test.auto_run_json_tests('GET', self)
 
 ###################################################################################################

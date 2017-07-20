@@ -5,152 +5,271 @@ Created on May 2, 2017
 
 @author: Michael Regert, Michael Hepfer
 '''
-import json
+
 import unittest
 import sys
-import os
 import logging
+import config
+from resttestms import http, json, log, test, parse
 
+LOG = logging.getLogger(__name__)
 
-logger = logging.getLogger(__name__)
+# Leave as None to use default Host
+HOST_OVERRIDE = None
+
+# Leave as None to use default json directory
+DATA_OVERRIDE = None
+
+def setUpModule():
+    """Initialize data for all test cases using overrides"""
+    LOG.info("Begin Virtual Network Tests")
+    VirtualNetworkTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE)
 
 class VirtualNetworkTest(unittest.TestCase):
-    global networkId
-    networkId = 0
-    networkJson = ""
+    """Collection of data to test the virtual network microservice"""
 
-    def setUp(self):
-        print("")
+    PORT = '46016'
+    JSON_NAME = 'data_virtualnetwork.json'
 
-    ########################################################################
-    # Test Get Networks returns an empty list
-    def test001_GetNetworksEmpty(self):
-        try:
-            response = VirtualNetworkHandler().getNetworks()
-            logger.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 200, "Response code should equal 200")
+    @classmethod
+    def initialize_data(cls, host_override, directory_override):
+        """Initialize base url and json file path"""
+        cls.HOST = http.select_host(config.HOST, host_override)
+        cls.DATA = json.select_directory(config.DATA, directory_override)
+        cls.BASE_URL = http.create_base_url(cls.HOST, cls.PORT)
+        cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
 
-            logger.info("Response Text: " + response.text)
-            responseJson = json.loads(response.text)
-            #assert here
-            self.assertEqual(responseJson["pagination"]["total"], 0, "Pagination total count should be 0")
-            self.assertEqual(responseJson["pages"]["total"], 0, "Pages total count should be 0")
+###################################################################################################
+# Get
+###################################################################################################
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+class Get(VirtualNetworkTest):
+    """Tests for Get Endpoint"""
 
-    ########################################################################
-    # Test Create Network works
-    def test002_CreateNetwork(self):
-        try:
-            response = VirtualNetworkHandler().createNetwork()
-            logger.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 201, "Response code should equal 201")
+    ENDPOINT = 'get'
 
-            logger.info("Response Text: " + response.text)
-            responseJson = json.loads(response.text)
-            self.assertGreater(responseJson["id"], 0, "Network id should be greater than 0")
+    def test_json(self):
+        """GET JSON TESTS"""
+        test.auto_run_json_tests('GET', self)
 
-            # set the network id as instance variable for subsequent tests
-            self.__class__.networkId = responseJson["id"]
+###################################################################################################
+# Post
+###################################################################################################
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+class Post(VirtualNetworkTest):
+    """Tests for Post Endpoint"""
 
-    ########################################################################
-    # Test Get Networks returns a network
-    def test003_GetNetwork(self):
-        try:
-            response = VirtualNetworkHandler().getNetwork(self.__class__.networkId)
-            logger.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 200, "Response code should equal 200")
+    ENDPOINT = 'post'
 
-            logger.info("Response Text: " + response.text)
-            responseJson = json.loads(response.text)
-            self.assertGreater(responseJson["id"], 0, "Network id should be greater than 0")
+    def test_json(self):
+        """POST JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
 
-            # set the network JSON as instance variable for subsequent tests 
-            self.__class__.networkJson = responseJson
+###################################################################################################
+# Delete NetworkId
+###################################################################################################
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+class DeleteNetworkId(VirtualNetworkTest):
+    """Tests for Delete NetworkId Endpoint"""
 
-    ########################################################################
-    # Test Push Networks updates a network
-    def test004_UpdateNetwork(self):
-        try:
-            response = VirtualNetworkHandler().updateNetwork(self.__class__.networkId)
-            logger.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 204, "Response code should equal 204")
+    ENDPOINT = 'delete_networkId'
 
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
+    def test_json(self):
+        """DELETE NETWORKID JSON TESTS"""
+        test.auto_run_json_tests('DELETE', self)
 
-    #######################################################################
-    # Test Delete Network deletes a network
-    def test005_DeleteNetwork(self):
-        try:
-            response = VirtualNetworkHandler().deleteNetwork(self.__class__.networkId)
-            logger.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 204, "Response code should equal 204")
+###################################################################################################
+# Get NetworkId
+###################################################################################################
+
+class GetNetworkId(VirtualNetworkTest):
+    """Tests for Get NetworkId Endpoint"""
+
+    ENDPOINT = 'get_networkId'
+
+    def test_json(self):
+        """GET NETWORKID JSON TESTS"""
+        test.auto_run_json_tests('GET', self)
+
+###################################################################################################
+# Put NetworkId
+###################################################################################################
+
+class PutNetworkId(VirtualNetworkTest):
+    """Tests for Put NetworkId Endpoint"""
+
+    ENDPOINT = 'put_networkId'
+
+    def test_json(self):
+        """PUT NETWORKID JSON TESTS"""
+        test.auto_run_json_tests('PUT', self)
+
+###################################################################################################
+# Delete NetworkId IpAddressPools
+###################################################################################################
+
+class DeleteNetworkIdIpAddressPools(VirtualNetworkTest):
+    """Tests for Delete NetworkId IpAddressPools Endpoint"""
+
+    ENDPOINT = 'delete_networkId_ipAddressPools'
+
+    def test_json(self):
+        """DELETE NETWORKID IPADDRESSPOOLS JSON TESTS"""
+        test.auto_run_json_tests('DELETE', self)
+
+###################################################################################################
+# Get NetworkId IpAddressPools
+###################################################################################################
+
+class GetNetworkIdIpAddressPools(VirtualNetworkTest):
+    """Tests for Get NetworkId IpAddressPools Endpoint"""
+
+    ENDPOINT = 'get_networkId_ipAddressPools'
+
+    def test_json(self):
+        """GET NETWORKID IPADDRESSPOOLS JSON TESTS"""
+        test.auto_run_json_tests('GET', self)
+
+###################################################################################################
+# Post NetworkId IpAddressPools
+###################################################################################################
+
+class PostNetworkIdIpAddressPools(VirtualNetworkTest):
+    """Tests for Post NetworkId IpAddressPools Endpoint"""
+
+    ENDPOINT = 'post_networkId_ipAddressPools'
+
+    def test_json(self):
+        """POST NETWORKID IPADDRESSPOOLS JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Put NetworkId IpAddressPools
+###################################################################################################
+
+class PutNetworkIdIpAddressPools(VirtualNetworkTest):
+    """Tests for Put NetworkId IpAddressPools Endpoint"""
+
+    ENDPOINT = 'put_networkId_ipAddressPools'
+
+    def test_json(self):
+        """PUT NETWORKID IPADDRESSPOOLS JSON TESTS"""
+        test.auto_run_json_tests('PUT', self)
+
+###################################################################################################
+# NetworkId IpAddressPools Export
+###################################################################################################
+
+class NetworkIdIpAddressPoolsExport(VirtualNetworkTest):
+    """Tests for NetworkId IpAddressPools Export Endpoint"""
+
+    ENDPOINT = 'networkId_ipAddressPools_export'
+
+    def test_json(self):
+        """NETWORKID IPADDRESSPOOLS EXPORT JSON TESTS"""
+        test.auto_run_json_tests('GET', self)
+
+###################################################################################################
+# NetworkId IpAddressPools IpAddress
+###################################################################################################
+
+class NetworkIdIpAddressPoolsIpAddress(VirtualNetworkTest):
+    """Tests for NetworkId IpAddressPools IpAddress Endpoint"""
+
+    ENDPOINT = 'networkId_ipAddressPools_ipAddress'
+
+    def test_json(self):
+        """NETWORKID IPADDRESSPOOLS IPADDRESS JSON TESTS"""
+        test.auto_run_json_tests('DELETE', self)
+
+###################################################################################################
+# NetworkId Ipv4Ranges
+###################################################################################################
+
+class NetworkIdIpIpv4Ranges(VirtualNetworkTest):
+    """Tests for NetworkId Ipv4Ranges Endpoint"""
+
+    ENDPOINT = 'networkId_ipv4Ranges'
+
+    def test_json(self):
+        """NETWORKID IPADDRESSPOOLS JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Delete NetworkId Ipv4Ranges RangeId
+###################################################################################################
+
+class DeleteNetworkIdIpIpv4RangesRangeId(VirtualNetworkTest):
+    """Tests for Delete NetworkId Ipv4Ranges RangeId Endpoint"""
+
+    ENDPOINT = 'delete_networkId_ipv4Ranges_rangeId'
+
+    def test_json(self):
+        """DELETE NETWORKID IPADDRESSPOOLS RANGEID JSON TESTS"""
+        test.auto_run_json_tests('DELETE', self)
+
+###################################################################################################
+# Put NetworkId Ipv4Ranges RangeId
+###################################################################################################
+
+class PutNetworkIdIpIpv4RangesRangeId(VirtualNetworkTest):
+    """Tests for Put NetworkId Ipv4Ranges RangeIdEndpoint"""
+
+    ENDPOINT = 'put_networkId_ipv4Ranges_rangeId'
+
+    def test_json(self):
+        """PUT NETWORKID IPADDRESSPOOLS RANGEID JSON TESTS"""
+        test.auto_run_json_tests('PUT', self)
+
+###################################################################################################
+# Test Sequences
+###################################################################################################
+
+class TestSequences(VirtualNetworkTest):
+    """Test Sequences for Virtual Network"""
+
+    def test_create_and_delete(self):
+        """CREATE AND DELETE NETWORK"""
+        test.run_json_test(self, 'GET', Get, "test_empty_network")
+        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        path_mod = {"path":"/api/1.0/networks/{}".format(network_id)}
+        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
+
+    def test_create_and_update(self):
+        """CREATE AND UPDATE NETWORK"""
+        test.run_json_test(self, 'GET', Get, "test_empty_network")
+        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
+        test.run_json_test(self, 'GET', Get, "test_network_present")
+        test.run_mod_json_test(self, 'GET', GetNetworkId, "test_network1", path_mod)
+        test.run_mod_json_test(self, 'PUT', PutNetworkId, "test_update_networkX", path_mod)
+        test.run_mod_json_test(self, 'GET', GetNetworkId, "test_networkX", path_mod)
+        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
+
+    def test_create_duplicate_networks(self):
+        """CREATE DUPLICATE NETWORK"""
+        test.run_json_test(self, 'GET', Get, "test_empty_network")
+        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
+        test.run_json_test(self, 'POST', Post, "test_create_duplicate")
+        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
     
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
-            
-    ########################################################################
-    # Test Create duplicate network fails
-    def test006_CreateDuplicateNetworks(self):
-        try:
-            response = VirtualNetworkHandler().createNetwork()
-            logger.info("(0): Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 201, "Response code should equal 201")
+    def test_ip_address_pools(self):
+        """CHECK IP ADDRESS POOLS"""
+        test.run_json_test(self, 'GET', Get, "test_empty_network")
+        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
+        ip_path_mod = {"path": "/api/1.0/networks/{}/ipAddressPools".format(network_id)}
+        test.run_mod_json_test(self, 'GET', GetNetworkIdIpAddressPools, "test_networkId_ipAddressPools", ip_path_mod)
+        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
 
-            # set the network id as instance variable for subsequent tests 
-            responseJson = json.loads(response.text)
-            self.__class__.networkId = responseJson["id"]
+###################################################################################################
+# RUN MODULE
+###################################################################################################
 
-            response = VirtualNetworkHandler().createNetwork()
-            logger.info("(1): Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 400, "Response code should equal 400")
-
-        except Exception as e1:
-            logger.error("(): Exception: " + str(e1))
-            raise e1
-
-    ########################################################################
-    # Test Get IpAddressPools
-    def test007_GetIpAddressPools(self):
-        try:
-            response = VirtualNetworkHandler().getIpAddressPools(self.__class__.networkId)
-            logger.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 200, "Response code should equal 200")
-
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
-
-    ########################################################################
-    # Test Delete Network deletes a network
-    def test008_DeleteNetwork(self):
-        try:
-            response = VirtualNetworkHandler().deleteNetwork(self.__class__.networkId)
-            logger.info("Response Status Code: " + str(response.status_code))
-            self.assertEqual(response.status_code, 204, "Response code should equal 204")
-    
-        except Exception as e1:
-            logger.error("Exception: " + str(e1))
-            raise e1
-
-if __name__=="__main__":
-    if len(sys.argv) > 1:
-        VirtualNetworkHandler.host = sys.argv.pop()
-    else:
-        VirtualNetworkHandler.host = "http://localhost:46016"
-
-    from test_manager import run_tests
-    run_tests('VNW')
+if __name__ == "__main__":
+    HOST, DATA = parse.single_microservice_args(sys.argv)
+    HOST_OVERRIDE = HOST if HOST else HOST_OVERRIDE
+    DATA_OVERRIDE = DATA if DATA else DATA_OVERRIDE
+    log.configure_logger_from_yaml('logs/logger_config.yml')
+    unittest.main()

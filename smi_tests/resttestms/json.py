@@ -186,5 +186,8 @@ def endpoint_load_test_response(directory, endpoint, test_name):
 
 def load_response_data(response):
     """Return the data of the response body"""
-    response_data = json.loads(response.text)
+    try:
+        response_data = json.loads(response.text)
+    except json.decoder.JSONDecodeError:
+        response_data = {}
     return response_data

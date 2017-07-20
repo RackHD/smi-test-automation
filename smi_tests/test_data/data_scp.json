@@ -54,7 +54,7 @@
         "test_lifecycle_controller":
         {
             "description": "Load configuration data for lifecycle controller",
-            "paylaod":
+            "payload":
             {
                 "componentNames":
                 [

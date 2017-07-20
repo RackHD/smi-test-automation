@@ -44,7 +44,7 @@ def bad_data_except(action, end_class, good_params, good_payloads):
                 end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def run_modified_json_test(self_class, action, end_class, test_name, test_mods=None):
+def run_mod_json_test(self_class, action, end_class, test_name, test_mods=None):
     """Run test specified in json with indicated modifications"""
     test_case = json.get_test_case(end_class, test_name)
     if test_mods:
@@ -67,7 +67,7 @@ def run_modified_json_test(self_class, action, end_class, test_name, test_mods=N
 @log.exception(LOG)
 def run_json_test(self_class, action, end_class, test_name):
     """Run a single test define in json file"""
-    return run_modified_json_test(self_class, action, end_class, test_name)
+    return run_mod_json_test(self_class, action, end_class, test_name)
 
 @log.exception(LOG)
 def auto_run_json_tests(action, end_class):

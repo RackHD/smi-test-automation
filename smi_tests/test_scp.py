@@ -50,7 +50,7 @@ class Export(SCPTest):
 
     def test_json(self):
         """EXPORT JSON TESTS"""
-        test.run_json_test(self, 'POST', self, "test_fitFile_export")
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # GetComponents
@@ -63,8 +63,7 @@ class GetComponents(SCPTest):
 
     def test_json(self):
         """GETCOMPONENTS JSON TESTS"""
-        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
-        test.run_json_test(self, 'POST', self, "test_lifecycle_controller")
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # Import
@@ -77,8 +76,7 @@ class Import(SCPTest):
 
     def test_json(self):
         """IMPORT JSON TESTS"""
-        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
-        test.run_json_test(self, 'POST', self, "test_fitFile_import")
+        test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
 # UpdateComponents
@@ -118,6 +116,20 @@ class TrapUpdateTrapFormatFoo(SCPTest):
     def test_json(self):
         """TRAPS UPDATETRAPFORMAT TRAPFORMAT JSON TESTS"""
         test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Test Sequences
+###################################################################################################
+
+class TestSequences(SCPTest):
+    """Test Sequences for Virtual Network"""
+
+    def test_export_check_import(self):
+        """EXPORT CHECK AND IMPORT CONFIG PROFILE"""
+        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
+        test.run_json_test(self, 'POST', GetComponents, "test_lifecycle_controller")
+        test.run_json_test(self, 'POST', Import, "test_fitFile_import")
+        
 
 ###################################################################################################
 # RUN MODULE
