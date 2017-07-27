@@ -69,13 +69,17 @@
             },
             "response":
             {
-                "serviceTag": "9XLTW52"
+                "serviceTag": "VALUE_PRESENT"
             }
         },
         "test_serviceTag":
         {
             "auto_run": true,
-            "description": "Send default payload and check service tag"
+            "description": "Send default payload and check service tag",
+            "response":
+            {
+                "serviceTag": "9XLTW52"
+            }
         },
         "test_empty_payload":
         {

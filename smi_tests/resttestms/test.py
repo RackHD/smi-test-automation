@@ -21,26 +21,40 @@ LOG = logging.getLogger(__name__)
 ###################################################################################################
 
 @log.exception(LOG)
-def bad_data(action, end_class):
+def induce_error(action, end_class, empty=True, missing=True, special=True):
+    """Run variations of request to attempt to induce an error"""
+    test_info = "{}.induce_error".format(end_class.__class__.__name__)
+    print("\nRunning " + test_info)
+    LOG.info("Running %s", test_info)
+    for param_combo in _bad_data_combos(json.get_base_parameters(end_class), empty, missing, special):
+        for payload_combo in _bad_data_combos(json.get_base_payload(end_class), empty, missing, special):
+            url = end_class.BASE_URL + json.get_base_path(end_class)
+            request = http.rest_call(action, url, param_combo, payload_combo)
+            with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
+                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
+
+
+@log.exception(LOG)
+def bad_data(action, end_class, empty=True, missing=True, special=True):
     """Run requests with missing or empty data, check for failure"""
     test_info = "{}.bad_data".format(end_class.__class__.__name__)
     print("\nRunning " + test_info)
     LOG.info("Running %s", test_info)
-    for param_combo in _bad_data_combos(json.get_base_parameters(end_class)):
-        for payload_combo in _bad_data_combos(json.get_base_payload(end_class)):
+    for param_combo in _bad_data_combos(json.get_base_parameters(end_class), empty, missing, special):
+        for payload_combo in _bad_data_combos(json.get_base_payload(end_class), empty, missing, special):
             url = end_class.BASE_URL + json.get_base_path(end_class)
             request = http.rest_call(action, url, param_combo, payload_combo)
             with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
                 end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def bad_data_except(action, end_class, good_params, good_payloads):
+def bad_data_except(action, end_class, good_params, good_payloads, empty=True, missing=True, special=True):
     """Run requests with missing or empty data excluding those specified, check for failure"""
     test_info = "{}.bad_data with exceptions {} {}".format(end_class.__class__.__name__, good_params, good_payloads)
     print("\nRunning " + test_info)
     LOG.info("Running %s", test_info)
-    for param_combo in _bad_data_combos_except(json.get_base_parameters(end_class), good_params):
-        for payload_combo in _bad_data_combos_except(json.get_base_payload(end_class), good_payloads):
+    for param_combo in _bad_data_combos_except(json.get_base_parameters(end_class), good_params, empty, missing, special):
+        for payload_combo in _bad_data_combos_except(json.get_base_payload(end_class), good_payloads, empty, missing, special):
             url = end_class.BASE_URL + json.get_base_path(end_class)
             request = http.rest_call(action, url, param_combo, payload_combo)
             with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
@@ -85,16 +99,21 @@ def auto_run_json_tests(action, end_class):
 # Test Data Generators
 ###################################################################################################
 
-def _bad_data_combos(payload):
+def _bad_data_combos(payload, empty=True, missing=True, special=True):
     """Generate all combinations of empty and missing data"""
-    for empty_combo in http.empty_data_combos(payload):
-        yield empty_combo
-    for incomplete_combo in http.missing_data_combos(payload):
-        yield incomplete_combo
+    if empty:
+        for empty_combo in http.empty_data_combos(payload):
+            yield empty_combo
+    if missing:
+        for incomplete_combo in http.missing_data_combos(payload):
+            yield incomplete_combo
+    if special:
+        for special_combo in http.special_data_combos(payload):
+            yield special_combo
 
-def _bad_data_combos_except(payload, good_combos):
+def _bad_data_combos_except(payload, good_combos, empty=True, missing=True, special=True):
     """Generate all combinations of empty and missing data except for those specified"""
-    for bad_combo in _bad_data_combos(payload):
+    for bad_combo in _bad_data_combos(payload, empty, missing, special):
         valid_bad_combo = True
         for good_combo in good_combos:
             if set(good_combo) == set(bad_combo.keys()):

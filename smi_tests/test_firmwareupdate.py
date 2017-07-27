@@ -87,9 +87,9 @@ class Downloader(FirmwareUpdateTest):
 
     ENDPOINT = 'downloader'
 
-    def test_bad_data(self):
-        """DOWNLOADER BAD DATA TESTS"""
-        test.bad_data('GET', self)
+    def test_induce_error(self):
+        """DOWNLOADER INDUCE ERROR TESTS"""
+        test.induce_error('GET', self)
 
     def test_json(self):
         """DOWNLOADER JSON TESTS"""

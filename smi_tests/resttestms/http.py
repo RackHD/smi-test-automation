@@ -60,6 +60,17 @@ def empty_data_combos(payload):
                     result[key] = ''
             yield result
 
+def special_data_combos(payload):
+    """Generate all combinations of data with special characters"""
+    special_string = "\"\'\\!@#$%^&*()_-+=,./<>?{}[]|/0123456789~`\n\t\\\'\""
+    for count, _ in enumerate(payload):
+        for key_combo in itertools.combinations(payload, count):
+            result = payload.copy()
+            for key in result:
+                if key not in key_combo:
+                    result[key] = special_string
+            yield result
+
 ###################################################################################################
 # Make Requests
 ###################################################################################################
