@@ -44,6 +44,7 @@ def create_base_url(host, port):
 
 def missing_data_combos(payload):
     """Generate all combinations of missing data"""
+    yield {}
     for count, _ in enumerate(payload):
         for key_combo in itertools.combinations(payload, count):
             bad_dict = {key: payload[key] for key in key_combo}

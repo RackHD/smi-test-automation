@@ -23,7 +23,9 @@ LOG = logging.getLogger(__name__)
 @log.exception(LOG)
 def bad_data(action, end_class):
     """Run requests with missing or empty data, check for failure"""
-    LOG.info("Begin %s tests for %s using bad data", str(action).upper(), end_class.__class__.__name__)
+    test_info = "{}.bad_data".format(end_class.__class__.__name__)
+    print("\nRunning " + test_info)
+    LOG.info("Running %s", test_info)
     for param_combo in _bad_data_combos(json.get_base_parameters(end_class)):
         for payload_combo in _bad_data_combos(json.get_base_payload(end_class)):
             url = end_class.BASE_URL + json.get_base_path(end_class)
@@ -34,8 +36,9 @@ def bad_data(action, end_class):
 @log.exception(LOG)
 def bad_data_except(action, end_class, good_params, good_payloads):
     """Run requests with missing or empty data excluding those specified, check for failure"""
-    LOG.info("Begin %s tests for %s using bad data with the following exceptions :: %s : %s",
-             str(action).upper(), end_class.__class__.__name__, good_params, good_payloads)
+    test_info = "{}.bad_data with exceptions {} {}".format(end_class.__class__.__name__, good_params, good_payloads)
+    print("\nRunning " + test_info)
+    LOG.info("Running %s", test_info)
     for param_combo in _bad_data_combos_except(json.get_base_parameters(end_class), good_params):
         for payload_combo in _bad_data_combos_except(json.get_base_payload(end_class), good_payloads):
             url = end_class.BASE_URL + json.get_base_path(end_class)

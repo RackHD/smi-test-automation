@@ -10,7 +10,7 @@
             "payload": 
             {   
                 "address": "",
-                "catalogPath": "/temp/Catalog.xml",
+                "catalogPath": "/test/Catalog.xml",
                 "password": "calvin",
                 "serverAddress": "100.68.123.226",
                 "type": "wsman",
@@ -60,8 +60,8 @@
             "description": "No Description",
             "payload":
             {
-                "sourceCatalog": "/temp/",
-                "targetCatalog": "/temp2/"
+                "sourceCatalog": "/test/",
+                "targetCatalog": "/test2/"
             }
         }
     },
@@ -78,18 +78,30 @@
 
     "downloader": 
     {
-        "test_base" : 
+        "test_base": 
         {
             "path": "/api/1.0/server/firmware/downloader",
-            "skip": "Not Implemented",
-            "description": "Make a request to downloader with valid parameters, check for success",
             "parameters":
             {
                 "fileName": "Catalog.xml.gz",
                 "fileUrl": "ftp.dell.com/catalog",
-                "targetLocation": "/temp/"
+                "targetLocation": "/catalog/"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Make a request to downloader with valid parameters, check for success",
+            "parameters":
+            {
+                "targetLocation": "/test/catalog/"
             },
-            "response": { }
+            "response":
+            {
+                "id": "0",
+                "name": "Catalog.xml.gz",
+                "status": "Download completed successfully"
+            }
         }
     },
 

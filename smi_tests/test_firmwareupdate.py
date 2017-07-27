@@ -90,7 +90,7 @@ class Downloader(FirmwareUpdateTest):
     def test_bad_data(self):
         """DOWNLOADER BAD DATA TESTS"""
         test.bad_data('GET', self)
-    
+
     def test_json(self):
         """DOWNLOADER JSON TESTS"""
         test.auto_run_json_tests('GET', self)
