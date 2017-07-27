@@ -89,7 +89,7 @@ class Downloader(FirmwareUpdateTest):
 
     def test_induce_error(self):
         """DOWNLOADER INDUCE ERROR TESTS"""
-        test.induce_error('GET', self)
+        test.induce_error('GET', self, special=False)
 
     def test_json(self):
         """DOWNLOADER JSON TESTS"""
@@ -185,6 +185,18 @@ class Version(FirmwareUpdateTest):
     def test_json(self):
         """VERSION JSON TESTS"""
         test.auto_run_json_tests('GET', self)
+
+###################################################################################################
+# Test Sequences
+###################################################################################################
+
+class TestSequences(FirmwareUpdateTest):
+    """Test Sequences for Firmware Update"""
+
+    def test_placeholder(self):
+        """PLACEHOLDER"""
+        # test.run_json_test(self, 'POST', Export, "test_fitFile_export")
+        pass
 
 ###################################################################################################
 # RUN MODULE

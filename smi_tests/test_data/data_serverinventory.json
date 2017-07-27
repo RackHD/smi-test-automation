@@ -9,7 +9,12 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            },
+            }
+        },
+        "test_success_1.0":
+        {
+            "auto_run": true,
+            "description": "Test to make sure bios returns valid data in 1.0",
             "response":
             {
                 "dcimBIOSEnumerationTypeList": "DATA_PRESENT",
@@ -17,11 +22,19 @@
                 "dcimbiosstringType": "DATA_PRESENT"
             }
         },
-        "test_success":
+        "test_success_2.0":
         {
             "auto_run": true,
-            "description": "Test to make sure bios returns valid data"
+            "path": "/api/2.0/server/inventory/bios",
+            "description": "Test to make sure bios returns valid data in 2.0",
+            "response":
+            {
+                "DCIM_BIOSEnumeration": "DATA_PRESENT",
+                "DCIM_BIOSInteger": "DATA_PRESENT",
+                "DCIM_BIOSString": "DATA_PRESENT"
+            }
         }
+        
     },
 
     "boot": 
@@ -34,19 +47,28 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            },
-            "response":
-            {
-                "bootSourcesByBootModes":
-                {
-                    "bootSourcesByBootMode": "DATA_PRESENT"
-                }
             }
         },
-        "test_success":
+        "test_success_1.0":
         {
             "auto_run": true,
-            "description": "Test to make sure boot returns valid data"
+            "description": "Test to make sure boot returns valid data in 1.0",
+            "response":
+            {
+                "bootSourcesByBootModes": "DATA_PRESENT"
+            }
+        },
+        "test_success_2.0":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/boot",
+            "description": "Test to make sure boot returns valid data in 2.0",
+            "response":
+            {
+                "DCIM_BootConfigSetting": "DATA_PRESENT",
+                "DCIM_BootSourceSetting": "DATA_PRESENT",
+                "DCIM_BIOSEnumeration": "DATA_PRESENT"
+            }
         }
     },
 
@@ -74,26 +96,39 @@
     {
         "test_base":
         {
-            
             "path": "/api/1.0/server/inventory/hardware",
             "payload":
             {
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            },
+            }
+        },
+        "test_serviceTag_1.0":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct serviceTag is returned in 1.0",
             "response":
             {
                 "system":
                 {
                     "serviceTag": "17M0D42"
                 }
-            }
+            },
+            "error": "Incorrect service tag"
         },
-        "test_serviceTag":
+        "test_serviceTag_2.0":
         {
             "auto_run": true,
-            "description": "Test to make sure correct serviceTag is returned",
+            "path": "/api/2.0/server/inventory/hardware",
+            "description": "Test to make sure correct serviceTag is returned in 2.0",
+            "response":
+            {
+                "DCIM_SystemView":
+                {
+                    "ServiceTag": "17M0D42"
+                }
+            },
             "error": "Incorrect service tag"
         }
     },
@@ -118,7 +153,12 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            },
+            }
+        },
+        "test_success_1.0":
+        {
+            "auto_run": true,
+            "description": "Check to make sure nics data is present in 1.0",
             "response":
             [
                 {
@@ -126,10 +166,20 @@
                 }
             ]
         },
-        "test_success":
+        "test_success_2.0":
         {
             "auto_run": true,
-            "description": "Check to make sure nics data is present"
+            "path": "/api/2.0/server/inventory/nics",
+            "description": "Check to make sure nics data is present in 2.0",
+            "response":
+            {
+                "DCIM_NICView":
+                [
+                    {
+                        "InstanceID": "NIC.Integrated.1-1-1"
+                    }
+                ]
+            }
         }
 
     },
@@ -145,7 +195,12 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            },
+            }
+        },
+        "test_success_1.0":
+        {
+            "auto_run": true,
+            "description": "Check to make element value is iDRAC in 1.0",
             "response":
             [
                 {
@@ -156,10 +211,20 @@
                 }
             ]
         },
-        "test_success":
+        "test_success_2.0":
         {
             "auto_run": true,
-            "description": "Check to make element value is iDRAC"
+            "path": "/api/2.0/server/inventory/software",
+            "description": "Check to make element value is iDRAC in 2.0",
+            "response":
+            {
+                "DCIM_SoftwareIdentity":
+                [
+                    {
+                        "ElementName": "Integrated Dell Remote Access Controller"
+                    }
+                ]
+            }
         }
     },
 
@@ -184,11 +249,11 @@
                 "password":"calvin"
             }
         },
-        "test_type_lc":
+        "test_type_lc_1.0":
         {
             "auto_run": true,
             "path": "/api/1.0/server/inventory/logs/get/LC",
-            "description": "Check that logName is LifeCycle Log",
+            "description": "Check that logName is LifeCycle Log in 1.0",
             "response":
             [
                 {
@@ -196,15 +261,39 @@
                 }
             ]
         },
-        "test_type_sel":
+        "test_type_lc_2.0":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Check that LogName is LifeCycle Log in 2.0",
+            "response":
+            [
+                {
+                    "LogName": "LifeCycle Log"
+                }
+            ]
+        },
+        "test_type_sel_1.0":
         {
             "auto_run": true,
             "path": "/api/1.0/server/inventory/logs/get/SEL",
-            "description": "Check that element name is System Event Log Entry",
+            "description": "Check that element name is System Event Log Entry in 1.0",
             "response":
             [
                 {
                     "elementName": "System Event Log Entry"
+                }
+            ]
+        },
+        "test_type_sel_2.0":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/logs/get/SEL",
+            "description": "Check that element name is System Event Log Entry in 2.0",
+            "response":
+            [
+                {
+                    "ElementName": "System Event Log Entry"
                 }
             ]
         }

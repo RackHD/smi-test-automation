@@ -129,7 +129,7 @@ class TestSequences(SCPTest):
         test.run_json_test(self, 'POST', Export, "test_fitFile_export")
         test.run_json_test(self, 'POST', GetComponents, "test_lifecycle_controller")
         test.run_json_test(self, 'POST', Import, "test_fitFile_import")
-        
+
 
 ###################################################################################################
 # RUN MODULE
