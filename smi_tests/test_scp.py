@@ -40,6 +40,19 @@ class SCPTest(unittest.TestCase):
         cls.JSON_FILE = json.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
+# Clone
+###################################################################################################
+
+class Clone(SCPTest):
+    """Tests for Clone Endpoint"""
+
+    ENDPOINT = 'clone'
+
+    def test_json(self):
+        """CLONE JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
 # Export
 ###################################################################################################
 
@@ -50,6 +63,32 @@ class Export(SCPTest):
 
     def test_json(self):
         """EXPORT JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# ExportInventory
+###################################################################################################
+
+class ExportInventory(SCPTest):
+    """Tests for ExportInventory Endpoint"""
+
+    ENDPOINT = 'exportInventory'
+
+    def test_json(self):
+        """EXPORTINVENTORY JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Factory
+###################################################################################################
+
+class Factory(SCPTest):
+    """Tests for Factory Endpoint"""
+
+    ENDPOINT = 'factory'
+
+    def test_json(self):
+        """FACTORY JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
@@ -76,6 +115,32 @@ class Import(SCPTest):
 
     def test_json(self):
         """IMPORT JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Preview
+###################################################################################################
+
+class Preview(SCPTest):
+    """Tests for Preview Endpoint"""
+
+    ENDPOINT = 'preview'
+
+    def test_json(self):
+        """PREVIEW JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Replace
+###################################################################################################
+
+class Replace(SCPTest):
+    """Tests for Replace Endpoint"""
+
+    ENDPOINT = 'replace'
+
+    def test_json(self):
+        """REPLACE JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
@@ -122,13 +187,18 @@ class TrapUpdateTrapFormatFoo(SCPTest):
 ###################################################################################################
 
 class TestSequences(SCPTest):
-    """Test Sequences for Virtual Network"""
+    """Test Sequences for SCP"""
 
-    def test_export_check_import(self):
+    def test_fitfile_export_check_import(self):
         """EXPORT CHECK AND IMPORT CONFIG PROFILE"""
         test.run_json_test(self, 'POST', Export, "test_fitFile_export")
         test.run_json_test(self, 'POST', GetComponents, "test_lifecycle_controller")
         test.run_json_test(self, 'POST', Import, "test_fitFile_import")
+
+    def test_johnny_export_import(self):
+        """EXPORT AND IMPORT CONFIG PROFILE"""
+        test.run_json_test(self, 'POST', Export, "test_johnny_export")
+        test.run_json_test(self, 'POST', Import, "test_johnny_import")
 
 
 ###################################################################################################

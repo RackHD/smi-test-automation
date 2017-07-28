@@ -32,7 +32,8 @@ def induce_error(action, end_class, missing_val=True, empty_str=True,
             url = end_class.BASE_URL + json.get_base_path(end_class)
             request = http.rest_call(action, url, param_combo, payload_combo)
             with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
-                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
+                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s\n%s"
+                                      % request.status_code, json.load_response_data(request)["exception"]))
 
 @log.exception(LOG)
 def bad_data_except(action, end_class, good_params, good_payloads, missing_val=True, empty_str=True,

@@ -1,5 +1,15 @@
 {
 
+    "clone": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/clone",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
     "export": 
     {
         "test_base":
@@ -29,6 +39,93 @@
         {
             "description": "Export server configuration profile to 100.68.125.194",
             "error": "Failed to export SCP File from Server"
+        },
+        "test_johnny_export":
+        {
+            "description": "Export server configuration profile to 100.68.125.194 with special credentials",
+            "error": "Failed to export SCP File from Server",
+            "payload":
+            {
+                "fileName": "johnny.xml",
+                "serverIP": "100.68.123.163",
+                "serverPassword": "dangerous",
+                "serverUsername": "johnny"
+            }
+        },
+        "test_invalid_user_password":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid username and password and check for failure",
+            "error": "Returned success with bad credentials",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_johnny_invalid_user_password":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid username and password to johnny and check for failure",
+            "error": "Returned success with bad credentials",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar",
+                "serverIP": "100.68.123.163"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_share":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "error": "Returned success with bad share ip",
+            "payload":
+            {
+               "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_share_johnny":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "error": "Returned success with bad share ip",
+            "payload":
+            {
+                "fileName": "johnny.xml",
+                "serverIP": "100.68.123.163",
+                "serverPassword": "dangerous",
+                "serverUsername": "johnny",
+                "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "exportInventory": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/exportInventory",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "factory": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/factory",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
     },
 
@@ -49,7 +146,15 @@
                 "shareType": 0,
                 "shutdownType": 0
             },
-            "response": {}
+            "response": 
+            {
+                "serverComponents":
+                    [
+                        {
+                            "fqdd": "LifecycleController.Embedded.1"
+                        }
+                    ]
+            }
         },
         "test_lifecycle_controller":
         {
@@ -60,17 +165,34 @@
                 [
                     "LifecycleController.Embedded.1"
                 ]
-            },
-            "response":
-            {
-                "serverComponents":
-                    [
-                        {
-                            "fqdd": "LifecycleController.Embedded.1"
-                        }
-                    ]
             }
 
+        },
+        "test_invalid_file":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "error": "Returned success with bad share ip",
+            "payload":
+            {
+               "fileName": "foobarfoobar.xml",
+               "componentNames":
+                [
+                    "LifecycleController.Embedded.1"
+                ]
+            }
+        },
+        "test_invalid_share":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "error": "Returned success with bad share ip",
+            "payload":
+            {
+               "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -102,6 +224,76 @@
         "test_fitFile_import":
         {
             "description": "Try to import fitFile.xml"
+        },
+        "test_johnny_import":
+        {
+            "description": "Try to import johnny.xml",
+            "payload":
+            {
+                "serverIP": "100.68.123.163",
+                "serverPassword": "dangerous",
+                "serverUsername": "johnny",
+                "fileName": "johnny.xml"
+            }
+        },
+        "test_invalid_share":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "error": "Returned success with bad share ip",
+            "payload":
+            {
+               "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_user_password":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid username and password and check for failure",
+            "error": "Returned success with bad credentials",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_johnny_invalid_user_password":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid username and password to johnny and check for failure",
+            "error": "Returned success with bad credentials",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar",
+                "serverIP": "100.68.123.163"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "preview": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/preview",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "replace": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/replace",
+            "skip": "Not Implemented",
+            "description": "No Description"
         }
     },
 
