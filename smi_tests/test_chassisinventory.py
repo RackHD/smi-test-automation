@@ -60,9 +60,9 @@ class Details(ChassisInventoryTest):
 
     ENDPOINT = 'details'
 
-    # def test_induce_error(self):
-    #     """DETAILS INDUCE ERROR TESTS"""
-    #     test.induce_error('POST', self)
+    def test_induce_error(self):
+        """DETAILS INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """DETAILS JSON TESTS"""
@@ -77,9 +77,9 @@ class Ips(ChassisInventoryTest):
 
     ENDPOINT = 'ips'
 
-    # def test_induce_error(self):
-    #     """IPS INDUCE ERROR TESTS"""
-    #     test.induce_error('POST', self)
+    def test_induce_error(self):
+        """IPS INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """IPS JSON TESTS"""
@@ -94,9 +94,9 @@ class Summary(ChassisInventoryTest):
 
     ENDPOINT = 'summary'
 
-    # def test_induce_error(self):
-    #     """SUMMARY INDUCE ERROR TESTS"""
-    #     test.induce_error('POST', self)
+    def test_induce_error(self):
+        """SUMMARY INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """SUMMARY JSON TESTS"""

@@ -42,7 +42,7 @@ def create_base_url(host, port):
 # Generate Request Data
 ###################################################################################################
 
-def missing_data_combos(payload):
+def missing_value_combos(payload):
     """Generate all combinations of missing data"""
     yield {}
     for count, _ in enumerate(payload):
@@ -50,25 +50,14 @@ def missing_data_combos(payload):
             bad_dict = {key: payload[key] for key in key_combo}
             yield bad_dict
 
-def empty_data_combos(payload):
+def custom_val_combos(payload, custom_val):
     """Generate all combinations of empty data"""
     for count, _ in enumerate(payload):
         for key_combo in itertools.combinations(payload, count):
             result = payload.copy()
             for key in result:
                 if key not in key_combo:
-                    result[key] = ''
-            yield result
-
-def special_data_combos(payload):
-    """Generate all combinations of data with special characters"""
-    special_string = "\"\'\\!@#$%^&*()_-+=,./<>?{}[]|/0123456789~`\n\t\\\'\""
-    for count, _ in enumerate(payload):
-        for key_combo in itertools.combinations(payload, count):
-            result = payload.copy()
-            for key in result:
-                if key not in key_combo:
-                    result[key] = special_string
+                    result[key] = custom_val
             yield result
 
 ###################################################################################################
