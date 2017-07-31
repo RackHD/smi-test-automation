@@ -40,6 +40,14 @@
             "description": "Export server configuration profile to 100.68.125.194",
             "error": "Failed to export SCP File from Server"
         },
+        "test_backup_export":
+        {
+            "description": "Export backup of server configuration profile to 100.68.125.194",
+            "payload":
+            {
+                "fileName": "backup.xml"
+            }
+        },
         "test_johnny_export":
         {
             "description": "Export server configuration profile to 100.68.125.194 with special credentials",
@@ -136,7 +144,10 @@
             "path":"/api/1.0/server/configuration/getComponents",
             "payload":
             {
-                "componentNames":[],
+                "componentNames":
+                [
+                    "LifecycleController.Embedded.1"
+                ],
                 "fileName": "fitFile.xml",
                 "serverIP": "100.68.124.31",
                 "serverPassword": "calvin",
@@ -156,17 +167,45 @@
                     ]
             }
         },
-        "test_lifecycle_controller":
+        "test_lc_autoupdate_enabled":
         {
-            "description": "Load configuration data for lifecycle controller",
-            "payload":
+            "description": "Check to make sure autoupdate is enabled",
+            "response": 
             {
-                "componentNames":
+                "serverComponents":
                 [
-                    "LifecycleController.Embedded.1"
+                    "COMBINE : 0",
+                    {
+                        "attributes": 
+                        [
+                            {
+                                "name": "LCAttributes.1#AutoUpdate",
+                                "value": "Enabled"
+                            }
+                        ]
+                    }
                 ]
             }
-
+        },
+        "test_lc_autoupdate_disabled":
+        {
+            "description": "Check to make sure autoupdate is disabled",
+            "response": 
+            {
+                "serverComponents":
+                    [
+                        "COMBINE : 0",
+                        {
+                            "attributes": 
+                            [
+                                {
+                                    "name": "LCAttributes.1#AutoUpdate",
+                                    "value": "Disabled"
+                                }
+                            ]
+                        }
+                    ]
+            }
         },
         "test_invalid_file":
         {
@@ -224,6 +263,14 @@
         "test_fitFile_import":
         {
             "description": "Try to import fitFile.xml"
+        },
+        "test_backup_import":
+        {
+            "description": "Try to import backup.xml",
+            "payload":
+            {
+                "fileName": "backup.xml"
+            }
         },
         "test_johnny_import":
         {
@@ -302,8 +349,143 @@
         "test_base":
         {
             "path": "/api/1.0/server/configuration/updateComponents",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "payload":
+            {
+                "serverAndNetworkShareRequest":
+                {
+                    "componentNames":
+                    [
+                        "LifecycleController.Embedded.1"
+                    ],
+                    "fileName": "fitFile.xml",
+                    "serverIP": "100.68.124.31",
+                    "serverPassword": "calvin",
+                    "serverUsername": "root",
+                    "shareAddress": "100.68.125.194",
+                    "shareName": "nfs",
+                    "shareType": 0,
+                    "shutdownType": 0
+                },
+                "serverComponents": 
+                [
+                    {
+                        "attributes": 
+                        [
+                            {
+                                "name": "LCAttributes.1#AutoUpdate"
+                            }
+                        ],
+                        "fqdd": "LifecycleController.Embedded.1"
+                    }
+                ]
+            },
+            "response":
+            {
+                "xmlConfig":
+                {
+                    "result": "SUCCESS",
+                    "jobID": "VALUE_PRESENT"
+                }  
+            }
+        },
+        "test_autoupdate_enable":
+        {
+            "description": "Set the autoupdate component to enabled",
+            "payload":
+            {
+                "serverComponents":
+                [
+                    "COMBINE : 0",
+                    {
+                        "attributes":
+                        [
+                            "COMBINE : 0",
+                            {
+                                "value": "Enabled"
+                            } 
+                        ]
+                    }
+                ]
+            }
+        },
+        "test_autoupdate_disable":
+        {
+            "description": "Set the autoupdate component to disabled",
+            "payload":
+            {
+                "serverComponents":
+                [
+                    "COMBINE : 0",
+                    {
+                        "attributes":
+                        [
+                            "COMBINE : 0",
+                            {
+                                "value": "Disabled"
+                            } 
+                        ]
+                    }
+                ]
+            }
+        },
+        "test_invalid_user_password":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid username and password and check for failure",
+            "error": "Returned success with bad credentials",
+            "payload":
+            {
+                "serverAndNetworkShareRequest":
+                {
+                    "fileName": "doesnotexist.xml",
+                    "serverPassword": "foo",
+                    "serverUsername": "bar"
+                }
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_ip":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid ip and check for failure",
+            "error": "Returned success with bad credentials",
+            "payload":
+            {
+                "serverAndNetworkShareRequest":
+                {
+                    "fileName": "doesnotexist.xml",
+                    "serverIP": "100.100.100.100"
+                }
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_component":
+        {
+            "auto_run": true,
+            "description": "Pass in component and check for failure",
+            "error": "Returned success with bad credentials",
+            "payload":
+            {
+                "serverComponents": 
+                [
+                    "COMBINE : 0",
+                    {
+                        "attributes": 
+                        [
+                            "COMBINE : 0",
+                            {
+                                "name": "zzz", 
+                                "value": "Enabled"
+                            }
+                        ],
+                        "fqdd": "yyyy"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
