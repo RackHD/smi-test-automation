@@ -37,8 +37,7 @@
         },
         "test_fitFile_export":
         {
-            "description": "Export server configuration profile to 100.68.125.194",
-            "error": "Failed to export SCP File from Server"
+            "description": "Export server configuration profile to 100.68.125.194"
         },
         "test_backup_export":
         {
@@ -51,7 +50,6 @@
         "test_johnny_export":
         {
             "description": "Export server configuration profile to 100.68.125.194 with special credentials",
-            "error": "Failed to export SCP File from Server",
             "payload":
             {
                 "fileName": "johnny.xml",
@@ -64,7 +62,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid username and password and check for failure",
-            "error": "Returned success with bad credentials",
             "payload":
             {
                 "serverPassword": "foo",
@@ -77,7 +74,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid username and password to johnny and check for failure",
-            "error": "Returned success with bad credentials",
             "payload":
             {
                 "serverPassword": "foo",
@@ -91,7 +87,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid share ip and check for failure",
-            "error": "Returned success with bad share ip",
             "payload":
             {
                "shareAddress": "100.100.100.100"
@@ -103,7 +98,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid share ip and check for failure",
-            "error": "Returned success with bad share ip",
             "payload":
             {
                 "fileName": "johnny.xml",
@@ -211,7 +205,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid share ip and check for failure",
-            "error": "Returned success with bad share ip",
             "payload":
             {
                "fileName": "foobarfoobar.xml",
@@ -225,7 +218,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid share ip and check for failure",
-            "error": "Returned success with bad share ip",
             "payload":
             {
                "shareAddress": "100.100.100.100"
@@ -287,7 +279,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid share ip and check for failure",
-            "error": "Returned success with bad share ip",
             "payload":
             {
                "shareAddress": "100.100.100.100"
@@ -299,7 +290,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid username and password and check for failure",
-            "error": "Returned success with bad credentials",
             "payload":
             {
                 "serverPassword": "foo",
@@ -312,7 +302,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid username and password to johnny and check for failure",
-            "error": "Returned success with bad credentials",
             "payload":
             {
                 "serverPassword": "foo",
@@ -432,7 +421,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid username and password and check for failure",
-            "error": "Returned success with bad credentials",
             "payload":
             {
                 "serverAndNetworkShareRequest":
@@ -449,7 +437,6 @@
         {
             "auto_run": true,
             "description": "Pass in invalid ip and check for failure",
-            "error": "Returned success with bad credentials",
             "payload":
             {
                 "serverAndNetworkShareRequest":
@@ -465,7 +452,6 @@
         {
             "auto_run": true,
             "description": "Pass in component and check for failure",
-            "error": "Returned success with bad credentials",
             "payload":
             {
                 "serverComponents": 

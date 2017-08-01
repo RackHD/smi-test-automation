@@ -230,37 +230,37 @@ class TestSequences(VirtualNetworkTest):
 
     def test_create_and_delete(self):
         """CREATE AND DELETE NETWORK"""
-        test.run_json_test(self, 'GET', Get, "test_empty_network")
-        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        test.run_json_test('GET', self, Get, "test_empty_network")
+        network_id = test.run_json_test('POST', self, Post, "test_create_network1")["id"]
         path_mod = {"path":"/api/1.0/networks/{}".format(network_id)}
         test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
 
     def test_create_and_update(self):
         """CREATE AND UPDATE NETWORK"""
-        test.run_json_test(self, 'GET', Get, "test_empty_network")
-        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        test.run_json_test('GET', self, Get, "test_empty_network")
+        network_id = test.run_json_test('POST', self, Post, "test_create_network1")["id"]
         path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
-        test.run_json_test(self, 'GET', Get, "test_network_present")
-        test.run_mod_json_test(self, 'GET', GetNetworkId, "test_network1", path_mod)
+        test.run_json_test('GET', self, Get, "test_network_present")
+        test.run_mod_json_test('GET', self, GetNetworkId, "test_network1", path_mod)
         test.run_mod_json_test(self, 'PUT', PutNetworkId, "test_update_networkX", path_mod)
-        test.run_mod_json_test(self, 'GET', GetNetworkId, "test_networkX", path_mod)
+        test.run_mod_json_test('GET', self, GetNetworkId, "test_networkX", path_mod)
         test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
 
     def test_create_duplicate_networks(self):
         """CREATE DUPLICATE NETWORK"""
-        test.run_json_test(self, 'GET', Get, "test_empty_network")
-        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        test.run_json_test('GET', self, Get, "test_empty_network")
+        network_id = test.run_json_test('POST', self, Post, "test_create_network1")["id"]
         path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
-        test.run_json_test(self, 'POST', Post, "test_create_duplicate")
+        test.run_json_test('POST', self, Post, "test_create_duplicate")
         test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
     
     def test_ip_address_pools(self):
         """CHECK IP ADDRESS POOLS"""
-        test.run_json_test(self, 'GET', Get, "test_empty_network")
-        network_id = test.run_json_test(self, 'POST', Post, "test_create_network1")["id"]
+        test.run_json_test('GET', self, Get, "test_empty_network")
+        network_id = test.run_json_test('POST', self, Post, "test_create_network1")["id"]
         path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
         ip_path_mod = {"path": "/api/1.0/networks/{}/ipAddressPools".format(network_id)}
-        test.run_mod_json_test(self, 'GET', GetNetworkIdIpAddressPools, "test_networkId_ipAddressPools", ip_path_mod)
+        test.run_mod_json_test('GET', self, GetNetworkIdIpAddressPools, "test_networkId_ipAddressPools", ip_path_mod)
         test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
 
 ###################################################################################################

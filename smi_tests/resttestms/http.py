@@ -67,50 +67,74 @@ def custom_val_combos(payload, custom_val):
 def rest_get(url, parameters):
     """Make a GET rest call to the specified URL with parameters"""
     LOG.info("====== GET ====== :: URL : %s", url)
-    LOG.debug("====== PARAMETERS :: %s", parameters)
     response = requests.get(url, headers=JSON_HEADER, params=parameters)
+    if response.status_code >= 500:
+        LOG.error("====== PARAMETERS :: %s", parameters)
+        LOG.error("============= RESPONSE BODY :: %s", json.load_response_data(response))
+    else:
+        LOG.debug("====== PARAMETERS :: %s", parameters)
+        LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     LOG.info("==== RESPONSE RECIEVED ==== :: Status Code : %s", response.status_code)
-    LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     return response
 
 def rest_post(url, parameters, payload):
     """Make a POST rest call to the specified URL and payload"""
     LOG.info("====== POST ====== :: URL : %s", url)
-    LOG.debug("======= PARAMETERS :: %s", parameters)
-    LOG.debug("========== PAYLOAD :: %s", payload)
     response = requests.post(url, headers=JSON_HEADER, params=parameters, json=payload)
+    if response.status_code >= 500:
+        LOG.error("====== PARAMETERS :: %s", parameters)
+        LOG.error("========= PAYLOAD :: %s", payload)
+        LOG.error("============= RESPONSE BODY :: %s", json.load_response_data(response))
+    else:
+        LOG.debug("====== PARAMETERS :: %s", parameters)
+        LOG.debug("========= PAYLOAD :: %s", payload)
+        LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     LOG.info("==== RESPONSE RECIEVED ==== :: Status Code : %s", response.status_code)
-    LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     return response
 
 def rest_put(url, parameters, payload):
     """Make a PUT rest call to the specified URL and payload"""
     LOG.info("====== PUT ====== :: URL : %s", url)
-    LOG.debug("====== PARAMETERS :: %s", parameters)
-    LOG.debug("========= PAYLOAD :: %s", payload)
     response = requests.put(url, headers=JSON_HEADER, params=parameters, json=payload)
+    if response.status_code >= 500:
+        LOG.error("====== PARAMETERS :: %s", parameters)
+        LOG.error("========= PAYLOAD :: %s", payload)
+        LOG.error("============= RESPONSE BODY :: %s", json.load_response_data(response))
+    else:
+        LOG.debug("====== PARAMETERS :: %s", parameters)
+        LOG.debug("========= PAYLOAD :: %s", payload)
+        LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     LOG.info("==== RESPONSE RECIEVED ==== :: Status Code : %s", response.status_code)
-    LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     return response
 
 def rest_patch(url, parameters, payload):
     """Make a PATCH rest call to the specified URL and payload"""
     LOG.info("====== PATCH ====== :: URL : %s", url)
-    LOG.debug("======== PARAMETERS :: %s", parameters)
-    LOG.debug("=========== PAYLOAD :: %s", payload)
     response = requests.patch(url, headers=JSON_HEADER, params=parameters, json=payload)
+    if response.status_code >= 500:
+        LOG.error("====== PARAMETERS :: %s", parameters)
+        LOG.error("========= PAYLOAD :: %s", payload)
+        LOG.error("============= RESPONSE BODY :: %s", json.load_response_data(response))
+    else:
+        LOG.debug("====== PARAMETERS :: %s", parameters)
+        LOG.debug("========= PAYLOAD :: %s", payload)
+        LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     LOG.info("==== RESPONSE RECIEVED ==== :: Status Code : %s", response.status_code)
-    LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     return response
 
 def rest_delete(url, parameters, payload):
     """Make a DELETE rest call to the specified URL and payload"""
     LOG.info("====== DELETE ====== :: URL : %s", url)
-    LOG.debug("====== PARAMETERS :: %s", parameters)
-    LOG.debug("========= PAYLOAD :: %s", payload)
     response = requests.delete(url, headers=JSON_HEADER, params=parameters, json=payload)
+    if response.status_code >= 500:
+        LOG.error("====== PARAMETERS :: %s", parameters)
+        LOG.error("========= PAYLOAD :: %s", payload)
+        LOG.error("============= RESPONSE BODY :: %s", json.load_response_data(response))
+    else:
+        LOG.debug("====== PARAMETERS :: %s", parameters)
+        LOG.debug("========= PAYLOAD :: %s", payload)
+        LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     LOG.info("==== RESPONSE RECIEVED ==== :: Status Code : %s", response.status_code)
-    LOG.debug("============= RESPONSE BODY :: %s", json.load_response_data(response))
     return response
 
 def rest_call(action, url, parameters, payload):

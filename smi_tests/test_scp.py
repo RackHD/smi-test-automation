@@ -123,9 +123,9 @@ class Import(SCPTest):
 
     def test_induce_error(self):
         """EXPORT INDUCE ERROR TESTS"""
-        test.run_json_test(self, 'POST', Export, "test_johnny_export")
+        test.run_json_test('POST', self, Export, "test_johnny_export")
         test.induce_error('POST', self)
-        test.run_json_test(self, 'POST', Import, "test_johnny_import")
+        test.run_json_test('POST', self, Import, "test_johnny_import")
 
     def test_json(self):
         """IMPORT JSON TESTS"""
@@ -168,9 +168,9 @@ class UpdateComponents(SCPTest):
 
     def test_induce_error(self):
         """EXPORT INDUCE ERROR TESTS"""
-        test.run_json_test(self, 'POST', Export, "test_backup_export")
+        test.run_json_test('POST', self, Export, "test_backup_export")
         test.induce_error('POST', self)
-        test.run_json_test(self, 'POST', Import, "test_backup_import")
+        test.run_json_test('POST', self, Import, "test_backup_import")
 
     def test_json(self):
         """UPDATECOMPONENTS JSON TESTS"""
@@ -211,26 +211,26 @@ class TestSequences(SCPTest):
 
     def test_fitfile_export_check_import(self):
         """EXPORT CHECK AND IMPORT CONFIG PROFILE"""
-        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
-        test.run_json_test(self, 'POST', GetComponents, "test_lc_autoupdate_enabled")
-        test.run_json_test(self, 'POST', Import, "test_fitFile_import")
+        test.run_json_test('POST', self, Export, "test_fitFile_export")
+        test.run_json_test('POST', self, GetComponents, "test_lc_autoupdate_enabled")
+        test.run_json_test('POST', self, Import, "test_fitFile_import")
 
     def test_johnny_export_import(self):
         """EXPORT AND IMPORT CONFIG PROFILE"""
-        test.run_json_test(self, 'POST', Export, "test_johnny_export")
-        test.run_json_test(self, 'POST', Import, "test_johnny_import")
+        test.run_json_test('POST', self, Export, "test_johnny_export")
+        test.run_json_test('POST', self, Import, "test_johnny_import")
 
     def test_update_autoupdate(self):
         """EXPORT AND IMPORT CONFIG PROFILE"""
-        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
-        test.run_json_test(self, 'POST', GetComponents, "test_lc_autoupdate_enabled")
-        test.run_json_test(self, 'POST', UpdateComponents, "test_autoupdate_disable")
-        test.run_json_test(self, 'POST', GetComponents, "test_lc_autoupdate_disabled")
-        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
-        test.run_json_test(self, 'POST', GetComponents, "test_lc_autoupdate_disabled")
-        test.run_json_test(self, 'POST', UpdateComponents, "test_autoupdate_enable")
-        test.run_json_test(self, 'POST', Export, "test_fitFile_export")
-        test.run_json_test(self, 'POST', GetComponents, "test_lc_autoupdate_enabled")
+        test.run_json_test('POST', self, Export, "test_fitFile_export")
+        test.run_json_test('POST', self, GetComponents, "test_lc_autoupdate_enabled")
+        test.run_json_test('POST', self, UpdateComponents, "test_autoupdate_disable")
+        test.run_json_test('POST', self, GetComponents, "test_lc_autoupdate_disabled")
+        test.run_json_test('POST', self, Export, "test_fitFile_export")
+        test.run_json_test('POST', self, GetComponents, "test_lc_autoupdate_disabled")
+        test.run_json_test('POST', self, UpdateComponents, "test_autoupdate_enable")
+        test.run_json_test('POST', self, Export, "test_fitFile_export")
+        test.run_json_test('POST', self, GetComponents, "test_lc_autoupdate_enabled")
 
 
 ###################################################################################################

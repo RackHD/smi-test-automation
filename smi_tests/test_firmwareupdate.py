@@ -195,7 +195,7 @@ class TestSequences(FirmwareUpdateTest):
 
     def test_placeholder(self):
         """PLACEHOLDER"""
-        # test.run_json_test(self, 'POST', Export, "test_fitFile_export")
+        # test.run_json_test('POST', self, Export, "test_fitFile_export")
         pass
 
 ###################################################################################################

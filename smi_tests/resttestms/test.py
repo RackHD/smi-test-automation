@@ -32,8 +32,7 @@ def induce_error(action, end_class, missing_val=True, empty_str=True,
             url = end_class.BASE_URL + json.get_base_path(end_class)
             request = http.rest_call(action, url, param_combo, payload_combo)
             with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
-                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s\n%s"
-                                      % request.status_code, json.load_response_data(request)["exception"]))
+                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
 def bad_data_except(action, end_class, good_params, good_payloads, missing_val=True, empty_str=True,
@@ -50,7 +49,7 @@ def bad_data_except(action, end_class, good_params, good_payloads, missing_val=T
                 end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 
 @log.exception(LOG)
-def run_mod_json_test(self_class, action, end_class, test_name, test_mods=None):
+def run_mod_json_test(action, self_class, end_class, test_name, test_mods=None):
     """Run test specified in json with indicated modifications"""
     test_case = json.get_test_case(end_class, test_name)
     if test_mods:
@@ -71,9 +70,9 @@ def run_mod_json_test(self_class, action, end_class, test_name, test_mods=None):
             return json.load_response_data(request)
 
 @log.exception(LOG)
-def run_json_test(self_class, action, end_class, test_name):
+def run_json_test(action, self_class, end_class, test_name):
     """Run a single test define in json file"""
-    return run_mod_json_test(self_class, action, end_class, test_name)
+    return run_mod_json_test(action, self_class, end_class, test_name)
 
 @log.exception(LOG)
 def auto_run_json_tests(action, end_class):
@@ -82,7 +81,7 @@ def auto_run_json_tests(action, end_class):
     print("")
     for test_name in json.get_all_tests(end_class):
         if json.check_auto_run(end_class, test_name):
-            run_json_test(end_class, action, end_class, test_name)
+            run_json_test(action, end_class, end_class, test_name)
 
 ###################################################################################################
 # Test Data Generators
