@@ -17,6 +17,45 @@ from . import json, http, log, parse
 LOG = logging.getLogger(__name__)
 
 ###################################################################################################
+# Test Initialization
+###################################################################################################
+
+def select_host(default_host, override):
+    """Compare default host and override to determine host"""
+    LOG.debug("Default Host :: %s Override :: %s", default_host, override)
+    host = override if override else default_host
+    LOG.info("Selected host was %s", host)
+    return host
+
+def create_base_url(host, port):
+    """Use the host and port, generate a url"""
+    LOG.debug("Provided Host: %s Port: %s", host, port)
+    formatted_host = "http://{}:{}".format(host, port)
+    LOG.debug("Generated URL :: %s", formatted_host)
+    return formatted_host
+
+def select_directory(default_directory, override):
+    """Compare default directory and override to determine json directory"""
+    LOG.debug("Default Directory :: %s Override :: %s", default_directory, override)
+    directory = override if override else default_directory
+    LOG.info("Selected data directory was %s", directory)
+    return directory
+
+def create_json_reference(directory, filename):
+    """Use the directory and filename, generate a json reference"""
+    LOG.debug("Provided Directory: %s JSON File: %s", directory, filename)
+    json_reference = "{}/{}".format(directory, filename)
+    LOG.debug("Generated Reference :: %s", json_reference)
+    return json_reference
+
+def select_depth(default_depth, override):
+    """Compare default depth and override to determine depth"""
+    LOG.debug("Default depth :: %s Override :: %s", default_depth, override)
+    depth = override if override else default_depth
+    LOG.info("Selected depth was %s", depth)
+    return int(depth)
+
+###################################################################################################
 # Premade Tests
 ###################################################################################################
 
@@ -27,13 +66,21 @@ def induce_error(action, end_class, missing_val=True, empty_str=True,
     test_info = "{}.induce_error".format(end_class.__class__.__name__)
     print("\nRunning " + test_info)
     LOG.info("Running %s", test_info)
+    if end_class.DEPTH >= 3:
+        intense = True
     for param_combo in _bad_data_combos(json.get_base_parameters(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
         for payload_combo in _bad_data_combos(json.get_base_payload(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
             url = end_class.BASE_URL + json.get_base_path(end_class)
             request = http.rest_call(action, url, param_combo, payload_combo)
             with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
                 end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
+                if end_class.DEPTH == 1:
+                    break
+        if end_class.DEPTH == 1:
+            break
 
+# Deprecated for the time being, will be modified in the future
+###############################################################
 @log.exception(LOG)
 def bad_data_except(action, end_class, good_params, good_payloads, missing_val=True, empty_str=True,
                     bad_str=False, neg_num=False, special_str=False, intense=False):
@@ -47,6 +94,7 @@ def bad_data_except(action, end_class, good_params, good_payloads, missing_val=T
             request = http.rest_call(action, url, param_combo, payload_combo)
             with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
                 end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
+###############################################################
 
 @log.exception(LOG)
 def run_mod_json_test(action, self_class, end_class, test_name, test_mods=None):

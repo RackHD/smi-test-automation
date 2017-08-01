@@ -122,6 +122,7 @@ def run_tests(keys):
     """Run specified tests using key set"""
     LOG.info("Host: %s", config.HOST)
     LOG.info("Data Directory: %s", config.DATA)
+    LOG.info("Depth: %s", config.DEPTH)
     LOG.info("Test Keys: %s", keys)
     test_suite = _load_tests(keys)
     LOG.debug("Loaded Tests: %s", test_suite)
@@ -143,16 +144,18 @@ def parse_keys_tester():
         LOG.info("Running test %s", (index + 1))
         print("\n--Test {}--\n Args:{}".format(index + 1, case))
         try:
-            host, data, keys = parse.auto_test_args(M_ID, ALIAS, *case)
+            host, data, depth, keys = parse.auto_test_args(M_ID, ALIAS, *case)
             print("Host: {}".format(host))
             print("Data Directory: {}".format(data))
+            print("Depth: {}".format(data))
             print("Parsed Keys: {}".format(keys))
         except Exception:
             print("TEST FAILED")
             LOG.exception("Test failed with args {}".format(case))
 
 if __name__ == '__main__':
-    PARSED_HOST, PARSED_DATA, KEYS = parse.auto_test_args(M_ID, ALIAS, *sys.argv[1:])
+    PARSED_HOST, PARSED_DATA, PARSED_DEPTH, KEYS = parse.auto_test_args(M_ID, ALIAS, *sys.argv[1:])
     config.HOST = PARSED_HOST if PARSED_HOST else config.HOST
     config.DATA = PARSED_DATA if PARSED_DATA else config.DATA
+    config.DEPTH = PARSED_DEPTH if PARSED_DEPTH else config.DEPTH
     run_tests(KEYS)

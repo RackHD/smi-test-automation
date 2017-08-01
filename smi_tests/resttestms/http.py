@@ -21,24 +21,6 @@ LOG = logging.getLogger(__name__)
 JSON_HEADER = {'Content-Type': 'application/json'}
 
 ###################################################################################################
-# Initialize Class Data
-###################################################################################################
-
-def select_host(default_host, override):
-    """Compare default host and override to determine host"""
-    LOG.debug("Default Host :: %s Override :: %s", default_host, override)
-    host = override if override else default_host
-    LOG.info("Selected host was %s", host)
-    return host
-
-def create_base_url(host, port):
-    """Use the host and port, generate a url"""
-    LOG.debug("Provided Host: %s Port: %s", host, port)
-    formatted_host = "http://{}:{}".format(host, port)
-    LOG.debug("Generated URL :: %s", formatted_host)
-    return formatted_host
-
-###################################################################################################
 # Generate Request Data
 ###################################################################################################
 

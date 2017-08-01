@@ -46,6 +46,18 @@ def get_data(arg):
     data = re.sub(r'data:', "", str(arg).lower())
     return data
 
+def is_depth(arg):
+    """Check to see if provided argument is a depth"""
+    depth = False
+    if re.search(r'depth:', str(arg).lower()):
+        depth = True
+    return depth
+
+def get_depth(arg):
+    """Get depth from provided argument"""
+    depth = re.sub(r'depth:', "", str(arg).lower())
+    return depth
+
 def has_negate(arg):
     """Check to see if provided argument contains negation flags"""
     negate = False
@@ -262,6 +274,7 @@ def single_microservice_args(sys_args):
     """Parse arguments when running a single microservice"""
     host_override = None
     data_override = None
+    depth_override = None
     args = sys_args[1:]
     for arg in args:
         if is_host(arg):
@@ -272,7 +285,11 @@ def single_microservice_args(sys_args):
             sys_args.remove(arg)
             data_override = get_data(arg)
             LOG.debug("Found Data : %s", data_override)
-    return host_override, data_override
+        elif is_depth(arg):
+            sys_args.remove(arg)
+            data_override = get_depth(arg)
+            LOG.debug("Found Depth : %s", depth_override)
+    return host_override, data_override, depth_override
 
 def auto_test_args(data_m_id, data_alias, *args):
     """Parse arguments from auto_tester to determine which tests will be loaded"""
@@ -283,6 +300,7 @@ def auto_test_args(data_m_id, data_alias, *args):
     remove_arguments = []
     host = None
     data = None
+    depth = None
     if arguments:
         # Parse out special arguments
         for arg in arguments:
@@ -290,6 +308,8 @@ def auto_test_args(data_m_id, data_alias, *args):
                 host = get_host(arg)
             elif is_data(arg):
                 data = get_data(arg)
+            elif is_depth(arg):
+                depth = get_depth(arg)
             elif has_negate(arg):
                 remove_arguments.append(strip_negate(arg))
             else:
@@ -324,4 +344,4 @@ def auto_test_args(data_m_id, data_alias, *args):
 
     _add_arguments_to_set(remove_arguments, remove_keys)
     _add_arguments_to_set(test_arguments, test_keys)
-    return host, data, (test_keys - remove_keys)
+    return host, data, depth, (test_keys - remove_keys)

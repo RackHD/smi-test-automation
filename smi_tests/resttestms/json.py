@@ -20,24 +20,6 @@ LOG = logging.getLogger(__name__)
 BASE = 'test_base'
 
 ###################################################################################################
-# Initialize Class Data
-###################################################################################################
-
-def select_directory(default_directory, override):
-    """Compare default directory and override to determine json directory"""
-    LOG.debug("Default Directory :: %s Override :: %s", default_directory, override)
-    directory = override if override else default_directory
-    LOG.info("Selected data directory was %s", directory)
-    return directory
-
-def create_json_reference(directory, filename):
-    """Use the directory and filename, generate a json reference"""
-    LOG.debug("Provided Directory: %s JSON File: %s", directory, filename)
-    json_reference = "{}/{}".format(directory, filename)
-    LOG.debug("Generated Reference :: %s", json_reference)
-    return json_reference
-
-###################################################################################################
 # Class Test Loaders
 ###################################################################################################
 
