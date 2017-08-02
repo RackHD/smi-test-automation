@@ -64,36 +64,44 @@ def induce_error(action, end_class, missing_val=True, empty_str=True,
                  bad_str=False, neg_num=False, special_str=False, intense=False):
     """Run variations of request to attempt to induce an error"""
     test_info = "{}.induce_error".format(end_class.__class__.__name__)
+    url = end_class.BASE_URL + json.get_base_path(end_class)
     print("\nRunning " + test_info)
     LOG.info("Running %s", test_info)
-    if end_class.DEPTH >= 3:
-        intense = True
-    for param_combo in _bad_data_combos(json.get_base_parameters(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
-        for payload_combo in _bad_data_combos(json.get_base_payload(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
-            url = end_class.BASE_URL + json.get_base_path(end_class)
-            request = http.rest_call(action, url, param_combo, payload_combo)
-            with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
-                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
-                if end_class.DEPTH == 1:
-                    break
-        if end_class.DEPTH == 1:
-            break
+    if end_class.DEPTH < 2:
+        request = http.rest_call(action, url, {}, {})
+        end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
+    else:
+        if end_class.DEPTH >= 3:
+            intense = True
+        for bad_param_generator in _bad_data_generators(json.get_base_parameters(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
+            for bad_payload_generator in _bad_data_generators(json.get_base_payload(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
+                test_failed = False
+                for bad_param_combo in bad_param_generator:
+                    for bad_payload_combo in bad_payload_generator:
+                        if test_failed:
+                            break
+                        request = http.rest_call(action, url, bad_param_combo, bad_payload_combo)
+                        with end_class.subTest(data=(str(bad_param_combo) + str(bad_payload_combo))):
+                            try:
+                                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
+                            except AssertionError:
+                                test_failed = True
 
 # Deprecated for the time being, will be modified in the future
 ###############################################################
-@log.exception(LOG)
-def bad_data_except(action, end_class, good_params, good_payloads, missing_val=True, empty_str=True,
-                    bad_str=False, neg_num=False, special_str=False, intense=False):
-    """Run requests with missing or empty data excluding those specified, check for failure"""
-    test_info = "{}.bad_data with exceptions {} {}".format(end_class.__class__.__name__, good_params, good_payloads)
-    print("\nRunning " + test_info)
-    LOG.info("Running %s", test_info)
-    for param_combo in _bad_data_combos_except(json.get_base_parameters(end_class), good_params, missing_val, empty_str, bad_str, neg_num, special_str, intense):
-        for payload_combo in _bad_data_combos_except(json.get_base_payload(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
-            url = end_class.BASE_URL + json.get_base_path(end_class)
-            request = http.rest_call(action, url, param_combo, payload_combo)
-            with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
-                end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
+# @log.exception(LOG)
+# def bad_data_except(action, end_class, good_params, good_payloads, missing_val=True, empty_str=True,
+#                     bad_str=False, neg_num=False, special_str=False, intense=False):
+#     """Run requests with missing or empty data excluding those specified, check for failure"""
+#     test_info = "{}.bad_data with exceptions {} {}".format(end_class.__class__.__name__, good_params, good_payloads)
+#     print("\nRunning " + test_info)
+#     LOG.info("Running %s", test_info)
+#     for param_combo in _bad_data_combos_except(json.get_base_parameters(end_class), good_params, missing_val, empty_str, bad_str, neg_num, special_str, intense):
+#         for payload_combo in _bad_data_combos_except(json.get_base_payload(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
+#             url = end_class.BASE_URL + json.get_base_path(end_class)
+#             request = http.rest_call(action, url, param_combo, payload_combo)
+#             with end_class.subTest(data=(str(param_combo) + str(payload_combo))):
+#                 end_class.assertTrue(has_all_status_codes(request, ["400"]), ("Expected Response Code : 400 Actual : %s" % request.status_code))
 ###############################################################
 
 @log.exception(LOG)
@@ -135,36 +143,35 @@ def auto_run_json_tests(action, end_class):
 # Test Data Generators
 ###################################################################################################
 
-def _bad_data_combos(payload, missing_val=True, empty_str=True,
+def _bad_data_generators(payload, missing_val=True, empty_str=True,
                      bad_str=False, neg_num=False, special_str=False, intense=False):
-    """Generate all combinations of empty and missing data"""
+    """Output all generators for test data"""
     if intense or missing_val:
-        for missing_val_combo in http.missing_value_combos(payload):
-            yield missing_val_combo
+        yield http.missing_value_combos(payload)
     if intense or empty_str:
-        for empty_str_combo in http.custom_val_combos(payload, ''):
-            yield empty_str_combo
+        yield http.custom_val_combos(payload, '')
     if intense or bad_str:
-        for bad_str_combo in http.custom_val_combos(payload, 'foobar007'):
-            yield bad_str_combo
+        yield http.custom_val_combos(payload, 'foobar007')
     if intense or neg_num:
-        for neg_num_combo in http.custom_val_combos(payload, -15):
-            yield neg_num_combo
+        yield http.custom_val_combos(payload, -15)
     if intense or special_str:
         special_string = "\"\'\\!@#$%^&*()_-+=,./<>?{}[]|/0123456789~`\n\t\\\'\""
-        for special_str_combo in http.custom_val_combos(payload, special_string):
-            yield special_str_combo
+        yield http.custom_val_combos(payload, special_string)
 
-def _bad_data_combos_except(payload, good_combos, missing_val=True, empty_str=True,
-                            bad_str=False, neg_num=False, special_str=False, intense=False):
-    """Generate all combinations of empty and missing data except for those specified"""
-    for bad_combo in _bad_data_combos(payload, missing_val, empty_str, bad_str, neg_num, special_str, intense):
-        valid_bad_combo = True
-        for good_combo in good_combos:
-            if set(good_combo) == set(bad_combo.keys()):
-                valid_bad_combo = False
-        if valid_bad_combo:
-            yield bad_combo
+# Deprecated for the time being, will be modified in the future
+###############################################################
+# def _bad_data_combos_except(payload, good_combos, missing_val=True, empty_str=True,
+#                             bad_str=False, neg_num=False, special_str=False, intense=False):
+#     """Generate all combinations of empty and missing data except for those specified"""
+#     for bad_combo in _bad_data_combos(payload, missing_val, empty_str, bad_str, neg_num, special_str, intense):
+#         valid_bad_combo = True
+#         for good_combo in good_combos:
+#             if set(good_combo) == set(bad_combo.keys()):
+#                 valid_bad_combo = False
+#         if valid_bad_combo:
+#             yield bad_combo
+###############################################################
+
 
 ###################################################################################################
 # Test Results

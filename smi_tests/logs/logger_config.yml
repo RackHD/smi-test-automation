@@ -45,5 +45,5 @@ handlers:
     formatter: verbose
     when: H
     interval: 2
-    backupCount: 10
+    backupCount: 5
     filename: logs/smi_test_automation.log

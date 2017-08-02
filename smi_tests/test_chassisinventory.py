@@ -29,7 +29,7 @@ def setUpModule():
 
 class ChassisInventoryTest(unittest.TestCase):
     """Collection of data to test the chassis inventory microservice"""
- 
+
     PORT = '46001'
     JSON_NAME = 'data_chassisinventory.json'
 

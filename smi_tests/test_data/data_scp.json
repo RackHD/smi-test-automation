@@ -18,7 +18,7 @@
             "payload":
             {
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.31",
+                "serverIP": "100.68.124.34",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
                 "shareAddress": "100.68.125.194",
@@ -143,7 +143,7 @@
                     "LifecycleController.Embedded.1"
                 ],
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.31",
+                "serverIP": "100.68.124.34",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
                 "shareAddress": "100.68.125.194",
@@ -235,7 +235,7 @@
             "payload":
             {
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.31",
+                "serverIP": "100.68.124.34",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
                 "shareAddress": "100.68.125.194",
@@ -347,7 +347,7 @@
                         "LifecycleController.Embedded.1"
                     ],
                     "fileName": "fitFile.xml",
-                    "serverIP": "100.68.124.31",
+                    "serverIP": "100.68.124.34",
                     "serverPassword": "calvin",
                     "serverUsername": "root",
                     "shareAddress": "100.68.125.194",
