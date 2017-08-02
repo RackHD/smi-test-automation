@@ -13,6 +13,140 @@
             },
             "response":
             {
+                "powerCap": "401  W"
+            }
+        },
+        "test_401_watts":
+        {
+            "auto_run": true,
+            "description": "Send default payload, check power cap is 401 W"
+        },
+        "test_415_watts":
+        {
+            "description": "Send default payload, check power cap is 415 W",
+            "response":
+            {
+                "powerCap": "415 W"
+            }
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "put": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/powerthermal",
+            "description": "No Description",
+            "payload": 
+            {
+                "enableCapping": true,
+                "powerCap": 410,
+                "serverAddress": "100.68.124.121",
+                "userName": "root",
+                "password": "calvin"
+            },
+            "response":
+            {
+                "jobId": "VALUE_PRESENT"
+            }
+        },
+        "test_401_watts":
+        {
+            "auto_run": true,
+            "description": "Send default payload, set power cap to 401 W"
+        },
+        "test_415_watts":
+        {
+            "description": "Send default payload, set power cap to 415 W",
+            "payload":
+            {
+                "powerCap": 415
+            }
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+
+    },
+
+    "post_all": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/powerthermal/all",
+            "payload":
+            {
+                "serverAddress": "100.68.124.121",
+                "userName": "root",
+                "password": "calvin"
+            },
+            "response":
+            {
                 "powerCap": "401  W",
                 "profile": "Performance"
             }
@@ -24,11 +158,11 @@
         }
     },
 
-    "put": 
+    "put_all": 
     {
         "test_base":
         {
-            "path": "/api/1.0/powerthermal",
+            "path": "/api/1.0/powerthermal/all",
             "skip": "Not Implemented",
             "description": "No Description",
             "payload": 

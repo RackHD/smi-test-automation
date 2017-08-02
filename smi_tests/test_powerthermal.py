@@ -70,6 +70,32 @@ class Put(PowerThermalTest):
         test.auto_run_json_tests('PUT', self)
 
 ###################################################################################################
+# Post All
+###################################################################################################
+
+class PostAll(PowerThermalTest):
+    """Tests for Powerthermal Post All Endpoint"""
+
+    ENDPOINT = 'post_all'
+
+    def test_json(self):
+        """POST ALL JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Put All
+###################################################################################################
+
+class PutAll(PowerThermalTest):
+    """Tests for Powerthermal Put All Endpoint"""
+
+    ENDPOINT = 'put_all'
+
+    def test_json(self):
+        """PUT ALL JSON TESTS"""
+        test.auto_run_json_tests('PUT', self)
+
+###################################################################################################
 # Version
 ###################################################################################################
 
@@ -81,6 +107,21 @@ class Version(PowerThermalTest):
     def test_json(self):
         """VERSION JSON TESTS"""
         test.auto_run_json_tests('GET', self)
+
+###################################################################################################
+# Test Sequences
+###################################################################################################
+
+class TestSequences(PowerThermalTest):
+    """Test Sequences for Power Thermal"""
+
+    def test_power_cap(self):
+        """CHANGE AND CHECK POWER CAP"""
+        test.run_json_test('POST', self, Post, "test_401_watts")
+        test.run_json_test('PUT', self, Put, "test_415_watts")
+        test.run_json_test('POST', self, Post, "test_415_watts")
+        test.run_json_test('PUT', self, Put, "test_401_watts")
+        test.run_json_test('POST', self, Post, "test_401_watts")
 
 ###################################################################################################
 # RUN MODULE
