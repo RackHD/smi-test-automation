@@ -12,6 +12,7 @@ Created on June 28, 2017
 """
 
 import logging
+import time
 from . import json, http, log, parse
 
 LOG = logging.getLogger(__name__)
@@ -58,6 +59,13 @@ def select_depth(default_depth, override):
 ###################################################################################################
 # Premade Tests
 ###################################################################################################
+
+@log.exception(LOG)
+def delay(seconds=1):
+    "Delay testing by specified number of seconds"
+    LOG.info("%s second delay", seconds)
+    print("{} second delay".format(seconds))
+    time.sleep(seconds)
 
 @log.exception(LOG)
 def induce_error(action, end_class, missing_val=True, empty_str=True,

@@ -16,18 +16,43 @@
                 "powerCap": "401  W"
             }
         },
-        "test_401_watts":
+        "test_server1_401_watts":
         {
             "auto_run": true,
-            "description": "Send default payload, check power cap is 401 W"
+            "description": "Send default payload to 100.68.124.121, check power cap is 401  W"
         },
-        "test_415_watts":
+        "test_server2_260_watts":
         {
-            "description": "Send default payload, check power cap is 415 W",
+            "auto_run": true,
+            "description": "Send default payload to 100.68.124.34, check power cap is 260  W",
+            "payload":
+            {
+                "serverAddress": "100.68.124.34"
+            },
             "response":
             {
-                "powerCap": "415 W"
+                "powerCap": "260  W"
+            } 
+        },
+        "test_server1_415_watts":
+        {
+            "description": "Send default payload to 100.68.124.121, check power cap is 415  W",
+            "response":
+            {
+                "powerCap": "415  W"
             }
+        },
+        "test_server2_275_watts":
+        {
+            "description": "Send default payload to 100.68.124.34, check power cap is 275  W",
+            "payload":
+            {
+                "serverAddress": "100.68.124.34"
+            },
+            "response":
+            {
+                "powerCap": "275  W"
+            } 
         },
         "test_nonexistent_ip":
         {
@@ -74,7 +99,7 @@
             "payload": 
             {
                 "enableCapping": true,
-                "powerCap": 410,
+                "powerCap": 401,
                 "serverAddress": "100.68.124.121",
                 "userName": "root",
                 "password": "calvin"
@@ -84,17 +109,44 @@
                 "jobId": "VALUE_PRESENT"
             }
         },
-        "test_401_watts":
+        "test_server1_401_watts":
         {
             "auto_run": true,
-            "description": "Send default payload, set power cap to 401 W"
+            "description": "Send default payload to 100.68.124.121, set power cap to 401  W"
         },
-        "test_415_watts":
+        "test_server1_415_watts":
         {
-            "description": "Send default payload, set power cap to 415 W",
+            "description": "Send default payload to 100.68.124.121, set power cap to 415  W",
             "payload":
             {
                 "powerCap": 415
+            }
+        },
+        "test_server2_260_watts":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.124.34, set power cap to 260  W",
+            "payload":
+            {
+                "powerCap": 260,
+                "serverAddress": "100.68.124.34"
+            }
+        },
+        "test_server2_275_watts":
+        {
+            "description": "Send default payload to 100.68.124.34, set power cap to 275  W",
+            "payload":
+            {
+                "powerCap": 275,
+                "serverAddress": "100.68.124.34"
+            }
+        },
+        "test_server1_disable_power_cap":
+        {
+            "description": "Attempt to disable power cap at 100.68.124.121",
+            "payload":
+            {
+                "enableCapping": false
             }
         },
         "test_nonexistent_ip":
@@ -140,21 +192,273 @@
         {
             "path": "/api/1.0/powerthermal/all",
             "payload":
-            {
-                "serverAddress": "100.68.124.121",
-                "userName": "root",
-                "password": "calvin"
-            },
+            [
+                {
+                    "serverAddress": "100.68.124.121",
+                    "userName": "root",
+                    "password": "calvin"
+                },
+                {
+                    "serverAddress": "100.68.124.34",
+                    "userName": "root",
+                    "password": "calvin"
+                }
+            ],
             "response":
             {
-                "powerCap": "401  W",
-                "profile": "Performance"
+                "currentReading": "VALUE_PRESENT",
+                "currentAvgReading": "VALUE_PRESENT",
+                "avgWarningThreshhold": "VALUE_PRESENT",
+                "avgFailureThreshhold": "VALUE_PRESENT",
+                "hwPowerMonitoring": 
+                [
+                    {
+                        "powerCap": "401  W"
+                    },
+                    {
+                        "powerCap": "260  W"
+                    }
+                ]
             }
         },
-        "test_success":
+        "test_server1_401_watts":
         {
             "auto_run": true,
-            "description": "Send default payload, check that power thermal info is found"
+            "description": "Check 100.68.124.121 power cap is 401  W",
+            "payload": ["DELETE : 1"],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["DELETE : 1"]
+            }
+        },
+        "test_server2_260_watts":
+        {
+            "auto_run": true,
+            
+            "description": "Check 100.68.124.34 power cap is 260  W",
+            "payload": ["DELETE : 0"],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["DELETE : 0"]
+            }
+        },
+        "test_server1_415_watts":
+        {
+            "description": "Check 100.68.124.121 power cap is 415  W",
+            "payload": ["DELETE : 1"],
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "DELETE : all",
+                    {
+                        "powerCap": "415  W"
+                    }
+                ]   
+            }
+        },
+        "test_server2_275_watts":
+        {
+            "description": "Check 100.68.124.34 power cap is 415  W",
+            "payload":["DELETE : 0"],
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "DELETE : all",
+                    {
+                        "powerCap": "275  W"
+                    }
+                ]   
+            }
+            
+        },
+        "test_401_and_260_watts":
+        {
+            "auto_run": true,
+            "description": "Check 100.68.124.121 and 100.68.124.34 power caps 401  W and 260  W"
+        },
+        "test_415_and_275_watts":
+        {
+            "description": "Check 100.68.124.121 and 100.68.124.34 power caps 415  W and 275  W",
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "COMBINE : 0,1",
+                    {
+                        "powerCap": "415  W"
+                    },
+                    {
+                        "powerCap": "260  W"
+                    }
+                ]   
+            }
+        },
+        "test_300_and_300_watts":
+        {
+            "description": "Check 100.68.124.121 and 100.68.124.34 power caps 300  W and 300  W",
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "COMBINE : 0,1",
+                    {
+                        "powerCap": "300  W"
+                    },
+                    {
+                        "powerCap": "300  W"
+                    }
+                ]   
+            }
+        },
+        "test_one_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send one nonexistent ip, check for failure",
+            "payload":
+            [
+                "DELETE : 1",
+                "COMBINE : 0",
+                {
+                    "serverAddress": "100.100.100.100"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_one_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send one bad ip, check for failure",
+            "payload":
+            [
+                "DELETE : 1",
+                "COMBINE : 0",
+                {
+                    "serverAddress": "foo"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_one_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send one bad credentials, check for failure",
+            "payload":
+            [
+                "DELETE : 1",
+                "COMBINE : 0",
+                {
+                    "userName": "foo",
+                    "password": "bar"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_one_one_good_one_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send one good and one nonexistent ip, check for one result",
+            "payload":
+            [
+                "COMBINE : 1",
+                {
+                    "serverAddress": "100.100.100.100"
+                }
+            ],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["DELETE : 1"]
+            }
+        },
+        "test_one_one_good_one_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send one good and one bad ip, check for one result",
+            "payload":
+            [
+                "COMBINE : 1",
+                {
+                    "serverAddress": "foo"
+                }
+            ],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["DELETE : 1"]
+            }
+        },
+        "test_one_one_good_one_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send one good and one bad ip, check for one result",
+            "payload":
+            [
+                "COMBINE : 1",
+                {
+                    "userName": "foo",
+                    "password": "bar"
+                }
+            ],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["DELETE : 1"]
+            }
+        },
+        "test_two_nonexistent_ips":
+        {
+            "auto_run": true,
+            "description": "Send two nonexistent ips, check for failure",
+            "payload":
+            [
+                "COMBINE : 0,1",
+                {
+                    "serverAddress": "100.100.100.100"
+                },
+                {
+                    "serverAddress": "100.100.100.101"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_two_bad_ips":
+        {
+            "auto_run": true,
+            "description": "Send two bad ips, check for failure",
+            "payload":
+            [
+                "COMBINE : 0,1",
+                {
+                    "serverAddress": "foo"
+                },
+                {
+                    "serverAddress": "bar"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_two_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send two bad credentials, check for failure",
+            "payload":
+            [
+                "COMBINE : 0,1",
+                {
+                    "userName": "foo",
+                    "password": "bar"
+                },
+                {
+                    "userName": "baz",
+                    "password": "qux"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -163,19 +467,94 @@
         "test_base":
         {
             "path": "/api/1.0/powerthermal/all",
-            "skip": "Not Implemented",
-            "description": "No Description",
             "payload": 
             {
                 "enableCapping": true,
-                "password": "string",
-                "powerCap": 0,
-                "serverAddress": "string",
-                "userName": "string"
+                "powerCap": 600,
+                "servers":
+                [
+                    {
+                        "serverAddress": "100.68.124.121",
+                        "userName": "root",
+                        "password": "calvin"
+                    },
+                    {
+                        "serverAddress": "100.68.124.34",
+                        "userName": "root",
+                        "password": "calvin"
+                    }
+                ]
             },
-            "status_code": ["!500"],
-            "response": { }
+            "response":[{}]
+        },
+        "test_server1_and_server2_powercap_600":
+        {
+            "description": "Set total power cap for 100.68.124.121 and 100.68.124.34 to 600"
+        },
+        "test_server1_and_server2_disable_power_cap":
+        {
+            "description": "Attempt to disable power cap at 100.68.124.121 and 100.68.124.34",
+            "payload":
+            {
+                "enableCapping": false
+            }
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "servers":
+                [
+                    "DELETE : 1",
+                    "COMBINE : 0",
+                    {
+                        "serverAddress": "100.100.100.100"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "servers":
+                [
+                    "DELETE : 1",
+                    "COMBINE : 0",
+                    {
+                        "serverAddress": "foo"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "servers":
+                [
+                    "DELETE : 1",
+                    "COMBINE : 0",
+                    {
+                        "userName": "foo",
+                        "password": "bar"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
+
     },
 
     "version": 
