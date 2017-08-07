@@ -21,17 +21,17 @@
             "auto_run": true,
             "description": "Send default payload to 100.68.124.121, check power cap is 401  W"
         },
-        "test_server2_260_watts":
+        "test_server2_400_watts":
         {
             "auto_run": true,
-            "description": "Send default payload to 100.68.124.34, check power cap is 260  W",
+            "description": "Send default payload to 100.68.124.122, check power cap is 400  W",
             "payload":
             {
-                "serverAddress": "100.68.124.34"
+                "serverAddress": "100.68.124.122"
             },
             "response":
             {
-                "powerCap": "260  W"
+                "powerCap": "400  W"
             } 
         },
         "test_server1_415_watts":
@@ -42,16 +42,16 @@
                 "powerCap": "415  W"
             }
         },
-        "test_server2_275_watts":
+        "test_server2_420_watts":
         {
-            "description": "Send default payload to 100.68.124.34, check power cap is 275  W",
+            "description": "Send default payload to 100.68.124.122, check power cap is 420  W",
             "payload":
             {
-                "serverAddress": "100.68.124.34"
+                "serverAddress": "100.68.124.122"
             },
             "response":
             {
-                "powerCap": "275  W"
+                "powerCap": "420  W"
             } 
         },
         "test_nonexistent_ip":
@@ -122,23 +122,23 @@
                 "powerCap": 415
             }
         },
-        "test_server2_260_watts":
+        "test_server2_400_watts":
         {
             "auto_run": true,
-            "description": "Send default payload to 100.68.124.34, set power cap to 260  W",
+            "description": "Send default payload to 100.68.124.122, set power cap to 400  W",
             "payload":
             {
-                "powerCap": 260,
-                "serverAddress": "100.68.124.34"
+                "powerCap": 400,
+                "serverAddress": "100.68.124.122"
             }
         },
-        "test_server2_275_watts":
+        "test_server2_420_watts":
         {
-            "description": "Send default payload to 100.68.124.34, set power cap to 275  W",
+            "description": "Send default payload to 100.68.124.122, set power cap to 420  W",
             "payload":
             {
-                "powerCap": 275,
-                "serverAddress": "100.68.124.34"
+                "powerCap": 420,
+                "serverAddress": "100.68.124.122"
             }
         },
         "test_server1_disable_power_cap":
@@ -199,7 +199,7 @@
                     "password": "calvin"
                 },
                 {
-                    "serverAddress": "100.68.124.34",
+                    "serverAddress": "100.68.124.122",
                     "userName": "root",
                     "password": "calvin"
                 }
@@ -216,7 +216,7 @@
                         "powerCap": "401  W"
                     },
                     {
-                        "powerCap": "260  W"
+                        "powerCap": "400  W"
                     }
                 ]
             }
@@ -231,11 +231,11 @@
                 "hwPowerMonitoring" : ["DELETE : 1"]
             }
         },
-        "test_server2_260_watts":
+        "test_server2_400_watts":
         {
             "auto_run": true,
             
-            "description": "Check 100.68.124.34 power cap is 260  W",
+            "description": "Check 100.68.124.122 power cap is 400  W",
             "payload": ["DELETE : 0"],
             "response": 
             {
@@ -257,9 +257,9 @@
                 ]   
             }
         },
-        "test_server2_275_watts":
+        "test_server2_420_watts":
         {
-            "description": "Check 100.68.124.34 power cap is 415  W",
+            "description": "Check 100.68.124.122 power cap is 415  W",
             "payload":["DELETE : 0"],
             "response":
             {
@@ -267,20 +267,20 @@
                 [
                     "DELETE : all",
                     {
-                        "powerCap": "275  W"
+                        "powerCap": "420  W"
                     }
                 ]   
             }
             
         },
-        "test_401_and_260_watts":
+        "test_401_and_400_watts":
         {
             "auto_run": true,
-            "description": "Check 100.68.124.121 and 100.68.124.34 power caps 401  W and 260  W"
+            "description": "Check 100.68.124.121 and 100.68.124.122 power caps 401  W and 400  W"
         },
-        "test_415_and_275_watts":
+        "test_415_and_420_watts":
         {
-            "description": "Check 100.68.124.121 and 100.68.124.34 power caps 415  W and 275  W",
+            "description": "Check 100.68.124.121 and 100.68.124.122 power caps 415  W and 420  W",
             "response":
             {
                 "hwPowerMonitoring" :
@@ -290,14 +290,14 @@
                         "powerCap": "415  W"
                     },
                     {
-                        "powerCap": "260  W"
+                        "powerCap": "400  W"
                     }
                 ]   
             }
         },
         "test_300_and_300_watts":
         {
-            "description": "Check 100.68.124.121 and 100.68.124.34 power caps 300  W and 300  W",
+            "description": "Check 100.68.124.121 and 100.68.124.122 power caps 300  W and 300  W",
             "response":
             {
                 "hwPowerMonitoring" :
@@ -479,7 +479,7 @@
                         "password": "calvin"
                     },
                     {
-                        "serverAddress": "100.68.124.34",
+                        "serverAddress": "100.68.124.122",
                         "userName": "root",
                         "password": "calvin"
                     }
@@ -489,11 +489,11 @@
         },
         "test_server1_and_server2_powercap_600":
         {
-            "description": "Set total power cap for 100.68.124.121 and 100.68.124.34 to 600"
+            "description": "Set total power cap for 100.68.124.121 and 100.68.124.122 to 600"
         },
         "test_server1_and_server2_disable_power_cap":
         {
-            "description": "Attempt to disable power cap at 100.68.124.121 and 100.68.124.34",
+            "description": "Attempt to disable power cap at 100.68.124.121 and 100.68.124.122",
             "payload":
             {
                 "enableCapping": false

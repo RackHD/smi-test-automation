@@ -134,32 +134,32 @@ class TestSequences(PowerThermalTest):
     def test_multiple_server_power_caps(self):
         """CHANGE AND CHECK MULTIPLE POWER CAPS"""
         test.run_json_test('POST', self, Post, "test_server1_401_watts")
-        test.run_json_test('POST', self, Post, "test_server2_260_watts")
+        test.run_json_test('POST', self, Post, "test_server2_400_watts")
         test.run_json_test('POST', self, PostAll, "test_server1_401_watts")
-        test.run_json_test('POST', self, PostAll, "test_server2_260_watts")
+        test.run_json_test('POST', self, PostAll, "test_server2_400_watts")
         test.run_json_test('PUT', self, Put, "test_server1_415_watts")
-        test.run_json_test('PUT', self, Put, "test_server2_275_watts")
+        test.run_json_test('PUT', self, Put, "test_server2_420_watts")
         test.delay(5)
         test.run_json_test('POST', self, PostAll, "test_server1_415_watts")
-        test.run_json_test('POST', self, PostAll, "test_server2_275_watts")
+        test.run_json_test('POST', self, PostAll, "test_server2_420_watts")
         test.run_json_test('PUT', self, Put, "test_server1_401_watts")
-        test.run_json_test('PUT', self, Put, "test_server2_260_watts")
+        test.run_json_test('PUT', self, Put, "test_server2_400_watts")
         test.delay(5)
         test.run_json_test('POST', self, Post, "test_server1_401_watts")
-        test.run_json_test('POST', self, Post, "test_server2_260_watts")
+        test.run_json_test('POST', self, Post, "test_server2_400_watts")
 
     def test_distribute_power_cap(self):
         """DISTRIBUTE AND CHECK POWER CAPS"""
         test.run_json_test('POST', self, Post, "test_server1_401_watts")
-        test.run_json_test('POST', self, Post, "test_server2_260_watts")
+        test.run_json_test('POST', self, Post, "test_server2_400_watts")
         test.run_json_test('PUT', self, PutAll, "test_server1_and_server2_powercap_600")
         test.delay(5)
         test.run_json_test('POST', self, PostAll, "test_300_and_300_watts")
         test.run_json_test('PUT', self, Put, "test_server1_401_watts")
-        test.run_json_test('PUT', self, Put, "test_server2_260_watts")
+        test.run_json_test('PUT', self, Put, "test_server2_400_watts")
         test.delay(5)
         test.run_json_test('POST', self, Post, "test_server1_401_watts")
-        test.run_json_test('POST', self, Post, "test_server2_260_watts")
+        test.run_json_test('POST', self, Post, "test_server2_400_watts")
 
     def test_distribute_disable_power_cap(self):
         """DISTRIBUTE AND CHECK POWER CAPS"""
@@ -167,10 +167,10 @@ class TestSequences(PowerThermalTest):
         test.delay(5)
         test.run_json_test('POST', self, PostAll, "test_300_and_300_watts")
         test.run_json_test('PUT', self, Put, "test_server1_401_watts")
-        test.run_json_test('PUT', self, Put, "test_server2_260_watts")
+        test.run_json_test('PUT', self, Put, "test_server2_400_watts")
         test.delay(5)
         test.run_json_test('POST', self, Post, "test_server1_401_watts")
-        test.run_json_test('POST', self, Post, "test_server2_260_watts")
+        test.run_json_test('POST', self, Post, "test_server2_400_watts")
 
 
 ###################################################################################################
