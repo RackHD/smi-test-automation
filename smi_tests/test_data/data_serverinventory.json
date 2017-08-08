@@ -21,8 +21,41 @@
         {
             "auto_run": true,
             "description": "Test to make sure bios returns valid data in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
-        
     },
 
     "bios_2": 
@@ -47,6 +80,40 @@
         {
             "auto_run": true,
             "description": "Test to make sure bios returns valid data in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -70,6 +137,40 @@
         {
             "auto_run": true,
             "description": "Test to make sure boot returns valid data in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -95,6 +196,40 @@
         {
             "auto_run": true,
             "description": "Test to make sure boot returns valid data in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -151,6 +286,40 @@
         {
             "auto_run": true,
             "description": "Test to make sure correct serviceTag is returned in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -177,6 +346,40 @@
         {
             "auto_run": true,
             "description": "Test to make sure correct serviceTag is returned in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -222,6 +425,40 @@
         {
             "auto_run": true,
             "description": "Check to make sure nics data is present in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
         }
     },
 
@@ -250,6 +487,40 @@
         {
             "auto_run": true,
             "description": "Check to make sure nics data is present in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -274,10 +545,44 @@
                 }
             ]
         },
-        "test_success_1.0":
+        "test_success":
         {
             "auto_run": true,
             "description": "Check to make element value is iDRAC in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
         }
     },
 
@@ -306,6 +611,40 @@
         {
             "auto_run": true,
             "description": "Check to make element value is iDRAC in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -363,6 +702,43 @@
                     "elementName": "System Event Log Entry"
                 }
             ]
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -400,6 +776,43 @@
                     "ElementName": "System Event Log Entry"
                 }
             ]
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     }
 

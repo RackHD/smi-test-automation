@@ -183,7 +183,6 @@
             "status_code": ["400"],
             "response": {"REMOVE": ["all"]}
         }
-
     },
 
     "post_all": 
@@ -225,10 +224,10 @@
         {
             "auto_run": true,
             "description": "Check 100.68.124.121 power cap is 401  W",
-            "payload": ["DELETE : 1"],
+            "payload": ["REMOVE : 1"],
             "response": 
             {
-                "hwPowerMonitoring" : ["DELETE : 1"]
+                "hwPowerMonitoring" : ["REMOVE : 1"]
             }
         },
         "test_server2_400_watts":
@@ -236,21 +235,21 @@
             "auto_run": true,
             
             "description": "Check 100.68.124.122 power cap is 400  W",
-            "payload": ["DELETE : 0"],
+            "payload": ["REMOVE : 0"],
             "response": 
             {
-                "hwPowerMonitoring" : ["DELETE : 0"]
+                "hwPowerMonitoring" : ["REMOVE : 0"]
             }
         },
         "test_server1_415_watts":
         {
             "description": "Check 100.68.124.121 power cap is 415  W",
-            "payload": ["DELETE : 1"],
+            "payload": ["REMOVE : 1"],
             "response":
             {
                 "hwPowerMonitoring" :
                 [
-                    "DELETE : all",
+                    "REMOVE : all",
                     {
                         "powerCap": "415  W"
                     }
@@ -260,12 +259,12 @@
         "test_server2_420_watts":
         {
             "description": "Check 100.68.124.122 power cap is 415  W",
-            "payload":["DELETE : 0"],
+            "payload":["REMOVE : 0"],
             "response":
             {
                 "hwPowerMonitoring" :
                 [
-                    "DELETE : all",
+                    "REMOVE : all",
                     {
                         "powerCap": "420  W"
                     }
@@ -318,7 +317,7 @@
             "description": "Send one nonexistent ip, check for failure",
             "payload":
             [
-                "DELETE : 1",
+                "REMOVE : 1",
                 "COMBINE : 0",
                 {
                     "serverAddress": "100.100.100.100"
@@ -333,7 +332,7 @@
             "description": "Send one bad ip, check for failure",
             "payload":
             [
-                "DELETE : 1",
+                "REMOVE : 1",
                 "COMBINE : 0",
                 {
                     "serverAddress": "foo"
@@ -348,7 +347,7 @@
             "description": "Send one bad credentials, check for failure",
             "payload":
             [
-                "DELETE : 1",
+                "REMOVE : 1",
                 "COMBINE : 0",
                 {
                     "userName": "foo",
@@ -371,7 +370,7 @@
             ],
             "response": 
             {
-                "hwPowerMonitoring" : ["DELETE : 1"]
+                "hwPowerMonitoring" : ["REMOVE : 1"]
             }
         },
         "test_one_one_good_one_bad_ip":
@@ -387,7 +386,7 @@
             ],
             "response": 
             {
-                "hwPowerMonitoring" : ["DELETE : 1"]
+                "hwPowerMonitoring" : ["REMOVE : 1"]
             }
         },
         "test_one_one_good_one_bad_credentials":
@@ -404,7 +403,7 @@
             ],
             "response": 
             {
-                "hwPowerMonitoring" : ["DELETE : 1"]
+                "hwPowerMonitoring" : ["REMOVE : 1"]
             }
         },
         "test_two_nonexistent_ips":
@@ -507,7 +506,7 @@
             {
                 "servers":
                 [
-                    "DELETE : 1",
+                    "REMOVE : 1",
                     "COMBINE : 0",
                     {
                         "serverAddress": "100.100.100.100"
@@ -525,7 +524,7 @@
             {
                 "servers":
                 [
-                    "DELETE : 1",
+                    "REMOVE : 1",
                     "COMBINE : 0",
                     {
                         "serverAddress": "foo"
@@ -543,7 +542,7 @@
             {
                 "servers":
                 [
-                    "DELETE : 1",
+                    "REMOVE : 1",
                     "COMBINE : 0",
                     {
                         "userName": "foo",
