@@ -52,6 +52,10 @@ class Bios1(ServerInventoryTest):
 
     ENDPOINT = 'bios_1'
 
+    def test_induce_error(self):
+        """BIOS 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """BIOS 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -64,6 +68,10 @@ class Bios2(ServerInventoryTest):
     """Tests for Bios 2 Endpoint"""
 
     ENDPOINT = 'bios_2'
+
+    def test_induce_error(self):
+        """BIOS 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """BIOS 2 JSON TESTS"""
@@ -78,6 +86,10 @@ class Boot1(ServerInventoryTest):
 
     ENDPOINT = 'boot_1'
 
+    def test_induce_error(self):
+        """BOOT 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """BOOT 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -90,6 +102,10 @@ class Boot2(ServerInventoryTest):
     """Tests for Boot 2 Endpoint"""
 
     ENDPOINT = 'boot_2'
+
+    def test_induce_error(self):
+        """BOOT 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """BOOT 2 JSON TESTS"""
@@ -143,6 +159,10 @@ class Hardware1(ServerInventoryTest):
 
     ENDPOINT = 'hardware_1'
 
+    def test_induce_error(self):
+        """HARDWARE 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """HARDWARE 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -155,6 +175,10 @@ class Hardware2(ServerInventoryTest):
     """Tests for Hardware 2 Endpoint"""
 
     ENDPOINT = 'hardware_2'
+
+    def test_induce_error(self):
+        """HARDWARE 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """HARDWARE 2 JSON TESTS"""
@@ -169,6 +193,10 @@ class Manager1(ServerInventoryTest):
 
     ENDPOINT = 'manager_1'
 
+    def test_induce_error(self):
+        """MANAGER 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """MANAGER 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -181,6 +209,10 @@ class Manager2(ServerInventoryTest):
     """Tests for Manager 2 Endpoint"""
 
     ENDPOINT = 'manager_2'
+
+    def test_induce_error(self):
+        """MANAGER 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """MANAGER 2 JSON TESTS"""
@@ -195,6 +227,10 @@ class Nics1(ServerInventoryTest):
 
     ENDPOINT = 'nics_1'
 
+    def test_induce_error(self):
+        """NICS 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """NICS 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -207,6 +243,10 @@ class Nics2(ServerInventoryTest):
     """Tests for Nics 2 Endpoint"""
 
     ENDPOINT = 'nics_2'
+
+    def test_induce_error(self):
+        """NICS 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """NICS 2 JSON TESTS"""
@@ -221,6 +261,10 @@ class Software1(ServerInventoryTest):
 
     ENDPOINT = 'software_1'
 
+    def test_induce_error(self):
+        """SOFTWARE 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """SOFTWARE 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -233,6 +277,10 @@ class Software2(ServerInventoryTest):
     """Tests for Software 2 Endpoint"""
 
     ENDPOINT = 'software_2'
+
+    def test_induce_error(self):
+        """SOFTWARE 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """SOFTWARE 2 JSON TESTS"""
@@ -247,6 +295,10 @@ class Summary1(ServerInventoryTest):
 
     ENDPOINT = 'summary_1'
 
+    def test_induce_error(self):
+        """SUMMARY 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """SUMMARY 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -259,6 +311,10 @@ class Summary2(ServerInventoryTest):
     """Tests for Summary 2 Endpoint"""
 
     ENDPOINT = 'summary_2'
+
+    def test_induce_error(self):
+        """SUMMARY 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """SUMMARY 2 JSON TESTS"""
@@ -273,6 +329,10 @@ class LogsGetType1(ServerInventoryTest):
 
     ENDPOINT = 'logs_get_type_1'
 
+    def test_induce_error(self):
+        """LOGS GET TYPE 1 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """LOGS GET TYPE 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -285,6 +345,10 @@ class LogsGetType2(ServerInventoryTest):
     """Tests for Logs Get Type 2 Endpoint"""
 
     ENDPOINT = 'logs_get_type_2'
+
+    def test_induce_error(self):
+        """LOGS GET TYPE 2 INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """LOGS GET TYPE 2 JSON TESTS"""
