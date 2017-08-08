@@ -31,28 +31,63 @@
                 ]
             }
         },
-        "test_success":
+        "test_100.68.124.98_controller_name":
         {
             "auto_run": true,
-            "description": "Send default payload and check chassis controller name"
+            "description": "Send default payload to 100.68.124.98 and check chassis controller name"
         },
-        "test_failure":
+        "test_100.68.124.33_controller_name":
         {
             "auto_run": true,
-            "description": "Send empty payload and check for bad response",
-            "payload": {"REMOVE":["all"]},
-            "status_code" : [">=400", "<500"],
-            "response": {"REMOVE": ["all"]}
-        }
-    },
-
-    "ips": 
-    {
-        "test_base":
+            "description": "Send default payload 100.68.124.33 and check chassis controller name",
+            "payload":
+            {
+                "address": "100.68.124.33"
+            },
+            "response":
+            {
+                "chassisControllers":
+                [
+                    "COMBINE : 0",
+                    {
+                        "name": "CMC-17JYC42"
+                    }
+                ]
+            }
+        },
+        "test_nonexistent_ip":
         {
-            "path": "/api/1.0/chassis/inventory/ips",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -72,23 +107,61 @@
                 "serviceTag": "VALUE_PRESENT"
             }
         },
-        "test_serviceTag":
+        "test_100.68.124.98_serviceTag":
         {
             "auto_run": true,
-            "description": "Send default payload and check service tag",
+            "description": "Send default payload to 100.68.124.98 and check service tag",
             "response":
             {
                 "serviceTag": "9XLTW52"
             }
         },
-        "test_empty_payload":
+        "test_100.68.124.33_serviceTag":
         {
             "auto_run": true,
-            "description": "Send empty payload and check for bad response",
-            "payload": {"REMOVE":["all"]},
-            "status_code" : [">=400", "<500"],
-            "response": {"REMOVE": ["all"]},
-            "error": "Returned success with bad payload"
+            "description": "Send default payload to 100.68.124.33 and check service tag",
+            "payload":
+            {
+                "address": "100.68.124.33"
+            },
+            "response":
+            {
+                "serviceTag": "17JYC42"
+            }
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     }
 

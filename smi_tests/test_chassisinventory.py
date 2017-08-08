@@ -73,23 +73,6 @@ class Details(ChassisInventoryTest):
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Ips
-###################################################################################################
-
-class Ips(ChassisInventoryTest):
-    """Tests for Ips Endpoint"""
-
-    ENDPOINT = 'ips'
-
-    def test_induce_error(self):
-        """IPS INDUCE ERROR TESTS"""
-        test.induce_error('POST', self)
-
-    def test_json(self):
-        """IPS JSON TESTS"""
-        test.auto_run_json_tests('POST', self)
-
-###################################################################################################
 # Summary
 ###################################################################################################
 

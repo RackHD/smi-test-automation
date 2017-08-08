@@ -83,17 +83,15 @@ def induce_error(action, end_class, missing_val=True, empty_str=True,
             intense = True
         for bad_param_generator in _bad_data_generators(json.get_base_parameters(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
             for bad_payload_generator in _bad_data_generators(json.get_base_payload(end_class), missing_val, empty_str, bad_str, neg_num, special_str, intense):
-                test_failed = False
+                test_passed = True
                 for bad_param_combo in bad_param_generator:
                     for bad_payload_combo in bad_payload_generator:
-                        if test_failed:
+                        if not test_passed:
                             break
                         request = http.rest_call(action, url, bad_param_combo, bad_payload_combo)
                         with end_class.subTest(data=(str(bad_param_combo) + str(bad_payload_combo))):
-                            try:
-                                end_class.assertTrue(has_all_status_codes(request, ["<500"]), ("Expected Response Code : <500 Actual : %s" % request.status_code))
-                            except AssertionError:
-                                test_failed = True
+                            test_passed = has_all_status_codes(request, ["<500"])
+                            end_class.assertTrue(test_passed, ("Expected Response Code : <500 Actual : %s" % request.status_code))
 
 # Deprecated for the time being, will be modified in the future
 ###############################################################
