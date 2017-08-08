@@ -44,29 +44,55 @@ class ServerInventoryTest(unittest.TestCase):
         cls.JSON_FILE = test.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
-# Bios
+# Bios 1
 ###################################################################################################
 
-class Bios(ServerInventoryTest):
-    """Tests for Bios Endpoint"""
+class Bios1(ServerInventoryTest):
+    """Tests for Bios 1 Endpoint"""
 
-    ENDPOINT = 'bios'
+    ENDPOINT = 'bios_1'
 
     def test_json(self):
-        """BIOS JSON TESTS"""
+        """BIOS 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Boot
+# Bios 2
 ###################################################################################################
 
-class Boot(ServerInventoryTest):
-    """Tests for Boot Endpoint"""
+class Bios2(ServerInventoryTest):
+    """Tests for Bios 2 Endpoint"""
 
-    ENDPOINT = 'boot'
+    ENDPOINT = 'bios_2'
 
     def test_json(self):
-        """BOOT JSON TESTS"""
+        """BIOS 2 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Boot 1
+###################################################################################################
+
+class Boot1(ServerInventoryTest):
+    """Tests for Boot 1 Endpoint"""
+
+    ENDPOINT = 'boot_1'
+
+    def test_json(self):
+        """BOOT 1 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Boot 2
+###################################################################################################
+
+class Boot2(ServerInventoryTest):
+    """Tests for Boot 2 Endpoint"""
+
+    ENDPOINT = 'boot_2'
+
+    def test_json(self):
+        """BOOT 2 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
@@ -96,81 +122,172 @@ class DummyCallback(ServerInventoryTest):
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Hardware
+# DCIM Type
 ###################################################################################################
 
-class Hardware(ServerInventoryTest):
-    """Tests for Hardware Endpoint"""
+class DCIMType(ServerInventoryTest):
+    """Tests for DCIM Type Endpoint"""
 
-    ENDPOINT = 'hardware'
+    ENDPOINT = 'dcim_type'
 
     def test_json(self):
-        """HARDWARE JSON TESTS"""
+        """DCIM TYPE JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Ips
+# Hardware 1
 ###################################################################################################
 
-class Ips(ServerInventoryTest):
-    """Tests for Ips Endpoint"""
+class Hardware1(ServerInventoryTest):
+    """Tests for Hardware 1 Endpoint"""
 
-    ENDPOINT = 'ips'
+    ENDPOINT = 'hardware_1'
 
     def test_json(self):
-        """IPS JSON TESTS"""
+        """HARDWARE 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Nics
+# Hardware 2
 ###################################################################################################
 
-class Nics(ServerInventoryTest):
-    """Tests for Nics Endpoint"""
+class Hardware2(ServerInventoryTest):
+    """Tests for Hardware 2 Endpoint"""
 
-    ENDPOINT = 'nics'
+    ENDPOINT = 'hardware_2'
 
     def test_json(self):
-        """NICS JSON TESTS"""
+        """HARDWARE 2 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Software
+# Manager 1
 ###################################################################################################
 
-class Software(ServerInventoryTest):
-    """Tests for Software Endpoint"""
+class Manager1(ServerInventoryTest):
+    """Tests for Manager 1 Endpoint"""
 
-    ENDPOINT = 'software'
+    ENDPOINT = 'manager_1'
 
     def test_json(self):
-        """SOFTWARE JSON TESTS"""
+        """MANAGER 1 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Summary
+# Manager 2
 ###################################################################################################
 
-class Summary(ServerInventoryTest):
-    """Tests for Summary Endpoint"""
+class Manager2(ServerInventoryTest):
+    """Tests for Manager 2 Endpoint"""
 
-    ENDPOINT = 'summary'
+    ENDPOINT = 'manager_2'
 
     def test_json(self):
-        """SUMMARY JSON TESTS"""
+        """MANAGER 2 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
-# Logs Get Type
+# Nics 1
 ###################################################################################################
 
-class LogsGetType(ServerInventoryTest):
-    """Tests for Logs Get Type Endpoint"""
+class Nics1(ServerInventoryTest):
+    """Tests for Nics 1 Endpoint"""
 
-    ENDPOINT = 'logs_get_type'
+    ENDPOINT = 'nics_1'
 
     def test_json(self):
-        """LOGS GET TYPE JSON TESTS"""
+        """NICS 1 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Nics 2
+###################################################################################################
+
+class Nics2(ServerInventoryTest):
+    """Tests for Nics 2 Endpoint"""
+
+    ENDPOINT = 'nics_2'
+
+    def test_json(self):
+        """NICS 2 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Software 1
+###################################################################################################
+
+class Software1(ServerInventoryTest):
+    """Tests for Software 1 Endpoint"""
+
+    ENDPOINT = 'software_1'
+
+    def test_json(self):
+        """SOFTWARE 1 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Software 2
+###################################################################################################
+
+class Software2(ServerInventoryTest):
+    """Tests for Software 2 Endpoint"""
+
+    ENDPOINT = 'software_2'
+
+    def test_json(self):
+        """SOFTWARE 2 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Summary 1
+###################################################################################################
+
+class Summary1(ServerInventoryTest):
+    """Tests for Summary 1 Endpoint"""
+
+    ENDPOINT = 'summary_1'
+
+    def test_json(self):
+        """SUMMARY 1 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Summary 2
+###################################################################################################
+
+class Summary2(ServerInventoryTest):
+    """Tests for Summary 2 Endpoint"""
+
+    ENDPOINT = 'summary_2'
+
+    def test_json(self):
+        """SUMMARY 2 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Logs Get Type 1
+###################################################################################################
+
+class LogsGetType1(ServerInventoryTest):
+    """Tests for Logs Get Type 1 Endpoint"""
+
+    ENDPOINT = 'logs_get_type_1'
+
+    def test_json(self):
+        """LOGS GET TYPE 1 JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Logs Get Type 2
+###################################################################################################
+
+class LogsGetType2(ServerInventoryTest):
+    """Tests for Logs Get Type 2 Endpoint"""
+
+    ENDPOINT = 'logs_get_type_2'
+
+    def test_json(self):
+        """LOGS GET TYPE 2 JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################

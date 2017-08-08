@@ -1,5 +1,5 @@
 {
-    "bios": 
+    "bios_1": 
     {
         "test_base":
         {
@@ -9,12 +9,7 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            }
-        },
-        "test_success_1.0":
-        {
-            "auto_run": true,
-            "description": "Test to make sure bios returns valid data in 1.0",
+            },
             "response":
             {
                 "dcimBIOSEnumerationTypeList": "DATA_PRESENT",
@@ -22,22 +17,40 @@
                 "dcimbiosstringType": "DATA_PRESENT"
             }
         },
-        "test_success_2.0":
+        "test_success":
         {
             "auto_run": true,
+            "description": "Test to make sure bios returns valid data in 1.0"
+        }
+        
+    },
+
+    "bios_2": 
+    {
+        "test_base":
+        {
             "path": "/api/2.0/server/inventory/bios",
-            "description": "Test to make sure bios returns valid data in 2.0",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
             "response":
             {
                 "DCIM_BIOSEnumeration": "DATA_PRESENT",
                 "DCIM_BIOSInteger": "DATA_PRESENT",
                 "DCIM_BIOSString": "DATA_PRESENT"
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure bios returns valid data in 2.0"
         }
-        
     },
 
-    "boot": 
+    "boot_1": 
     {
         "test_base":
         {
@@ -47,28 +60,41 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            }
-        },
-        "test_success_1.0":
-        {
-            "auto_run": true,
-            "description": "Test to make sure boot returns valid data in 1.0",
+            },
             "response":
             {
                 "bootSourcesByBootModes": "DATA_PRESENT"
             }
         },
-        "test_success_2.0":
+        "test_success":
         {
             "auto_run": true,
+            "description": "Test to make sure boot returns valid data in 1.0"
+        }
+    },
+
+    "boot_2": 
+    {
+        "test_base":
+        {
             "path": "/api/2.0/server/inventory/boot",
-            "description": "Test to make sure boot returns valid data in 2.0",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
             "response":
             {
                 "DCIM_BootConfigSetting": "DATA_PRESENT",
                 "DCIM_BootSourceSetting": "DATA_PRESENT",
                 "DCIM_BIOSEnumeration": "DATA_PRESENT"
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure boot returns valid data in 2.0"
         }
     },
 
@@ -92,7 +118,17 @@
         }
     },
 
-    "hardware": 
+    "dcim_type": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/dcim/type",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "hardware_1": 
     {
         "test_base":
         {
@@ -102,48 +138,69 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            }
-        },
-        "test_serviceTag_1.0":
-        {
-            "auto_run": true,
-            "description": "Test to make sure correct serviceTag is returned in 1.0",
+            },
             "response":
             {
                 "system":
                 {
                     "serviceTag": "17M0D42"
                 }
-            },
-            "error": "Incorrect service tag"
+            }
         },
-        "test_serviceTag_2.0":
+        "test_serviceTag":
         {
             "auto_run": true,
+            "description": "Test to make sure correct serviceTag is returned in 1.0"
+        }
+    },
+
+    "hardware_2": 
+    {
+        "test_base":
+        {
             "path": "/api/2.0/server/inventory/hardware",
-            "description": "Test to make sure correct serviceTag is returned in 2.0",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
             "response":
             {
                 "DCIM_SystemView":
                 {
                     "ServiceTag": "17M0D42"
                 }
-            },
-            "error": "Incorrect service tag"
+            }
+        },
+        "test_serviceTag":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct serviceTag is returned in 2.0"
         }
     },
 
-    "ips": 
+    "manager_1": 
     {
         "test_base":
         {
-            "path": "/api/1.0/server/inventory/ips",
+            "path": "/api/1.0/server/inventory/manager",
             "skip": "Not Implemented",
             "description": "No Description"
         }
     },
 
-    "nics": 
+    "manager_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/manager",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "nics_1": 
     {
         "test_base":
         {
@@ -153,12 +210,7 @@
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            }
-        },
-        "test_success_1.0":
-        {
-            "auto_run": true,
-            "description": "Check to make sure nics data is present in 1.0",
+            },
             "response":
             [
                 {
@@ -166,11 +218,24 @@
                 }
             ]
         },
-        "test_success_2.0":
+        "test_success":
         {
             "auto_run": true,
+            "description": "Check to make sure nics data is present in 1.0"
+        }
+    },
+
+    "nics_2": 
+    {
+        "test_base":
+        {
             "path": "/api/2.0/server/inventory/nics",
-            "description": "Check to make sure nics data is present in 2.0",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
             "response":
             {
                 "DCIM_NICView":
@@ -180,27 +245,25 @@
                     }
                 ]
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make sure nics data is present in 2.0"
         }
-
     },
 
-    "software": 
+    "software_1": 
     {
         "test_base":
         {
-            
             "path": "/api/1.0/server/inventory/software",
             "payload":
             {
                 "address":"100.68.124.35",
                 "userName":"root",
                 "password":"calvin"
-            }
-        },
-        "test_success_1.0":
-        {
-            "auto_run": true,
-            "description": "Check to make element value is iDRAC in 1.0",
+            },
             "response":
             [
                 {
@@ -211,11 +274,24 @@
                 }
             ]
         },
-        "test_success_2.0":
+        "test_success_1.0":
         {
             "auto_run": true,
+            "description": "Check to make element value is iDRAC in 1.0"
+        }
+    },
+
+    "software_2": 
+    {
+        "test_base":
+        {
             "path": "/api/2.0/server/inventory/software",
-            "description": "Check to make element value is iDRAC in 2.0",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
             "response":
             {
                 "DCIM_SoftwareIdentity":
@@ -225,10 +301,15 @@
                     }
                 ]
             }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make element value is iDRAC in 2.0"
         }
     },
 
-    "summary": 
+    "summary_1": 
     {
         "test_base":
         {
@@ -238,7 +319,17 @@
         }
     },
 
-    "logs_get_type": 
+    "summary_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/summary",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "logs_get_type_1": 
     {
         "test_base":
         {
@@ -249,7 +340,7 @@
                 "password":"calvin"
             }
         },
-        "test_type_lc_1.0":
+        "test_type_lc":
         {
             "auto_run": true,
             "path": "/api/1.0/server/inventory/logs/get/LC",
@@ -261,7 +352,32 @@
                 }
             ]
         },
-        "test_type_lc_2.0":
+        "test_type_sel":
+        {
+            "auto_run": true,
+            "path": "/api/1.0/server/inventory/logs/get/SEL",
+            "description": "Check that element name is System Event Log Entry in 1.0",
+            "response":
+            [
+                {
+                    "elementName": "System Event Log Entry"
+                }
+            ]
+        }
+    },
+
+    "logs_get_type_2": 
+    {
+        "test_base":
+        {
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            }
+        },
+        "test_type_lc":
         {
             "auto_run": true,
             "path": "/api/2.0/server/inventory/logs/get/LC",
@@ -273,19 +389,7 @@
                 }
             ]
         },
-        "test_type_sel_1.0":
-        {
-            "auto_run": true,
-            "path": "/api/1.0/server/inventory/logs/get/SEL",
-            "description": "Check that element name is System Event Log Entry in 1.0",
-            "response":
-            [
-                {
-                    "elementName": "System Event Log Entry"
-                }
-            ]
-        },
-        "test_type_sel_2.0":
+        "test_type_sel":
         {
             "auto_run": true,
             "path": "/api/2.0/server/inventory/logs/get/SEL",
