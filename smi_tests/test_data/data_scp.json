@@ -21,8 +21,8 @@
                 "serverIP": "100.68.124.34",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
-                "shareAddress": "100.68.125.194",
-                "shareName": "nfs",
+                "shareAddress": "100.68.124.32",
+                "shareName": "/home/proxyserver/share",
                 "shareType": 0,
                 "shutdownType": 0
             },
@@ -37,11 +37,11 @@
         },
         "test_fitFile_export":
         {
-            "description": "Export server configuration profile to 100.68.125.194"
+            "description": "Export server configuration profile to 100.68.124.32"
         },
         "test_backup_export":
         {
-            "description": "Export backup of server configuration profile to 100.68.125.194",
+            "description": "Export backup of server configuration profile to 100.68.124.32",
             "payload":
             {
                 "fileName": "backup.xml"
@@ -49,7 +49,7 @@
         },
         "test_johnny_export":
         {
-            "description": "Export server configuration profile to 100.68.125.194 with special credentials",
+            "description": "Export server configuration profile to 100.68.124.32 with special credentials",
             "payload":
             {
                 "fileName": "johnny.xml",
@@ -146,8 +146,8 @@
                 "serverIP": "100.68.124.34",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
-                "shareAddress": "100.68.125.194",
-                "shareName": "nfs",
+                "shareAddress": "100.68.124.32",
+                "shareName": "/home/proxyserver/share",
                 "shareType": 0,
                 "shutdownType": 0
             },
@@ -238,8 +238,8 @@
                 "serverIP": "100.68.124.34",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
-                "shareAddress": "100.68.125.194",
-                "shareName": "nfs",
+                "shareAddress": "100.68.124.32",
+                "shareName": "/home/proxyserver/share",
                 "shareType": 0,
                 "shutdownType": 0
             },
@@ -350,8 +350,8 @@
                     "serverIP": "100.68.124.34",
                     "serverPassword": "calvin",
                     "serverUsername": "root",
-                    "shareAddress": "100.68.125.194",
-                    "shareName": "nfs",
+                    "shareAddress": "100.68.124.32",
+                    "shareName": "/home/proxyserver/share",
                     "shareType": 0,
                     "shutdownType": 0
                 },

@@ -287,7 +287,7 @@ def single_microservice_args(sys_args):
             LOG.debug("Found Data : %s", data_override)
         elif is_depth(arg):
             sys_args.remove(arg)
-            data_override = get_depth(arg)
+            depth_override = get_depth(arg)
             LOG.debug("Found Depth : %s", depth_override)
     return host_override, data_override, depth_override
 
