@@ -388,8 +388,60 @@
         "test_base":
         {
             "path": "/api/1.0/server/inventory/manager",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "stringViewList":
+                [
+                    {
+                        "fqdd": "iDRAC.Embedded.1"
+                    }
+                ]
+            }
+        },
+        "test_fqdd":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct fqdd is returned in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
@@ -398,8 +450,61 @@
         "test_base":
         {
             "path": "/api/2.0/server/inventory/manager",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "DCIM_IDRACCardView": "DATA_PRESENT",
+                "DCIM_iDRACCardEnumeration":
+                [
+                    {
+                        "FQDD": "iDRAC.Embedded.1"
+                    }
+                ]
+            }
+        },
+        "test_fqdd":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct fqdd is returned in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         }
     },
 
