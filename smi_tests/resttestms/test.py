@@ -262,7 +262,9 @@ def contains_expected(container, expected):
                 if _contains_expected_unlogged(container_item, item):
                     item_found = True
             if not item_found:
-                LOG.error("============ BAD RESPONSE ============ :: Expected : %s not contained in Actual : %s",
+                if everything_found:
+                    LOG.error("============ BAD RESPONSE ============")
+                LOG.error("========== Expected : %s not contained in Actual : %s",
                 item, container)
                 everything_found = False
         return everything_found

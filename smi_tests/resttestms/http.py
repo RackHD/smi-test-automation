@@ -33,7 +33,7 @@ def missing_value_combos(payload):
             yield bad_dict
 
 def custom_val_combos(payload, custom_val):
-    """Generate all combinations of empty data"""
+    """Generate all combinations of custom data"""
     for count, _ in enumerate(payload):
         for key_combo in itertools.combinations(payload, count):
             result = payload.copy()

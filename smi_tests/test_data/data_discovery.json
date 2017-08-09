@@ -86,7 +86,7 @@
 		"test_server":
 		{
 			"auto_run": true,
-			"description": "Only search for server, check that it is found",
+			"description": "Only search for servers, check that it is found",
 			"payload":
 			{
 				"deviceType": ["REMOVE : 1"],
@@ -94,10 +94,21 @@
 			},
 			"response": ["REMOVE : 1"]
 		},
+		"test_chassis":
+		{
+			"auto_run": true,
+			"description": "Only search for chassis', check that it is found",
+			"payload":
+			{
+				"deviceType": ["REMOVE : 0"],
+				"ips": ["REMOVE : 0"]
+			},
+			"response": ["REMOVE : 0"]
+		},
 		"test_only_server_ip":
 		{
 			"auto_run": true,
-			"description": "Search using only ip, check that server is found",
+			"description": "Search using only server ip, check that that it's found",
 			"payload":
 			{
 				"REMOVE": ["credential", "deviceType"],
@@ -105,12 +116,275 @@
 			},
 			"response": ["REMOVE : 1"]
 		},
+		"test_only_chassis_ip":
+		{
+			"auto_run": true,
+			"description": "Search using only chassis ip, check that that it's found",
+			"payload":
+			{
+				"REMOVE": ["credential", "deviceType"],
+				"ips": ["REMOVE : 0"]
+			},
+			"response": ["REMOVE : 0"]
+		},
 		"test_server_and_chassis":
 		{
 			"auto_run": true,
 			"description": "Send default payload to search for sever and chassis, check that both are found"
+		},
+		"test_no_deviceType":
+		{
+			"auto_run": true,
+			"description": "Set deviceType to empty list, Check that all devices are found",
+			"payload":
+			{
+				"deviceType": ["REMOVE : all"]
+			}
+		},
+		"test_empty_deviceType":
+		{
+			"auto_run": true,
+			"description": "Remove deviceType, Check that all devices are found",
+			"payload":
+			{
+				"REMOVE": ["deviceType"]
+			}
+		},
+		"test_nonexistent_server_ip":
+		{
+			"auto_run": true,
+			"description": "Send nonexistent server ip, check that only chassis is found",
+			"payload":
+			{
+				"ips":
+				[
+					"COMBINE : 0",
+					"100.100.100.100"
+				]
+			},
+			"response":
+			[
+				"COMBINE : 0",
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				}
+			]
+		},
+		"test_nonexistent_chassis_ip":
+		{
+			"auto_run": true,
+			"description": "Send nonexistent chassis ip, check that only server is found",
+			"payload":
+			{
+				"ips":
+				[
+					"COMBINE : 1",
+					"100.100.100.100"
+				]
+			},
+			"response":
+			[
+				"COMBINE : 1",
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				}
+			]
+		},
+		"test_nonexistent_server_and_chassis_ip":
+		{
+			"auto_run": true,
+			"description": "Send nonexistent chassis and server ip, check that nothing is found",
+			"payload":
+			{
+				"ips":
+				[
+					"COMBINE : 0,1",
+					"100.100.100.100",
+					"100.100.100.100"
+				]
+			},
+			"response":
+			[
+				"COMBINE : 0,1",
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				},
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				}
+			]
+		},
+		"test_bad_server_ip":
+		{
+			"auto_run": true,
+			"description": "Send bad server ip, check that only chassis is found",
+			"payload":
+			{
+				"ips":
+				[
+					"COMBINE : 0",
+					"foobar"
+				]
+			},
+			"response":
+			[
+				"COMBINE : 0",
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				}
+			]
+		},
+		"test_bad_chassis_ip":
+		{
+			"auto_run": true,
+			"description": "Send bad chassis ip, check that only server is found",
+			"payload":
+			{
+				"ips":
+				[
+					"COMBINE : 1",
+					"foobar"
+				]
+			},
+			"response":
+			[
+				"COMBINE : 1",
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				}
+			]
+		},
+		"test_bad_server_and_chassis_ip":
+		{
+			"auto_run": true,
+			"description": "Send bad chassis and server ip, check that nothing is found",
+			"payload":
+			{
+				"ips":
+				[
+					"COMBINE : 0,1",
+					"foobar",
+					"foobar"
+				]
+			},
+			"response":
+			[
+				"COMBINE : 0,1",
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				},
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 0,
+					        "discoveredDeviceInfoList": ["REMOVE : all"]
+                        }
+                    ]
+				}
+			]
+		},
+		"test_bad_credentials":
+		{
+			"auto_run": true,
+			"description": "Send bad chassis and server ip, check that nothing is found",
+			"payload":
+			{
+				"credential":
+				{
+					"userName": "foo",
+					"password": "bar"
+				}
+			},
+			"response":
+			[
+				"COMBINE : 0,1",
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 1,
+					        "discoveredDeviceInfoList":
+							[
+								"COMBINE : 0",
+								{
+									"status": "DEVICE_DISCOVERED_SUMMARY_FAILED"
+								}
+							]
+                        }
+                    ]
+				},
+				{
+                    "discoveredDeviceList":
+                    [
+                        "COMBINE : 0",
+                        {
+					        "discovered": 1,
+					        "discoveredDeviceInfoList":
+							[
+								"COMBINE : 0",
+								{
+									"status": "DEVICE_DISCOVERED_SUMMARY_FAILED"
+								}
+							]
+                        }
+                    ]
+				}
+			]
 		}
     },
+	
 
     "range": 
     {
