@@ -5,8 +5,19 @@
 		"test_base":
 		{
 			"path": "/api/1.0/discover/config/device",
-			"skip": "Not Implemented",
-            "description": "No Description"
+			"response":
+			{
+				"deviceDefaultCredential": 
+				{
+					"username": "root",
+					"password": "calvin"
+ 				}
+			}
+		},
+		"test_default":
+		{
+			"auto_run": true,
+			"description": "Check default credentials"
 		}
     },
 
