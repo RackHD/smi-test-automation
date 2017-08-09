@@ -1,12 +1,78 @@
 {
 
-    "placeholder": 
+    "deploy": 
     {
         "test_base":
         {
-            "path": "/api/1.0/osdeployment/placeholder",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "path": "/api/1.0/server/osdeployment/deploy",
+            "payload":
+            {
+                "serverAddress": "100.68.123.232",
+                "userName": "root", 
+                "password": "calvin",
+                "hypervisorType": "ESXi6",
+                "hypervisorVersion": "6.5",
+                "isoFileShare": 
+                {
+                    "address": "100.68.124.115",
+                    "description": "nfs",
+                    "fileName": "custom.iso",
+                    "path": "/opt/dell/public/target",
+                    "scriptDirectory": "NA",
+                    "scriptName": "NA",
+                    "type": "NFS",
+                    "name": "Name-NFS",
+                    "passwordCredential": 
+                    {
+                        "domain": "",
+                        "password": "",
+                        "username": ""
+                    }
+                }
+            }
+        }
+    },
+
+    "iso_create": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/osdeployment/iso/create",
+            "payload":
+            {
+                "kickStartFileName" :"ks.cfg",
+                "ksLocation" : "http://100.68.124.115:8080/",
+                "sourceDir": "/nfs",
+                "fileName": "esxi60u3.iso",
+                "destinationDir": "/nfs/target",
+                "destinationFileName": "custom.iso",
+                "shareAddress": ""
+            },
+            "response": "custom.iso"
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Attempt to create iso, check for success"
+        }
+    },
+
+    "version": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/osdeployment/version",
+            "response":
+            {
+                "name": "Hypervisor Deployment Service ",
+                "description": "Microservice for Deploying hypervisor on compute node",
+                "version": "VALUE_PRESENT"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Make call to version, check for success"
         }
     }
 

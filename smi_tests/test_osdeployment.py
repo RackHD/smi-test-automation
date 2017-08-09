@@ -48,17 +48,55 @@ class OSDeploymentTest(unittest.TestCase):
         cls.JSON_FILE = test.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
-# Placeholder
+# Deploy
 ###################################################################################################
 
-class Placeholder(OSDeploymentTest):
-    """Tests for Placeholder Endpoint"""
+class Deploy(OSDeploymentTest):
+    """Tests for Deploy Endpoint"""
 
-    ENDPOINT = 'placeholder'
+    ENDPOINT = 'deploy'
 
     def test_json(self):
-        """PLACEHOLDER JSON TESTS"""
+        """DEPLOY JSON TESTS"""
         test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Iso Create
+###################################################################################################
+
+class IsoCreate(OSDeploymentTest):
+    """Tests for Iso Create Endpoint"""
+
+    ENDPOINT = 'iso_create'
+
+    def test_json(self):
+        """ISO CREATE JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Version
+###################################################################################################
+
+class Version(OSDeploymentTest):
+    """Tests for Version Endpoint"""
+
+    ENDPOINT = 'version'
+
+    def test_json(self):
+        """VERSION JSON TESTS"""
+        test.auto_run_json_tests('GET', self)
+
+###################################################################################################
+# Test Sequences
+###################################################################################################
+
+class TestSequences(OSDeploymentTest):
+    """Test Sequences for OS Deployment"""
+
+    def test_placeholder(self):
+        """EXPORT CHECK AND IMPORT CONFIG PROFILE"""
+        # test.run_json_test('POST', self, Export, "test_fitFile_export")
+        pass
 
 ###################################################################################################
 # RUN MODULE
