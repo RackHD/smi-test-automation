@@ -1,0 +1,13 @@
+{
+
+    "placeholder": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/osdeployment/placeholder",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    }
+
+}

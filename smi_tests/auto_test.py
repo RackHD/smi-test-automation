@@ -39,7 +39,7 @@ Argument format examples:
 >>> auto_test 7451725 - Run tests with ID 7, 4, 1, 2, and 5
 >>> auto_test SVIN - Run test with ID 4
 >>> auto_test DISC SCP CHIN - Run tests with ID 1, 6, and 3
->>> auto_test 24 vNw 314 ScP - Run tests with ID 2, 4, 7, 3, 1, and 6
+>>> auto_test 24 vrNw 314 ScP - Run tests with ID 2, 4, 7, 3, 1, and 6
 >>> auto_test ^345 - Run all tests except those with ID 3, 4, and 5
 >>> auto_test 100.68.125.170 ./test_data 5! - Run all tests from test_data on specified host except test 5
 >>> auto_test host:node-example 345 - Run tests with ID 3, 4, 5 on specified host
@@ -68,9 +68,10 @@ import test_chassisinventory as chin
 import test_serverinventory as svin
 import test_powerthermal as pwth
 import test_scp as scp
-import test_virtualidentity as vid
-import test_virtualnetwork as vnw
+import test_virtualidentity as vrid
+import test_virtualnetwork as vrnw
 import test_firmwareupdate as fwup
+import test_osdeployment as osdp
 
 log.configure_logger_from_yaml('logs/logger_config.yml')
 LOG = logging.getLogger(__name__)
@@ -86,9 +87,10 @@ M_ID = {
     '3' : svin,
     '4' : pwth,
     '5' : scp,
-    '6' : vid,
-    '7' : vnw,
-    '8' : fwup
+    '6' : vrid,
+    '7' : vrnw,
+    '8' : fwup,
+    '9' : osdp
 
 }
 
@@ -103,9 +105,10 @@ ALIAS = {
     'SVIN' : M_ID_R[svin],
     'PWTH' : M_ID_R[pwth],
     'SCP' : M_ID_R[scp],
-    'VID' : M_ID_R[vid],
-    'VNW' : M_ID_R[vnw],
-    'FWUP' : M_ID_R[fwup]
+    'VRID' : M_ID_R[vrid],
+    'VRNW' : M_ID_R[vrnw],
+    'FWUP' : M_ID_R[fwup],
+    'OSDP' : M_ID_R[osdp]
 
 }
 
@@ -130,7 +133,7 @@ def run_tests(keys):
 
 def parse_keys_tester():
     """Unit test cases to make sure correct keys are parsed from given arguments"""
-    test_cases = [[], [123], ['SCP'], ['chin', 2, 'DIsc'], [13, 'vnw', 455],
+    test_cases = [[], [123], ['SCP'], ['chin', 2, 'DIsc'], [13, 'vrnw', 455],
                   ['^5'], ['host:node-wright'], ['!chin'], ['192.168.0.1'],
                   ['localhost', 32, 'SCP', '^3', '!2', '100.0.0.255'],
                   ['host:node-example', '5!'], ['^1237'], ['./test_data'],
@@ -147,7 +150,7 @@ def parse_keys_tester():
             host, data, depth, keys = parse.auto_test_args(M_ID, ALIAS, *case)
             print("Host: {}".format(host))
             print("Data Directory: {}".format(data))
-            print("Depth: {}".format(data))
+            print("Depth: {}".format(depth))
             print("Parsed Keys: {}".format(keys))
         except Exception:
             print("TEST FAILED")

@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
-'''
-Copyright © 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
-Created on May 2, 2017
+"""
+Power Thermal
+~~~~~~~~~~~~~
 
-@author: Rahman Muhammad
-'''
+:Copyright: (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
+:License: Apache 2.0, see LICENSE for more details.
+:Author: Akash Kwatra
+
+Created on May 2, 2017
+"""
 
 import unittest
 import sys

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Device Discovery
-~~~~~~~~~~~~~~~~
+OS Deployment
+~~~~~~~~~~~~~
 
 :Copyright: (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
 :License: Apache 2.0, see LICENSE for more details.
 :Author: Akash Kwatra
 
-Created on May 2, 2017
+Created on August 9, 2017
 """
 
 import unittest
@@ -29,14 +29,14 @@ DEPTH_OVERRIDE = None
 
 def setUpModule():
     """Initialize data for all test cases using overrides"""
-    LOG.info("Begin Discovery Tests")
-    DiscoveryTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE, DEPTH_OVERRIDE)
+    LOG.info("Begin OS Deployment Tests")
+    OSDeploymentTest.initialize_data(HOST_OVERRIDE, DATA_OVERRIDE, DEPTH_OVERRIDE)
 
-class DiscoveryTest(unittest.TestCase):
-    """Collection of data to test the discovery microservice"""
+class OSDeploymentTest(unittest.TestCase):
+    """Collection of data to test the os deployment microservice"""
 
-    PORT = '46002'
-    JSON_NAME = 'data_discovery.json'
+    PORT = '46014'
+    JSON_NAME = 'data_osdeployment.json'
 
     @classmethod
     def initialize_data(cls, host_override, directory_override, depth_override):
@@ -48,42 +48,16 @@ class DiscoveryTest(unittest.TestCase):
         cls.JSON_FILE = test.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
-# Config Device
+# Placeholder
 ###################################################################################################
 
-class ConfigDevice(DiscoveryTest):
-    """Tests for Config Device Endpoint"""
+class Placeholder(OSDeploymentTest):
+    """Tests for Placeholder Endpoint"""
 
-    ENDPOINT = 'config_device'
+    ENDPOINT = 'placeholder'
 
     def test_json(self):
-        """CONFIG DEVICE JSON TESTS"""
-        test.auto_run_json_tests('GET', self)
-
-###################################################################################################
-# Ips
-###################################################################################################
-
-class Ips(DiscoveryTest):
-    """Tests for Ips Endpoint"""
-
-    ENDPOINT = 'ips'
-
-    def test_json(self):
-        """IPS JSON TESTS"""
-        test.auto_run_json_tests('POST', self)
-
-###################################################################################################
-# Range
-###################################################################################################
-
-class Range(DiscoveryTest):
-    """Tests for Range Endpoint"""
-
-    ENDPOINT = 'range'
-
-    def test_json(self):
-        """RANGE JSON TESTS"""
+        """PLACEHOLDER JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################

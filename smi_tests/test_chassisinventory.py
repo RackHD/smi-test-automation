@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
-'''
-Copyright © 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
+"""
+Chassis Inventory
+~~~~~~~~~~~~~~~~~
+
+:Copyright: (c) 2017 DELL Inc. or its subsidiaries.  All Rights Reserved.
+:License: Apache 2.0, see LICENSE for more details.
+:Author: Akash Kwatra
+
 Created on June 4, 2017
-@author: Prashanth_L_Gowda, Dan_Phelps
-'''
+"""
 
 import unittest
 import sys
