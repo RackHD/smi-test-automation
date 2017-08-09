@@ -121,6 +121,32 @@ class GetComponents(SCPTest):
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
+# Image Backup
+###################################################################################################
+
+class ImageBackup(SCPTest):
+    """Tests for Image Backup Endpoint"""
+
+    ENDPOINT = 'image_backup'
+
+    def test_json(self):
+        """IMAGE BACKUP JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Image Restore
+###################################################################################################
+
+class ImageRestore(SCPTest):
+    """Tests for Image Restore Endpoint"""
+
+    ENDPOINT = 'image_restore'
+
+    def test_json(self):
+        """IMAGE BACKUP JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
 # Import
 ###################################################################################################
 
@@ -137,6 +163,19 @@ class Import(SCPTest):
 
     def test_json(self):
         """IMPORT JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# Lcwipe
+###################################################################################################
+
+class Lcwipe(SCPTest):
+    """Tests for Lcwipe Endpoint"""
+
+    ENDPOINT = 'lcwipe'
+
+    def test_json(self):
+        """LCWIPE JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
@@ -163,6 +202,32 @@ class Replace(SCPTest):
 
     def test_json(self):
         """REPLACE JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# SystemErase
+###################################################################################################
+
+class SystemErase(SCPTest):
+    """Tests for SystemErase Endpoint"""
+
+    ENDPOINT = 'systemErase'
+
+    def test_json(self):
+        """SYSTEM ERASE JSON TESTS"""
+        test.auto_run_json_tests('POST', self)
+
+###################################################################################################
+# TestShare
+###################################################################################################
+
+class TestShare(SCPTest):
+    """Tests for TestShare Endpoint"""
+
+    ENDPOINT = 'testShare'
+
+    def test_json(self):
+        """TEST SHARE JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################

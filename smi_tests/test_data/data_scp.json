@@ -227,6 +227,26 @@
         }
     },
 
+    "image_backup": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/image/backup",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "image_restore": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/image/restore",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
     "import":
     {
         "test_base":
@@ -323,11 +343,41 @@
         }
     },
 
+    "lcwipe": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/lcwipe",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
     "replace": 
     {
         "test_base":
         {
             "path": "/api/1.0/server/configuration/replace",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "systemErase": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/systemErase",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "testShare": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/testShare",
             "skip": "Not Implemented",
             "description": "No Description"
         }
