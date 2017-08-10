@@ -4,8 +4,10 @@
         "test_base":
         {
             "path": "/api/1.0/virtualIdentities",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "parameters":
+            {
+                "usageId": "string"
+            }
         }
 	},
 	
@@ -14,6 +16,13 @@
         "test_base":
         {
             "path": "/api/1.0/virtualIdentities",
+            "parameters":
+            {
+                "offset": 0,
+                "limit": 0,
+                "usageId": "string",
+                "type": "MAC"
+            },
             "response":
             {
                 "pagination":
@@ -29,6 +38,7 @@
         "test_empty_request":
         {
             "auto_run": true,
+            "parameters": {"REMOVE": ["all"]},
             "description": "Send an empty request, make sure response has no data"
         }
 	},

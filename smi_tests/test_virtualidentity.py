@@ -56,6 +56,10 @@ class Delete(VirtualIdentityTest):
 
     ENDPOINT = 'delete'
 
+    def test_induce_error(self):
+        """GET INDUCE ERROR TESTS"""
+        test.induce_error('DELETE', self)
+
     def test_json(self):
         """DELETE JSON TESTS"""
         test.auto_run_json_tests('DELETE', self)
@@ -68,6 +72,10 @@ class Get(VirtualIdentityTest):
     """Tests for Get Endpoint"""
 
     ENDPOINT = 'get'
+
+    def test_induce_error(self):
+        """GET INDUCE ERROR TESTS"""
+        test.induce_error('GET', self)
 
     def test_json(self):
         """GET JSON TESTS"""
