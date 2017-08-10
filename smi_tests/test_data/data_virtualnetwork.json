@@ -40,7 +40,6 @@
         "test_base":
         {
             "path": "/api/1.0/networks",
-			"description": "No Description",
 			"payload":
 			{
 				"static": true,
@@ -59,7 +58,7 @@
 					[
 						{
 							"startingIp": "172.31.142.1",
-							"endingIp": "172.31.142.254"
+							"endingIp": "172.31.142.10"
 						}
 					]
 				}
@@ -140,6 +139,27 @@
 			{
 				"name": "Network 1",
 				"description": "Private Network 1"
+			}
+		},
+		"test_network1_rangeid":
+		{
+			"path": "/api/1.0/networks/{}",
+			"description": "Check for network 1",
+			"response":
+			{
+				"name": "Network 1",
+				"description": "Private Network 1",
+				"staticIpv4NetworkConfiguration":
+				{
+					"ipRange":
+					[
+						{
+        					"id": "VALUE_PRESENT",
+        					"startingIp": "172.31.142.15",
+							"endingIp": "172.31.142.20"
+      					}
+					]
+				}
 			}
 		},
 		"test_networkX":
@@ -291,19 +311,30 @@
         "test_base":
         {
             "path": "/api/1.0/networks/networkId/ipv4Ranges",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
+			"payload":
+			{
+  				"startingIp": "172.31.142.15",
+				"endingIp": "172.31.142.20"
+			},
+			"status_code": ["201"]
+		},
+		"test_network1_ipv4pool":
+		{
+			"description": "Assign 5 ips to network 1"
+		}
 	},
 
 	"delete_networkId_ipv4Ranges_rangeId": 
     {
         "test_base":
         {
-            "path": "/api/1.0/networks/networkId/ipv4Ranges/rangeId",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
+			"path": "/api/1.0/networks/networkId/ipv4Ranges/rangeId",
+			"status_code": ["204"]
+		},
+		"test_delete_network1_pool":
+		{
+			"description": "Delete the ip pool found in network one"
+		}
 	},
 
 	"put_networkId_ipv4Ranges_rangeId": 

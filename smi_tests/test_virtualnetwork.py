@@ -241,7 +241,7 @@ class TestSequences(VirtualNetworkTest):
         test.run_json_test('GET', self, Get, "test_empty_network")
         network_id = test.run_json_test('POST', self, Post, "test_create_network1")["id"]
         path_mod = {"path":"/api/1.0/networks/{}".format(network_id)}
-        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
+        test.run_mod_json_test('DELETE', self, DeleteNetworkId, "test_networkId", path_mod)
 
     def test_create_and_update(self):
         """CREATE AND UPDATE NETWORK"""
@@ -250,9 +250,9 @@ class TestSequences(VirtualNetworkTest):
         path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
         test.run_json_test('GET', self, Get, "test_network_present")
         test.run_mod_json_test('GET', self, GetNetworkId, "test_network1", path_mod)
-        test.run_mod_json_test(self, 'PUT', PutNetworkId, "test_update_networkX", path_mod)
+        test.run_mod_json_test('PUT', self, PutNetworkId, "test_update_networkX", path_mod)
         test.run_mod_json_test('GET', self, GetNetworkId, "test_networkX", path_mod)
-        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
+        test.run_mod_json_test('DELETE', self, DeleteNetworkId, "test_networkId", path_mod)
 
     def test_create_duplicate_networks(self):
         """CREATE DUPLICATE NETWORK"""
@@ -260,7 +260,7 @@ class TestSequences(VirtualNetworkTest):
         network_id = test.run_json_test('POST', self, Post, "test_create_network1")["id"]
         path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
         test.run_json_test('POST', self, Post, "test_create_duplicate")
-        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
+        test.run_mod_json_test('DELETE', self, DeleteNetworkId, "test_networkId", path_mod)
     
     def test_ip_address_pools(self):
         """CHECK IP ADDRESS POOLS"""
@@ -269,7 +269,19 @@ class TestSequences(VirtualNetworkTest):
         path_mod = {"path": "/api/1.0/networks/{}".format(network_id)}
         ip_path_mod = {"path": "/api/1.0/networks/{}/ipAddressPools".format(network_id)}
         test.run_mod_json_test('GET', self, GetNetworkIdIpAddressPools, "test_networkId_ipAddressPools", ip_path_mod)
-        test.run_mod_json_test(self, 'DELETE', DeleteNetworkId, "test_networkId", path_mod)
+        test.run_mod_json_test('DELETE', self, DeleteNetworkId, "test_networkId", path_mod)
+    
+    def test_create_pool_and_reserve(self):
+        """RESERVE IPV4 RANGE"""
+        test.run_json_test('GET', self, Get, "test_empty_network")
+        network_id = test.run_json_test('POST', self, Post, "test_create_network1")["id"]
+        id_mod = {"path":"/api/1.0/networks/{}".format(network_id)}
+        ipv4_id_mod = {"path":"/api/1.0/networks/{}/ipv4Ranges".format(network_id)}
+        range_id = test.run_mod_json_test('POST', self, NetworkIdIpIpv4Ranges, "test_network1_ipv4pool", ipv4_id_mod)["id"]
+        test.run_mod_json_test('GET', self, GetNetworkId, "test_network1_rangeid", id_mod)
+        ipv4_range_mod = {"path":"/api/1.0/networks/{}/ipv4Ranges/{}".format(network_id, range_id)}
+        test.run_mod_json_test('DELETE', self, DeleteNetworkIdIpIpv4RangesRangeId, "test_delete_network1_pool", ipv4_range_mod)
+        test.run_mod_json_test('DELETE', self, DeleteNetworkId, "test_networkId", id_mod)
 
 ###################################################################################################
 # RUN MODULE
