@@ -873,6 +873,7 @@
     {
         "test_base":
         {
+            "path": "/api/2.0/server/inventory/logs/get/LC",
             "payload":
             {
                 "address":"100.68.124.35",
@@ -947,6 +948,7 @@
     {
         "test_base":
         {
+            "path": "/api/2.0/server/inventory/logs/get/LC",
             "payload":
             {
                 "address":"100.68.124.35",

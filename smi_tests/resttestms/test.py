@@ -88,7 +88,11 @@ def induce_error(action, end_class, iterative=False, combinational=False):
                     request = http.rest_call(action, url, bad_param_combo, bad_payload_combo)
                     with end_class.subTest(data=(str(bad_param_combo) + str(bad_payload_combo))):
                         test_passed = has_all_status_codes(request, ["<500"])
-                        end_class.assertTrue(test_passed, ("Expected Response Code : <500 Actual : %s" % request.status_code))
+                        error_string = "TEST FAILED : SERVER ERROR : {} : {}{}".format(request.status_code, bad_param_combo, bad_payload_combo)
+                        if not test_passed:
+                            print(error_string)
+                            LOG.error(error_string)
+                        end_class.assertTrue(test_passed, error_string)
 
 @log.exception(LOG)
 def run_mod_json_test(action, self_class, end_class, test_name, test_mods=None):
@@ -108,9 +112,14 @@ def run_mod_json_test(action, self_class, end_class, test_name, test_mods=None):
         LOG.info("Running %s", test_info)
         with self_class.subTest(test=test_info):
             request = http.rest_call(action, url, test_case["parameters"], test_case["payload"])
-            self_class.assertTrue(compare_request(request, test_case["status_code"], test_case["response"]), test_case["error"])
+            test_passed = compare_request(request, test_case["status_code"], test_case["response"])
+            error_string = "TEST FAILED : {} : {} ".format(test_case["error"], request.status_code)
+            if not test_passed:
+                print(error_string)
+                LOG.error(error_string)
             if test_case["delay"]:
                 delay(test_case["delay"])
+            self_class.assertTrue(test_passed, error_string)
             return json.load_response_data(request)
 
 @log.exception(LOG)
@@ -133,7 +142,6 @@ def auto_run_json_tests(action, end_class):
 
 def _bad_data_generators(payload, iterative=False, combinational=False):
     """Output all generators for test data"""
-    yield http.empty_data()
     test_values = [
         '',
         None,
@@ -147,10 +155,12 @@ def _bad_data_generators(payload, iterative=False, combinational=False):
         "\"\'\\!@#$%^&*()_-+=,./<>?{}[]|/0123456789~`\n\t\\\'\""
     ]
     if iterative:
+        yield http.empty_data()
         yield http.missing_value_iteration(payload)
         for val in test_values:
             yield http.custom_val_iteraton(payload, val)
     if combinational:
+       yield http.empty_data()
        for val in test_values:
             yield http.custom_val_combos(payload, val)
 
