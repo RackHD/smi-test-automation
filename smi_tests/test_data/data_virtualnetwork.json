@@ -3,13 +3,19 @@
     {
         "test_base":
         {
-            "path": "/api/1.0/networks",
-            "description": "No Description"
+			"path": "/api/1.0/networks",
+			"parameters":
+			{
+				"name": "name",
+				"offset": 0,
+				"limit": 0
+			}
 		},
 		"test_empty_network":
 		{
 			"auto_test": true,
 			"description": "Check to make sure network is empty",
+			"parameters": {"REMOVE": ["all"]},
 			"response":
 			{
 				"pagination": {
@@ -23,6 +29,7 @@
 		"test_network_present": 
 		{
 			"description": "Check to make sure network has network id",
+			"parameters": {"REMOVE": ["all"]},
 			"response": 
 			{
 				"data":
@@ -220,34 +227,6 @@
 				"name": "Network X",
 				"description": "Private Network X"
 			}
-		}
-	},
-
-	"delete_networkId_ipAddressPools": 
-    {
-        "test_base":
-        {
-            "path": "/api/1.0/networks/networkId/ipAddressPools",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
-	},
-
-	"get_networkId_ipAddressPools": 
-    {
-        "test_base":
-        {
-            "path": "/api/1.0/networks/networkId/ipAddressPools",
-            "description": "No Description"
-		},
-		"test_networkId_ipAddressPools":
-		{
-			"path": "/api/1.0/networks/{}/ipAddressPools",
-			"description": "Check for valid networkId ipAddressPools",
-			"response":
-			{
-				"data": "DATA_PRESENT"
-			}
 		},
 		"test_nonexistent_networkId":
 		{
@@ -263,6 +242,71 @@
 			"description": "Pass in a networkId that doesn't exist, check for failure",
 			"status_code": ["400"]
 		}
+	},
+
+	"delete_networkId_ipAddressPools": 
+    {
+        "test_base":
+        {
+			"path": "/api/1.0/networks/networkId/ipAddressPools",
+			"parameters":
+			{
+				"usageId": "string"
+			}
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["400"]
+		}
+	},
+
+	"get_networkId_ipAddressPools": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/networks/networkId/ipAddressPools",
+			"parameters":
+			{
+				"usageId": "string",
+				"offset": 0,
+				"limit": 0,
+				"state": "ALL"
+			}
+		},
+		"test_networkId_ipAddressPools":
+		{
+			"path": "/api/1.0/networks/{}/ipAddressPools",
+			"description": "Check for valid networkId ipAddressPools",
+			"parameters": {"REMOVE": ["all"]},
+			"response":
+			{
+				"data": "DATA_PRESENT"
+			}
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["400"]
+		}
 		
 	},
 
@@ -270,40 +314,88 @@
     {
         "test_base":
         {
-            "path": "/api/1.0/networks/networkId/ipAddressPools",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
+            "path": "/api/1.0/networks/networkId/ipAddressPools"
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["400"]
+		}
 	},
 
 	"put_networkId_ipAddressPools": 
     {
         "test_base":
         {
-            "path": "/api/1.0/networks/networkId/ipAddressPools",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
+            "path": "/api/1.0/networks/networkId/ipAddressPools"
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipAddressPools",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["400"]
+		}
 	},
 
 	"networkId_ipAddressPools_export": 
     {
         "test_base":
         {
-            "path": "/api/1.0/networks/networkId/ipAddressPools/export",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
+            "path": "/api/1.0/networks/networkId/ipAddressPools/export"
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipAddressPools/export",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["406"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipAddressPools/export",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["406"]
+		}
 	},
 
 	"networkId_ipAddressPools_ipAddress": 
     {
         "test_base":
         {
-            "path": "/api/1.0/networks/networkId/ipAddressPools/ipAddress",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
+            "path": "/api/1.0/networks/networkId/ipAddressPools/ipAddress"
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipAddressPools/100.100.100.100",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipAddressPools/100.100.100.100",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["400"]
+		}
 	},
 
 	"networkId_ipv4Ranges": 
@@ -321,6 +413,20 @@
 		"test_network1_ipv4pool":
 		{
 			"description": "Assign 5 ips to network 1"
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipv4Ranges",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipv4Ranges",
+			"description": "Pass in a networkId that doesn't exist, check for failure",
+			"status_code": ["400"]
 		}
 	},
 
@@ -334,6 +440,20 @@
 		"test_delete_network1_pool":
 		{
 			"description": "Delete the ip pool found in network one"
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipv4Ranges/555555555",
+			"description": "Pass in a networkId and rangeId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipv4Ranges/mmmmmmmmm",
+			"description": "Pass in a networkId and rangeId that doesn't exist, check for failure",
+			"status_code": ["400"]
 		}
 	},
 
@@ -341,10 +461,22 @@
     {
         "test_base":
         {
-            "path": "/api/1.0/networks/networkId/ipv4Ranges/rangeId",
-            "skip": "Not Implemented",
-            "description": "No Description"
-        }
+            "path": "/api/1.0/networks/networkId/ipv4Ranges/rangeId"
+		},
+		"test_nonexistent_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/5555555555555/ipv4Ranges/555555555",
+			"description": "Pass in a networkId and rangeId that doesn't exist, check for failure",
+			"status_code": ["404"]
+		},
+		"test_invalid_networkId":
+		{
+			"auto_run": true,
+			"path": "/api/1.0/networks/mmm/ipv4Ranges/mmmmmmmmm",
+			"description": "Pass in a networkId and rangeId that doesn't exist, check for failure",
+			"status_code": ["400"]
+		}
 	}
 
 }

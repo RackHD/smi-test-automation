@@ -56,6 +56,10 @@ class Get(VirtualNetworkTest):
 
     ENDPOINT = 'get'
 
+    def test_induce_error(self):
+        """GET INDUCE ERROR TESTS"""
+        test.induce_error('GET', self)
+
     def test_json(self):
         """GET JSON TESTS"""
         test.auto_run_json_tests('GET', self)
@@ -121,6 +125,10 @@ class DeleteNetworkIdIpAddressPools(VirtualNetworkTest):
 
     ENDPOINT = 'delete_networkId_ipAddressPools'
 
+    def test_induce_error(self):
+        """DELETE NETWORKID IPADDRESSPOOLS INDUCE ERROR TESTS"""
+        test.induce_error('DELETE', self)
+
     def test_json(self):
         """DELETE NETWORKID IPADDRESSPOOLS JSON TESTS"""
         test.auto_run_json_tests('DELETE', self)
@@ -133,6 +141,10 @@ class GetNetworkIdIpAddressPools(VirtualNetworkTest):
     """Tests for Get NetworkId IpAddressPools Endpoint"""
 
     ENDPOINT = 'get_networkId_ipAddressPools'
+
+    def test_induce_error(self):
+        """GET NETWORKID IPADDRESSPOOLS INDUCE ERROR TESTS"""
+        test.induce_error('GET', self)
 
     def test_json(self):
         """GET NETWORKID IPADDRESSPOOLS JSON TESTS"""
