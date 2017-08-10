@@ -103,6 +103,7 @@ def combine_test_cases(base_case, mod_case):
         "path": None,
         "auto_run": False,
         "skip": None,
+        "delay": None,
         "description": "No Description",
         "error": "Bad Response",
         "status_code": ['200'],
@@ -121,6 +122,8 @@ def combine_test_cases(base_case, mod_case):
         test_case["auto_run"] = mod_case["auto_run"]
     if "skip" in mod_case:
         test_case["skip"] = mod_case["skip"]
+    if "delay" in mod_case:
+        test_case["delay"] = mod_case["delay"]
     if "description" in mod_case:
         test_case["description"] = mod_case["description"]
     if "error" in mod_case:
@@ -150,6 +153,8 @@ def combine_test_cases(base_case, mod_case):
         test_case["response"] = build_response(base_response, mod_response)
     if test_case["skip"]:
         LOG.debug("Skip this test")
+    if test_case["delay"]:
+        LOG.debug("Delay this test %s second(s)", test_case["delay"])
     elif test_case["auto_run"]:
         LOG.debug("Auto Running test")
     LOG.debug("Path : %s", test_case["path"])

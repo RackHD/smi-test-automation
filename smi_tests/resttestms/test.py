@@ -129,6 +129,8 @@ def run_mod_json_test(action, self_class, end_class, test_name, test_mods=None):
         with self_class.subTest(test=test_info):
             request = http.rest_call(action, url, test_case["parameters"], test_case["payload"])
             self_class.assertTrue(compare_request(request, test_case["status_code"], test_case["response"]), test_case["error"])
+            if test_case["delay"]:
+                delay(test_case["delay"])
             return json.load_response_data(request)
 
 @log.exception(LOG)

@@ -21,17 +21,17 @@
             "auto_run": true,
             "description": "Send default payload to 100.68.124.121, check power cap is 401  W"
         },
-        "test_server2_400_watts":
+        "test_server2_200_watts":
         {
             "auto_run": true,
-            "description": "Send default payload to 100.68.124.122, check power cap is 400  W",
+            "description": "Send default payload to 100.68.123.232, check power cap is 200  W",
             "payload":
             {
-                "serverAddress": "100.68.124.122"
+                "serverAddress": "100.68.123.232"
             },
             "response":
             {
-                "powerCap": "400  W"
+                "powerCap": "200  W"
             } 
         },
         "test_server1_415_watts":
@@ -42,16 +42,16 @@
                 "powerCap": "415  W"
             }
         },
-        "test_server2_420_watts":
+        "test_server2_215_watts":
         {
-            "description": "Send default payload to 100.68.124.122, check power cap is 420  W",
+            "description": "Send default payload to 100.68.123.232, check power cap is 215  W",
             "payload":
             {
-                "serverAddress": "100.68.124.122"
+                "serverAddress": "100.68.123.232"
             },
             "response":
             {
-                "powerCap": "420  W"
+                "powerCap": "215  W"
             } 
         },
         "test_nonexistent_ip":
@@ -112,7 +112,8 @@
         "test_server1_401_watts":
         {
             "auto_run": true,
-            "description": "Send default payload to 100.68.124.121, set power cap to 401  W"
+            "description": "Send default payload to 100.68.124.121, set power cap to 401  W",
+            "delay": 5
         },
         "test_server1_415_watts":
         {
@@ -120,26 +121,29 @@
             "payload":
             {
                 "powerCap": 415
-            }
+            },
+            "delay": 5
         },
-        "test_server2_400_watts":
+        "test_server2_200_watts":
         {
             "auto_run": true,
-            "description": "Send default payload to 100.68.124.122, set power cap to 400  W",
+            "description": "Send default payload to 100.68.123.232, set power cap to 200  W",
             "payload":
             {
-                "powerCap": 400,
-                "serverAddress": "100.68.124.122"
-            }
+                "powerCap": 200,
+                "serverAddress": "100.68.123.232"
+            },
+            "delay": 5
         },
-        "test_server2_420_watts":
+        "test_server2_215_watts":
         {
-            "description": "Send default payload to 100.68.124.122, set power cap to 420  W",
+            "description": "Send default payload to 100.68.123.232, set power cap to 215  W",
             "payload":
             {
-                "powerCap": 420,
-                "serverAddress": "100.68.124.122"
-            }
+                "powerCap": 215,
+                "serverAddress": "100.68.123.232"
+            },
+            "delay": 5
         },
         "test_server1_disable_power_cap":
         {
@@ -147,7 +151,8 @@
             "payload":
             {
                 "enableCapping": false
-            }
+            },
+            "delay": 5
         },
         "test_nonexistent_ip":
         {
@@ -198,7 +203,7 @@
                     "password": "calvin"
                 },
                 {
-                    "serverAddress": "100.68.124.122",
+                    "serverAddress": "100.68.123.232",
                     "userName": "root",
                     "password": "calvin"
                 }
@@ -215,7 +220,7 @@
                         "powerCap": "401  W"
                     },
                     {
-                        "powerCap": "400  W"
+                        "powerCap": "200  W"
                     }
                 ]
             }
@@ -230,11 +235,11 @@
                 "hwPowerMonitoring" : ["REMOVE : 1"]
             }
         },
-        "test_server2_400_watts":
+        "test_server2_200_watts":
         {
             "auto_run": true,
             
-            "description": "Check 100.68.124.122 power cap is 400  W",
+            "description": "Check 100.68.123.232 power cap is 200  W",
             "payload": ["REMOVE : 0"],
             "response": 
             {
@@ -256,9 +261,9 @@
                 ]   
             }
         },
-        "test_server2_420_watts":
+        "test_server2_215_watts":
         {
-            "description": "Check 100.68.124.122 power cap is 415  W",
+            "description": "Check 100.68.123.232 power cap is 415  W",
             "payload":["REMOVE : 0"],
             "response":
             {
@@ -266,20 +271,20 @@
                 [
                     "REMOVE : all",
                     {
-                        "powerCap": "420  W"
+                        "powerCap": "215  W"
                     }
                 ]   
             }
             
         },
-        "test_401_and_400_watts":
+        "test_401_and_200_watts":
         {
             "auto_run": true,
-            "description": "Check 100.68.124.121 and 100.68.124.122 power caps 401  W and 400  W"
+            "description": "Check 100.68.124.121 and 100.68.123.232 power caps 401  W and 200  W"
         },
-        "test_415_and_420_watts":
+        "test_415_and_215_watts":
         {
-            "description": "Check 100.68.124.121 and 100.68.124.122 power caps 415  W and 420  W",
+            "description": "Check 100.68.124.121 and 100.68.123.232 power caps 415  W and 215  W",
             "response":
             {
                 "hwPowerMonitoring" :
@@ -289,24 +294,24 @@
                         "powerCap": "415  W"
                     },
                     {
-                        "powerCap": "400  W"
+                        "powerCap": "200  W"
                     }
                 ]   
             }
         },
-        "test_300_and_300_watts":
+        "test_202_and_202_watts":
         {
-            "description": "Check 100.68.124.121 and 100.68.124.122 power caps 300  W and 300  W",
+            "description": "Check 100.68.124.121 and 100.68.123.232 power caps 202  W and 202  W",
             "response":
             {
                 "hwPowerMonitoring" :
                 [
                     "COMBINE : 0,1",
                     {
-                        "powerCap": "300  W"
+                        "powerCap": "202  W"
                     },
                     {
-                        "powerCap": "300  W"
+                        "powerCap": "202  W"
                     }
                 ]   
             }
@@ -469,7 +474,7 @@
             "payload": 
             {
                 "enableCapping": true,
-                "powerCap": 600,
+                "powerCap": 404,
                 "servers":
                 [
                     {
@@ -478,7 +483,7 @@
                         "password": "calvin"
                     },
                     {
-                        "serverAddress": "100.68.124.122",
+                        "serverAddress": "100.68.123.232",
                         "userName": "root",
                         "password": "calvin"
                     }
@@ -486,17 +491,19 @@
             },
             "response":[{}]
         },
-        "test_server1_and_server2_powercap_600":
+        "test_server1_and_server2_powercap_404":
         {
-            "description": "Set total power cap for 100.68.124.121 and 100.68.124.122 to 600"
+            "description": "Set total power cap for 100.68.124.121 and 100.68.123.232 to 404",
+            "delay": 20
         },
         "test_server1_and_server2_disable_power_cap":
         {
-            "description": "Attempt to disable power cap at 100.68.124.121 and 100.68.124.122",
+            "description": "Attempt to disable power cap at 100.68.124.121 and 100.68.123.232",
             "payload":
             {
                 "enableCapping": false
-            }
+            },
+            "delay": 20
         },
         "test_nonexistent_ip":
         {
