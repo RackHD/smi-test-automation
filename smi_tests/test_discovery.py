@@ -69,6 +69,10 @@ class Ips(DiscoveryTest):
 
     ENDPOINT = 'ips'
 
+    def test_induce_error(self):
+        """IPS INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """IPS JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -81,6 +85,10 @@ class Range(DiscoveryTest):
     """Tests for Range Endpoint"""
 
     ENDPOINT = 'range'
+
+    def test_induce_error(self):
+        """RANGE INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """RANGE JSON TESTS"""

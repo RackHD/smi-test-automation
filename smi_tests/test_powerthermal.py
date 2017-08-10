@@ -56,6 +56,10 @@ class Post(PowerThermalTest):
 
     ENDPOINT = 'post'
 
+    def test_induce_error(self):
+        """POST INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
+
     def test_json(self):
         """POST JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -81,6 +85,10 @@ class PostAll(PowerThermalTest):
     """Tests for Powerthermal Post All Endpoint"""
 
     ENDPOINT = 'post_all'
+
+    def test_induce_error(self):
+        """POST ALL INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
 
     def test_json(self):
         """POST ALL JSON TESTS"""

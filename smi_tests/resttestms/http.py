@@ -24,6 +24,22 @@ JSON_HEADER = {'Content-Type': 'application/json'}
 # Generate Request Data
 ###################################################################################################
 
+def empty_data():
+    """Generate empty data"""
+    yield {}
+
+def missing_value_iteration(payload):
+    """Generate all iterations of missing data"""
+    for item in payload:
+        yield {key : payload[key] for key in payload if item != key}
+
+def custom_val_iteraton(payload, custom_val):
+    """Generate all iterations of custom data"""
+    for item in payload:
+        result = payload.copy()
+        result[item] = custom_val
+        yield result
+
 def missing_value_combos(payload):
     """Generate all combinations of missing data"""
     yield {}

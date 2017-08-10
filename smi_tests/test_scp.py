@@ -69,10 +69,6 @@ class Export(SCPTest):
 
     ENDPOINT = 'export'
 
-    def test_induce_error(self):
-        """EXPORT INDUCE ERROR TESTS"""
-        test.induce_error('POST', self)
-
     def test_json(self):
         """EXPORT JSON TESTS"""
         test.auto_run_json_tests('POST', self)
@@ -154,12 +150,6 @@ class Import(SCPTest):
     """Tests for Import Endpoint"""
 
     ENDPOINT = 'import'
-
-    def test_induce_error(self):
-        """EXPORT INDUCE ERROR TESTS"""
-        test.run_json_test('POST', self, Export, "test_johnny_export")
-        test.induce_error('POST', self)
-        test.run_json_test('POST', self, Import, "test_johnny_import")
 
     def test_json(self):
         """IMPORT JSON TESTS"""
