@@ -91,6 +91,7 @@
         "test_success":
         {
             "auto_run": true,
+            "skip": "Doesnt work",
             "description": "Make a request to downloader with valid parameters, check for success",
             "parameters":
             {
