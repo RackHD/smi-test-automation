@@ -50,6 +50,10 @@ Higher depth takes longer to run
     Depth 3 - Generate all combinations of data with bad values
 Use the prefix 'depth:' to set depth 1-3 [depth:2]
 
+Microservice tests can be run in parallel to save time
+Keep in mind that console and log output will be mixed up and unuseable
+>>> auto_test.py parallel
+
 If no tests are specified, all will run by default
 Microservice IDs can be separated with or without a space [123 or 1 2 3]
 Microservice Aliases are case insensitive [DISC or disc]
@@ -62,7 +66,7 @@ Argument format examples:
 
 >>> auto_test - Run all tests
 >>> auto_test 4 - Run test with ID 4
->>> auto_test 7451725 - Run tests with ID 7, 4, 1, 2, and 5
+>>> auto_test 7451725 parallel- Run tests with ID 7, 4, 1, 2, and 5 in parallel
 >>> auto_test SVIN - Run test with ID 4
 >>> auto_test DISC SCP CHIN depth:3 - Run tests with ID 1, 6, and 3 with depth:3
 >>> auto_test 24 vrnw 314 Scp - Run tests with ID 2, 4, 7, 3, 1, and 6
