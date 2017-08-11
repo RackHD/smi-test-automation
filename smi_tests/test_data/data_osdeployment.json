@@ -7,7 +7,7 @@
             "path": "/api/1.0/server/osdeployment/deploy",
             "payload":
             {
-                "serverAddress": "100.68.123.232",
+                "serverAddress": "100.68.124.122",
                 "userName": "root", 
                 "password": "calvin",
                 "hypervisorType": "ESXi6",
@@ -16,8 +16,8 @@
                 {
                     "address": "100.68.124.115",
                     "description": "nfs",
-                    "fileName": "custom.iso",
-                    "path": "/opt/dell/public/target",
+                    "fileName": "test.iso",
+                    "path": "/opt/dell/public/unittest",
                     "scriptDirectory": "NA",
                     "scriptName": "NA",
                     "type": "NFS",
@@ -29,7 +29,16 @@
                         "username": ""
                     }
                 }
+            },
+            "response":
+            {
+                "serverAddress": "100.68.124.122",
+                "jobId": "VALUE_PRESENT"
             }
+        },
+        "deploy_test.iso":
+        {
+            "description": "Deploy test.iso from mounted share to 100.68.124.121"
         }
     },
 
@@ -44,17 +53,39 @@
                 "ksLocation" : "http://100.68.124.115:8080/",
                 "sourceDir": "/nfs",
                 "fileName": "esxi60u3.iso",
-                "destinationDir": "/nfs/target",
-                "destinationFileName": "custom.iso",
+                "destinationDir": "/nfs/unittest",
+                "destinationFileName": "test.iso",
                 "shareAddress": ""
-            },
-            "response": "custom.iso"
+            }
         },
-        "test_success":
+        "test_create_test.iso":
+        {
+            "description": "Attempt to create iso, check for success",
+            "delay": 2
+        },
+        "test_bad_fileName":
         {
             "auto_run": true,
-            "description": "Attempt to create iso, check for success"
+            "skip": "OS Deployment not ready for negative tests",
+            "description": "Send an invalid file name, check for failure",
+            "payload":
+            {
+                "fileName": "foo.iso"
+            },
+            "status_code": ["400"]
+        },
+        "test_bad_sourceDir":
+        {
+            "auto_run": true,
+            "skip": "OS Deployment not ready for negative tests",
+            "description": "Send an invalid source dir, check for failure",
+            "payload":
+            {
+                "sourceDir": "/foo"
+            },
+            "status_code": ["400"]
         }
+
     },
 
     "version": 

@@ -93,10 +93,11 @@ class Version(OSDeploymentTest):
 class TestSequences(OSDeploymentTest):
     """Test Sequences for OS Deployment"""
 
-    def test_placeholder(self):
-        """EXPORT CHECK AND IMPORT CONFIG PROFILE"""
-        # test.run_json_test('POST', self, Export, "test_fitFile_export")
-        pass
+    def test_create_and_deploy_iso(self):
+        """CREATE ISO AND DEPLOY"""
+        test.run_json_test('POST', self, IsoCreate, "test_create_test.iso")
+        test.run_json_test('POST', self, Deploy, "deploy_test.iso")
+        
 
 ###################################################################################################
 # RUN MODULE
