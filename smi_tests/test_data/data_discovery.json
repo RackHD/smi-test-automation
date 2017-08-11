@@ -338,6 +338,7 @@
 		{
 			"auto_run": true,
 			"description": "Send bad chassis and server ip, check that nothing is found",
+			"delay": 30,
 			"payload":
 			{
 				"credential":
@@ -583,6 +584,7 @@
 		"test_larger_start_ip":
 		{
 			"auto_run": true,
+			"skip": "Bug RAC-5904",
 			"description": "Pass in larger start ip than end ip, check for failure",
 			"payload":
 			{
@@ -600,6 +602,7 @@
 		"test_smaller_end_ip":
 		{
 			"auto_run": true,
+			"skip": "Bug RAC-5904",
 			"description": "Pass in larger start ip than end ip, check for failure",
 			"payload":
 			{
@@ -617,6 +620,7 @@
 		"test_bad_start_ip":
 		{
 			"auto_run": true,
+			"skip": "Bug RAC-5904",
 			"description": "Pass in invalid start ip, check for failure",
 			"payload":
 			{
@@ -634,6 +638,7 @@
 		"test_bad_end_ip":
 		{
 			"auto_run": true,
+			"skip": "Bug RAC-5904",
 			"description": "Pass in invalid end ip, check for failure",
 			"payload":
 			{
@@ -651,6 +656,7 @@
 		"test_bad_ip_range":
 		{
 			"auto_run": true,
+			"skip": "Bug RAC-5904",
 			"description": "Pass in invalid start and end ip, check for failure",
 			"payload":
 			{

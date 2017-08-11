@@ -25,6 +25,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -36,6 +37,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -47,6 +49,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -84,6 +87,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -95,6 +99,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -106,6 +111,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -141,6 +147,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -152,6 +159,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -160,9 +168,11 @@
             "status_code": ["400"],
             "response": {"REMOVE": ["all"]}
         },
+        
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -200,6 +210,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -211,6 +222,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -222,6 +234,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -290,6 +303,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -301,6 +315,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -312,6 +327,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -350,6 +366,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -361,6 +378,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -372,6 +390,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -412,6 +431,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -423,6 +443,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -434,6 +455,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -475,6 +497,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -486,6 +509,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -497,6 +521,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -534,6 +559,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -545,6 +571,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -556,6 +583,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -596,6 +624,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -607,6 +636,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -618,6 +648,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -658,6 +689,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -669,6 +701,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -680,6 +713,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -720,6 +754,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -731,6 +766,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -742,6 +778,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -778,6 +815,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -789,6 +827,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -800,6 +839,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -836,6 +876,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -847,6 +888,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -858,6 +900,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "description": "Send bad credentials, check for failure",
             "payload":
             {
@@ -908,6 +951,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "path": "/api/1.0/server/inventory/logs/get/LC",
             "description": "Send nonexistent ip, check for failure",
             "payload":
@@ -920,6 +964,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "path": "/api/1.0/server/inventory/logs/get/LC",
             "description": "Send bad ip, check for failure",
             "payload":
@@ -932,6 +977,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "path": "/api/1.0/server/inventory/logs/get/LC",
             "description": "Send bad credentials, check for failure",
             "payload":
@@ -983,6 +1029,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "path": "/api/2.0/server/inventory/logs/get/LC",
             "description": "Send nonexistent ip, check for failure",
             "payload":
@@ -995,6 +1042,7 @@
         "test_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5887",
             "path": "/api/2.0/server/inventory/logs/get/LC",
             "description": "Send bad ip, check for failure",
             "payload":
@@ -1007,6 +1055,7 @@
         "test_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5888",
             "path": "/api/2.0/server/inventory/logs/get/LC",
             "description": "Send bad credentials, check for failure",
             "payload":
