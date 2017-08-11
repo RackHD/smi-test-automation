@@ -5,3 +5,5 @@
 **/tests/node_modules/
 **/utility/__pycache__/
 **/*.pyc
+
+*.log*

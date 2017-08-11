@@ -1,0 +1,603 @@
+{
+
+    "post": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/powerthermal",
+            "payload":
+            {
+                "serverAddress": "100.68.124.121",
+                "userName": "root",
+                "password": "calvin"
+            },
+            "response":
+            {
+                "powerCap": "401  W"
+            }
+        },
+        "test_server1_401_watts":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.124.121, check power cap is 401  W"
+        },
+        "test_server2_200_watts":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.123.232, check power cap is 200  W",
+            "payload":
+            {
+                "serverAddress": "100.68.123.232"
+            },
+            "response":
+            {
+                "powerCap": "200  W"
+            } 
+        },
+        "test_server1_415_watts":
+        {
+            "description": "Send default payload to 100.68.124.121, check power cap is 415  W",
+            "response":
+            {
+                "powerCap": "415  W"
+            }
+        },
+        "test_server2_215_watts":
+        {
+            "description": "Send default payload to 100.68.123.232, check power cap is 215  W",
+            "payload":
+            {
+                "serverAddress": "100.68.123.232"
+            },
+            "response":
+            {
+                "powerCap": "215  W"
+            } 
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "put": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/powerthermal",
+            "description": "No Description",
+            "payload": 
+            {
+                "enableCapping": true,
+                "powerCap": 401,
+                "serverAddress": "100.68.124.121",
+                "userName": "root",
+                "password": "calvin"
+            },
+            "response":
+            {
+                "jobId": "VALUE_PRESENT"
+            }
+        },
+        "test_server1_401_watts":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.124.121, set power cap to 401  W",
+            "delay": 5
+        },
+        "test_server1_415_watts":
+        {
+            "description": "Send default payload to 100.68.124.121, set power cap to 415  W",
+            "payload":
+            {
+                "powerCap": 415
+            },
+            "delay": 5
+        },
+        "test_server2_200_watts":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.123.232, set power cap to 200  W",
+            "payload":
+            {
+                "powerCap": 200,
+                "serverAddress": "100.68.123.232"
+            },
+            "delay": 5
+        },
+        "test_server2_215_watts":
+        {
+            "description": "Send default payload to 100.68.123.232, set power cap to 215  W",
+            "payload":
+            {
+                "powerCap": 215,
+                "serverAddress": "100.68.123.232"
+            },
+            "delay": 5
+        },
+        "test_server1_disable_power_cap":
+        {
+            "description": "Attempt to disable power cap at 100.68.124.121",
+            "payload":
+            {
+                "enableCapping": false
+            },
+            "delay": 5
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "serverAddress": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "post_all": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/powerthermal/all",
+            "payload":
+            [
+                {
+                    "serverAddress": "100.68.124.121",
+                    "userName": "root",
+                    "password": "calvin"
+                },
+                {
+                    "serverAddress": "100.68.123.232",
+                    "userName": "root",
+                    "password": "calvin"
+                }
+            ],
+            "response":
+            {
+                "currentReading": "VALUE_PRESENT",
+                "currentAvgReading": "VALUE_PRESENT",
+                "avgWarningThreshhold": "VALUE_PRESENT",
+                "avgFailureThreshhold": "VALUE_PRESENT",
+                "hwPowerMonitoring": 
+                [
+                    {
+                        "powerCap": "401  W"
+                    },
+                    {
+                        "powerCap": "200  W"
+                    }
+                ]
+            }
+        },
+        "test_server1_401_watts":
+        {
+            "auto_run": true,
+            "description": "Check 100.68.124.121 power cap is 401  W",
+            "payload": ["REMOVE : 1"],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["REMOVE : 1"]
+            }
+        },
+        "test_server2_200_watts":
+        {
+            "auto_run": true,
+            
+            "description": "Check 100.68.123.232 power cap is 200  W",
+            "payload": ["REMOVE : 0"],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["REMOVE : 0"]
+            }
+        },
+        "test_server1_415_watts":
+        {
+            "description": "Check 100.68.124.121 power cap is 415  W",
+            "payload": ["REMOVE : 1"],
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "REMOVE : all",
+                    {
+                        "powerCap": "415  W"
+                    }
+                ]   
+            }
+        },
+        "test_server2_215_watts":
+        {
+            "description": "Check 100.68.123.232 power cap is 415  W",
+            "payload":["REMOVE : 0"],
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "REMOVE : all",
+                    {
+                        "powerCap": "215  W"
+                    }
+                ]   
+            }
+            
+        },
+        "test_401_and_200_watts":
+        {
+            "auto_run": true,
+            "description": "Check 100.68.124.121 and 100.68.123.232 power caps 401  W and 200  W"
+        },
+        "test_415_and_215_watts":
+        {
+            "description": "Check 100.68.124.121 and 100.68.123.232 power caps 415  W and 215  W",
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "COMBINE : 0,1",
+                    {
+                        "powerCap": "415  W"
+                    },
+                    {
+                        "powerCap": "200  W"
+                    }
+                ]   
+            }
+        },
+        "test_202_and_202_watts":
+        {
+            "description": "Check 100.68.124.121 and 100.68.123.232 power caps 202  W and 202  W",
+            "response":
+            {
+                "hwPowerMonitoring" :
+                [
+                    "COMBINE : 0,1",
+                    {
+                        "powerCap": "202  W"
+                    },
+                    {
+                        "powerCap": "202  W"
+                    }
+                ]   
+            }
+        },
+        "test_one_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send one nonexistent ip, check for failure",
+            "payload":
+            [
+                "REMOVE : 1",
+                "COMBINE : 0",
+                {
+                    "serverAddress": "100.100.100.100"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_one_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send one bad ip, check for failure",
+            "payload":
+            [
+                "REMOVE : 1",
+                "COMBINE : 0",
+                {
+                    "serverAddress": "foo"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_one_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send one bad credentials, check for failure",
+            "payload":
+            [
+                "REMOVE : 1",
+                "COMBINE : 0",
+                {
+                    "userName": "foo",
+                    "password": "bar"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_one_one_good_one_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send one good and one nonexistent ip, check for one result",
+            "payload":
+            [
+                "COMBINE : 1",
+                {
+                    "serverAddress": "100.100.100.100"
+                }
+            ],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["REMOVE : 1"]
+            }
+        },
+        "test_one_one_good_one_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send one good and one bad ip, check for one result",
+            "payload":
+            [
+                "COMBINE : 1",
+                {
+                    "serverAddress": "foo"
+                }
+            ],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["REMOVE : 1"]
+            }
+        },
+        "test_one_one_good_one_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send one good and one bad ip, check for one result",
+            "payload":
+            [
+                "COMBINE : 1",
+                {
+                    "userName": "foo",
+                    "password": "bar"
+                }
+            ],
+            "response": 
+            {
+                "hwPowerMonitoring" : ["REMOVE : 1"]
+            }
+        },
+        "test_two_nonexistent_ips":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send two nonexistent ips, check for failure",
+            "payload":
+            [
+                "COMBINE : 0,1",
+                {
+                    "serverAddress": "100.100.100.100"
+                },
+                {
+                    "serverAddress": "100.100.100.101"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_two_bad_ips":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send two bad ips, check for failure",
+            "payload":
+            [
+                "COMBINE : 0,1",
+                {
+                    "serverAddress": "foo"
+                },
+                {
+                    "serverAddress": "bar"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_two_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send two bad credentials, check for failure",
+            "payload":
+            [
+                "COMBINE : 0,1",
+                {
+                    "userName": "foo",
+                    "password": "bar"
+                },
+                {
+                    "userName": "baz",
+                    "password": "qux"
+                }
+            ],
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "put_all": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/powerthermal/all",
+            "payload": 
+            {
+                "enableCapping": true,
+                "powerCap": 404,
+                "servers":
+                [
+                    {
+                        "serverAddress": "100.68.124.121",
+                        "userName": "root",
+                        "password": "calvin"
+                    },
+                    {
+                        "serverAddress": "100.68.123.232",
+                        "userName": "root",
+                        "password": "calvin"
+                    }
+                ]
+            },
+            "response":[{}]
+        },
+        "test_server1_and_server2_powercap_404":
+        {
+            "description": "Set total power cap for 100.68.124.121 and 100.68.123.232 to 404",
+            "delay": 20
+        },
+        "test_server1_and_server2_disable_power_cap":
+        {
+            "description": "Attempt to disable power cap at 100.68.124.121 and 100.68.123.232",
+            "payload":
+            {
+                "enableCapping": false
+            },
+            "delay": 20
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "servers":
+                [
+                    "REMOVE : 1",
+                    "COMBINE : 0",
+                    {
+                        "serverAddress": "100.100.100.100"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "servers":
+                [
+                    "REMOVE : 1",
+                    "COMBINE : 0",
+                    {
+                        "serverAddress": "foo"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5821",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "servers":
+                [
+                    "REMOVE : 1",
+                    "COMBINE : 0",
+                    {
+                        "userName": "foo",
+                        "password": "bar"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+
+    },
+
+    "version": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/version",
+            "response": 
+            {
+                "name": "Power and Thermal Service ",
+                "description": "VALUE_PRESENT",
+                "version": "VALUE_PRESENT"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Make a request to get version, check for success"
+        }
+    }
+
+}

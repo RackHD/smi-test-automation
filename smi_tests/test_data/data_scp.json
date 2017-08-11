@@ -1,0 +1,554 @@
+{
+
+    "clone": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/clone",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "export": 
+    {
+        "test_base":
+        {
+            "path":"/api/1.0/server/configuration/export",
+            "payload":
+            {
+                "fileName": "fitFile.xml",
+                "serverIP": "100.68.124.34",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.124.32",
+                "shareName": "/home/proxyserver/share",
+                "shareType": 0,
+                "shutdownType": 0
+            },
+            "response": 
+            {
+                "xmlConfig":
+                {
+                    "result": "SUCCESS",
+                    "jobID": "VALUE_PRESENT"
+                }
+            }
+        },
+        "test_fitFile_export":
+        {
+            "description": "Export server configuration profile to 100.68.124.32"
+        },
+        "test_backup_export":
+        {
+            "description": "Export backup of server configuration profile to 100.68.124.32",
+            "payload":
+            {
+                "fileName": "backup.xml"
+            }
+        },
+        "test_johnny_export":
+        {
+            "description": "Export server configuration profile to 100.68.124.32 with special credentials",
+            "payload":
+            {
+                "fileName": "johnny.xml",
+                "serverIP": "100.68.123.163",
+                "serverPassword": "dangerous",
+                "serverUsername": "johnny"
+            }
+        },
+        "test_invalid_user_password":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5822 and RAC-5919",
+            "description": "Pass in invalid username and password and check for failure",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_johnny_invalid_user_password":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5822 and RAC-5919",
+            "description": "Pass in invalid username and password to johnny and check for failure",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar",
+                "serverIP": "100.68.123.163"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_share":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "payload":
+            {
+               "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_share_johnny":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "payload":
+            {
+                "fileName": "johnny.xml",
+                "serverIP": "100.68.123.163",
+                "serverPassword": "dangerous",
+                "serverUsername": "johnny",
+                "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "exportInventory": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/exportInventory",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "factory": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/factory",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "getComponents":
+    {
+        "test_base":
+        {
+            "path":"/api/1.0/server/configuration/getComponents",
+            "payload":
+            {
+                "componentNames":
+                [
+                    "LifecycleController.Embedded.1"
+                ],
+                "fileName": "fitFile.xml",
+                "serverIP": "100.68.124.34",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.124.32",
+                "shareName": "/home/proxyserver/share",
+                "shareType": 0,
+                "shutdownType": 0
+            },
+            "response": 
+            {
+                "serverComponents":
+                    [
+                        {
+                            "fqdd": "LifecycleController.Embedded.1"
+                        }
+                    ]
+            }
+        },
+        "test_lc_autoupdate_enabled":
+        {
+            "description": "Check to make sure autoupdate is enabled",
+            "response": 
+            {
+                "serverComponents":
+                [
+                    "COMBINE : 0",
+                    {
+                        "attributes": 
+                        [
+                            {
+                                "name": "LCAttributes.1#AutoUpdate",
+                                "value": "Enabled"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "test_lc_autoupdate_disabled":
+        {
+            "description": "Check to make sure autoupdate is disabled",
+            "response": 
+            {
+                "serverComponents":
+                    [
+                        "COMBINE : 0",
+                        {
+                            "attributes": 
+                            [
+                                {
+                                    "name": "LCAttributes.1#AutoUpdate",
+                                    "value": "Disabled"
+                                }
+                            ]
+                        }
+                    ]
+            }
+        },
+        "test_invalid_file":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "payload":
+            {
+               "fileName": "foobarfoobar.xml",
+               "componentNames":
+                [
+                    "LifecycleController.Embedded.1"
+                ]
+            }
+        },
+        "test_invalid_share":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "payload":
+            {
+               "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "image_backup": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/image/backup",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "image_restore": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/image/restore",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "import":
+    {
+        "test_base":
+        {
+            "path":"/api/1.0/server/configuration/import",
+            "payload":
+            {
+                "fileName": "fitFile.xml",
+                "serverIP": "100.68.124.34",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.124.32",
+                "shareName": "/home/proxyserver/share",
+                "shareType": 0,
+                "shutdownType": 0
+            },
+            "response": 
+            {
+                "xmlConfig":
+                {
+                    "result": "SUCCESS",
+                    "jobID": "VALUE_PRESENT"
+                }
+            }
+        },
+        "test_fitFile_import":
+        {
+            "description": "Try to import fitFile.xml"
+        },
+        "test_backup_import":
+        {
+            "description": "Try to import backup.xml",
+            "payload":
+            {
+                "fileName": "backup.xml"
+            }
+        },
+        "test_johnny_import":
+        {
+            "description": "Try to import johnny.xml",
+            "payload":
+            {
+                "serverIP": "100.68.123.163",
+                "serverPassword": "dangerous",
+                "serverUsername": "johnny",
+                "fileName": "johnny.xml"
+            }
+        },
+        "test_invalid_share":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid share ip and check for failure",
+            "payload":
+            {
+               "shareAddress": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_user_password":
+        {
+            "auto_run": true,
+            "skip": "RAC-5919",
+            "description": "Pass in invalid username and password and check for failure",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_johnny_invalid_user_password":
+        {
+            "auto_run": true,
+            "skip": "RAC-5919",
+            "description": "Pass in invalid username and password to johnny and check for failure",
+            "payload":
+            {
+                "serverPassword": "foo",
+                "serverUsername": "bar",
+                "serverIP": "100.68.123.163"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "preview": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/preview",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "lcwipe": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/lcwipe",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "replace": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/replace",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "systemErase": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/systemErase",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "testShare": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/testShare",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "updateComponents": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/updateComponents",
+            "payload":
+            {
+                "serverAndNetworkShareRequest":
+                {
+                    "componentNames":
+                    [
+                        "LifecycleController.Embedded.1"
+                    ],
+                    "fileName": "fitFile.xml",
+                    "serverIP": "100.68.124.34",
+                    "serverPassword": "calvin",
+                    "serverUsername": "root",
+                    "shareAddress": "100.68.124.32",
+                    "shareName": "/home/proxyserver/share",
+                    "shareType": 0,
+                    "shutdownType": 0
+                },
+                "serverComponents": 
+                [
+                    {
+                        "attributes": 
+                        [
+                            {
+                                "name": "LCAttributes.1#AutoUpdate"
+                            }
+                        ],
+                        "fqdd": "LifecycleController.Embedded.1"
+                    }
+                ]
+            },
+            "response":
+            {
+                "xmlConfig":
+                {
+                    "result": "SUCCESS",
+                    "jobID": "VALUE_PRESENT"
+                }  
+            }
+        },
+        "test_autoupdate_enable":
+        {
+            "description": "Set the autoupdate component to enabled",
+            "payload":
+            {
+                "serverComponents":
+                [
+                    "COMBINE : 0",
+                    {
+                        "attributes":
+                        [
+                            "COMBINE : 0",
+                            {
+                                "value": "Enabled"
+                            } 
+                        ]
+                    }
+                ]
+            }
+        },
+        "test_autoupdate_disable":
+        {
+            "description": "Set the autoupdate component to disabled",
+            "payload":
+            {
+                "serverComponents":
+                [
+                    "COMBINE : 0",
+                    {
+                        "attributes":
+                        [
+                            "COMBINE : 0",
+                            {
+                                "value": "Disabled"
+                            } 
+                        ]
+                    }
+                ]
+            }
+        },
+        "test_invalid_user_password":
+        {
+            "auto_run": true,
+            "skip":"RAC-5920",
+            "description": "Pass in invalid username and password and check for failure",
+            "payload":
+            {
+                "serverAndNetworkShareRequest":
+                {
+                    "fileName": "doesnotexist.xml",
+                    "serverPassword": "foo",
+                    "serverUsername": "bar"
+                }
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_ip":
+        {
+            "auto_run": true,
+            "description": "Pass in invalid ip and check for failure",
+            "payload":
+            {
+                "serverAndNetworkShareRequest":
+                {
+                    "fileName": "doesnotexist.xml",
+                    "serverIP": "100.100.100.100"
+                }
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_invalid_component":
+        {
+            "auto_run": true,
+            "skip":"RAC-5920",
+            "description": "Pass in component and check for failure",
+            "payload":
+            {
+                "serverComponents": 
+                [
+                    "COMBINE : 0",
+                    {
+                        "attributes": 
+                        [
+                            "COMBINE : 0",
+                            {
+                                "name": "zzz", 
+                                "value": "Enabled"
+                            }
+                        ],
+                        "fqdd": "yyyy"
+                    }
+                ]
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "trap_configureTraps_trapDestination": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/trap/configureTraps/trapDestination",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "trap_updateTrapFormat_trapFormat": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/configuration/trap/updateTrapFormat/trapFormat",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    }
+
+}

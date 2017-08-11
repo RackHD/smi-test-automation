@@ -1,0 +1,174 @@
+{
+
+    "callback": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/chassis/inventory/callback",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "details":
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/chassis/inventory/details",
+            "payload":
+            {
+                "address":"100.68.124.98",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "chassisControllers": 
+                [
+                    {
+                    "name": "CMC-9XLTW52"
+                    }
+                ]
+            }
+        },
+        "test_100.68.124.98_controller_name":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.124.98 and check chassis controller name"
+        },
+        "test_100.68.124.33_controller_name":
+        {
+            "auto_run": true,
+            "description": "Send default payload 100.68.124.33 and check chassis controller name",
+            "payload":
+            {
+                "address": "100.68.124.33"
+            },
+            "response":
+            {
+                "chassisControllers":
+                [
+                    "COMBINE : 0",
+                    {
+                        "name": "CMC-17JYC42"
+                    }
+                ]
+            }
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5882",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5882",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5882",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "summary": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/chassis/inventory/summary",
+            "payload":
+            {
+                "address":"100.68.124.98",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "serviceTag": "VALUE_PRESENT"
+            }
+        },
+        "test_100.68.124.98_serviceTag":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.124.98 and check service tag",
+            "response":
+            {
+                "serviceTag": "9XLTW52"
+            }
+        },
+        "test_100.68.124.33_serviceTag":
+        {
+            "auto_run": true,
+            "description": "Send default payload to 100.68.124.33 and check service tag",
+            "payload":
+            {
+                "address": "100.68.124.33"
+            },
+            "response":
+            {
+                "serviceTag": "17JYC42"
+            }
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5883",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5883",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5883",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    }
+
+}

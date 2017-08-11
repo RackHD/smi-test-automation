@@ -1,0 +1,1071 @@
+{
+    "bios_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/bios",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "dcimBIOSEnumerationTypeList": "DATA_PRESENT",
+                "dcimBIOSIntegerType": "DATA_PRESENT",
+                "dcimbiosstringType": "DATA_PRESENT"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure bios returns valid data in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "bios_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/bios",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "DCIM_BIOSEnumeration": "DATA_PRESENT",
+                "DCIM_BIOSInteger": "DATA_PRESENT",
+                "DCIM_BIOSString": "DATA_PRESENT"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure bios returns valid data in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "boot_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/boot",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "bootSourcesByBootModes": "DATA_PRESENT"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure boot returns valid data in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "boot_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/boot",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "DCIM_BootConfigSetting": "DATA_PRESENT",
+                "DCIM_BootSourceSetting": "DATA_PRESENT",
+                "DCIM_BIOSEnumeration": "DATA_PRESENT"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Test to make sure boot returns valid data in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "callback": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/callback",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "dummyCallback": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/dummyCallback",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "dcim_type": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/dcim/type",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "hardware_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/hardware",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "system":
+                {
+                    "serviceTag": "17M0D42"
+                }
+            }
+        },
+        "test_serviceTag":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct serviceTag is returned in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "hardware_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/hardware",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "DCIM_SystemView":
+                {
+                    "ServiceTag": "17M0D42"
+                }
+            }
+        },
+        "test_serviceTag":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct serviceTag is returned in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "manager_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/manager",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "stringViewList":
+                [
+                    {
+                        "fqdd": "iDRAC.Embedded.1"
+                    }
+                ]
+            }
+        },
+        "test_fqdd":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct fqdd is returned in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "manager_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/manager",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "DCIM_IDRACCardView": "DATA_PRESENT",
+                "DCIM_iDRACCardEnumeration":
+                [
+                    {
+                        "FQDD": "iDRAC.Embedded.1"
+                    }
+                ]
+            }
+        },
+        "test_fqdd":
+        {
+            "auto_run": true,
+            "description": "Test to make sure correct fqdd is returned in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "nics_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/nics",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            [
+                {
+                    "fqdd": "NIC.Integrated.1-1-1"
+                }
+            ]
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make sure nics data is present in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        }
+    },
+
+    "nics_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/nics",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "DCIM_NICView":
+                [
+                    {
+                        "InstanceID": "NIC.Integrated.1-1-1"
+                    }
+                ]
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make sure nics data is present in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "software_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/software",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            [
+                {
+                    "elementName":
+                    {
+                        "value": "Integrated Dell Remote Access Controller"
+                    }
+                }
+            ]
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make sure element value is iDRAC in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": ["REMOVE : all"]
+        }
+    },
+
+    "software_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/software",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "DCIM_SoftwareIdentity":
+                [
+                    {
+                        "ElementName": "Integrated Dell Remote Access Controller"
+                    }
+                ]
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check to make sure element value is iDRAC in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "summary_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/inventory/summary",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "model": "PowerEdge FC630",
+                "serviceTag": "17M0D42"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check that model is PowerEdge FC630 in 1.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "summary_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/summary",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            },
+            "response":
+            {
+                "Model": "PowerEdge FC630",
+                "ServiceTag": "17M0D42"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Check that model is PowerEdge FC630 in 2.0"
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "logs_get_type_1": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            }
+        },
+        "test_type_lc":
+        {
+            "auto_run": true,
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Check that logName is LifeCycle Log in 1.0",
+            "response":
+            [
+                {
+                    "logName": "LifeCycle Log"
+                }
+            ]
+        },
+        "test_type_sel":
+        {
+            "auto_run": true,
+            "path": "/api/1.0/server/inventory/logs/get/SEL",
+            "description": "Check that element name is System Event Log Entry in 1.0",
+            "response":
+            [
+                {
+                    "elementName": "System Event Log Entry"
+                }
+            ]
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "path": "/api/1.0/server/inventory/logs/get/LC",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    },
+
+    "logs_get_type_2": 
+    {
+        "test_base":
+        {
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "payload":
+            {
+                "address":"100.68.124.35",
+                "userName":"root",
+                "password":"calvin"
+            }
+        },
+        "test_type_lc":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Check that LogName is LifeCycle Log in 2.0",
+            "response":
+            [
+                {
+                    "LogName": "LifeCycle Log"
+                }
+            ]
+        },
+        "test_type_sel":
+        {
+            "auto_run": true,
+            "path": "/api/2.0/server/inventory/logs/get/SEL",
+            "description": "Check that element name is System Event Log Entry in 2.0",
+            "response":
+            [
+                {
+                    "ElementName": "System Event Log Entry"
+                }
+            ]
+        },
+        "test_nonexistent_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Send nonexistent ip, check for failure",
+            "payload":
+            {
+                "address": "100.100.100.100"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_ip":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5887",
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Send bad ip, check for failure",
+            "payload":
+            {
+                "address": "foo"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        },
+        "test_bad_credentials":
+        {
+            "auto_run": true,
+            "skip": "Bug RAC-5888",
+            "path": "/api/2.0/server/inventory/logs/get/LC",
+            "description": "Send bad credentials, check for failure",
+            "payload":
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
+        }
+    }
+
+}

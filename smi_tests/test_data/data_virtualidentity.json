@@ -1,0 +1,86 @@
+{
+	"delete": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/virtualIdentities",
+            "parameters":
+            {
+                "usageId": "string"
+            }
+        }
+	},
+	
+	"get": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/virtualIdentities",
+            "parameters":
+            {
+                "offset": 0,
+                "limit": 0,
+                "usageId": "string",
+                "type": "MAC"
+            },
+            "response":
+            {
+                "pagination":
+                {
+                    "total": 0
+                },
+                "pages":
+                {
+                    "total": 0
+                }
+            }
+        },
+        "test_empty_request":
+        {
+            "auto_run": true,
+            "parameters": {"REMOVE": ["all"]},
+            "description": "Send an empty request, make sure response has no data"
+        }
+	},
+	
+	"post": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/virtualIdentities",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+	},
+	
+	"put": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/virtualIdentities",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+	
+	"delete_virtualIdentityId": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/virtualIdentities/virtualIdentityId",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+	},
+	
+	"get_virtualIdentityId": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/virtualIdentities/virtualIdentityId",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    }
+
+}

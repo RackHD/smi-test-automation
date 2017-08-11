@@ -1,0 +1,189 @@
+{
+
+    "comparer": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/comparer",
+            "skip": "Not Implemented",
+            "description": "Make a request to comparer with valid parameters, check for success",
+            "payload": 
+            {   
+                "address": "",
+                "catalogPath": "/test/Catalog.xml",
+                "password": "calvin",
+                "serverAddress": "100.68.123.226",
+                "type": "wsman",
+                "updateableComponentInventory":"",
+                "userName":"root"
+            }
+        },
+        "test_bad_ip":
+        {
+            "skip": "Not Implemented",
+            "description": "Make a request to comparer with invalid IP, check for failure",
+            "payload":
+            {   
+                "serverAddress": "100.100.100.100"
+            },
+            "status_code": ["400"]
+        },
+        "test_bad_credentials":
+        {
+            "skip": "Not Implemented",
+            "description": "Make a request to comparer with invalid username and password, check for failure",
+            "payload": 
+            {
+                "userName": "foo",
+                "password": "bar"
+            },
+            "status_code": ["400"]
+        },
+        "test_bad_catalog_path":
+        {
+            "skip": "Not Implemented",
+            "description": "Make a request to comparer with invalid catalog path, check for failure",
+            "payload":
+            {
+                "catalogPath": "/foo/cat.xml"
+            },
+            "status_code": ["400"]
+        }
+    },
+
+    "comparer_catalog": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/comparer/catalog",
+            "skip": "Not Implemented",
+            "description": "No Description",
+            "payload":
+            {
+                "sourceCatalog": "/test/",
+                "targetCatalog": "/test2/"
+            }
+        }
+    },
+
+    "comparer_custom": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/comparer/custom",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "downloader": 
+    {
+        "test_base": 
+        {
+            "path": "/api/1.0/server/firmware/downloader",
+            "parameters":
+            {
+                "fileName": "Catalog.xml.gz",
+                "fileUrl": "ftp.dell.com/catalog",
+                "targetLocation": "/catalog/"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "skip": "Doesnt work",
+            "description": "Make a request to downloader with valid parameters, check for success",
+            "parameters":
+            {
+                "targetLocation": "/test/catalog/"
+            },
+            "response":
+            {
+                "id": "0",
+                "name": "Catalog.xml.gz",
+                "status": "Download completed successfully"
+            }
+        }
+    },
+
+    "uci": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/uci",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "uci_si": 
+    {
+            "test_base":
+            {
+                "path": "/api/1.0/server/firmware/uci/si",
+                "skip": "Not Implemented",
+                "description": "No Description"
+            }
+    },
+
+    "updater": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/updater",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "updater_dup": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/updater/dup",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "updater_status": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/updater/status",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "updater_testCallback": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/updater/testCallback",
+            "skip": "Not Implemented",
+            "description": "No Description"
+        }
+    },
+
+    "version": 
+    {
+        "test_base":
+        {
+            "path": "/api/1.0/server/firmware/version",
+            "response": 
+            {
+                "name": "Dell Update Service",
+                "description" : "VALUE_PRESENT",
+                "version": "VALUE_PRESENT"
+            }
+        },
+        "test_success":
+        {
+            "auto_run": true,
+            "description": "Make a request to get version, check for success"
+        }
+    }
+
+}
+
