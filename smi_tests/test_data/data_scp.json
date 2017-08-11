@@ -61,6 +61,7 @@
         "test_invalid_user_password":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5822 and RAC-5919",
             "description": "Pass in invalid username and password and check for failure",
             "payload":
             {
@@ -73,6 +74,7 @@
         "test_johnny_invalid_user_password":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5822 and RAC-5919",
             "description": "Pass in invalid username and password to johnny and check for failure",
             "payload":
             {
@@ -309,6 +311,7 @@
         "test_invalid_user_password":
         {
             "auto_run": true,
+            "skip": "RAC-5919",
             "description": "Pass in invalid username and password and check for failure",
             "payload":
             {
@@ -321,6 +324,7 @@
         "test_johnny_invalid_user_password":
         {
             "auto_run": true,
+            "skip": "RAC-5919",
             "description": "Pass in invalid username and password to johnny and check for failure",
             "payload":
             {
@@ -470,6 +474,7 @@
         "test_invalid_user_password":
         {
             "auto_run": true,
+            "skip":"RAC-5920",
             "description": "Pass in invalid username and password and check for failure",
             "payload":
             {
@@ -501,6 +506,7 @@
         "test_invalid_component":
         {
             "auto_run": true,
+            "skip":"RAC-5920",
             "description": "Pass in component and check for failure",
             "payload":
             {
