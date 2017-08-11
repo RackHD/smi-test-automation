@@ -12,7 +12,7 @@ disable_existing_loggers: false
 root:
 
   level: INFO
-  handlers: [console, logFile]
+  handlers: [logFile, errorLogFile]
   propagate: true
 
 formatters:
@@ -28,14 +28,14 @@ formatters:
 
 loggers:
   default:
-    handlers: [console, logFile]
+    handlers: [logFile, errorLogFile]
     propagate: true
 
 handlers:
 
   console:
     class: logging.StreamHandler
-    level: CRITICAL
+    level: ERROR
     formatter: compact
     stream: ext://sys.stdout
 
@@ -43,7 +43,16 @@ handlers:
     class: logging.handlers.TimedRotatingFileHandler
     level: DEBUG
     formatter: verbose
-    when: H
-    interval: 2
-    backupCount: 5
-    filename: logs/smi_test_automation.log
+    when: D
+    interval: 1
+    backupCount: 3
+    filename: logs/test_automation.log
+  
+  errorLogFile:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: ERROR
+    formatter: verbose
+    when: D
+    interval: 1
+    backupCount: 3
+    filename: logs/errors.log

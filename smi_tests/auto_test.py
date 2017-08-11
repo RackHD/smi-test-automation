@@ -86,6 +86,7 @@ __copyright__ = 'Copyright 2017 DELL Inc.'
 import sys
 import unittest
 import logging
+import multiprocessing
 import config
 from resttestms import log, parse
 
@@ -147,18 +148,36 @@ def _load_tests(test_keys):
         test_suite.append(unittest.TestLoader().loadTestsFromModule(M_ID[key]))
     return unittest.TestSuite(test_suite)
 
+def _load_tests_parallel(test_keys):
+    """Load tests into suite for each of the test keys passed in"""
+    test_suites = {}
+    for key in test_keys:
+        test_suites[str(M_ID[key])] = unittest.TestLoader().loadTestsFromModule(M_ID[key])
+    return test_suites
+
+def run_test_suite(test_name, test_suite):
+    "Run unit tests for test suite passed in"
+    unittest.TextTestRunner(verbosity=2).run(test_suite)
+
 def run_tests(keys):
     """Run specified tests using key set"""
     LOG.info("Host: %s", config.HOST)
     LOG.info("Data Directory: %s", config.DATA)
     LOG.info("Depth: %s", config.DEPTH)
     LOG.info("Test Keys: %s", keys)
-    test_suite = _load_tests(keys)
-    LOG.debug("Loaded Tests: %s", test_suite)
-    unittest.TextTestRunner(verbosity=2).run(test_suite)
+    if PARALLEL:
+        test_suites = _load_tests_parallel(keys)
+        LOG.debug("Loaded Tests: %s", test_suites)
+        for suite in test_suites:
+            test = multiprocessing.Process(target=run_test_suite, args=(suite, test_suites[suite]))
+            test.start()
+    else:
+        test_suite = _load_tests(keys)
+        LOG.debug("Loaded Tests: %s", test_suite)
+        unittest.TextTestRunner(verbosity=2).run(test_suite)
 
 if __name__ == '__main__':
-    PARSED_HOST, PARSED_DATA, PARSED_DEPTH, KEYS = parse.auto_test_args(M_ID, ALIAS, *sys.argv[1:])
+    PARALLEL, PARSED_HOST, PARSED_DATA, PARSED_DEPTH, KEYS = parse.auto_test_args(M_ID, ALIAS, *sys.argv[1:])
     config.HOST = PARSED_HOST if PARSED_HOST else config.HOST
     config.DATA = PARSED_DATA if PARSED_DATA else config.DATA
     config.DEPTH = PARSED_DEPTH if PARSED_DEPTH else config.DEPTH

@@ -303,13 +303,16 @@ def auto_test_args(data_m_id, data_alias, *args):
     remove_keys = set()
     test_arguments = []
     remove_arguments = []
+    parallel = False
     host = None
     data = None
     depth = None
     if arguments:
         # Parse out special arguments
         for arg in arguments:
-            if is_host(arg):
+            if str(arg).lower() == 'parallel':
+                parallel = True
+            elif is_host(arg):
                 host = get_host(arg)
             elif is_data(arg):
                 data = get_data(arg)
@@ -349,4 +352,4 @@ def auto_test_args(data_m_id, data_alias, *args):
 
     _add_arguments_to_set(remove_arguments, remove_keys)
     _add_arguments_to_set(test_arguments, test_keys)
-    return host, data, depth, (test_keys - remove_keys)
+    return parallel, host, data, depth, (test_keys - remove_keys)
