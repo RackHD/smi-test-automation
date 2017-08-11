@@ -374,6 +374,7 @@
         "test_one_one_good_one_nonexistent_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5821",
             "description": "Send one good and one nonexistent ip, check for one result",
             "payload":
             [
@@ -390,6 +391,7 @@
         "test_one_one_good_one_bad_ip":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5821",
             "description": "Send one good and one bad ip, check for one result",
             "payload":
             [
@@ -406,6 +408,7 @@
         "test_one_one_good_one_bad_credentials":
         {
             "auto_run": true,
+            "skip": "Bug RAC-5821",
             "description": "Send one good and one bad ip, check for one result",
             "payload":
             [
