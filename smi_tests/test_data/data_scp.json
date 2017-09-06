@@ -18,11 +18,11 @@
             "payload":
             {
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.34",
+                "serverIP": "100.68.123.39",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
-                "shareAddress": "100.68.124.32",
-                "shareName": "/home/proxyserver/share",
+                "shareAddress": "100.68.123.54",
+                "shareName": "/opt/dell/public",
                 "shareType": 0,
                 "shutdownType": 0
             },
@@ -37,26 +37,32 @@
         },
         "test_fitFile_export":
         {
-            "description": "Export server configuration profile to 100.68.124.32"
+            "description": "Export server configuration profile to 100.68.123.54" ,
+            "status_code": ["200"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_backup_export":
         {
-            "description": "Export backup of server configuration profile to 100.68.124.32",
+            "description": "Export backup of server configuration profile to 100.68.123.54",
             "payload":
             {
                 "fileName": "backup.xml"
-            }
+            },
+            "status_code": ["200"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_johnny_export":
         {
-            "description": "Export server configuration profile to 100.68.124.32 with special credentials",
+            "description": "Export server configuration profile to 100.68.123.54 with special credentials",
             "payload":
             {
                 "fileName": "johnny.xml",
                 "serverIP": "100.68.123.163",
                 "serverPassword": "dangerous",
                 "serverUsername": "johnny"
-            }
+            },
+            "status_code": ["200"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_invalid_user_password":
         {
@@ -145,11 +151,11 @@
                     "LifecycleController.Embedded.1"
                 ],
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.34",
+                "serverIP": "100.68.123.39",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
-                "shareAddress": "100.68.124.32",
-                "shareName": "/home/proxyserver/share",
+                "shareAddress": "100.68.123.54",
+                "shareName": "/opt/dell/public",
                 "shareType": 0,
                 "shutdownType": 0
             },
@@ -203,18 +209,20 @@
                     ]
             }
         },
-        "test_invalid_file":
+        "test_invalid_share":
         {
             "auto_run": true,
-            "description": "Pass in invalid share ip and check for failure",
+            "description": "Pass in invalid share and check for failure",
             "payload":
             {
-               "fileName": "foobarfoobar.xml",
+               "shareName": "/foo/bar",
                "componentNames":
                 [
                     "LifecycleController.Embedded.1"
                 ]
-            }
+            },
+            "status_code": ["400"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_invalid_share":
         {
@@ -257,11 +265,11 @@
             "payload":
             {
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.34",
+                "serverIP": "100.68.123.39",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
-                "shareAddress": "100.68.124.32",
-                "shareName": "/home/proxyserver/share",
+                "shareAddress": "100.68.123.54",
+                "shareName": "/opt/dell/public",
                 "shareType": 0,
                 "shutdownType": 0
             },
@@ -276,7 +284,9 @@
         },
         "test_fitFile_import":
         {
-            "description": "Try to import fitFile.xml"
+            "description": "Try to import fitFile.xml",
+            "status_code": ["200"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_backup_import":
         {
@@ -295,7 +305,9 @@
                 "serverPassword": "dangerous",
                 "serverUsername": "johnny",
                 "fileName": "johnny.xml"
-            }
+            },
+            "status_code": ["200"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_invalid_share":
         {
@@ -401,11 +413,11 @@
                         "LifecycleController.Embedded.1"
                     ],
                     "fileName": "fitFile.xml",
-                    "serverIP": "100.68.124.34",
+                    "serverIP": "100.68.123.39",
                     "serverPassword": "calvin",
                     "serverUsername": "root",
-                    "shareAddress": "100.68.124.32",
-                    "shareName": "/home/proxyserver/share",
+                    "shareAddress": "100.68.123.54",
+                    "shareName": "/opt/dell/public",
                     "shareType": 0,
                     "shutdownType": 0
                 },
@@ -449,7 +461,9 @@
                         ]
                     }
                 ]
-            }
+            },
+            "status_code": ["200"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_autoupdate_disable":
         {
@@ -469,7 +483,9 @@
                         ]
                     }
                 ]
-            }
+            },
+            "status_code": ["200"],
+            "response": {"REMOVE": ["all"]}
         },
         "test_invalid_user_password":
         {
