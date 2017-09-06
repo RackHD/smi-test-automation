@@ -18,7 +18,7 @@
             "payload":
             {
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.34",
+                "serverIP": "100.68.123.39",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
                 "shareAddress": "100.68.123.54",
@@ -151,7 +151,7 @@
                     "LifecycleController.Embedded.1"
                 ],
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.34",
+                "serverIP": "100.68.123.39",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
                 "shareAddress": "100.68.123.54",
@@ -209,13 +209,13 @@
                     ]
             }
         },
-        "test_invalid_file":
+        "test_invalid_share":
         {
             "auto_run": true,
-            "description": "Pass in invalid share ip and check for failure",
+            "description": "Pass in invalid share and check for failure",
             "payload":
             {
-               "fileName": "foobarfoobar.xml",
+               "shareName": "/foo/bar",
                "componentNames":
                 [
                     "LifecycleController.Embedded.1"
@@ -265,7 +265,7 @@
             "payload":
             {
                 "fileName": "fitFile.xml",
-                "serverIP": "100.68.124.34",
+                "serverIP": "100.68.123.39",
                 "serverPassword": "calvin",
                 "serverUsername": "root",
                 "shareAddress": "100.68.123.54",
@@ -413,7 +413,7 @@
                         "LifecycleController.Embedded.1"
                     ],
                     "fileName": "fitFile.xml",
-                    "serverIP": "100.68.124.34",
+                    "serverIP": "100.68.123.39",
                     "serverPassword": "calvin",
                     "serverUsername": "root",
                     "shareAddress": "100.68.123.54",
