@@ -6,7 +6,7 @@
             "path": "/api/1.0/server/inventory/bios",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -25,7 +25,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -37,7 +36,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -68,7 +66,7 @@
             "path": "/api/2.0/server/inventory/bios",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -87,7 +85,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -99,7 +96,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -130,7 +126,7 @@
             "path": "/api/1.0/server/inventory/boot",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -147,7 +143,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -159,7 +154,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -191,7 +185,7 @@
             "path": "/api/2.0/server/inventory/boot",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -210,7 +204,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -222,7 +215,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -283,7 +275,7 @@
             "path": "/api/1.0/server/inventory/hardware",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -291,7 +283,7 @@
             {
                 "system":
                 {
-                    "serviceTag": "17M0D42"
+                    "serviceTag": "5757D42"
                 }
             }
         },
@@ -303,7 +295,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -315,7 +306,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -346,7 +336,7 @@
             "path": "/api/2.0/server/inventory/hardware",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -354,7 +344,7 @@
             {
                 "DCIM_SystemView":
                 {
-                    "ServiceTag": "17M0D42"
+                    "ServiceTag": "5757D42"
                 }
             }
         },
@@ -366,7 +356,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -378,7 +367,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -409,7 +397,7 @@
             "path": "/api/1.0/server/inventory/manager",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -431,7 +419,7 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
+            "skip" : "Broken test, giving false negative not related to IP validation",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -443,7 +431,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -474,7 +461,7 @@
             "path": "/api/2.0/server/inventory/manager",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -497,7 +484,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -509,7 +495,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -540,7 +525,7 @@
             "path": "/api/1.0/server/inventory/nics",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -559,26 +544,24 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
                 "address": "100.100.100.100"
             },
             "status_code": ["400"],
-            "response": ["REMOVE : all"]
+            "response": {"REMOVE": ["all"]}
         },
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
                 "address": "foo"
             },
             "status_code": ["400"],
-            "response": ["REMOVE : all"]
+            "response": {"REMOVE": ["all"]}
         },
         "test_bad_credentials":
         {
@@ -602,7 +585,7 @@
             "path": "/api/2.0/server/inventory/nics",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -624,7 +607,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -636,7 +618,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -667,7 +648,7 @@
             "path": "/api/1.0/server/inventory/software",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -689,26 +670,24 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
                 "address": "100.100.100.100"
             },
             "status_code": ["400"],
-            "response": ["REMOVE : all"]
+            "response": {"REMOVE": ["all"]}
         },
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
                 "address": "foo"
             },
             "status_code": ["400"],
-            "response": ["REMOVE : all"]
+            "response": {"REMOVE": ["all"]}
         },
         "test_bad_credentials":
         {
@@ -732,7 +711,7 @@
             "path": "/api/2.0/server/inventory/software",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
@@ -754,7 +733,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -766,7 +744,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -797,14 +774,14 @@
             "path": "/api/1.0/server/inventory/summary",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
             "response":
             {
                 "model": "PowerEdge FC630",
-                "serviceTag": "17M0D42"
+                "serviceTag": "5757D42"
             }
         },
         "test_success":
@@ -815,7 +792,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -827,7 +803,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -858,14 +833,14 @@
             "path": "/api/2.0/server/inventory/summary",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             },
             "response":
             {
                 "Model": "PowerEdge FC630",
-                "ServiceTag": "17M0D42"
+                "ServiceTag": "5757D42"
             }
         },
         "test_success":
@@ -876,7 +851,6 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
@@ -888,7 +862,6 @@
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "description": "Send bad ip, check for failure",
             "payload":
             {
@@ -919,7 +892,7 @@
             "path": "/api/2.0/server/inventory/logs/get/LC",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             }
@@ -951,28 +924,24 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "path": "/api/1.0/server/inventory/logs/get/LC",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
                 "address": "100.100.100.100"
             },
-            "status_code": ["400"],
-            "response": {"REMOVE": ["all"]}
+            "status_code": ["400"]
         },
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "path": "/api/1.0/server/inventory/logs/get/LC",
             "description": "Send bad ip, check for failure",
             "payload":
             {
                 "address": "foo"
             },
-            "status_code": ["400"],
-            "response": {"REMOVE": ["all"]}
+            "status_code": ["400"]
         },
         "test_bad_credentials":
         {
@@ -997,7 +966,7 @@
             "path": "/api/2.0/server/inventory/logs/get/LC",
             "payload":
             {
-                "address":"100.68.124.35",
+                "address":"100.68.123.38",
                 "userName":"root",
                 "password":"calvin"
             }
@@ -1029,28 +998,24 @@
         "test_nonexistent_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "path": "/api/2.0/server/inventory/logs/get/LC",
             "description": "Send nonexistent ip, check for failure",
             "payload":
             {
                 "address": "100.100.100.100"
             },
-            "status_code": ["400"],
-            "response": {"REMOVE": ["all"]}
+            "status_code": ["400"]
         },
         "test_bad_ip":
         {
             "auto_run": true,
-            "skip": "Bug RAC-5887",
             "path": "/api/2.0/server/inventory/logs/get/LC",
             "description": "Send bad ip, check for failure",
             "payload":
             {
                 "address": "foo"
             },
-            "status_code": ["400"],
-            "response": {"REMOVE": ["all"]}
+            "status_code": ["400"]
         },
         "test_bad_credentials":
         {
