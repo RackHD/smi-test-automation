@@ -61,6 +61,20 @@ class Clone(SCPTest):
         test.auto_run_json_tests('POST', self)
 
 ###################################################################################################
+# configureBios
+###################################################################################################
+
+class ConfigureBios(SCPTest):
+    """Tests for enabling the boot device"""
+
+    ENDPOINT = 'configureBios'
+
+    def test_json(self):
+        """Enable and disable Boot Device"""
+        test.run_json_test('POST', self, ConfigureBios, "enable_boot_device")
+        test.run_json_test('POST', self, ConfigureBios, "disable_boot_device")
+
+###################################################################################################
 # Export
 ###################################################################################################
 
@@ -271,6 +285,11 @@ class TrapUpdateTrapFormatFoo(SCPTest):
 
 class TestSequences(SCPTest):
     """Test Sequences for SCP"""
+
+    def test_configure_bios_boot(self):
+        """TEST CONFIGURE BIOS BOOT SEQUENCE"""
+        test.run_json_test('POST', self, ConfigureBios, "enable_boot_device" )
+        test.run_json_test('POST', self, ConfigureBios, "disable_boot_device" )
 
     def test_fitfile_export_check_import(self):
         """EXPORT CHECK AND IMPORT CONFIG PROFILE"""
