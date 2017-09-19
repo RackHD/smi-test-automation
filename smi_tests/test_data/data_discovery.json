@@ -1,26 +1,4 @@
 {
-
-    "config_device": 
-    {
-		"test_base":
-		{
-			"path": "/api/1.0/discover/config/device",
-			"response":
-			{
-				"deviceDefaultCredential": 
-				{
-					"username": "root",
-					"password": "calvin"
- 				}
-			}
-		},
-		"test_default":
-		{
-			"auto_run": true,
-			"description": "Check default credentials"
-		}
-    },
-
     "ips":
     {
 		"test_base":
@@ -245,13 +223,13 @@
 		"test_bad_server_ip":
 		{
 			"auto_run": true,
-			"description": "Send bad server ip, check that only chassis is found",
+			"description": "Send no server ip, check that only chassis is found",
 			"payload":
 			{
 				"ips":
 				[
 					"COMBINE : 0",
-					"foobar"
+					"100.68.123.75"
 				]
 			},
 			"response":
@@ -272,13 +250,13 @@
 		"test_bad_chassis_ip":
 		{
 			"auto_run": true,
-			"description": "Send bad chassis ip, check that only server is found",
+			"description": "Send no chassis ip, check that only server is found",
 			"payload":
 			{
 				"ips":
 				[
 					"COMBINE : 1",
-					"foobar"
+					"100.68.123.76"
 				]
 			},
 			"response":
@@ -299,14 +277,14 @@
 		"test_bad_server_and_chassis_ip":
 		{
 			"auto_run": true,
-			"description": "Send bad chassis and server ip, check that nothing is found",
+			"description": "Send no chassis and server ip, check that nothing is found",
 			"payload":
 			{
 				"ips":
 				[
 					"COMBINE : 0,1",
-					"foobar",
-					"foobar"
+					"100.68.123.75",
+					"100.68.123.76"
 				]
 			},
 			"response":
