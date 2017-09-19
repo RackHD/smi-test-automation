@@ -9,7 +9,69 @@
             "description": "No Description"
         }
     },
-
+    "configureBios":
+    {
+        "test_base":
+        {
+            "path":"/api/1.0/server/configuration/configureBios",
+            "description": "configure bios",
+            "payload":
+            {
+                "serverRequest": {
+                    "serverIP": "100.68.123.32",
+                    "serverUsername": "root",
+                    "serverPassword": "calvin"
+                },
+                "enableBootDevices": [
+                    "NIC.Integrated.1-1-1"
+                ],
+                "rebootJobType": 3,
+                "scheduledStartTime": "TIME_NOW",
+                "untilTime": ""
+            },
+            "status_code": ["200"]
+        },
+        "enable_boot_device":
+        {
+            "path":"/api/1.0/server/configuration/configureBios",
+            "description": "enable boot device",
+            "payload":
+            {
+                "serverRequest": {
+                    "serverIP": "100.68.123.32",
+                    "serverUsername": "root",
+                    "serverPassword": "calvin"
+                },
+                "enableBootDevices": [
+                    "NIC.Integrated.1-1-1"
+                ],
+                "rebootJobType": 3,
+                "scheduledStartTime": "TIME_NOW",
+                "untilTime": ""
+            },
+            "status_code": ["200"]
+        },
+        "disable_boot_device":
+        {
+            "path":"/api/1.0/server/configuration/configureBios",
+            "description": "disable boot device",
+            "payload":
+            {
+                "serverRequest": {
+                    "serverIP": "100.68.123.32",
+                    "serverUsername": "root",
+                    "serverPassword": "calvin"
+                },
+                "disableBootDevices": [
+                    "NIC.Integrated.1-1-1"
+                ],
+                "rebootJobType": 3,
+                "scheduledStartTime": "TIME_NOW",
+                "untilTime": ""
+            },
+            "status_code": ["200"]
+        }
+    },
     "export": 
     {
         "test_base":
