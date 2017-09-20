@@ -48,19 +48,6 @@ class DiscoveryTest(unittest.TestCase):
         cls.JSON_FILE = test.create_json_reference(cls.DATA, cls.JSON_NAME)
 
 ###################################################################################################
-# Config Device
-###################################################################################################
-
-class ConfigDevice(DiscoveryTest):
-    """Tests for Config Device Endpoint"""
-
-    ENDPOINT = 'config_device'
-
-    def test_json(self):
-        """CONFIG DEVICE JSON TESTS"""
-        test.auto_run_json_tests('GET', self)
-
-###################################################################################################
 # Ips
 ###################################################################################################
 
