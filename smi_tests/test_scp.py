@@ -56,7 +56,9 @@ class Clone(SCPTest):
 
     ENDPOINT = 'clone'
 
-    def test_json(self):
+    def test_json(self):        
+        """Clone INDUCE ERROR TESTS"""
+        test.induce_error('POST', self)
         """CLONE JSON TESTS"""
         test.auto_run_json_tests('POST', self)
 
@@ -71,8 +73,9 @@ class ConfigureBios(SCPTest):
 
     def test_json(self):
         """Enable and disable Boot Device"""
-        test.run_json_test('POST', self, ConfigureBios, "enable_boot_device")
-        test.run_json_test('POST', self, ConfigureBios, "disable_boot_device")
+        test.auto_run_json_tests('POST', self)
+        # test.run_json_test('POST', self, ConfigureBios, "enable_boot_device")
+        # test.run_json_test('POST', self, ConfigureBios, "disable_boot_device")
 
 ###################################################################################################
 # Export
@@ -285,6 +288,20 @@ class TrapUpdateTrapFormatFoo(SCPTest):
 
 class TestSequences(SCPTest):
     """Test Sequences for SCP"""
+
+    def test_clone(self):
+        """TEST Clone """
+        test.run_json_test('POST', self, Clone, "test_base")
+        test.run_json_test('POST', self, GetComponents, "test_base")
+
+    def test_export_inventory(self):
+        """TEST Export Hardware Inventory"""
+        test.run_json_test('POST', self, ExportInventory, "test_base")
+
+    def test_export_factory_settings(self):
+        """TEST Export Factory Settings"""
+        test.run_json_test('POST', self, Factory, "test_base")
+
 
     def test_configure_bios_boot(self):
         """TEST CONFIGURE BIOS BOOT SEQUENCE"""
