@@ -5,8 +5,33 @@
         "test_base":
         {
             "path": "/api/1.0/server/configuration/clone",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "description": "Running Clone FIT",
+            "payload":
+            {
+                "fileName": "fitCloneFile.xml",
+                "serverIP": "100.68.123.39",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.123.54",
+                "shareName": "/opt/dell/public",
+                "shareType": 0
+            },
+            "status_code": ["200"]
+        },
+        "test_invalid_share_name":{
+            "auto_run": true,
+            "description": "Pass in invalid share and check for failure for clone FIT",
+            "payload":{  
+                "shareName": "/foo/bar"
+            },
+            "response":{
+                "xmlConfig": {
+                    "message": "Unable to copy the system configuration XML file to the network share.",
+                    "result": "FAILURE",
+                    "jobID": "VALUE_PRESENT"
+                  }
+            }
+            
         }
     },
     "configureBios":
@@ -34,7 +59,7 @@
         "enable_boot_device":
         {
             "path":"/api/1.0/server/configuration/configureBios",
-            "description": "enable boot device",
+            "description": "ConfigureBIOS FIT: enable boot device",
             "payload":
             {
                 "serverRequest": {
@@ -54,7 +79,7 @@
         "disable_boot_device":
         {
             "path":"/api/1.0/server/configuration/configureBios",
-            "description": "disable boot device",
+            "description": "ConfigureBIOS FIT: disable boot device",
             "payload":
             {
                 "serverRequest": {
@@ -185,9 +210,34 @@
     {
         "test_base":
         {
-            "path": "/api/1.0/server/configuration/exportInventory",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "path": "/api/1.0/server/configuration/exportInventory",           
+            "description": "Export Hardware Inventory",
+            "payload":
+            {
+                "fileName": "fitExportInventory.xml",
+                "serverIP": "100.68.123.39",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.123.54",
+                "shareName": "/opt/dell/public",
+                "shareType": 0
+            },
+            "status_code": ["200"]
+        },
+        "test_invalid_share_name":{
+            "auto_run": true,
+            "description": "Pass in invalid share and check for failure",
+            "payload":{  
+                "shareName": "/foo/bar"
+            },
+            "response":{
+                "xmlConfig": {
+                    "message": "Cannot access network share",
+                    "result": "FAILURE",
+                    "jobID": "VALUE_PRESENT"
+                  }
+            }
+            
         }
     },
 
@@ -195,9 +245,33 @@
     {
         "test_base":
         {
-            "path": "/api/1.0/server/configuration/factory",
-            "skip": "Not Implemented",
-            "description": "No Description"
+            "path": "/api/1.0/server/configuration/factory",            
+            "description": "export the factory setting",
+            "payload":{
+                "fileName": "fitExportFactory.xml",
+                "serverIP": "100.68.123.39",
+                "serverPassword": "calvin",
+                "serverUsername": "root",
+                "shareAddress": "100.68.123.54",
+                "shareName": "/opt/dell/public",
+                "shareType": 0
+            },
+            "status_code": ["200"]
+        },
+        "test_invalid_share_name":{
+            "auto_run": true,
+            "description": "Pass in invalid share and check for failure for export factory settings",
+            "payload":{  
+                "shareName": "/foo/bar"
+            },
+            "response":{
+                "xmlConfig": {
+                    "message": "Cannot access network share",
+                    "result": "FAILURE",
+                    "jobID": "VALUE_PRESENT"
+                  }
+            }
+            
         }
     },
 
@@ -206,6 +280,7 @@
         "test_base":
         {
             "path":"/api/1.0/server/configuration/getComponents",
+            "description": "getComponents FIT",
             "payload":
             {
                 "componentNames":
