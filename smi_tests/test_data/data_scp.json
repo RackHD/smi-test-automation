@@ -186,8 +186,14 @@
             {
                "shareAddress": "100.100.100.100"
             },
-            "status_code": ["400"],
-            "response": {"REMOVE": ["all"]}
+            "status_code": ["200"],
+            "response": {
+                "xmlConfig": {
+                    "message": "Unable to copy the system configuration XML file to the network share.",
+                    "result":"FAILURE",
+                    "jobID":"VALUE_PRESENT"
+                }
+            }
         },
         "test_invalid_share_johnny":
         {
@@ -201,8 +207,14 @@
                 "serverUsername": "johnny",
                 "shareAddress": "100.100.100.100"
             },
-            "status_code": ["400"],
-            "response": {"REMOVE": ["all"]}
+            "status_code": ["200"],
+            "response": {
+                "xmlConfig": {
+                    "message": "Unable to copy the system configuration XML file to the network share.",
+                    "result":"FAILURE",
+                    "jobID":"VALUE_PRESENT"
+                }
+            }
         }
     },
 
@@ -454,8 +466,13 @@
             {
                "shareAddress": "100.100.100.100"
             },
-            "status_code": ["400"],
-            "response": {"REMOVE": ["all"]}
+            "status_code": ["200"],
+            "response": {
+                "xmlConfig": {                    
+                    "result":"FAILURE",
+                    "jobID":"VALUE_PRESENT"
+                }
+            }
         },
         "test_invalid_user_password":
         {
@@ -650,7 +667,7 @@
                 "serverAndNetworkShareRequest":
                 {
                     "fileName": "doesnotexist.xml",
-                    "serverIP": "100.100.100.100"
+                    "serverIP": "100.68.125.111"
                 }
             },
             "status_code": ["400"],
